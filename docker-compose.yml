@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  frontend:
+    image: node:lts
+    command: npm run dev
+    volumes:
+      - ./app:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: 0.0.0.0
