@@ -33,7 +33,6 @@ jobs:
           check-latest: true
 
       - name: Cache node_modules 📦
-        working-directory: ${{ matrix.folder }}
         uses: actions/cache@v2.1.4
         with:
           path: ~/.npm
