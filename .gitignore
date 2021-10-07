@@ -88,3 +88,8 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Terraform
+.terragrunt-cache
+.terraform
+.terraform.lock.hcl
