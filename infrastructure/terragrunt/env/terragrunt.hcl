@@ -3,10 +3,7 @@ locals {
 }
 
 inputs = {
-#  account_id        = "${local.vars.inputs.account_id}"
-#  billing_tag_key   = "${local.vars.inputs.billing_tag_key}"
-#  billing_tag_value = "${local.vars.inputs.billing_tag_value}"
-#  enable_efs        = "${local.vars.inputs.enable_efs}"
+  account_id        = "${local.vars.inputs.account_id}"
   env               = "${local.vars.inputs.env}"
   region            = "ca-central-1"
 }

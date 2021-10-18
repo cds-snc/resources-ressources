@@ -4,7 +4,7 @@ help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##/→/'
 
 apply: 		## Terragrunt apply all resources
-	cd terragrunt/env/dev &&\
+	cd terragrunt/env/staging &&\
 	terragrunt run-all apply
 
 checkov: 	## Checkov security static analysis
@@ -15,15 +15,15 @@ fmt: 		## Format all .tf files
 	terraform fmt -recursive
 
 hclfmt: 	## Format all .hcl files
-	cd terragrunt/env/dev &&\
+	cd terragrunt/env/staging &&\
 	terragrunt run-all hclfmt
 
 plan: 		## Terragrunt plan all resources
-	cd terragrunt/env/dev &&\
+	cd terragrunt/env/staging &&\
 	terragrunt run-all plan
 
 validate: 	## Terragrunt validate all resources
-	cd terragrunt/env/dev &&\
+	cd terragrunt/env/staging &&\
 	terragrunt run-all validate		
 
 .PHONY: \
