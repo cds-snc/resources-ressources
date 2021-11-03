@@ -19,7 +19,7 @@ variable "tfstate_bucket_name" {
 module "state_bucket" {
   source            = "github.com/cds-snc/terraform-modules?ref=v0.0.38//S3"
   bucket_name       = var.tfstate_bucket_name
-  billing_tag_value = "Forms"
+  billing_tag_value = "learning-resources"
 
   versioning = {
     enabled = true
@@ -34,7 +34,7 @@ module "state_bucket_logs" {
   source            = "github.com/cds-snc/terraform-modules?ref=v0.0.38//S3_log_bucket"
   bucket_name       = "${var.tfstate_bucket_name}-log"
   force_destroy     = true
-  billing_tag_value = "Forms"
+  billing_tag_value = "learning-resources"
 }
 
 resource "aws_dynamodb_table" "tfstate_lock" {
