@@ -11,19 +11,19 @@ env:
   REGISTRY: ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.ca-central-1.amazonaws.com/learning-resources
 
 jobs:
-  changes:
-    runs-on: ubuntu-latest
-    outputs:
-      images: ${{ steps.filter.outputs.changes }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # changes:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     images: ${{ steps.filter.outputs.changes }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            app: 'app/**'
+  #     - uses: dorny/paths-filter@v2
+  #       id: filter
+  #       with:
+  #         filters: |
+  #           app: 'app/**'
 
   build-push-and-deploy:
     runs-on: ubuntu-latest
