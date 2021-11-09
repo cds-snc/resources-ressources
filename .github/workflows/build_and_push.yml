@@ -1,9 +1,10 @@
 name: Build and Push Container to ECR, deploy to lambda
 
-on:
-  workflow_dispatch:
-  push:
-    branches: [main]
+on: [push, pull_request]
+
+  # workflow_dispatch:
+  # push:
+  #   branches: [main]
 
 env:
   GITHUB_SHA: ${{ github.sha }}
