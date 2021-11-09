@@ -8,7 +8,8 @@ on: [push, pull_request]
 
 env:
   GITHUB_SHA: ${{ github.sha }}
-  REGISTRY: ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.ca-central-1.amazonaws.com/learning-resources
+  STAGING_REGISTRY: ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.ca-central-1.amazonaws.com/learning-resources
+  REPO_NAME: frontend
 
 jobs:
   # changes:
@@ -26,22 +27,22 @@ jobs:
   #           app: 'app/**'
   build-push-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        image: ${{ fromJSON(needs.changes.outputs.images) }}
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     image: ${{ fromJSON(needs.changes.outputs.images) }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Build container
-        working-directory: ./${{ matrix.image }}
+        # working-directory: ./${{ matrix.image }}
         run: |
           docker build \
           --build-arg git_sha=$GITHUB_SHA \
-          -t $REGISTRY/${{ matrix.image }}:$GITHUB_SHA \
-          -t $REGISTRY/${{ matrix.image }}:latest .
+          -t $STAGING_REGISTRY/$REPO_NAME:$GITHUB_SHA \
+          -t $STAGING_REGISTRY/$REPO_NAME:latest .
 
       - name: Configure AWS credentials
         id: aws-creds
@@ -57,19 +58,19 @@ jobs:
 
       - name: Push containers to ECR
         run: |
-          docker push $REGISTRY/${{ matrix.image }}:$GITHUB_SHA
-          docker push $REGISTRY/${{ matrix.image }}:latest
+          docker push $STAGING_REGISTRY/$REPO_NAME:$GITHUB_SHA
+          docker push $STAGING_REGISTRY/$REPO_NAME:latest
 
       - name: Logout of Amazon ECR
         run: docker logout ${{ steps.login-ecr.outputs.registry }}
 
       - name: Deploy lambda
-        if: matrix.image == 'app' || contains(matrix.image, 'scanners')
+        # if: matrix.image == 'app' || contains(matrix.image, 'scanners')
         run: |
           FNAME=$(sed 's/\//-/g' <<< "${{ matrix.image }}")
           aws lambda update-function-code \
             --function-name "$FNAME" \
-            --image-uri $REGISTRY/${{ matrix.image }}:latest
+            --image-uri $STAGING_REGISTRY/${{ matrix.image }}:latest
 
       # - name: Migrate Database
       #   if: matrix.image == 'app'
