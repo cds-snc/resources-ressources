@@ -67,10 +67,9 @@ jobs:
       - name: Deploy lambda
         # if: matrix.image == 'app' || contains(matrix.image, 'scanners')
         run: |
-          FNAME=$(sed 's/\//-/g' <<< "${{ matrix.image }}")
           aws lambda update-function-code \
-            --function-name "$FNAME" \
-            --image-uri $STAGING_REGISTRY/${{ matrix.image }}:latest
+            --function-name $REPO_NAME \
+            --image-uri $STAGING_REGISTRY/$REPO_NAME:latest
 
       # - name: Migrate Database
       #   if: matrix.image == 'app'
