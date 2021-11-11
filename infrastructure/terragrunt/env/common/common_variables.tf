@@ -12,3 +12,8 @@ variable "region" {
   description = "(Required) The region to build infra in"
   type        = string
 }
+
+variable "product_name" {
+  description = "(Required) The name of the product you are deploying."
+  type        = string
+}
