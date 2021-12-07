@@ -15,26 +15,39 @@ This app is built using [NuxtJS](https://nuxtjs.org/). Data is pulled in from [C
 
 **Installation**
 
-1. On a terminal, change into the `/app` directory and install the  node packages and dependencies
+1. Change into the `/app` directory.
+
+2. Configure the environement variables for Contentful. Create a file called `.contentful.json`. If you are in the Learning Resources team, the contents of this file should have been shared with you through LastPass. Copy the content and paste it into this file. It should look like the structure below.
+```bash
+{
+    "CTF_PERSON_ID": "",
+    "CTF_BLOG_POST_TYPE_ID": "",
+    "CTF_SPACE_ID": "",
+    "CTF_CDA_ACCESS_TOKEN": "",
+    "CTF_CMA_ACCESS_TOKEN": ""
+}
+```
+
+3. On a terminal, install the  node packages and dependencies
 ```bash
 # install dependencies
 $ npm install
 ```
-2. Run the development server
+4. Run the development server
 ```bash
 # serve with hot reload at localhost:3000
 $ npm run dev
 ```
-3. Go to a browser and visit [http://localhost:3000](http://localhost:3000)
+5. Go to a browser and visit [http://localhost:3000](http://localhost:3000)
 
-4. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
+6. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
 ```bash
 # build for production and launch server
 $ npm run build
 $ npm run start
 ```
 
-5. (Optional) To have a static website that can be hosted on S3 or github pages, you need to generate them
+7. (Optional) To have a static website that can be hosted on S3 or github pages, you need to generate them
 ```bash
 # generate static project
 $ npm run generate
