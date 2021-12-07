@@ -1,24 +1,16 @@
-const { loadNuxt, build } = require('nuxt')
+const { Nuxt } = require('nuxt-start')
 
-const app = require('express')()
-const isDev = process.env.NODE_ENV !== 'production'
-const port = process.env.PORT || 3000
+const express = require('express')
+const app = express()
 
-async function start() {
-  // We get Nuxt instance
-  const nuxt = await loadNuxt(isDev ? 'dev' : 'start')
+exports.start = async function start() {
+    // We instantiate Nuxt with the options
+    const config = require('./nuxt.config.js')
 
-  // Render every route with Nuxt
-  app.use(nuxt.render)
+    const configOverrides = { dev: false, debug: true }
+    const nuxt = new Nuxt(Object.assign(config, configOverrides))
+    await nuxt.ready()
 
-  // Build only in dev mode with hot-reloading
-  if (isDev) {
-    build(nuxt)
-  }
-  // Listen the server
-  app.listen(port, '0.0.0.0')
-  console.log('Server listening on `localhost:' + port + '`.')
+    app.use(nuxt.render)
+    return app
 }
-
-start()
-module.exports = app
