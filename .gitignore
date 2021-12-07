@@ -93,3 +93,6 @@ sw.*
 .terragrunt-cache
 .terraform
 .terraform.lock.hcl
+
+# Contentful
+.contentful.json
