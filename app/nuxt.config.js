@@ -1,6 +1,12 @@
+import * as config from './.contentful.json';
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
+<<<<<<< HEAD
+=======
+  ssr: true,
+>>>>>>> main
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -22,6 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/contentful'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -63,5 +70,11 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-  dev: process.env.NODE_ENV !== 'production'
+  dev: process.env.NODE_ENV !== 'production',
+  env: {
+    CTF_SPACE_ID: config.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
+    CTF_PERSON_ID: config.CTF_PERSON_ID,
+    CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
+  }
 }
