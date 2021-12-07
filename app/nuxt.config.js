@@ -2,7 +2,8 @@ import * as config from './.contentful.json';
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
+  ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
