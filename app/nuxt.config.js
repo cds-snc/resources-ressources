@@ -1,16 +1,9 @@
-<<<<<<< Updated upstream
-import * as config from './.contentful.json';
-
-export default {
-=======
+/* eslint-disable nuxt/no-cjs-in-config */
+const config = require('./.contentful.json')
 module.exports = {
->>>>>>> Stashed changes
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
-<<<<<<< HEAD
-=======
   ssr: true,
->>>>>>> main
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
