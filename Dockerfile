@@ -19,6 +19,8 @@ COPY app .
 
 RUN npm install
 
+RUN npm run build
+
 COPY lambda ./lambda
 
 CMD [ "lambda/handler.handler" ]

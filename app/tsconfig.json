@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false, // build issues with typescript and aws lambda
+    "useUnknownInCatchVariables": false, // build issues with typescript and aws lambda
     "target": "ES2018",
     "module": "ESNext",
     "moduleResolution": "Node",
