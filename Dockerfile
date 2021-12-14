@@ -17,7 +17,7 @@ FROM public.ecr.aws/lambda/nodejs:14
 # COPY app.js package*.json ./
 COPY app .
 
-COPY app/.contentful.json.sample app/.contentful.json
+COPY app/.contentful.json.sample ./.contentful.json
 
 RUN npm install
 
