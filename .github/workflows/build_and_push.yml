@@ -1,6 +1,6 @@
 name: Build and Push Container to ECR, deploy to lambda
 
-on: [push, pull_request]
+on: [pull_request]
 
   # workflow_dispatch:
   # push:
@@ -9,7 +9,7 @@ on: [push, pull_request]
 env:
   GITHUB_SHA: ${{ github.sha }}
   STAGING_REGISTRY: ${{ secrets.AWS_ACCOUNT }}.dkr.ecr.ca-central-1.amazonaws.com/learning-resources
-  REPO_NAME: frontend
+  REPO_NAME: learning-frontend
 
 jobs:
   # changes:
