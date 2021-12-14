@@ -23,6 +23,6 @@ RUN npm install
 
 RUN npm run build
 
-COPY lambda ./lambda
+# COPY lambda ./lambda
 
 CMD [ "lambda/handler.handler" ]
