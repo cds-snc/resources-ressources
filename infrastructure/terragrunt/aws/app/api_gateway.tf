@@ -37,6 +37,24 @@ resource "aws_route53_record" "app" {
   }
 }
 
+resource "aws_apigatewayv2_integration" "app" {
+  api_id                   = aws_apigatewayv2_api.app.id
+  integration_type          = "AWS_PROXY"
+
+  connection_type           = "INTERNET"
+#   content_handling_strategy = "CONVERT_TO_TEXT"
+  description               = "Learning app lambda integration"
+  integration_method        = "POST"
+  integration_uri           = aws_lambda_function.learning_resources.invoke_arn
+#   passthrough_behavior      = "WHEN_NO_MATCH"
+}
+
+resource "aws_apigatewayv2_route" "app" {
+  api_id    = aws_apigatewayv2_api.app.id
+  route_key = "ANY /"
+
+  target = "integrations/${aws_apigatewayv2_integration.app.id}"
+}
 
 # resource "aws_api_gateway_base_path_mapping" "app" {
 #   api_id      = aws_api_gateway_rest_api.api.id
