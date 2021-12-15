@@ -68,10 +68,10 @@ module.exports = {
   build: {
   },
   env: {
-    CTF_SPACE_ID: config.CTF_SPACE_ID || process.env.ctf_space_id,
-    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN || process.env.ctf_cda_access_token,
-    CTF_PERSON_ID: config.CTF_PERSON_ID || process.env.ctf_person_id,
-    CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID || process.env.ctf_blog_post_type_id,
+    CTF_SPACE_ID: config.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
+    CTF_PERSON_ID: config.CTF_PERSON_ID,
+    CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
   },
   // dev: process.env.NODE_ENV !== 'production'
   dev: false,

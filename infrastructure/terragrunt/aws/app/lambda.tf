@@ -10,7 +10,7 @@ resource "aws_lambda_function" "learning_resources" {
 
   environment {
     variables = {
-      ctf_cda_access_token = var.contentful_cda_access_token
+      contentful_cda_access_token = var.contentful_cda_access_token
     }
   }
 
