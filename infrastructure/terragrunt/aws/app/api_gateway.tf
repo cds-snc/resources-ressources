@@ -68,8 +68,10 @@ resource "aws_apigatewayv2_deployment" "app" {
 resource "aws_apigatewayv2_stage" "app" {
   api_id = aws_apigatewayv2_api.app.id
 
-  deployment_id        = aws_apigatewayv2_deployment.app.id
-  name                 = "$default"
+  deployment_id = aws_apigatewayv2_deployment.app.id
+  name          = "$default"
+
+  auto_deploy = true
 
   #   access_log_settings {
   #     destination_arn = aws_cloudwatch_log_group.api_access.arn
