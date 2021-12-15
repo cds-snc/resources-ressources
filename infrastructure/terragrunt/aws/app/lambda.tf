@@ -6,7 +6,7 @@ resource "aws_lambda_function" "learning_resources" {
   timeout       = 30
   role          = aws_iam_role.app.arn
   # role          = aws_iam_role.learning.arn
-#   handler = "index.test?"
+  #   handler = "index.test?"
 
   environment {
     variables = {
@@ -14,5 +14,5 @@ resource "aws_lambda_function" "learning_resources" {
     }
   }
 
-#   runtime = "nodejs12.x"
+  #   runtime = "nodejs12.x"
 }

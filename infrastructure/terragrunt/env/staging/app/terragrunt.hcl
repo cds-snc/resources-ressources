@@ -16,7 +16,7 @@ dependency "hosted_zone" {
 }
 inputs = {
   hosted_zone_id = dependency.hosted_zone.outputs.zone_id
-  domain_name = "app.learning-resources.cdssandbox.xyz"
+  domain_name    = "app.learning-resources.cdssandbox.xyz"
 }
 
 include {

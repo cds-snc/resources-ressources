@@ -4,7 +4,7 @@ variable "contentful_cda_access_token" {
 }
 
 variable "domain_name" {
-  type      = string
+  type = string
 }
 
 variable "hosted_zone_id" {
