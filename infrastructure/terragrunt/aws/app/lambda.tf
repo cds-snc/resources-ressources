@@ -5,8 +5,6 @@ resource "aws_lambda_function" "learning_resources" {
   function_name = "learning-frontend"
   timeout       = 30
   role          = aws_iam_role.app.arn
-  # role          = aws_iam_role.learning.arn
-  #   handler = "index.test?"
 
   environment {
     variables = {
@@ -14,5 +12,4 @@ resource "aws_lambda_function" "learning_resources" {
     }
   }
 
-  #   runtime = "nodejs12.x"
 }
