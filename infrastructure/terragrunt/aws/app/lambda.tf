@@ -12,4 +12,10 @@ resource "aws_lambda_function" "learning_resources" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [
+      image_uri,
+    ]
+  }
+
 }
