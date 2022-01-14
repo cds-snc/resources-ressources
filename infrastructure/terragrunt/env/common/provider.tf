@@ -13,8 +13,3 @@ provider "aws" {
   region              = var.region
   allowed_account_ids = [var.account_id]
 }
-
-provider "aws" {
-  alias  = "ca-central-1"
-  region = "ca-central-1"
-}
