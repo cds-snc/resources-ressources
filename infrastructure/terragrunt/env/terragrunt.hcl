@@ -6,6 +6,7 @@ inputs = {
   account_id        = "${local.vars.inputs.account_id}"
   env               = "${local.vars.inputs.env}"
   region            = "ca-central-1"
+  product_name      = "${local.vars.inputs.product_name}" 
 }
 
 remote_state {

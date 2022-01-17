@@ -16,30 +16,25 @@ variable "tfstate_bucket_name" {
   type        = string
 }
 
-resource "aws_s3_bucket" "tfstate" {
-  bucket = var.tfstate_bucket_name
+module "state_bucket" {
+  source            = "github.com/cds-snc/terraform-modules?ref=v0.0.38//S3"
+  bucket_name       = var.tfstate_bucket_name
+  billing_tag_value = "learning-resources"
 
-  acl = "private"
-  versioning {
+  versioning = {
     enabled = true
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
+  logging = {
+    target_bucket = module.state_bucket_logs.s3_bucket_id
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "tfstate_public_access_block" {
-  bucket = aws_s3_bucket.tfstate.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
+module "state_bucket_logs" {
+  source            = "github.com/cds-snc/terraform-modules?ref=v0.0.38//S3_log_bucket"
+  bucket_name       = "${var.tfstate_bucket_name}-log"
+  force_destroy     = true
+  billing_tag_value = "learning-resources"
 }
 
 resource "aws_dynamodb_table" "tfstate_lock" {

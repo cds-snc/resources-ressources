@@ -1,13 +1,13 @@
-import * as config from './.contentful.json';
-
-export default {
+/* eslint-disable nuxt/no-cjs-in-config */
+const config = require('./.contentful.json')
+module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
   ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'learning-resources',
+    title: 'Resources | Resourcess',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -67,11 +67,13 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-
   env: {
     CTF_SPACE_ID: config.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN,
+    CTF_CDA_ACCESS_TOKEN: config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
     CTF_PERSON_ID: config.CTF_PERSON_ID,
     CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
-  }
+  },
+  // dev: process.env.NODE_ENV !== 'production'
+  dev: false,
+  telemetry: false
 }

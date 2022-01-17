@@ -17,6 +17,7 @@
 <script lang="ts">
 import ArticlePreview from '~/components/ArticlePreview.vue'
 import { createClient } from '~/plugins/contentful.js';
+
 const client = createClient();
 
 export default {
@@ -33,7 +34,9 @@ export default {
       return {
         posts: posts.items
       }
-    }).catch(console.error)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 }
 </script>
