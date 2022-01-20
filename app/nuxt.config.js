@@ -1,5 +1,7 @@
 /* eslint-disable nuxt/no-cjs-in-config */
 const config = require('./.contentful.json')
+const i18n  = require('./config/i18n.js')
+
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'server',
@@ -49,7 +51,11 @@ module.exports = {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    // https://i18n.nuxtjs.org/
+    '@nuxtjs/i18n',
   ],
+
+  i18n,
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
