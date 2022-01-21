@@ -1,9 +1,10 @@
 <template>
 <div>
-  <!-- <Tutorial/> -->
+  <Header/>
+  
   <section class="body-container">
       <div class="items-bar wrapper">
-        <h2 class="bg-yellow-100 flex flex-sm p-6">Recent articles</h2>
+        <h2 class="bg-yellow-100 flex flex-sm p-6">Recent articles {{ $t('welcome')}}</h2>
       </div>
       <ul class="items-list wrapper mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
         <li v-for="post in posts" :key="post.id" class="item p-4 bg-gray-100 rounded-lg mx-4">
@@ -16,13 +17,15 @@
 
 <script lang="ts">
 import ArticlePreview from '~/components/ArticlePreview.vue'
+import Header from '~/components/Header.vue'
 import { createClient } from '~/plugins/contentful.js';
 
 const client = createClient();
 
 export default {
-  components: {
-    ArticlePreview
+  components: { 
+    ArticlePreview,
+    Header
   },
   asyncData({env} : {env:any}) {
     return Promise.all([
