@@ -81,5 +81,8 @@ module.exports = {
   },
   // dev: process.env.NODE_ENV !== 'production'
   dev: false,
-  telemetry: false
+  telemetry: false,
+  storybook: {
+    // Options
+  }
 }

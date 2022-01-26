@@ -95,4 +95,8 @@ sw.*
 .terraform.lock.hcl
 
 # Contentful
-.contentful.json
+.contentful.jso
+
+# Storybook
+.nuxt-storybook
+storybook-static
