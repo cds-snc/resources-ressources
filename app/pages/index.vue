@@ -1,6 +1,7 @@
 <template>
 <div>
   <Header/>
+  <Banner/>
   
   <section class="body-container">
       <div class="items-bar wrapper">
@@ -18,6 +19,7 @@
 <script lang="ts">
 import ArticlePreview from '~/components/ArticlePreview.vue'
 import Header from '~/components/Header.vue'
+import Banner from '~/components/Banner.vue'
 import { createClient } from '~/plugins/contentful.js';
 
 const client = createClient();
@@ -25,7 +27,8 @@ const client = createClient();
 export default {
   components: { 
     ArticlePreview,
-    Header
+    Header,
+    Banner
   },
   asyncData({env} : {env:any}) {
     return Promise.all([
