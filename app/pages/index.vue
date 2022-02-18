@@ -2,17 +2,13 @@
 <div>
   <Header/>
   <Banner/>
-  
-  <section class="body-container">
-      <div class="items-bar wrapper">
-        <h2 class="bg-yellow-100 flex flex-sm p-6">Recent articles {{ $t('welcome')}}</h2>
-      </div>
-      <ul class="items-list wrapper mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-        <li v-for="post in posts" :key="post.id" class="item p-4 bg-gray-100 rounded-lg mx-4">
-          <ArticlePreview :post="post"></ArticlePreview>
-        </li>
-      </ul>
-    </section>
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <ul class="flex flex-wrap gap-4 justify-start">
+      <li v-for="category in categories" :key="category.id">
+        <Box :item="category" content-type='category'/>
+      </li>
+    </ul>
+  </div>
 </div>
 </template>
 
@@ -20,25 +16,43 @@
 import ArticlePreview from '~/components/ArticlePreview.vue'
 import Header from '~/components/Header.vue'
 import Banner from '~/components/Banner.vue'
+import Box from '~/components/Box.vue'
 import { createClient } from '~/plugins/contentful.js';
 
 const client = createClient();
 
 export default {
-  components: { 
+  components: {
     ArticlePreview,
     Header,
-    Banner
+    Banner,
+    Box
   },
   asyncData({env} : {env:any}) {
+
+    // axios.get()
+    // return Promise.all([
+    //   client.getEntries({
+    //     'content_type': env.CTF_BLOG_POST_TYPE_ID,
+    //     order: '-sys.createdAt'
+    //   }),
+    //   client.getContentTypes()
+    // ]).then(([posts, contentTypes]) => {
+    //   return {
+    //     posts: posts.items,
+    //     contentTypes: contentTypes.items
+    //   }
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
     return Promise.all([
       client.getEntries({
-        'content_type': env.CTF_BLOG_POST_TYPE_ID,
+        'content_type': 'category',
         order: '-sys.createdAt'
-      })
-    ]).then(([posts]) => {
+      }),
+    ]).then(([categories]) => {
       return {
-        posts: posts.items
+        categories: categories.items,
       }
     }).catch((err) => {
       console.log(err)

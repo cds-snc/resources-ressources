@@ -55,7 +55,21 @@ module.exports = {
     '@nuxtjs/i18n',
   ],
 
-  i18n,
+  // I18n: https://i18n.nuxtjs.org/
+  i18n: {
+    strategy: 'prefix',
+    defaultLocale: 'en',
+    locales: [
+      {
+        code: 'en',
+        name: 'English'
+      },
+      {
+        code: 'fr',
+        name: 'Français'
+      }
+    ]
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
