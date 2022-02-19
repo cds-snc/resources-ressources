@@ -1,0 +1,93 @@
+name: Terraform plan
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "terragrunt/**"
+      - ".github/workflows/**"
+env:
+  TERRAFORM_VERSION: 1.0.7
+  TERRAGRUNT_VERSION: v0.31.1
+  CONFTEST_VERSION: 0.27.0
+  # TF_VAR_rds_password: ${{ secrets.TF_VARS_RDS_PASSWORD }}
+  # TF_VAR_fastapi_secret_key: ${{ secrets.TF_VARS_FASTAPI_SECRET_KEY }}
+  # TF_VAR_google_client_id: ${{ secrets.TF_VARS_GOOGLE_CLIENT_ID }}
+  # TF_VAR_google_client_secret: ${{ secrets.TF_VARS_GOOGLE_CLIENT_SECRET }}
+  # TF_VAR_slack_webhook_url: ${{ secrets.TF_VARS_SLACK_WEBHOOK_URL }}
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  actions: write
+  checks: write
+  statuses: write
+
+
+
+jobs:
+  terraform-plan:
+    strategy:
+      fail-fast: false
+      # matrix:
+      #   include:
+      #     - module: staging
+      #     - module: common
+      #     - module: hosted_zone
+      #     - module: ecs
+      #     - module: scanners/axe-core
+      #     - module: orchestrator
+      #     - module: scanners/github
+      #     - module: tf_roles
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: Install Conftest
+        run: |
+          wget "https://github.com/open-policy-agent/conftest/releases/download/v${{ env.CONFTEST_VERSION }}/conftest_${{ env.CONFTEST_VERSION }}_Linux_x86_64.tar.gz" \
+          && wget "https://github.com/open-policy-agent/conftest/releases/download/v${{ env.CONFTEST_VERSION }}/checksums.txt" \
+          && grep 'Linux_x86_64.tar.gz' < checksums.txt | sha256sum --check  --status \
+          && tar -zxvf "conftest_${{ env.CONFTEST_VERSION }}_Linux_x86_64.tar.gz" conftest \
+          && mv conftest /usr/local/bin \
+          && rm "conftest_${{ env.CONFTEST_VERSION }}_Linux_x86_64.tar.gz" checksums.txt
+
+      - name: Setup Terragrunt
+        run: |
+          mkdir -p bin
+          wget -O bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/$TERRAGRUNT_VERSION/terragrunt_linux_amd64
+          chmod +x bin/*
+          echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
+
+      - name: configure aws credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # role-to-assume: arn:aws:iam::236007890657:role/gh_plan_role
+          # role-session-name: TFPlan
+          aws-region: 'ca-central-1'
+
+      - name: Terraform plan staging hosted zone
+        uses: cds-snc/terraform-plan@v2
+        with:
+          comment-delete: true
+          comment-title: TF Plan for hosted zone
+          directory: infrastructure/terragrunt/env/staging/hosted-zone
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          terragrunt: true
+
+      # - name: Terraform plan staging app
+      #   uses: cds-snc/terraform-plan@v2
+      #   with:
+      #     comment-delete: true
+      #     comment-title: TF Plan for app
+      #     directory: infrastructure/terragrunt/env/staging/app
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     terragrunt: true
