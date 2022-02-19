@@ -82,3 +82,12 @@ jobs:
           directory: infrastructure/terragrunt/env/staging/hosted-zone
           github-token: ${{ secrets.GITHUB_TOKEN }}
           terragrunt: true
+
+      - name: Terraform plan staging hosted zone
+        uses: cds-snc/terraform-plan@v2
+        with:
+          comment-delete: true
+          comment-title: TF Plan for app
+          directory: infrastructure/terragrunt/env/staging/app
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          terragrunt: true
