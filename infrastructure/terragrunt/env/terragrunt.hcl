@@ -1,5 +1,5 @@
 locals {
-  vars = read_terragrunt_config("../env_vars.hcl")
+  vars = read_terragrunt_config("./staging/env_vars.hcl")
 }
 
 inputs = {
