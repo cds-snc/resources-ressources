@@ -29,9 +29,9 @@ jobs:
   terraform-plan:
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - module: staging
+      # matrix:
+      #   include:
+      #     - module: staging
       #     - module: common
       #     - module: hosted_zone
       #     - module: ecs
@@ -74,11 +74,11 @@ jobs:
           # role-session-name: TFPlan
           aws-region: 'ca-central-1'
 
-      - name: Terraform plan
+      - name: Terraform plan staging hosted zone
         uses: cds-snc/terraform-plan@v2
         with:
           comment-delete: true
-          comment-title: TF Plan for ${{ matrix.module }}
-          directory: ./infrastructure/terragrunt/env/${{ matrix.module }}
+          comment-title: TF Plan for hosted zone
+          directory: infrastructure/terragrunt/env/staging/hosted-zone
           github-token: ${{ secrets.GITHUB_TOKEN }}
           terragrunt: true
