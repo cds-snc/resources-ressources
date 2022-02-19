@@ -78,7 +78,7 @@ jobs:
         uses: cds-snc/terraform-plan@v2
         with:
           comment-delete: true
-          comment-title: Plan for ${{ matrix.module }}
-          directory: ./infrastructure/terragrunt/env
+          comment-title: TF Plan for ${{ matrix.module }}
+          directory: ./infrastructure/terragrunt
           github-token: ${{ secrets.GITHUB_TOKEN }}
           terragrunt: true
