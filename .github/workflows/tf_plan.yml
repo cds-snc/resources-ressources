@@ -31,8 +31,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - module: staging
-          - module: common
+          - module: learning-resources
+      #     - module: common
       #     - module: hosted_zone
       #     - module: ecs
       #     - module: scanners/axe-core
@@ -79,6 +79,6 @@ jobs:
         with:
           comment-delete: true
           comment-title: Plan for ${{ matrix.module }}
-          directory: ./infrastructure/terragrunt/env/${{ matrix.module }}
+          directory: ./infrastructure/terragrunt/env
           github-token: ${{ secrets.GITHUB_TOKEN }}
           terragrunt: true
