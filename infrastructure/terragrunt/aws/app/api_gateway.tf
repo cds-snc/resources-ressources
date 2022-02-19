@@ -22,7 +22,7 @@ resource "aws_apigatewayv2_integration" "app" {
   api_id           = aws_apigatewayv2_api.app.id
   integration_type = "AWS_PROXY"
 
-  connection_type = "INTERNET"
+  connection_type    = "INTERNET"
   description        = "Learning app lambda integration"
   integration_method = "POST"
   integration_uri    = aws_lambda_function.learning_resources.invoke_arn
@@ -50,7 +50,7 @@ resource "aws_apigatewayv2_stage" "app" {
   deployment_id = aws_apigatewayv2_deployment.app.id
   name          = "$default"
 
-#   auto_deploy = true
+  #   auto_deploy = true
 
 }
 
