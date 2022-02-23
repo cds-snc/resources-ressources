@@ -91,3 +91,4 @@ jobs:
           directory: infrastructure/terragrunt/env/staging/app
           github-token: ${{ secrets.GITHUB_TOKEN }}
           terragrunt: true
+          contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
