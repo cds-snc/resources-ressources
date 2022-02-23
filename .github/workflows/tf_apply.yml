@@ -7,21 +7,13 @@ on:
     paths:
       - "terragrunt/**"
       - ".github/workflows/**"
-      # - ".github/workflows/terragrunt-apply-central.yml"
-      # - "satellite_accounts"
-      # - "terragrunt/aws/central_account/**"
-      # - "terragrunt/aws/cloudtrail/**"
-      # - "terragrunt/env/central/**"
-      # - "terragrunt/env/common/**"
-      # - "terragrunt/env/terragrunt.hcl"
-  # pull_request:
-  #   paths:
-  #     - "terragrunt/**"
-  #     - ".github/workflows/**"
+      
 env:
   TERRAFORM_VERSION: 1.0.7
   TERRAGRUNT_VERSION: v0.31.1
   CONFTEST_VERSION: 0.27.0
+  TF_VAR_contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
+
 
 permissions:
   id-token: write
