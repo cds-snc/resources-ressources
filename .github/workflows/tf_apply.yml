@@ -74,3 +74,7 @@ jobs:
       - name: Terragrunt apply staging hosted zone
         working-directory: infrastructure/terragrunt/env/staging/hosted-zone
         run: terragrunt apply --terragrunt-non-interactive -auto-approve
+
+      - name: Terraform plan staging app
+        working-directory: infrastructure/terragrunt/env/staging/app
+        run: terragrunt apply --terragrunt-non-interactive -auto-approve
