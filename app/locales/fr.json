@@ -1,4 +1,12 @@
 {
   "welcome": "Bienvenue",
-  "switchLanguage": "English"
+  "switchLanguage": "English",
+  "learningResources": "Ressources d'apprentissage",
+  "searchDescription": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
+  "proofOfConcept": {
+    "title": "PREUVE DE CONCEPT", 
+    "in-progress": "Il s'agit d'un site en cours de développement.",
+    "help-improve": "Aidez-nous à l'améliorer."
+  },
+  "search": "Recherche"
 }

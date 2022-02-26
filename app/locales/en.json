@@ -1,4 +1,12 @@
 {
   "welcome": "Welcome",
-  "switchLanguage": "Francais"
+  "switchLanguage": "Francais",
+  "learningResources": "Learning Resources",
+  "searchDescription": "We're continuously learning and adjusting our practices.\nHere are some of the ways we've approached our work.",
+  "proofOfConcept": {
+    "title": "Proof of Concept", 
+    "in-progress": "This content is a work in progress.",
+    "help-improve": "Help us improve"
+  },
+  "search": "Search"
 }

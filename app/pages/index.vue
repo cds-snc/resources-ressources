@@ -2,8 +2,9 @@
 <div>
   <Header/>
   <Banner/>
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <ul class="flex flex-wrap gap-4 justify-start">
+  <BannerSearch/>
+  <div class="max-w-7xl mx-auto">
+    <ul class="flex flex-wrap gap-4 justify-start pt-4">
       <li v-for="category in categories" :key="category.id">
         <Box :item="category" content-type='category'/>
       </li>
@@ -13,20 +14,20 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from '~/components/ArticlePreview.vue'
 import Header from '~/components/Header.vue'
 import Banner from '~/components/Banner.vue'
 import Box from '~/components/Box.vue'
+import BannerSearch from '~/components/BannerSearch.vue'
 import { createClient } from '~/plugins/contentful.js';
 
 const client = createClient();
 
 export default {
   components: {
-    ArticlePreview,
     Header,
     Banner,
-    Box
+    Box,
+    BannerSearch
   },
   asyncData({env} : {env:any}) {
 
