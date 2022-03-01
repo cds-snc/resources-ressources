@@ -3,7 +3,7 @@
   <header>
     <!-- GoC Banner -->
     <div class="bg-black">
-      <div class="max-w-7xl mx-auto sm lg">
+      <div class="max-w-7xl mx-auto md:px-4 lg:px-0 sm:px-4">
         <div class="relative flex items-center justify-between h-16">
         <img class="hidden sm:block h-5 w-auto" :src="require(`../assets/goc--header-logo-${$i18n.locale}.svg`)" alt="Government of Canada">
         </div>
@@ -34,7 +34,7 @@
 export default ({
   name: 'Header',
   computed: {
-    availableLocales () {
+    availableLocales (): any {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
     }
   }

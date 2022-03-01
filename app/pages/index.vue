@@ -1,6 +1,7 @@
 <template>
-<div>
+<div class="flex flex-col min-h-screen">
   <Header/>
+  <main class="flex-grow">
   <Banner/>
   <BannerSearch/>
   <div class="max-w-7xl mx-auto">
@@ -10,6 +11,8 @@
       </li>
     </ul>
   </div>
+  </main>
+  <Footer/>
 </div>
 </template>
 
@@ -19,6 +22,7 @@ import Banner from '~/components/Banner.vue'
 import Box from '~/components/Box.vue'
 import BannerSearch from '~/components/BannerSearch.vue'
 import { createClient } from '~/plugins/contentful.js';
+import Footer from '~/components/Footer.vue'
 
 const client = createClient();
 
@@ -27,7 +31,8 @@ export default {
     Header,
     Banner,
     Box,
-    BannerSearch
+    BannerSearch,
+    Footer
   },
   asyncData({env} : {env:any}) {
 

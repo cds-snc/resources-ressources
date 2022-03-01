@@ -1,10 +1,10 @@
 <template>
   <div class="">
-    <!-- <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" -->
     <input class="focus:outline-none border-2 border-black p-2 w-70 text-lg float-left block"
-        type="search" name="search" :placeholder="$t('search')">
-    <!-- <button type="submit" class="left-0 bg-black p-3 border-black"> -->
-        <button type="submit" class=" right-0 bg-black float-left block p-4">
+        type="search" name="search" :placeholder="$t('search')"
+        :aria-label="$t('aria.search-input')">
+        <button type="submit" class=" right-0 bg-black float-left block p-4" 
+           :aria-label="$t('aria.search-button')">
         <svg id="search_icon" class="text-white h-4 w-4 fill-current"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
         viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
@@ -17,6 +17,6 @@
 </template>
 <script lang="ts">
 export default ({
-  name: 'SearchBox',
+  name: 'Search',
 })
 </script>

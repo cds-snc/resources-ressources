@@ -8,5 +8,9 @@
     "in-progress": "This content is a work in progress.",
     "help-improve": "Help us improve"
   },
-  "search": "Search"
+  "search": "Search",
+  "aria": {
+    "search-input": "Search text",
+    "search-button": "Search"
+  }
 }

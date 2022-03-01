@@ -5,7 +5,7 @@
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <ul class="flex flex-wrap justify-start gap-10">
       <li v-for="subtopic in subtopics" :key="subtopic.id">
-        <box :item=subtopic />
+        <!-- <box :item=subtopic /> -->
       </li>
     </ul>
   </div>
