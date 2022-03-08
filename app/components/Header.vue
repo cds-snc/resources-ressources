@@ -3,18 +3,18 @@
   <header>
     <!-- GoC Banner -->
     <div class="bg-black">
-      <div class="max-w-7xl mx-auto md:px-4 lg:px-0 sm:px-4">
+      <div class="max-w-7xl mx-auto px-4">
         <div class="relative flex items-center justify-between h-16">
-        <img class="hidden sm:block h-5 w-auto" :src="require(`../assets/goc--header-logo-${$i18n.locale}.svg`)" alt="Government of Canada">
+        <img class="sm:block h-5 w-auto" :src="require(`../assets/goc--header-logo-${$i18n.locale}.svg`)" alt="Government of Canada">
         </div>
       </div>
     </div>
     <!-- CDS Banner-->
     <nav class="bg-black border-cds-yellow border-t-2 text-white">
-      <div class="max-w-7xl mx-auto sm lg">
+      <div class="max-w-7xl mx-auto px-4">
         <div class="relative flex items-center justify-between h-16">
           <nuxt-link :to="localePath('/')">
-            <img class="hidden sm:block h-12 w-auto" :src="require(`../assets/cds-lockup-ko-${$i18n.locale}.svg`)" alt="CDS">
+            <img class="sm:block h-12 w-auto" :src="require(`../assets/cds-lockup-ko-${$i18n.locale}.svg`)" alt="CDS">
           </nuxt-link>
           <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <!-- <Link v-if="$i18n.locale == 'fr'" theme="dark" :to="switchLocalePath('en')">English</Link>
