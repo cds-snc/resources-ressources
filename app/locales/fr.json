@@ -1,12 +1,17 @@
 {
   "welcome": "Bienvenue",
-  "switchLanguage": "English",
-  "learningResources": "Ressources d'apprentissage",
-  "searchDescription": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
-  "proofOfConcept": {
+  "switch_language": "English",
+  "learning_resources": "Ressources d'apprentissage",
+  "search_description": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
+  "proof_of_concept": {
     "title": "PREUVE DE CONCEPT", 
-    "in-progress": "Il s'agit d'un site en cours de développement.",
-    "help-improve": "Aidez-nous à l'améliorer."
+    "in_progress": "Il s'agit d'un site en cours de développement.",
+    "help_improve" : "Aidez-nous à l'améliorer."
   },
-  "search": "Recherche"
+  "search": "Recherche",
+  "aria": {
+    "search_input": "Recherche",
+    "search_button": "Recherche"
+  },
+  "contact_us": "Nous joindre"
 }
