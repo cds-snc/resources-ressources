@@ -12,7 +12,7 @@ resource "aws_acm_certificate" "app" {
   }
 }
 
-resource "aws_route53_record" "lr_dns_validation" {
+resource "aws_route53_record" "app" {
   zone_id = var.hosted_zone_id
 
   for_each = {
