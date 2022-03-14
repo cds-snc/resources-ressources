@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "d0037464-d97e-40b4-b6e8-0cc206034d09",
+		"name": "Contentful REST API calls",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get entries of a space",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cdaUri}}/spaces/{{spaceId}}/environments/{{environmentId}}/entries?access_token={{cdaToken}}",
+					"host": [
+						"{{cdaUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						"entries"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cdaToken}}"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get topics",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cdaUri}}/spaces/{{spaceId}}/environments/{{environmentId}}/entries?access_token={{cpaToken}}&content_type=topic",
+					"host": [
+						"{{cdaUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						"entries"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cpaToken}}"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "content_type",
+							"value": "topic"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get topics (FR)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{previewUri}}/spaces/{{spaceId}}/environments/{{environmentId}}/entries?access_token={{cpaToken}}&content_type=topic&locale=fr-CA",
+					"host": [
+						"{{previewUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						"entries"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cpaToken}}"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "content_type",
+							"value": "topic"
+						},
+						{
+							"key": "locale",
+							"value": "fr-CA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Preview - Get topics of specific category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{previewUri}}/spaces/{{spaceId}}/environments/{{environmentId}}/entries?access_token={{cpaToken}}&content_type=topic&include=10",
+					"host": [
+						"{{previewUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						"entries"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cpaToken}}"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "content_type",
+							"value": "topic"
+						},
+						{
+							"key": "fields.category.sys.id",
+							"value": "2RxTsjPxpD5ZGSMe1cbNgl",
+							"disabled": true
+						},
+						{
+							"key": "fields.category[all].fields.id",
+							"value": "talent",
+							"disabled": true
+						},
+						{
+							"key": "fields.category.sys.contentType.sys.id",
+							"value": "talent",
+							"disabled": true
+						},
+						{
+							"key": "fields.category.sys.id",
+							"value": "talent",
+							"disabled": true
+						},
+						{
+							"key": "include",
+							"value": "10"
+						},
+						{
+							"key": "fields.category.fields.name[match]",
+							"value": "Talent",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get categories",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cdaUri}}/spaces/{{spaceId}}/environments/{{environmentId}}/entries?access_token={{cdaToken}}&content_type=category",
+					"host": [
+						"{{cdaUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						"entries"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cdaToken}}"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "content_type",
+							"value": "category"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get assets of a space",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cdaUri}}/spaces/{{spaceId}}/environments/{{environmentId}}/entries?access_token={{cdaToken}}",
+					"host": [
+						"{{cdaUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						"entries"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cdaToken}}"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get API Keys",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{cmaUri}}/spaces/{{spaceId}}/api_keys?access_token={{cmaToken}}",
+					"host": [
+						"{{cmaUri}}"
+					],
+					"path": [
+						"spaces",
+						"{{spaceId}}",
+						"api_keys"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{cmaToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{imagesUri}}/{{spaceId}}/{{asset_id}}/{{imageToken}}/{{imageFilename}}",
+					"host": [
+						"{{imagesUri}}"
+					],
+					"path": [
+						"{{spaceId}}",
+						"{{asset_id}}",
+						"{{imageToken}}",
+						"{{imageFilename}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get scaled image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{imagesUri}}/{{spaceId}}/{{asset_id}}/{{imageToken}}/{{imageFilename}}?w=300",
+					"host": [
+						"{{imagesUri}}"
+					],
+					"path": [
+						"{{spaceId}}",
+						"{{asset_id}}",
+						"{{imageToken}}",
+						"{{imageFilename}}"
+					],
+					"query": [
+						{
+							"key": "w",
+							"value": "300"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cropped image asset",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{imagesUri}}/{{spaceId}}/{{asset_id}}/{{imageToken}}/{{imageFilename}}?fit=crop&w=300",
+					"host": [
+						"{{imagesUri}}"
+					],
+					"path": [
+						"{{spaceId}}",
+						"{{asset_id}}",
+						"{{imageToken}}",
+						"{{imageFilename}}"
+					],
+					"query": [
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "200",
+							"disabled": true
+						},
+						{
+							"key": "fit",
+							"value": "crop"
+						},
+						{
+							"key": "w",
+							"value": "300"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get image with rounded corners",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{imagesUri}}/{{spaceId}}/{{asset_id}}/{{imageToken}}/{{imageFilename}}?r=90",
+					"host": [
+						"{{imagesUri}}"
+					],
+					"path": [
+						"{{spaceId}}",
+						"{{asset_id}}",
+						"{{imageToken}}",
+						"{{imageFilename}}"
+					],
+					"query": [
+						{
+							"key": "r",
+							"value": "90"
+						},
+						{
+							"key": "Authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQL Get topics by category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n    categoryCollection(where: { id: \"talent\"}){\n        items{\n            linkedFrom {\n                topicCollection{\n                    total\n                    items {\n                        name\n                    }\n                }\n            }\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{graphQLUri}}spaces/{{spaceId}}/environments/{{environmentId}}/",
+					"host": [
+						"{{graphQLUri}}spaces"
+					],
+					"path": [
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GraphQL Get topics by category Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cdaToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\n    topicCollection {\n      items {\n        sys {\n          id\n        }\n        name\n        categoryMy: categoryCollection(id: \"talent\")\n        # categoryCollection {\n        #     items {\n        #         name\n        #     }\n        # }\n      }\n    }\n  }\n\n# query {\n#     categoryCollection(where: { id: \"talent\"}) {\n#         items {\n#             topicsCollection {\n#                 items {\n#                     sys{\n#                         id\n#                     }\n#                     name\n#                 }\n#             }\n#         }\n#     }\n# }",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{graphQLUri}}spaces/{{spaceId}}/environments/{{environmentId}}/",
+					"host": [
+						"{{graphQLUri}}spaces"
+					],
+					"path": [
+						"{{spaceId}}",
+						"environments",
+						"{{environmentId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
