@@ -1,5 +1,5 @@
 export default {
-    title: 'Header'
+  title: 'Header',
 }
 
 export const Header = () => '<Header />'

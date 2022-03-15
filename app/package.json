@@ -11,6 +11,7 @@
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path ../.gitignore .",
     "lint:style": "stylelint \"**/*.{vue,css,html,sass}\" --ignore-path ../.gitignore",
     "lint:prettier": "prettier --check .",
+    "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix && npm run lint:style -- --fix",
     "prepare": "cd .. && husky install app/.husky",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
     "test": "jest"

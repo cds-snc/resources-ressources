@@ -1,9 +1,8 @@
 <template>
-
   <div class="max-w-7xl mx-auto px-4">
     <ul class="flex flex-wrap gap-4 justify-start pt-4">
       <li v-for="topic in topics" :key="topic.id">
-        <box :item=topic content-type='topic'/>
+        <box :item="topic" content-type="topic" />
       </li>
     </ul>
   </div>
@@ -41,42 +40,40 @@ export default {
               }
           }
       }
-    }`;
-    
+    }`
+
     $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
 
     const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`
     const options = {
       data: JSON.stringify({
-        query
-      })
+        query,
+      }),
     }
 
     console.log('options', options)
     console.log('url', endpoint)
-    
-    const topics = await $axios.$post(
-      endpoint,
-      {query}
-    ).catch(error => {
-      console.log('error', error)
-    })
-    .then(result => {
-      // todo make sure this exists
-      return result.data.categoryCollection.items[0].linkedFrom.topicCollection.items
-    })
+
+    const topics = await $axios
+      .$post(endpoint, { query })
+      .catch((error) => {
+        console.log('error', error)
+      })
+      .then((result) => {
+        // todo make sure this exists
+        return result.data.categoryCollection.items[0].linkedFrom
+          .topicCollection.items
+      })
 
     console.log(topics)
 
     return { topics }
 
     // return data
-
-
   },
   mounted() {
     // console.log(this.$route.query)
     // console.log(this.$route.fullPath)
-  }
+  },
 }
 </script>

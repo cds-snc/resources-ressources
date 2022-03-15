@@ -1,5 +1,5 @@
 export default {
-    title: 'Box'
+  title: 'Box',
 }
 
 // const item = {

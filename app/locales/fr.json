@@ -4,9 +4,9 @@
   "learning_resources": "Ressources d'apprentissage",
   "search_description": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
   "proof_of_concept": {
-    "title": "PREUVE DE CONCEPT", 
+    "title": "PREUVE DE CONCEPT",
     "in_progress": "Il s'agit d'un site en cours de développement.",
-    "help_improve" : "Aidez-nous à l'améliorer."
+    "help_improve": "Aidez-nous à l'améliorer."
   },
   "search": "Recherche",
   "aria": {
