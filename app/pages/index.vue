@@ -1,9 +1,5 @@
 <template>
-<div class="flex flex-col min-h-screen">
-  <Header/>
-  <main class="flex-grow">
-  <Banner/>
-  <BannerSearch/>
+
   <div class="max-w-7xl mx-auto px-4">
     <ul class="flex flex-wrap gap-4 justify-start pt-4">
       <li v-for="category in categories" :key="category.id">
@@ -11,31 +7,26 @@
       </li>
     </ul>
   </div>
-  </main>
-  <Footer/>
-</div>
+
 </template>
 
-<script lang="ts">
-import Header from '~/components/Header.vue'
-import Banner from '~/components/Banner.vue'
+<script>
 import Box from '~/components/Box.vue'
-import BannerSearch from '~/components/BannerSearch.vue'
 import { createClient } from '~/plugins/contentful.js';
-import Footer from '~/components/Footer.vue'
 
 const client = createClient();
 
 export default {
+  name: 'Index',
   components: {
-    Header,
-    Banner,
-    Box,
-    BannerSearch,
-    Footer
-  },
-  asyncData({env} : {env:any}) {
 
+    Box,
+
+  },
+  layout: 'expandedSearch',
+  // asyncData({env} : {env:any}) {
+  asyncData({ app }) {
+    // $i18n.locale n
     // axios.get()
     // return Promise.all([
     //   client.getEntries({
@@ -54,7 +45,8 @@ export default {
     return Promise.all([
       client.getEntries({
         'content_type': 'category',
-        order: '-sys.createdAt'
+        order: '-sys.createdAt',
+        'locale': app.i18n.localeProperties.iso
       }),
     ]).then(([categories]) => {
       return {

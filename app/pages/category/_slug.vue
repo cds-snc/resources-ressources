@@ -1,54 +1,78 @@
 <template>
-<div>
-  <Header/>
-  <Banner/>
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <ul class="flex flex-wrap justify-start gap-10">
-      <li v-for="subtopic in subtopics" :key="subtopic.id">
-        <!-- <box :item=subtopic /> -->
+
+  <div class="max-w-7xl mx-auto px-4">
+    <ul class="flex flex-wrap gap-4 justify-start pt-4">
+      <li v-for="topic in topics" :key="topic.id">
+        <box :item=topic content-type='topic'/>
       </li>
     </ul>
   </div>
-</div>
 </template>
 
-<script lang="ts">
-import Header from '~/components/Header.vue'
-import Banner from '~/components/Banner.vue'
-import Box from '~/components/Box.vue'
-import { createClient } from '~/plugins/contentful.js';
+<script>
+// import Box from '~/components/Box.vue'
+// import { createClient } from '~/plugins/contentful.js';
 
-const client = createClient();
+// const client = createClient();
 
 export default {
+  name: 'CategorySlug',
   components: {
-    Header,
-    Banner,
-    Box
+    // Box
   },
   // asyncData({ params }) {
   //   console.log(params.slug)
   //   return params.slug
   // },
-  asyncData({params}) {
+  async asyncData({ $axios, params }) {
     console.log(params.slug)
-    return Promise.all([
-      client.getEntries({
-        'content_type': 'topic',
-        // 'topic': 'topic.id',
-        fields: {
-          'category': `id=${params.slug}`
-        },
-        order: '-sys.createdAt'
-      }),
-    ]).then(([subtopics]) => {
-      console.log(subtopics.items)
-      return {
-        subtopics: subtopics.items,
+    const categoryId = params.slug
+    const query = `{
+      categoryCollection(where: { id: "${categoryId}"}){
+          items{
+              linkedFrom {
+                  topicCollection{
+                      total
+                      items {
+                          name
+                          id
+                      }
+                  }
+              }
+          }
       }
-    }).catch((err) => {
-      console.log(err)
+    }`;
+    
+    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+
+    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`
+    const options = {
+      data: JSON.stringify({
+        query
+      })
+    }
+
+    console.log('options', options)
+    console.log('url', endpoint)
+    
+    const topics = await $axios.$post(
+      endpoint,
+      {query}
+    ).catch(error => {
+      console.log('error', error)
     })
+    .then(result => {
+      // todo make sure this exists
+      return result.data.categoryCollection.items[0].linkedFrom.topicCollection.items
+    })
+
+    console.log(topics)
+
+    return { topics }
+
+    // return data
+
+
   },
   mounted() {
     // console.log(this.$route.query)

@@ -12,25 +12,25 @@ export default {
 
 // console.log(item, item.fields.id)
 // export const Box = () => `<box v-bind="item" content-type='category' />`
-export const Box = ({item}) => ({
-    props: {
-        item: {
-            fields: {
-                description: 'Description',
-                name: 'Name of item',
-                id: 'name-of-item'
-            }
-        }
-    },
-    template: '<Box :item="item" content-type="category"/>'
-})
+// export const Box = ({item}) => ({
+//     props: {
+//         item: {
+//             fields: {
+//                 description: 'Description',
+//                 name: 'Name of item',
+//                 id: 'name-of-item'
+//             }
+//         }
+//     },
+//     template: '<Box :item="item" content-type="category"/>'
+// })
 
-Box.argTypes = {
-    item: {
-        fields: {
-            description: 'Description',
-            name: 'Name of item',
-            id: 'name-of-item'
-        }
-    }
-}
+// Box.argTypes = {
+//     item: {
+//         fields: {
+//             description: 'Description',
+//             name: 'Name of item',
+//             id: 'name-of-item'
+//         }
+//     }
+// }

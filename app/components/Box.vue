@@ -27,6 +27,20 @@ export default ({
       required: true,
       default: ''
     }
+  },
+  computed: {
+    itemInfo() {
+      console.log(this.item, this.item.fields)
+
+      let itemInfo = {}
+      if(this.item.fields !== undefined) {
+        itemInfo = {...this.item.fields}
+      } else {
+        itemInfo = {...this.item}
+      }
+
+      return itemInfo
+    }
   }
 })
 </script>

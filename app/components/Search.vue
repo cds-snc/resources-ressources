@@ -1,10 +1,11 @@
 <template>
-  <div class="">
-    <input class="focus:outline-none border-2 border-black p-2 w-70 text-lg float-left block"
+  <div class="overflow-auto">
+    <!--w-28 md:w-96 lg:w-fit-->
+    <input class="focus:outline-none border-2 border-black p-2 md:w-96 w-40 text-lg float-left "
         type="search" name="search" :placeholder="$t('search')"
-        :aria-label="$t('aria.search-input')">
-        <button type="submit" class=" right-0 bg-black float-left block p-4" 
-           :aria-label="$t('aria.search-button')">
+        :aria-label="$t('aria.search_input')">
+    <button type="submit" class="bg-black float-left block p-4 clear-right" 
+           :aria-label="$t('aria.search_button')">
         <svg id="search_icon" class="text-white h-4 w-4 fill-current"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
         viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
