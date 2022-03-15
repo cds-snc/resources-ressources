@@ -30,11 +30,11 @@
     
   </header>
 </template>
-<script lang="ts">
+<script>
 export default ({
   name: 'Header',
   computed: {
-    availableLocales (): any {
+    availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
     }
   }

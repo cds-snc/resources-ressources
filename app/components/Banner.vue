@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Link from '~/components/Link.vue'
 
 export default {

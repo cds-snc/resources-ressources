@@ -35,8 +35,8 @@ module.exports = {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
+    // https://go.nuxtjs.dev/eslint
+    '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
@@ -52,11 +52,15 @@ module.exports = {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     // https://i18n.nuxtjs.org/
-    '@nuxtjs/i18n',
+    [
+      '@nuxtjs/i18n',
+      i18n,
+    ]
+    
   ],
 
   // I18n: https://i18n.nuxtjs.org/
-  i18n,
+
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
