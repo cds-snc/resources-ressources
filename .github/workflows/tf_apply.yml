@@ -73,4 +73,4 @@ jobs:
 
       - name: Terraform plan staging app
         working-directory: infrastructure/terragrunt/env/staging/app
-        run: terraform force-unlock -force 6d2153e4-80df-1d66-1439-9dc0d8f5eb5c && terragrunt apply --terragrunt-non-interactive -auto-approve
+        run: terragrunt apply --terragrunt-non-interactive -auto-approve
