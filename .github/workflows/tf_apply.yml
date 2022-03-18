@@ -63,14 +63,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'ca-central-1'
 
-      - name: Unlock tfstate
-        working-directory: infrastructure/terragrunt/env/staging/app
-        run: terraform force-unlock -force 6d2153e4-80df-1d66-1439-9dc0d8f5eb5c
-
-      # - name: Terragrunt apply staging hosted zone
-      #   working-directory: infrastructure/terragrunt/env/staging/hosted-zone
-      #   run: terragrunt apply --terragrunt-non-interactive -auto-approve
-
-      # - name: Terraform plan staging app
+      # - name: Unlock tfstate
       #   working-directory: infrastructure/terragrunt/env/staging/app
-      #   run: terragrunt apply --terragrunt-non-interactive -auto-approve
+      #   run: terraform force-unlock -force 6d2153e4-80df-1d66-1439-9dc0d8f5eb5c
+
+      - name: Terragrunt apply staging hosted zone
+        working-directory: infrastructure/terragrunt/env/staging/hosted-zone
+        run: terragrunt apply --terragrunt-non-interactive -auto-approve
+
+      - name: Terraform plan staging app
+        working-directory: infrastructure/terragrunt/env/staging/app
+        run: terragrunt apply --terragrunt-non-interactive -auto-approve
