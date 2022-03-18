@@ -1,7 +1,7 @@
 resource "aws_acm_certificate" "app" {
-  domain_name       = var.domain_name
-  subject_alternative_names = ["*.${var.domain_name}"]
-  validation_method = "DNS"
+  domain_name               = var.domain_name
+  subject_alternative_names = ["*.${var.domain_name}", "app.${var.domain_name}", "*.app.${var.domain_name}"]
+  validation_method         = "DNS"
 
   tags = {
     Environment = "staging"
@@ -12,7 +12,7 @@ resource "aws_acm_certificate" "app" {
   }
 }
 
-resource "aws_route53_record" "app" {
+resource "aws_route53_record" "validation" {
   zone_id = var.hosted_zone_id
 
   for_each = {
@@ -31,7 +31,7 @@ resource "aws_route53_record" "app" {
   ttl = 60
 }
 
-resource "aws_acm_certificate_validation" "lr_certificate_validation" {
+resource "aws_acm_certificate_validation" "app" {
   certificate_arn         = aws_acm_certificate.app.arn
-  validation_record_fqdns = [for record in aws_route53_record.app : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
 }
