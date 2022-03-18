@@ -3,7 +3,8 @@ include {
 }
 
 inputs = {
-  zone_name = "learning-resources.cdssandbox.xyz"
+  zone_name     = "learning-resources.cdssandbox.xyz"
+  app_zone_name = "app.learning-resources.cdssandbox.xyz"
 }
 
 terraform {
