@@ -7,7 +7,7 @@ resource "aws_apigatewayv2_api" "app" {
 
 resource "aws_apigatewayv2_domain_name" "app" {
   # regional_certificate_arn = aws_acm_certificate_validation.lr_certificate_validation.certificate_arn  
-  domain_name = var.domain_name
+  domain_name = var.app_domain_name
 
   domain_name_configuration {
     # certificate_arn = aws_acm_certificate.app.arn
