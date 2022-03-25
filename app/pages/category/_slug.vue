@@ -1,11 +1,9 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4">
     <ul class="flex flex-wrap gap-4 justify-start pt-4">
       <li v-for="topic in topics" :key="topic.id">
         <box :item="topic" content-type="topic" />
       </li>
     </ul>
-  </div>
 </template>
 
 <script>
