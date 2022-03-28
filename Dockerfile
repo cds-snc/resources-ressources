@@ -7,4 +7,4 @@ RUN npm install
 
 RUN npm run build
 
-CMD [ "lambda/handler.handler" ]
+CMD [ "handler.handler" ]

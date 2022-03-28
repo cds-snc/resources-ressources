@@ -1,11 +1,9 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4">
     <ul class="flex flex-wrap gap-4 justify-start pt-4">
       <li v-for="category in categories" :key="category.id">
         <Box :item="category" content-type="category" />
       </li>
     </ul>
-  </div>
 </template>
 
 <script>
