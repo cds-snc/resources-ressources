@@ -69,7 +69,7 @@ jobs:
         run: |
           aws lambda update-function-code \
             --function-name $REPO_NAME \
-            --image-uri $STAGING_REGISTRY/$REPO_NAME:latest
+            --image-uri $STAGING_REGISTRY/$REPO_NAME:latest > /dev/null 2>&1
 
       # - name: Migrate Database
       #   if: matrix.image == 'app'
