@@ -35,7 +35,7 @@ resource "aws_amplify_app" "learning_resources" {
   }
 
   environment_variables = {
-    ENV = "staging"
+    ENV                         = "staging"
     contentful_cda_access_token = var.contentful_cda_access_token
   }
 
@@ -53,10 +53,10 @@ resource "aws_amplify_app" "learning_resources" {
 
   auto_branch_creation_config {
     # Enable auto build for the created branch.
-    enable_auto_build = true
-    enable_pull_request_preview = true
+    enable_auto_build             = true
+    enable_pull_request_preview   = true
     pull_request_environment_name = "pr"
-    stage = "PULL_REQUEST"
+    stage                         = "PULL_REQUEST"
   }
 }
 
