@@ -19,7 +19,7 @@ resource "aws_amplify_app" "learning_resources" {
           commands:
             - npm run generate
       artifacts:
-        baseDirectory: dist
+        baseDirectory: app/dist
         files:
           - '**/*'
       cache:
