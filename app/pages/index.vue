@@ -1,9 +1,9 @@
 <template>
-    <ul class="flex flex-wrap gap-4 justify-start pt-4">
-      <li v-for="category in categories" :key="category.id">
-        <Box :item="category" content-type="category" />
-      </li>
-    </ul>
+  <ul class="flex flex-wrap gap-4 justify-start pt-4">
+    <li v-for="category in categories" :key="category.id">
+      <Box :item="category" content-type="category" />
+    </li>
+  </ul>
 </template>
 
 <script>
