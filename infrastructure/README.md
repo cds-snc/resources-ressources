@@ -1,18 +1,17 @@
-### How to deploy
+### Learning Resources AWS Infrastructure Diagram
+![AWS infrastructure diagram.  Full text description follows.](docs/architecture-aws-lr.png)
 
+The frontend application is hosted on AWS on the AWS Amplify service. Amplify is currently setup to watch for changes on the `main` branch and deploy those new changes immediately.
+
+### Environment variables
+- `contentful_cda_access_token`: Access token for connecting to contenful
+
+### Deployment strategy
 ```mermaid
 flowchart LR
-  subgraph TOP
-    direction TB
-    subgraph B1
-        direction RL
-        i1 -->f1
-    end
-    subgraph B2
-        direction BT
-        i2 -->f2
-    end
+  subgraph Amplify
+    direction LR
+    Provision([Provision]) --> Build([Build]) --> Deploy([Deploy])
   end
-  A --> TOP --> B
-  B1 --> B2
+  PR([Create Pull Request]) --> Merge([Merge to main]) --> Amplify
 ```
