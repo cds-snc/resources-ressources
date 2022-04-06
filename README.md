@@ -7,6 +7,10 @@ Créer, conserver et maintenir un espace centralisé pour partager les apprentis
 # Overview
 This app is built using [NuxtJS](https://nuxtjs.org/). Data is pulled in from [Contentful](https://www.contentful.com/).
 
+## I18N / Bilingual support.
+This app is set up to support both of Canada's official languages, English (Canada) and French (Canada). It uses [nuxt/i18n](https://i18n.nuxtjs.org/) to manage app languages.
+The text used in the website is pulled from the json files inside the `locales` directory. To add text, simply add a variable to both json files and access it using {{ $t('your_variable_name') }} within the app.
+
 # Local Development
 
 **Prerequisites**
