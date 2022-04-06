@@ -40,15 +40,23 @@ $ npm run dev
 ```
 5. Go to a browser and visit [http://localhost:3000](http://localhost:3000)
 
-6. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
+6. (Optional) Generate a static website and serve the static files
+```bash
+# make sure config in nuxt.config.js is set to
+#   target: static
+#   ssr: false
+# generate static project
+$ npm run generate
+$ npm run start
+```
+
+7. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
 ```bash
 # build for production and launch server
+# make sure config in nuxt.config.js is set to
+#   target: server
+#   ssr: true
 $ npm run build
 $ npm run start
 ```
 
-7. (Optional) To have a static website that can be hosted on S3 or github pages, you need to generate them
-```bash
-# generate static project
-$ npm run generate
-```
