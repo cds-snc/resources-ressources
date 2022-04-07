@@ -7,6 +7,20 @@ Créer, conserver et maintenir un espace centralisé pour partager les apprentis
 # Overview
 This app is built using [NuxtJS](https://nuxtjs.org/). Data is pulled in from [Contentful](https://www.contentful.com/).
 
+## I18N / Bilingual support.
+This app is set up to support both of Canada's official languages, English (Canada) and French (Canada). It uses [nuxt/i18n](https://i18n.nuxtjs.org/) to manage app languages.
+The text used in the website is pulled from the json files inside the `locales` directory. To add text, simply add a variable to both json files and access it using {{ $t('your_variable_name') }} within the app.
+
+## Layouts
+A few common, reusable components have been created, which can be found under the `app/components` folder. To easily create pages, we have a few different layouts depending on what page the user is looking at. These layouts uses the components and can be found under the `app/layouts` folder.
+
+## CSS
+This app uses [TailwindCSS](https://tailwindcss.com/) for its CSS framework. On dev mode, you can easily access colors and helpers by visiting [http://localhost:3000/_tailwind/](http://localhost:3000/_tailwind/)
+
+## Storybook
+Storybook is integrated in this app to make UI components easier to manage and to be explored. 
+To run storybook locally, simply type `npm run storybook` which makes it available at [http://localhost:3003/](http://localhost:3003/)
+
 # Local Development
 
 **Prerequisites**
@@ -40,15 +54,23 @@ $ npm run dev
 ```
 5. Go to a browser and visit [http://localhost:3000](http://localhost:3000)
 
-6. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
+6. (Optional) Generate a static website and serve the static files
+```bash
+# make sure config in nuxt.config.js is set to
+#   target: static
+#   ssr: false
+# generate static project
+$ npm run generate
+$ npm run start
+```
+
+7. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
 ```bash
 # build for production and launch server
+# make sure config in nuxt.config.js is set to
+#   target: server
+#   ssr: true
 $ npm run build
 $ npm run start
 ```
 
-7. (Optional) To have a static website that can be hosted on S3 or github pages, you need to generate them
-```bash
-# generate static project
-$ npm run generate
-```
