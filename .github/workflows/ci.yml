@@ -52,7 +52,7 @@ jobs:
         working-directory: ${{ matrix.folder }}
         run: npm run test
 
-  scan:
+  a11y-scan:
     needs: ci
     name: Run scan websites (a11y)
     uses: cds-snc/scan-websites/.github/workflows/start_scan.yml@main

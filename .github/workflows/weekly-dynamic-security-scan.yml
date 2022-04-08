@@ -5,7 +5,7 @@ on:
   - cron: "0 12 * * 0"
 
 jobs:
-  scan:
+  security-scan:
     name: Run scan websites (security)
     uses: cds-snc/scan-websites/.github/workflows/start_scan.yml@main
     with:
