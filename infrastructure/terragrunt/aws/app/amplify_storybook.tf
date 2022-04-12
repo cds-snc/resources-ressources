@@ -13,6 +13,7 @@ resource "aws_amplify_app" "learning_resources_storybook" {
         preBuild:
           commands:
             - cd app
+            - cp .contentful.json.sample .contentful.json
             - npm install
         build:
           commands:
