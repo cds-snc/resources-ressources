@@ -36,6 +36,8 @@ module.exports = {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // https://www.npmjs.com/package/@nuxtjs/fontawesome
+    '@nuxtjs/fontawesome',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -73,6 +75,12 @@ module.exports = {
       config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
     CTF_PERSON_ID: config.CTF_PERSON_ID,
     CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
+  },
+  fontawesome: {
+    icons: {
+      solid: true,
+      regular: true
+    },
   },
   // dev: process.env.NODE_ENV !== 'production'
   dev: false,
