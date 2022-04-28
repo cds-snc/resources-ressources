@@ -1,6 +1,6 @@
 <template>
   <button type="submit" :class="`flex align-middle bg-${bgColor} text-${color}`">
-    <slot/> <font-awesome-icon icon="arrow-right"/> [<Arrow/>]
+    <slot/> <font-awesome-icon :class="`text-${arrowColor}`" icon="arrow-right"/>
   </button>
 </template>
 
@@ -9,25 +9,24 @@
 export default {
   name: 'Button',
   props: {
-    item: {
-      type: Object,
-      required: false,
-      default: () => {},
-    },
     bgColor: {
       type: String,
-      required: true,
+      required: false,
       default: 'black',
     },
     color: {
       type: String,
-      required: true,
+      required: false,
       default: 'white',
     },
+    arrowColor: {
+      type: String,
+      required: false,
+      default: 'yellow-400',
+    }
   },
   data() {
       return {
-          elClass: `bg-white flex align-middle bg-${this.color}`
       }
   }
 }
