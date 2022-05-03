@@ -79,7 +79,7 @@ module.exports = {
   fontawesome: {
     icons: {
       solid: true,
-      regular: true
+      regular: true,
     },
   },
   // dev: process.env.NODE_ENV !== 'production'

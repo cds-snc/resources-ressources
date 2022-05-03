@@ -5,7 +5,7 @@
         <Box :item="category" content-type="category" />
       </li>
     </ul>
-    </div>
+  </div>
 </template>
 
 <script>
