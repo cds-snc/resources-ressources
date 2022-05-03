@@ -1,5 +1,4 @@
 
-// import { Button }  from '../Button.vue'
 export default {
     title: 'Button',
     argTypes: {
@@ -23,13 +22,23 @@ export default {
 
   }
 
+
 export const DefaultButton = (args, { argTypes }) => ({
     template: `<Button bgColor="${args.bgColor}" color="${args.color}" arrowColor="${args.arrowColor}">${args.buttonText}</Button>`
 })
 
-export const ButtonLight = () =>
-'<div class="bg-black"><Button bgColor="white">Light Button</Button></div>'
-// const Template = (args) => ({
-// // 👈 Your template goes here
-// });
+export const ButtonWhite = (args, { argTypes })=>
+`<div class="bg-black p-5"><Button bgColor="${args.bgColor}" color="${args.color}" arrowColor="${args.arrowColor}">${args.buttonText}</Button></div>`
+
+ButtonWhite.args = {
+    buttonText: "White Button",
+    bgColor: "white"
+}
+
+export const ButtonYellow= (args, { argTypes }) =>
+`<div class="bg-black p-5"><Button bgColor="${args.bgColor}" color="${args.color}" arrowColor="${args.arrowColor}">${args.buttonText}</Button></div>`
     
+ButtonYellow.args = {
+    buttonText: "Yellow Button",
+    bgColor: "yellow-400"
+}
