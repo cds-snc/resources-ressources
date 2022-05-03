@@ -46,11 +46,11 @@ describe('Button', () => {
     })
     const button = wrapper.find('button')
     expect(button.classes()).toContain(`bg-${defaultYellow}`)
-    expect(button.classes()).toContain('text-white')
+    expect(button.classes()).toContain('text-black')
     expect(button.find('font-awesome-icon-stub').classes()).toContain("text-black")
   })
 
-  it('shows background as white, arrow as white with black border', () => {
+  it('shows background as white, arrow as black', () => {
     wrapper = shallowMount(Button, {
       stubs: ['font-awesome-icon'],
       propsData: { bgColor: 'white'  }
@@ -58,8 +58,7 @@ describe('Button', () => {
     const button = wrapper.find('button')
     expect(button.classes()).toContain('bg-white')
     expect(button.classes()).toContain('text-black')
-    expect(button.find('font-awesome-icon-stub').classes()).toContain("text-white")
-    expect(button.find('font-awesome-icon-stub').classes()).toContain("border-black")
+    expect(button.find('font-awesome-icon-stub').classes()).toContain("text-black")
   })
 
 })

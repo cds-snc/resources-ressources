@@ -1,6 +1,6 @@
 <template>
-  <button type="submit" :class="`flex align-middle bg-${bgColor} text-${color}`">
-    <slot/> <font-awesome-icon :class="`text-${arrowColor}`" icon="arrow-right"/>
+  <button type="submit" :class="`flex items-center justify-center py-2 pl-4 pr-2 bg-${backgroundColor} text-${textColor}`">
+    <slot/> <font-awesome-icon :class="`px-2 ${arrowStyle}`" :icon="`${arrowIcon}`"/>
   </button>
 </template>
 
@@ -17,17 +17,45 @@ export default {
     color: {
       type: String,
       required: false,
-      default: 'white',
+      default: '',
     },
     arrowColor: {
       type: String,
       required: false,
-      default: 'yellow-400',
+      default: '',
     }
   },
   data() {
       return {
+        arrowIcon: 'arrow-right'      
       }
+  },
+  computed:{
+      backgroundColor(){
+        if(this.bgColor === ''){
+          return 'black'
+        }
+        return this.bgColor
+        // return 'black'
+      },
+      textColor(){
+        if(this.color && this.color !== ''){
+          return this.color
+        } else if(this.bgColor === 'white' || this.bgColor.startsWith('yellow')) {
+          return 'black'
+        } 
+        return 'white'
+      },
+
+      arrowStyle() {
+        if(this.arrowColor && this.arrowColor !== ''){
+          return `text-${this.arrowColor}`
+        } else if(this.backgroundColor === 'white'|| this.bgColor.startsWith('yellow')) {
+          return 'text-black'
+        }
+        return 'text-yellow-400'
+      }
+      
   }
 }
 </script>
