@@ -1,7 +1,7 @@
 <template>
   <button
     type="submit"
-    :class="`flex items-center justify-center py-2 pl-4 pr-2 bg-${backgroundColor} text-${textColor}`"
+    :class="`${buttonClasses}flex items-center justify-center py-2 pl-4 pr-2 bg-${backgroundColor} text-${textColor}`"
   >
     <slot />
     <font-awesome-icon :class="`px-2 ${arrowStyle}`" :icon="`${arrowIcon}`" />
@@ -34,12 +34,17 @@ export default {
     }
   },
   computed: {
+    buttonClasses() {
+      if (this.bgColor === 'white') {
+        return 'border border-black '
+      }
+      return ''
+    },
     backgroundColor() {
       if (this.bgColor === '') {
         return 'black'
       }
       return this.bgColor
-      // return 'black'
     },
     textColor() {
       if (this.color && this.color !== '') {
