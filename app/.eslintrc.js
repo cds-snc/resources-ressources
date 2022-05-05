@@ -30,6 +30,7 @@ module.exports = {
           'Banner',
           'Box',
           'Link',
+          'Button',
         ],
       },
     ],
