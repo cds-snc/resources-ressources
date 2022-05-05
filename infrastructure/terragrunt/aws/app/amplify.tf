@@ -69,6 +69,10 @@ resource "aws_amplify_branch" "main" {
 
   display_name = "beta"
 
+  enable_pull_request_preview = true
+
+  pull_request_environment_name = "PULL_REQUEST"
+
   # environment_variables = {
   # }
 }
