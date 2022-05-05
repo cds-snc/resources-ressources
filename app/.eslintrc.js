@@ -3,6 +3,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    jest: true,
   },
   extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
   plugins: [],
@@ -17,5 +18,33 @@ module.exports = {
         message: 'Unexpected property on console object was called',
       },
     ],
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: [
+          'Search',
+          'Tutorial',
+          'Header',
+          'Footer',
+          'Arrow',
+          'Banner',
+          'Box',
+          'Link',
+        ],
+      },
+    ],
   },
+  overrides: [
+    {
+      files: [
+        'pages/**/*.{js,ts,vue}',
+        'layouts/**/*.{js,ts,vue}',
+        'app.{js,ts,vue}',
+        'error.{js,ts,vue}',
+      ],
+      rules: {
+        'vue/multi-word-component-names': 'off',
+      },
+    },
+  ],
 }
