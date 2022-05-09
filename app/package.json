@@ -9,7 +9,7 @@
     "generate": "nuxt generate",
     "storybook": "nuxt storybook",
     "storybook:build": "nuxt storybook build",
-    "lint:js": "eslint --ext \".js,.vue\" --ignore-path ../.gitignore .",
+    "lint:js": "eslint --ext \".ts,.js,.vue\" --ignore-path ../.gitignore .",
     "lint:style": "stylelint \"**/*.{vue,css,html,sass}\" --ignore-path ../.gitignore",
     "lint:prettier": "prettier --check .",
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix && npm run lint:style -- --fix",
@@ -30,12 +30,14 @@
     "nuxt-start": "^2.15.8"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.17.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@nuxt/types": "^2.15.8",
+    "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config": "^10.0.0",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/storybook": "^4.3.0",
@@ -62,6 +64,7 @@
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
     "ts-jest": "^27.0.3",
+    "typescript": "^4.6.4",
     "vue-jest": "^3.0.4",
     "webpack": "^4.46.0"
   }

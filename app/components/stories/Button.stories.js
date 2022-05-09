@@ -20,11 +20,11 @@ export default {
   },
 }
 
-export const DefaultButton = (args, { argTypes }) => ({
+export const DefaultButton = (args) => ({
   template: `<Button bgColor="${args.bgColor}" color="${args.color}" arrowColor="${args.arrowColor}">${args.buttonText}</Button>`,
 })
 
-export const ButtonWhite = (args, { argTypes }) =>
+export const ButtonWhite = (args) =>
   `<div class="bg-black p-5"><Button bgColor="${args.bgColor}" color="${args.color}" arrowColor="${args.arrowColor}">${args.buttonText}</Button></div>`
 
 ButtonWhite.args = {
@@ -32,7 +32,7 @@ ButtonWhite.args = {
   bgColor: 'white',
 }
 
-export const ButtonYellow = (args, { argTypes }) =>
+export const ButtonYellow = (args) =>
   `<div class="bg-black p-5"><Button bgColor="${args.bgColor}" color="${args.color}" arrowColor="${args.arrowColor}">${args.buttonText}</Button></div>`
 
 ButtonYellow.args = {
