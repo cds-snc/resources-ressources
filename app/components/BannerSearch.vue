@@ -14,7 +14,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Search from '~/components/Search.vue'
 
 export default {

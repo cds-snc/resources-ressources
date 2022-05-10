@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Link from '~/components/Link.vue'
 
 export default {

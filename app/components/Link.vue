@@ -4,7 +4,7 @@
   </a>
   <nuxt-link v-else :to="to" :class="linkClass"><slot /></nuxt-link>
 </template>
-<script>
+<script lang="ts">
 export default {
   name: 'Link',
   props: {

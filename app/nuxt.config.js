@@ -38,6 +38,8 @@ module.exports = {
     '@nuxtjs/tailwindcss',
     // https://www.npmjs.com/package/@nuxtjs/fontawesome
     '@nuxtjs/fontawesome',
+    // https://typescript.nuxtjs.org/
+    '@nuxt/typescript-build',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -82,6 +84,11 @@ module.exports = {
       regular: true,
     },
   },
+  typescript: {
+    typeCheck: false,
+  },
+  solid: true,
+  regular: true,
   // dev: process.env.NODE_ENV !== 'production'
   dev: false,
   telemetry: false,

@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Box from '~/components/Box.vue'
 import { createClient } from '~/plugins/contentful.js'
 
