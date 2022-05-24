@@ -1,15 +1,13 @@
-<script setup>
-import '@/assets/css/tailwind.css'
-
-const version = 2 + 1
-</script>
 <template>
-  <div class="bg-black">
-    <NuxtLayout name="default">
-    {{ $t('welcome') }}
-    Hello Nuxt {{ version }}!
-
-    <NuxtPage />
-    </NuxtLayout>
+  <div>
+    <div class="bg-cyan-200 text-black font-bold p-4">
+      {{ $t('welcome') }}
+    </div>
+    <Button label="Let's go" class="px-5 my-10"></Button>
+<!--    <font-awesome-icon :icon="['fas', 'arrow-right']" />-->
+<!--    <font-awesome-icon icon="fas arrow-right" />-->
+<!--    <font-awesome-icon icon="fa-solid fa-arrow-rotate-right" />-->
+<!--    <font-awesome-icon :icon="['fas', 'fa-arrow-rotate-right']" />-->
+    <NuxtWelcome />
   </div>
 </template>

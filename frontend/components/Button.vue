@@ -1,5 +1,8 @@
 <template>
-  <button type="button" :class="classes" @click="onClick" :style="style">{{ label }}</button>
+  <button type="button" :class="classes" @click="onClick" :style="style">
+    {{ label }} hi
+    <font-awesome-icon class="h-4" :icon="['fas', 'arrow-right']" />
+  </button>
 </template>
 
 <script>

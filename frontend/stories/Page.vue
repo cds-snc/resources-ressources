@@ -2,9 +2,9 @@
   <article>
     <my-header
       :user="user"
-      @login="$emit('login')"
-      @logout="$emit('logout')"
-      @createAccount="$emit('createAccount')"
+      @login="onLogin"
+      @logout="onLogout"
+      @createAccount="onCreateAccount"
     />
 
     <section>
@@ -60,19 +60,29 @@
 
 <script>
 import './page.css';
-import MyHeader from '../components/Header.vue';
+import MyHeader from './Header.vue';
 
 export default {
   name: 'my-page',
 
   components: { MyHeader },
 
-  props: {
-    user: {
-      type: Object,
-    },
+  data() {
+    return {
+      user: null
+    }
   },
 
-  emits: ['login', 'logout', 'createAccount'],
+  methods: {
+    onLogin() {
+      this.user = { name: 'Jane Doe' };
+    },
+    onLogout() {
+      this.user = null;
+    },
+    onCreateAccount() {
+      this.user = { name: 'Jane Doe' };
+    },
+  },
 };
 </script>
