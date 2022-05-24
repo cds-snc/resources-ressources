@@ -3,7 +3,7 @@
     <Header />
     <main class="flex-grow">
       <Banner />
-      <BannerSearch />
+      <!-- <BannerSearch /> -->
       <div class="max-w-7xl mx-auto px-4">
         <Nuxt />
       </div>
