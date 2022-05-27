@@ -37,6 +37,7 @@
     "babel-loader": "^8.2.5",
     "eslint": "^8.16.0",
     "eslint-plugin-vue": "^9.0.1",
+    "husky": "^8.0.1",
     "nuxt": "3.0.0-rc.3",
     "prettier": "^2.6.2",
     "stylelint": "^14.8.5",
