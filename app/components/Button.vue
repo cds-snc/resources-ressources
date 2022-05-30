@@ -8,7 +8,7 @@
   </button>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'Button',
   props: {
@@ -40,13 +40,13 @@ export default {
       }
       return ''
     },
-    backgroundColor() {
+    backgroundColor(): String {
       if (this.bgColor === '') {
         return 'black'
       }
       return this.bgColor
     },
-    textColor() {
+    textColor(): String {
       if (this.color && this.color !== '') {
         return this.color
       } else if (
@@ -58,7 +58,7 @@ export default {
       return 'white'
     },
 
-    arrowStyle() {
+    arrowStyle(): String {
       if (this.arrowColor && this.arrowColor !== '') {
         return `text-${this.arrowColor}`
       } else if (
