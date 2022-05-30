@@ -70,7 +70,7 @@ export default {
   },
 
   // asyncData({env} : {env:any}) {
-  async asyncData({ app, context, $axios })
+  async asyncData({ app, $axios })
   {
 
     // Contentful --

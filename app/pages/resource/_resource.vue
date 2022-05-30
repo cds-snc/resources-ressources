@@ -116,13 +116,13 @@ export default
     const richTextOptions =
       {
         renderNode: {
-          [BLOCKS.HEADING_2]: (node, next) => {
+          [BLOCKS.HEADING_2]: (node) => {
 
 
 
           return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
           },
-          [BLOCKS.PARAGRAPH]: (node, next) => {
+          [BLOCKS.PARAGRAPH]: (node) => {
             return `<p class="leading-7">${node.content[0].value}</p>`
           },
           [BLOCKS.UL_LIST]: (node, next) => {
