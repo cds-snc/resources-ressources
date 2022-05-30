@@ -21,7 +21,7 @@ export default
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, $axios })
+  async asyncData({ app, params, $axios, store })
   {
     /* Query resource by ID */
     /* const graphQLQuery = `query
@@ -36,9 +36,17 @@ export default
         }
       }`; */
 
+    /* Determine current locale, alternate locale and default locale */
+
+    const currentLocale = app.i18n.locale + "-CA";
+    const alternateLocale = currentLocale.includes("en") ? "fr-CA" : "en-CA";
+    const isDefaultLocale = currentLocale.includes("en") || false;
+
+    console.log("Current locale: " + currentLocale);
+
     /* Query resource by url slug */
 
-    const resourceName = params.resource;
+    const resourceSlug = params.resource;
 
     const graphQLQuery = `query
     {
@@ -46,15 +54,16 @@ export default
       AND:
         [
           {
-            urlSlug: "${resourceName}"
+            urlSlug: "${resourceSlug}"
           }
         ]
-    })
+    }, locale: "${currentLocale}")
       {
         items
         {
           title
           description
+          urlSlug(locale: "${alternateLocale}")
           body
           {
             json
@@ -77,6 +86,28 @@ export default
 
         return result.data;
       });
+
+    const alternateLocaleResourceSlug = resource.testResourceCollection.items[0].urlSlug;
+
+    let enRouteParam = null;
+    let frRouteParam = null;
+
+    if (isDefaultLocale)
+    {
+      enRouteParam = resourceSlug;
+      frRouteParam = alternateLocaleResourceSlug;
+    }
+    else
+    {
+      enRouteParam = alternateLocaleResourceSlug;
+      frRouteParam = resourceSlug
+    }
+
+    await store.dispatch('i18n/setRouteParams', {
+      en: { resource: enRouteParam },
+      fr: { resource: frRouteParam }
+    });
+
 
     console.log(JSON.parse(JSON.stringify(resource)));
 

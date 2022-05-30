@@ -12,9 +12,9 @@
       <!-- Welcome message ------------------------------------------------------------------------------------------->
 
       <div class="py-16 flex flex-col items-center">
-        <h1 class="text-3xl md:text-5xl font-bold pb-10 text-center ">Welcome to Learning Resources</h1>
-        <p class="text-l md:text-xl pb-2 text-center">Sharing service delivery resources grounded in our work to help fellow public servants.</p>
-        <p class="text-l md:text-xl font-bold pb-5 text-center">Service delivery is hard. We can help.
+        <h1 class="text-3xl md:text-5xl font-bold pb-10 text-center ">{{ $t('landing_page.title') }}</h1>
+        <p class="text-l md:text-xl pb-2 text-center">{{ $t('landing_page.description') }}</p>
+        <p class="text-l md:text-xl font-bold pb-5 text-center">{{ $t('landing_page.slogan') }}</p>
         <div class="border-2 w-20 border-cds-yellow"></div>
       </div>
 
@@ -22,7 +22,7 @@
 
       <div class="mx-4 mb-10">
 
-        <h2 class="text-2xl font-bold pb-7">Topics</h2>
+        <h2 class="text-2xl font-bold pb-7">{{ $t('landing_page.topics_heading')}}</h2>
 
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10" >
           <li v-for="topic in topics" :key="topic.name">
@@ -30,7 +30,12 @@
             <!-- 2-DO: Create component: Topic card ------------------------------------------------------------------>
 
             <div class="border-solid border-t border-gray-200 pt-10">
-              <nuxt-link :to="localePath(`/topic/${topic.urlSlug}`)" class="flex justify-between hover:text-blue-800 font-medium text-lg">
+
+              <!-- Locale Path: Using path -->
+              <!-- <nuxt-link :to="localePath(`/topic/${topic.urlSlug}`)" class="flex justify-between hover:text-blue-800 font-medium text-lg"> -->
+
+              <!-- Locale Path: Using name of the route (i18n.nuxtjs.org/basic-usage) -->
+              <nuxt-link :to="localePath({ name: 'topic-topic', params: {topic: topic.urlSlug, name: topic.name}})" class="flex justify-between hover:text-blue-800 font-medium text-lg">
                 {{topic.name}}
                 <font-awesome-icon icon="arrow-right"></font-awesome-icon>
               </nuxt-link>
@@ -65,7 +70,7 @@ export default {
   },
 
   // asyncData({env} : {env:any}) {
-  async asyncData({ app, $axios })
+  async asyncData({ app, context, $axios })
   {
 
     // Contentful --
@@ -73,8 +78,12 @@ export default {
     const accessToken = "GUc49ra1DWc4wiEZ8vk-6o9oYzDPhg-uc-ZOxh3v2P0";
     const contentfulEndpoint = "https://graphql.contentful.com/content/v1/spaces/" + spaceID;
 
+    const locale = app.i18n.locale + "-CA";
+
+    console.log(locale);
+
     const graphQLQuery = `query{
-      topicCollection
+      topicCollection(locale: "${locale}")
       {
         items
         {

@@ -8,10 +8,18 @@
     "in_progress": "Il s'agit d'un site en cours de développement.",
     "help_improve": "Aidez-nous à l'améliorer."
   },
+  "landing_page": {
+    "title": "Bienvenue aux ressources d'apprentissage",
+    "description": "Nous partageons des ressources de prestation de services ancrées dans notre travail pour aider nos collègues fonctionnaires.",
+    "slogan": "La prestation de services est difficile. Nous pouvons vous aider.",
+    "topics_heading": "Thèmes des ressources"
+  },
+  "results": "Résultats",
   "search": "Recherche",
   "aria": {
     "search_input": "Recherche",
     "search_button": "Recherche"
   },
-  "contact_us": "Nous joindre"
+  "contact_us": "Nous joindre",
+  "last_updated": "Dernière mise à jour le"
 }
