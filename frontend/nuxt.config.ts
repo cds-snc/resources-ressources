@@ -22,13 +22,6 @@ export default defineNuxtConfig({
     differentDomains: process.env.NODE_ENV === "production"
   },
   // build: {
-  transpile: [
-    "@fortawesome/vue-fontawesome",
-    "@fortawesome/fontawesome-svg-core",
-    "@fortawesome/free-brands-svg-icons",
-    "@fortawesome/free-regular-svg-icons",
-    "@fortawesome/free-solid-svg-icons"
-  ],
   vite: {
     plugins: [eslintPlugin()]
   }
