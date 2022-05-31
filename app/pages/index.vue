@@ -73,12 +73,7 @@ export default {
     //  Box,
   },
   layout: 'expandedSearch',
-  data() {
-    return {
-      topics: {},
-    }
-  },
-
+  
   // asyncData({env} : {env:any}) {
   async asyncData({ app, $axios }) {
     // Contentful --
@@ -148,5 +143,10 @@ export default {
         console.log(err)
       }) */
   },
+  data() {
+    return {
+      topics: {},
+    }
+  }
 }
 </script>
