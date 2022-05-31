@@ -22,7 +22,9 @@
           <nuxt-link :to="localePath('/')">
             <img
               class="sm:block h-12 w-auto"
-              :src="require(`../assets/cds-lockup-light-ko-${$i18n.locale}.svg`)"
+              :src="
+                require(`../assets/cds-lockup-light-ko-${$i18n.locale}.svg`)
+              "
               alt="CDS"
             />
           </nuxt-link>
@@ -36,7 +38,7 @@
               :key="locale.code"
               theme="light"
               :to="switchLocalePath(locale.code)"
-              >{{ locale.name }} {{locale.code}}</Link
+              >{{ locale.name }} {{ locale.code }}</Link
             >
           </div>
         </div>

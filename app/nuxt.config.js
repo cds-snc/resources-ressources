@@ -56,22 +56,18 @@ module.exports = {
 
   // I18n: https://i18n.nuxtjs.org/
   // i18n Module Configuration
-  i18n:
-  {
+  i18n: {
     parsePages: false,
-    pages:
-    {
-      'topic/_topic':
-      {
+    pages: {
+      'topic/_topic': {
         en: '/topic/:topic',
-        fr: '/themes/:topic'
+        fr: '/themes/:topic',
       },
-      'resource/_resource':
-      {
+      'resource/_resource': {
         en: '/resource/:resource',
-        fr: '/ressource/:resource'
-      }
-    }
+        fr: '/ressource/:resource',
+      },
+    },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

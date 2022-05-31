@@ -6,7 +6,9 @@
         <!-- <div class="bg-cds-blue text-white p-2 pl-4 pr-4 uppercase">
           {{ $t('proof_of_concept.title') }}
         </div> -->
-        <div class="pl-2 uppercase border-l-4 border-cds-blue text-cds-blue font-bold">
+        <div
+          class="pl-2 uppercase border-l-4 border-cds-blue text-cds-blue font-bold"
+        >
           {{ $t('proof_of_concept.title') }}
         </div>
         <p class="p-2 text-gray-700">
