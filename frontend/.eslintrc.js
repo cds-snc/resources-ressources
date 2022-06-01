@@ -8,7 +8,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:vue/essential",
     "plugin:@typescript-eslint/recommended",
-    "@nuxtjs/eslint-config-typescript"
+    "@nuxtjs/eslint-config-typescript",
+    "plugin:storybook/recommended"
   ],
   parserOptions: {
     ecmaVersion: "latest",
@@ -23,7 +24,11 @@ module.exports = {
     "no-multi-spaces": ["error"],
     "no-unused-vars": [
       "error",
-      { vars: "all", args: "after-used", ignoreRestSiblings: false }
+      {
+        vars: "all",
+        args: "after-used",
+        ignoreRestSiblings: false
+      }
     ]
   }
 };

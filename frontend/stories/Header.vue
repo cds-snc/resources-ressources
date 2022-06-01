@@ -56,7 +56,7 @@
 
 <script>
 import "./header.css";
-import MyButton from "../components/Button.vue";
+import MyButton from "./Button.vue";
 
 export default {
   name: "MyHeader",

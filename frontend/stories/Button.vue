@@ -1,12 +1,11 @@
 <template>
   <button type="button" :class="classes" :style="style" @click="onClick">
-    {{ label }} hi
-    <font-awesome-icon class="h-4" :icon="['fas', 'arrow-right']" />
+    {{ label }}
   </button>
 </template>
 
 <script>
-import "../stories/button.css";
+import "./button.css";
 import { reactive, computed } from "vue";
 
 export default {

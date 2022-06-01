@@ -1,10 +1,10 @@
 import { defineNuxtConfig } from "nuxt";
 import eslintPlugin from "vite-plugin-eslint";
+import Icons from "unplugin-icons/vite";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   buildModules: ["@intlify/nuxt3", "@nuxtjs/tailwindcss"],
-  localeDir: "locales",
   vueI18n: {
     legacy: false,
     fallbackLocale: "en",
@@ -21,9 +21,7 @@ export default defineNuxtConfig({
     ],
     differentDomains: process.env.NODE_ENV === "production"
   },
-  // build: {
   vite: {
-    plugins: [eslintPlugin()]
+    plugins: [eslintPlugin(), Icons({})]
   }
-  // }
 });

@@ -40,3 +40,20 @@ npm run preview
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+
+Install storybook:
+
+```
+npx sb init --type vue3 --builder @storybook/builder-vite
+```
+
+Checkout more info: https://github.com/nuxt-community/storybook/pull/385
+https://github.com/nuxt-community/storybook/issues/330
+
+Install Iconify
+
+Install Jest
+
+Install i18n
+
+Install tailwind
