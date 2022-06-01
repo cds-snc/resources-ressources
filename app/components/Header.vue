@@ -2,7 +2,7 @@
   <!-- This example requires Tailwind CSS v2.0+ -->
   <header>
     <!-- GoC Banner -->
-    <div class="bg-black">
+    <!-- <div class="bg-black">
       <div class="max-w-7xl mx-auto px-4">
         <div class="relative flex items-center justify-between h-16">
           <img
@@ -12,15 +12,19 @@
           />
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- CDS Banner-->
-    <nav class="bg-black border-cds-yellow border-t-2 text-white">
+
+    <!-- <nav class="bg-white border-cds-yellow border-t-2 text-black"> -->
+    <nav class="bg-white text-black">
       <div class="max-w-7xl mx-auto px-4">
         <div class="relative flex items-center justify-between h-16">
           <nuxt-link :to="localePath('/')">
             <img
               class="sm:block h-12 w-auto"
-              :src="require(`../assets/cds-lockup-ko-${$i18n.locale}.svg`)"
+              :src="
+                require(`../assets/cds-lockup-light-ko-${$i18n.locale}.svg`)
+              "
               alt="CDS"
             />
           </nuxt-link>
@@ -32,9 +36,9 @@
             <Link
               v-for="locale in availableLocales"
               :key="locale.code"
-              theme="dark"
+              theme="light"
               :to="switchLocalePath(locale.code)"
-              >{{ locale.name }}</Link
+              >{{ locale.name }} {{ locale.code }}</Link
             >
           </div>
         </div>
