@@ -17,7 +17,7 @@ resource "aws_amplify_app" "learning_resources_storybook" {
             - npm install
         build:
           commands:
-            - npm run storybook:build
+            - npm run build-storybook
       artifacts:
         baseDirectory: frontend/storybook-static
         files:
@@ -40,7 +40,7 @@ resource "aws_amplify_branch" "main_storybook" {
   app_id      = aws_amplify_app.learning_resources_storybook.id
   branch_name = "main"
 
-  stage     = "PRODUCTION"
+  stage = "PRODUCTION"
 
   display_name = "storybook"
 
