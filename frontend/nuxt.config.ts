@@ -12,16 +12,16 @@ export default defineNuxtConfig({
     locales: [
       {
         code: "en",
-        domain: "en.learning-resources.cdssandbox.xyz/"
+        domain: "en.learning-resources.cdssandbox.xyz/",
       },
       {
         code: "fr",
-        domain: "fr.learning-resources.cdssandbox.xyz/"
-      }
+        domain: "fr.learning-resources.cdssandbox.xyz/",
+      },
     ],
-    differentDomains: process.env.NODE_ENV === "production"
+    differentDomains: process.env.NODE_ENV === "production",
   },
   vite: {
-    plugins: [eslintPlugin(), Icons({})]
-  }
+    plugins: [eslintPlugin(), Icons({})],
+  },
 });

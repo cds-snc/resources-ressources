@@ -2,21 +2,22 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     "eslint:recommended",
     "plugin:vue/essential",
     "plugin:@typescript-eslint/recommended",
     "@nuxtjs/eslint-config-typescript",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier",
   ],
   parserOptions: {
     ecmaVersion: "latest",
     parser: "@typescript-eslint/parser",
-    sourceType: "module"
+    sourceType: "module",
   },
-  plugins: ["vue", "@typescript-eslint"],
+  plugins: ["vue", "@typescript-eslint", "prettier"],
   rules: {
     quotes: ["error", "double"],
     semi: ["error", "always"],
@@ -27,8 +28,8 @@ module.exports = {
       {
         vars: "all",
         args: "after-used",
-        ignoreRestSiblings: false
-      }
-    ]
-  }
+        ignoreRestSiblings: false,
+      },
+    ],
+  },
 };

@@ -41,13 +41,15 @@
           href="https://storybook.js.org/tutorials/"
           target="_blank"
           rel="noopener noreferrer"
-        >Storybook tutorials</a>
+          >Storybook tutorials</a
+        >
         . Read more in the
         <a
           href="https://storybook.js.org/docs"
           target="_blank"
           rel="noopener noreferrer"
-        >docs</a>
+          >docs</a
+        >
         .
       </p>
       <div class="tip-wrapper">
@@ -74,30 +76,30 @@
 </template>
 
 <script>
-import "./page.css";
-import MyHeader from "./Header.vue";
+import "./page.css"
+import MyHeader from "./Header.vue"
 
 export default {
   name: "MyPage",
 
   components: { MyHeader },
 
-  data () {
+  data() {
     return {
-      user: null
-    };
+      user: null,
+    }
   },
 
   methods: {
-    onLogin () {
-      this.user = { name: "Jane Doe" };
+    onLogin() {
+      this.user = { name: "Jane Doe" }
     },
-    onLogout () {
-      this.user = null;
+    onLogout() {
+      this.user = null
     },
-    onCreateAccount () {
-      this.user = { name: "Jane Doe" };
-    }
-  }
-};
+    onCreateAccount() {
+      this.user = { name: "Jane Doe" }
+    },
+  },
+}
 </script>
