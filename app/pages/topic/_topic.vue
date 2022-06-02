@@ -146,7 +146,7 @@ export default {
 
     $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`
+    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     const result = await $axios
       .$post(endpoint, { query: graphQLQuery })
