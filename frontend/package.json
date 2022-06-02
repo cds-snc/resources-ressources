@@ -50,6 +50,7 @@
     "vue-loader": "^16.8.3"
   },
   "dependencies": {
-    "@intlify/nuxt3": "^0.1.10"
+    "@intlify/nuxt3": "^0.1.10",
+    "nuxt3": "^3.0.0-rc.3-27567768.c1f728e"
   }
 }
