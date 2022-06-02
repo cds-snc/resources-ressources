@@ -19,6 +19,7 @@
     "@babel/core": "^7.18.2",
     "@iconify-json/carbon": "^1.1.5",
     "@nuxt/test-utils-edge": "^3.0.0-rc.3-27567768.c1f728e",
+    "@nuxt/vite-builder": "^3.0.0-rc.3",
     "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@nuxtjs/tailwindcss": "^5.1.2",
     "@storybook/addon-actions": "^6.5.6",
