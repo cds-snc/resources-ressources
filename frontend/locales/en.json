@@ -9,9 +9,17 @@
     "help_improve": "Help us improve"
   },
   "search": "Search",
+  "landing_page": {
+    "title": "Welcome to Learning Resources",
+    "description": "Sharing service delivery resources grounded in our work to help fellow public servants.",
+    "slogan": "Service delivery is hard. We can help.",
+    "topics_heading": "Resource topics"
+  },
+  "results": "results",
   "aria": {
     "search_input": "Search text",
     "search_button": "Search"
   },
-  "contact_us": "Contact Us"
+  "contact_us": "Contact Us",
+  "last_updated": "Last updated"
 }
