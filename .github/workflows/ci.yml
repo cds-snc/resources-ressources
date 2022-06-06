@@ -7,7 +7,7 @@ on:
       - master
   pull_request:
     paths:
-      - frontend/*
+      - app/*
     branches:
       - main
       - master
@@ -20,7 +20,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [16]
-        folder: ["frontend"]
+        folder: ["app"]
 
     steps:
       - name: Checkout 🛎
