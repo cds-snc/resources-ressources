@@ -38,6 +38,7 @@
               :key="locale.code"
               theme="light"
               :to="switchLocalePath(locale.code)"
+              external
               >{{ locale.name }} {{ locale.code }}</Link
             >
           </div>
