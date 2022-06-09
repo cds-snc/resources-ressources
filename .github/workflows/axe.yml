@@ -1,4 +1,4 @@
-name: Accessibility check (ax)
+name: Accessibility check (axe)
 
 on:
   push:
