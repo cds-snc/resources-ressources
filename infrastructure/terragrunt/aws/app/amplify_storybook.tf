@@ -12,14 +12,14 @@ resource "aws_amplify_app" "learning_resources_storybook" {
       phases:
         preBuild:
           commands:
-            - cd frontend 
+            - cd app
             - cp .contentful.json.sample .contentful.json
             - npm install
         build:
           commands:
-            - npm run build-storybook
+            - npm run storybook:build
       artifacts:
-        baseDirectory: frontend/storybook-static
+        baseDirectory: app/storybook-static
         files:
           - '**/*'
       cache:

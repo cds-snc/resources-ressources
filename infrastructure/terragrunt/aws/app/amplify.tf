@@ -12,14 +12,14 @@ resource "aws_amplify_app" "learning_resources" {
       phases:
         preBuild:
           commands:
-            - cd frontend 
+            - cd app
             - cp .contentful.json.sample .contentful.json
             - npm install
         build:
           commands:
             - npm run generate
       artifacts:
-        baseDirectory: frontend/.output/public
+        baseDirectory: app/dist
         files:
           - '**/*'
       cache:
