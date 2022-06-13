@@ -12,8 +12,8 @@
 <!-- Script ========================================================================================================-->
 
 <script>
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { BLOCKS } from '@contentful/rich-text-types'
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
@@ -34,15 +34,15 @@ export default {
 
     /* Determine current locale, alternate locale and default locale */
 
-    const currentLocale = app.i18n.locale + '-CA'
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const currentLocale = app.i18n.locale + "-CA";
+    const alternateLocale = currentLocale.includes("en") ? "fr-CA" : "en-CA";
+    const isDefaultLocale = currentLocale.includes("en") || false;
 
-    console.log('Current locale: ' + currentLocale)
+    console.log("Current locale: " + currentLocale);
 
     /* Query resource by url slug */
 
-    const resourceSlug = params.resource
+    const resourceSlug = params.resource;
 
     const graphQLQuery = `query
     {
@@ -66,11 +66,11 @@ export default {
           }
         }
       }
-    }`
+    }`;
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, "Bearer");
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`
+    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`;
 
     const resource = await $axios
       .$post(endpoint, { query: graphQLQuery })
@@ -79,57 +79,57 @@ export default {
 
         // console.log(richText);
 
-        return result.data
-      })
+        return result.data;
+      });
 
     const alternateLocaleResourceSlug =
-      resource.testResourceCollection.items[0].urlSlug
+      resource.testResourceCollection.items[0].urlSlug;
 
-    let enRouteParam = null
-    let frRouteParam = null
+    let enRouteParam = null;
+    let frRouteParam = null;
 
     if (isDefaultLocale) {
-      enRouteParam = resourceSlug
-      frRouteParam = alternateLocaleResourceSlug
+      enRouteParam = resourceSlug;
+      frRouteParam = alternateLocaleResourceSlug;
     } else {
-      enRouteParam = alternateLocaleResourceSlug
-      frRouteParam = resourceSlug
+      enRouteParam = alternateLocaleResourceSlug;
+      frRouteParam = resourceSlug;
     }
 
-    await store.dispatch('i18n/setRouteParams', {
+    await store.dispatch("i18n/setRouteParams", {
       en: { resource: enRouteParam },
       fr: { resource: frRouteParam },
-    })
+    });
 
-    console.log(JSON.parse(JSON.stringify(resource)))
+    console.log(JSON.parse(JSON.stringify(resource)));
 
     // const content = resource.body.json;
 
     const richTextOptions = {
       renderNode: {
         [BLOCKS.HEADING_2]: (node) => {
-          return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
+          return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`;
         },
         [BLOCKS.PARAGRAPH]: (node) => {
-          return `<p class="leading-7">${node.content[0].value}</p>`
+          return `<p class="leading-7">${node.content[0].value}</p>`;
         },
         [BLOCKS.UL_LIST]: (node, next) => {
-          console.log(JSON.parse(JSON.stringify(node)))
+          console.log(JSON.parse(JSON.stringify(node)));
           return `<ul class="list-disc ml-4">
                         ${next(node.content)}
-                    </ul>`
+                    </ul>`;
         },
       },
-    }
+    };
 
     const richText = documentToHtmlString(
       resource.testResourceCollection.items[0].body.json,
       richTextOptions
-    )
+    );
 
-    console.log(richText)
+    console.log(richText);
 
-    return { resource, richText }
+    return { resource, richText };
   },
-}
+};
 </script>

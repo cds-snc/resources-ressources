@@ -34,7 +34,7 @@
 
     <!-- Resources --------------------------------------------------------------------------------------------------->
 
-    <h2 class="text-2xl font-bold">{{ $t('results') }}</h2>
+    <h2 class="text-2xl font-bold">{{ $t("results") }}</h2>
 
     <ul class="mt-5">
       <!-- Resource card --------------------------------------------------------------------------------------------->
@@ -56,7 +56,7 @@
           </nuxt-link>
 
           <div class="font-light mt-1.5 text-gray-800">
-            {{ $t('last_updated') }} {{ resource.dateAdded | formatDate }}
+            {{ $t("last_updated") }} {{ resource.dateAdded | formatDate }}
           </div>
         </div>
       </li>
@@ -65,23 +65,23 @@
 </template>
 
 <script>
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 export default {
   // Filters ----------------------------------------------------------------------------------------------------------
 
   filters: {
     formatDate: function (dateString) {
-      if (!dateString) return null
+      if (!dateString) return null;
 
-      return dayjs(dateString).format('DD-MM-YYYY')
+      return dayjs(dateString).format("DD-MM-YYYY");
     },
   },
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ app, params, $axios, store }) {
-    console.log(params)
+    console.log(params);
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action
@@ -91,17 +91,17 @@ export default {
      * not work.
      * */
 
-    const currentLocale = app.i18n.locale + '-CA'
+    const currentLocale = app.i18n.locale + "-CA";
 
-    const otherLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    const otherLocale = currentLocale.includes("en") ? "fr-CA" : "en-CA";
 
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const isDefaultLocale = currentLocale.includes("en") || false;
 
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
-    const topic = params.topic
+    const topic = params.topic;
 
-    console.log(params)
+    console.log(params);
 
     /* Dynamic route parameter translations */
 
@@ -140,63 +140,63 @@ export default {
           }
         }
       }
-    }`
+    }`;
 
     /* END OF: GraphQL Query *************************************************/
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, "Bearer");
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
+    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`;
 
     const result = await $axios
       .$post(endpoint, { query: graphQLQuery })
       .then((res) => {
-        return res
+        return res;
         // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
-      })
+      });
 
-    console.log(result)
+    console.log(result);
 
-    const otherTopicParam = result.data.topicCollection.items[0].urlSlug
+    const otherTopicParam = result.data.topicCollection.items[0].urlSlug;
 
-    console.log(otherTopicParam)
+    console.log(otherTopicParam);
 
-    let enRouteParam = null
-    let frRouteParam = null
+    let enRouteParam = null;
+    let frRouteParam = null;
 
     if (isDefaultLocale) {
-      enRouteParam = topic
-      frRouteParam = otherTopicParam
+      enRouteParam = topic;
+      frRouteParam = otherTopicParam;
     } else {
-      enRouteParam = otherTopicParam
-      frRouteParam = topic
+      enRouteParam = otherTopicParam;
+      frRouteParam = topic;
     }
 
-    await store.dispatch('i18n/setRouteParams', {
+    await store.dispatch("i18n/setRouteParams", {
       en: { topic: enRouteParam },
       fr: { topic: frRouteParam },
-    })
+    });
 
     const resources =
       result.data.topicCollection.items[0].linkedFrom.testResourceCollection
-        .items
-    const description = result.data.topicCollection.items[0].topicDescription
-    const keywords = result.data.topicCollection.items[0].topicKeywords
-    const topicTitle = result.data.topicCollection.items[0].name
+        .items;
+    const description = result.data.topicCollection.items[0].topicDescription;
+    const keywords = result.data.topicCollection.items[0].topicKeywords;
+    const topicTitle = result.data.topicCollection.items[0].name;
 
-    console.log(resources)
-    console.log(keywords)
+    console.log(resources);
+    console.log(keywords);
 
-    return { resources, topic, keywords, description, topicTitle }
+    return { resources, topic, keywords, description, topicTitle };
   },
 
   // Data -------------------------------------------------------------------------------------------------------------
 
   data() {
     return {
-      hello: 'hello',
-      title: '',
-    }
+      hello: "hello",
+      title: "",
+    };
   },
-}
+};
 </script>
