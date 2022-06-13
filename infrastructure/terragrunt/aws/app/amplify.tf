@@ -25,18 +25,6 @@ resource "aws_amplify_app" "learning_resources" {
       cache:
         paths:
           - node_modules/**/*
-    test:
-      phases:
-        preTest:
-          commands:
-            - cd app
-            - cp .contentful.json.sample .contentful.json
-            - npm ci
-            - npm install -g @axe-core/cli
-            - npm run start
-        test:
-          commands:
-            - axe http://localhost:3000 --exit
   EOT
 
   # The default rewrites and redirects added by the Amplify Console.
