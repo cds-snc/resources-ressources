@@ -45,8 +45,11 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: Run build
-        working-directory: ${{ matrix.folder }}
-        run: npm run build --if-present
+        env:
+          contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
+        run: |
+          cp .contentful.json .contentful
+          npm run build --if-present
 
       - name: Start and wait ⏳
         working-directory: ${{ matrix.folder }}
