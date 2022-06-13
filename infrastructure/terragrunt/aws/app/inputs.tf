@@ -3,6 +3,11 @@ variable "contentful_cda_access_token" {
   sensitive = true
 }
 
+variable "gh_access_token" {
+  type      = string
+  sensitive = true
+}
+
 variable "domain_name" {
   type = string
 }

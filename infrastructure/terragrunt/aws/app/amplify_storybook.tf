@@ -3,8 +3,8 @@ resource "aws_amplify_app" "learning_resources_storybook" {
   repository = "https://github.com/cds-snc/resources-ressources"
 
   # Github personal access token
-  # -- needed when setting up amplify for the first time
-  # access_token = ""
+  # -- needed when setting up amplify or making changes
+  access_token = var.gh_access_token
 
   build_spec = <<-EOT
     version: 1

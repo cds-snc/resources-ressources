@@ -3,8 +3,8 @@ resource "aws_amplify_app" "learning_resources" {
   repository = "https://github.com/cds-snc/resources-ressources"
 
   # Github personal access token
-  # -- needed when setting up amplify for the first time
-  # access_token = ""
+  # -- needed when setting up amplify or making changes
+  access_token = var.gh_access_token
 
   build_spec = <<-EOT
     version: 1
@@ -36,6 +36,8 @@ resource "aws_amplify_app" "learning_resources" {
 
   environment_variables = {
     ENV                         = "staging"
+    DOMAIN_EN                   = "en.learning-resources.cdssandbox.xyz"
+    DOMAIN_FR                   = "fr.learning-resources.cdssandbox.xyz"
     contentful_cda_access_token = var.contentful_cda_access_token
   }
 
@@ -86,6 +88,16 @@ resource "aws_amplify_domain_association" "learning_resources" {
   sub_domain {
     branch_name = aws_amplify_branch.main.branch_name
     prefix      = ""
+  }
+
+  sub_domain {
+    branch_name = aws_amplify_branch.main.branch_name
+    prefix      = "en"
+  }
+
+  sub_domain {
+    branch_name = aws_amplify_branch.main.branch_name
+    prefix      = "fr"
   }
 
   sub_domain {
