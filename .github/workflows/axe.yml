@@ -48,7 +48,7 @@ jobs:
         env:
           contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
         run: |
-          cp .contentful.json .contentful
+          cp .contentful.json.sample .contentful.json
           npm run build --if-present
 
       - name: Start and wait ⏳
