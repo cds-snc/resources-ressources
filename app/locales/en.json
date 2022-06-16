@@ -11,15 +11,22 @@
   "search": "Search",
   "landing_page": {
     "title": "Welcome to Learning Resources",
-    "description": "Sharing service delivery resources grounded in our work to help fellow public servants.",
+    "description": "Learning Resources shares resources grounded in our work at the Canadian Digital Service to help fellow public servants improve service delivery.",
     "slogan": "Service delivery is hard. We can help.",
-    "topics_heading": "Resource topics"
+    "topics_heading": "Topics"
   },
-  "results": "results",
+  "results": "Resources",
   "aria": {
     "search_input": "Search text",
     "search_button": "Search"
   },
   "contact_us": "Contact Us",
-  "last_updated": "Last updated"
+  "contact":
+  {
+    "heading": "Contact us",
+    "info-1": "We’d love to learn from your experiences, and see how we can help.",
+    "info-2": "To inquire about partnering with us to get coaching and advice, you can email us at:"
+  },
+  "last_updated": "Last updated",
+  "terms": "Terms and conditions"
 }

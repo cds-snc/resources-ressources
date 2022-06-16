@@ -67,6 +67,10 @@ module.exports = {
         en: '/resource/:resource',
         fr: '/ressource/:resource',
       },
+      'legal/_legal':{
+        en: '/legal/:legal',
+        fr: '/transparence/:legal'
+      }
     },
   },
 

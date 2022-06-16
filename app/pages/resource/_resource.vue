@@ -1,15 +1,45 @@
+<!-- Page View =====================================================================================================-->
+
 <template>
-  <div class="flex justify-center mb-10">
-    <div class="max-w-4xl">
-      <h1 class="text-4xl font-bold text-center m-20">
-        {{ resource.testResourceCollection.items[0].title }}
-      </h1>
-      <div v-html="richText"></div>
+  <div>
+    <breadcrumbs :breadcrumbs=breadcrumbs :current-page-title=resource.testResourceCollection.items[0].title>
+    </breadcrumbs>
+
+    <div class="flex justify-center mb-10">
+      <div class="max-w-4xl">
+        <h1 class="text-4xl font-bold text-center m-20">
+          {{ resource.testResourceCollection.items[0].title }}
+        </h1>
+
+        <div v-html="richText"></div>
+
+        <!-- Related Resources --------------------------------------------------------------------------------------->
+
+        <div>
+
+          <div class="border-t border-gray-300 border-thin my-14"></div>
+
+          <h2 class="p-5 font-thin text-4xl">
+            Explore related resources
+          </h2>
+
+          <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
+            <!-- Resource card --------------------------------------------------------------------------------------------->
+
+            <li v-for="resource in relatedResources" :key="resource.title">
+              <ResourceListItem :resource=resource>
+              </ResourceListItem>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
 
-<!-- Script ========================================================================================================-->
+<!-- Page Logic ====================================================================================================-->
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
@@ -53,13 +83,30 @@ export default {
             urlSlug: "${resourceSlug}"
           }
         ]
-    }, locale: "${currentLocale}")
+    }, locale: "${currentLocale}", limit: 1)
       {
         items
         {
           title
           description
           urlSlug(locale: "${alternateLocale}")
+          breadcrumbsCollection
+          {
+            items
+            {
+              name
+              urlSlug
+            }
+          }
+          relatedResourcesCollection
+          {
+            items
+            {
+              title
+              dateAdded
+              urlSlug
+            }
+          }
           body
           {
             json
@@ -81,6 +128,11 @@ export default {
 
         return result.data
       })
+
+    const breadcrumbs = resource.testResourceCollection.items[0].breadcrumbsCollection.items;
+    const relatedResources = resource.testResourceCollection.items[0].relatedResourcesCollection.items;
+
+    console.log(relatedResources)
 
     const alternateLocaleResourceSlug =
       resource.testResourceCollection.items[0].urlSlug
@@ -127,9 +179,11 @@ export default {
       richTextOptions
     )
 
+    console.log("Breadcrumbs:" + breadcrumbs);
+
     console.log(richText)
 
-    return { resource, richText }
+    return { resource, richText, breadcrumbs, relatedResources }
   },
 }
 </script>

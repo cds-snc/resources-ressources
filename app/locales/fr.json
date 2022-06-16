@@ -21,5 +21,11 @@
     "search_button": "Recherche"
   },
   "contact_us": "Nous joindre",
+  "contact":
+  {
+    "heading": "Nous joindre",
+    "info-1": "Nous serions ravis d’apprendre de vos expériences, afin de voir comment nous pouvons vous aider.",
+    "info-2": "Pour en savoir plus sur les possibilités de partenariat pour obtenir de l’encadrement et des conseils, veuillez communiquer avec nous par courriel :"
+  },
   "last_updated": "Dernière mise à jour le"
 }
