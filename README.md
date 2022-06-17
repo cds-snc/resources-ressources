@@ -46,10 +46,13 @@ To run storybook locally, simply type `npm run storybook` which makes it availab
 }
 ```
 
-3. On a terminal, install the  node packages and dependencies
+3. On a terminal, install the  node packages and dependencies. You may need to include `--legacy-peer-deps`
 ```bash
 # install dependencies
 $ npm install
+
+# - or -
+$ npm install --legacy-peer-deps
 ```
 4. Run the development server
 ```bash
