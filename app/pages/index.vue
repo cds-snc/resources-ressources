@@ -1,7 +1,7 @@
 <!-- Template ======================================================================================================-->
 
 <template>
-  <div class="mx-4 mb-10">
+  <div class="mx-4 mb-10" role="main">
     <!-- Old code:
       <ul class="flex flex-wrap gap-4 justify-start pt-4">
         <li v-for="category in categories" :key="category.id">

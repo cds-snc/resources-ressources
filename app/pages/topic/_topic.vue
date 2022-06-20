@@ -1,6 +1,6 @@
 <template>
   <!-- Container for all resources -->
-  <div>
+  <div role="main">
 
     <breadcrumbs :breadcrumbs=breadcrumbs :current-page-title=topic.name></breadcrumbs>
 
