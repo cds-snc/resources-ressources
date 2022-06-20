@@ -1,0 +1,25 @@
+{
+  "welcome": "Welcome",
+  "switch_language": "Francais",
+  "learning_resources": "Learning Resources",
+  "search_description": "We're continuously learning and adjusting our practices.\nHere are some of the ways we've approached our work.",
+  "proof_of_concept": {
+    "title": "Proof of Concept",
+    "in_progress": "This content is a work in progress.",
+    "help_improve": "Help us improve"
+  },
+  "search": "Search",
+  "landing_page": {
+    "title": "Welcome to Learning Resources",
+    "description": "Sharing service delivery resources grounded in our work to help fellow public servants.",
+    "slogan": "Service delivery is hard. We can help.",
+    "topics_heading": "Resource topics"
+  },
+  "results": "results",
+  "aria": {
+    "search_input": "Search text",
+    "search_button": "Search"
+  },
+  "contact_us": "Contact Us",
+  "last_updated": "Last updated"
+}

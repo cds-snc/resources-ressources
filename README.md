@@ -1,3 +1,7 @@
+[![Website learning-resources.cdssandbox.xyz](https://img.shields.io/website-up-down-green-red/http/learning-resources.cdssandbox.xyz.svg)](http://learning-resources.cdssandbox.xyz/)
+
+[![accessibility (axe)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml)
+[![ci](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml)
 # Learning resources / Ressources d'apprentissage
 
 Creating, curating, and maintaining a centralized space to share CDS learnings that can help build digital capacity in the Government of Canada and improve how we design and deliver services. 
@@ -42,10 +46,13 @@ To run storybook locally, simply type `npm run storybook` which makes it availab
 }
 ```
 
-3. On a terminal, install the  node packages and dependencies
+3. On a terminal, install the  node packages and dependencies. You may need to include `--legacy-peer-deps`
 ```bash
 # install dependencies
 $ npm install
+
+# - or -
+$ npm install --legacy-peer-deps
 ```
 4. Run the development server
 ```bash

@@ -1,0 +1,25 @@
+{
+  "welcome": "Bienvenue",
+  "switch_language": "English",
+  "learning_resources": "Ressources d'apprentissage",
+  "search_description": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
+  "proof_of_concept": {
+    "title": "PREUVE DE CONCEPT",
+    "in_progress": "Il s'agit d'un site en cours de développement.",
+    "help_improve": "Aidez-nous à l'améliorer."
+  },
+  "landing_page": {
+    "title": "Bienvenue aux ressources d'apprentissage",
+    "description": "Nous partageons des ressources de prestation de services ancrées dans notre travail pour aider nos collègues fonctionnaires.",
+    "slogan": "La prestation de services est difficile. Nous pouvons vous aider.",
+    "topics_heading": "Thèmes des ressources"
+  },
+  "results": "Résultats",
+  "search": "Recherche",
+  "aria": {
+    "search_input": "Recherche",
+    "search_button": "Recherche"
+  },
+  "contact_us": "Nous joindre",
+  "last_updated": "Dernière mise à jour le"
+}

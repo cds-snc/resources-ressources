@@ -1,4 +1,4 @@
-name: ci
+name: accessibility (axe)
 
 on:
   push:
@@ -13,8 +13,11 @@ on:
       - master
 
 jobs:
-  ci:
+  a11y-axe:
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.folder }}
 
     strategy:
       matrix:
@@ -41,23 +44,19 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies 👨🏻‍💻
-        working-directory: ${{ matrix.folder }}
         run: npm ci --prefer-offline --no-audit
 
-      - name: Run linter 👀
-        working-directory: ${{ matrix.folder }}
-        run: npm run lint
+      - name: Run build
+        env:
+          contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
+        run: |
+          cp .contentful.json.sample .contentful.json
+          npm run generate --if-present
 
-      - name: Run tests 🧪
-        working-directory: ${{ matrix.folder }}
-        run: npm run test
+      - name: Start and wait ⏳
+        run: npm start & npx wait-on http://localhost:3000
 
-  a11y-scan:
-    needs: ci
-    name: Run scan websites (a11y)
-    uses: cds-snc/scan-websites/.github/workflows/start_scan.yml@main
-    with:
-      dynamic: false
-    secrets:
-      scan_websites_key: ${{ secrets.SCAN_WEBSITES_KEY }}
-      scan_websites_template: ${{ secrets.SCAN_WEBSITES_TEMPLATE }}
+      - name: Run accessibility tests (axe) 🪓
+        run: |
+          npm install -g @axe-core/cli
+          axe http://localhost:3000 --exit
