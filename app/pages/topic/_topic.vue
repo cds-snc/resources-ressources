@@ -32,9 +32,9 @@
 
     <div v-if="hasSubtopics" class="mb-32 grid lg:grid-cols-3 ">
 
-      <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">Topics</h2>
+      <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">{{topic.subtopicsHeading}}</h2>
 
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
         <li v-for="subtopic in subtopics" :key="subtopic.name">
           <TopicLink :topic=subtopic>
           </TopicLink>
@@ -169,6 +169,7 @@ export default {
         {
           name
           topicDescription
+          subtopicsHeading
           urlSlug(locale: "${alternateLocale}")
           breadcrumbsCollection
           {
@@ -184,6 +185,10 @@ export default {
             {
               name
               urlSlug
+              flag
+              {
+                value
+              }
             }
           }
           resourcesCollection

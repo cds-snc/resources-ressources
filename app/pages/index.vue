@@ -57,17 +57,25 @@
 
     <!-- Featured ---------------------------------------------------------------------------------------------------->
 
-    <div class="grid lg:grid-cols-3 mb-36" >
+    <div class="grid lg:grid-cols-3 mb-5" >
 
       <!-- Heading (left side) -->
       <div class="col-span-1">
         <h2 class="text-4xl font-thin p-5">New</h2>
       </div>
 
-      <!-- Contact info (right side) -->
+      <!-- New Resource (right side) -->
 
-      <div class="col-span-2 p-5">
-        <h2 class="text-xl">[Some Resource Placeholder]</h2>
+      <div class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between">
+        <div>
+          <div class="text-gray-700 text-sm">SAMPLE</div>
+          <h2 class="text-lg font-medium">{{ newResource.title }}</h2>
+        </div>
+
+        <nuxt-link :to="localePath(`/resource/${newResource.urlSlug}`)">
+          Learn more
+          <font-awesome-icon icon="arrow-right" class="ml-2 text-yellow-500"></font-awesome-icon>
+        </nuxt-link>
       </div>
     </div>
 
@@ -131,23 +139,53 @@ export default {
         {
           name
           urlSlug
+          flag
+          {
+            value
+          }
         }
       }
     }`
 
+    const newResourceQuery = `query{
+      testResourceCollection(order: [dateAdded_DESC], limit: 1)
+        {
+          items
+          {
+            title
+            urlSlug
+            dateAdded
+          }
+        }
+      }`
+
     $axios.setToken(accessToken, 'Bearer')
     $axios.$request({})
+
+    const [topicsRes, newResourceRes] = await Promise.all([
+      $axios.$post(contentfulEndpoint, {query: graphQLQuery,}),
+      $axios.$post(contentfulEndpoint, {query: newResourceQuery,})
+
+    ])
+
     const response = await $axios.$post(contentfulEndpoint, {
       query: graphQLQuery,
     })
 
+    console.log(topicsRes);
+    console.log(newResourceRes);
+
     console.log(response)
     // const responseObj = JSON.parse(JSON.stringify(response));
-    const topics = response.data.topicCollection.items
+
+    const newResource = newResourceRes.data.testResourceCollection.items[0];
+    console.log(newResource.title);
+
+    const topics = response.data.topicCollection.items;
 
     console.log(topics)
 
-    return { topics }
+    return { topics , newResource }
     // $i18n.locale n
     // axios.get()
     // return Promise.all([

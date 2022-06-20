@@ -34,7 +34,7 @@ export default {
 
     const contentfulQuery = `query
     {
-      legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1)
+      legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
       {
         items
         {
@@ -75,8 +75,8 @@ export default {
     }
 
     await store.dispatch('i18n/setRouteParams', {
-      en: { resource: enRouteParam },
-      fr: { resource: frRouteParam },
+      en: { legal: enRouteParam },
+      fr: { legal: frRouteParam },
     })
 
 

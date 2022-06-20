@@ -4,11 +4,16 @@
     <div class="max-w-7xl mx-auto px-5">
       <div class="relative flex items-center justify-between h-16">
         <div class="flex">
-        <div class="mr-5">{{ $t('contact_us') }}</div>
+        <!-- <div class="mr-5">{{ $t('contact_us') }}</div>-->
         <nuxt-link :to="localePath({
           name: 'legal-legal',
-          params: { legal: 'terms' }
-        })">{{ $t('terms') }}</nuxt-link>
+          params: { legal: $t('terms.urlSlug') }
+        })">{{ $t('terms.title') }}</nuxt-link>
+
+          <nuxt-link :to="localePath({
+            name: 'legal-legal',
+            params: { legal: $t('privacy.urlSlug') }
+          })" class="ml-5">{{ $t('privacy.title') }}</nuxt-link>
         </div>
 
 
