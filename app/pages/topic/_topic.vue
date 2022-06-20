@@ -1,14 +1,17 @@
 <template>
   <!-- Container for all resources -->
   <div>
-
-    <breadcrumbs :breadcrumbs=breadcrumbs :current-page-title=topic.name></breadcrumbs>
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="topic.name"
+    ></breadcrumbs>
 
     <div class="flex my-32 border-l-4 border-cds-yellow pl-10">
       <div class="w-5/6 md:w-1/2">
         <h1 class="font-medium text-6xl">{{ topic.name }}</h1>
-        <p v-if="topic.topicDescription" class="pt-10 text-lg font-light">{{ topic.topicDescription }}</p>
-
+        <p v-if="topic.topicDescription" class="pt-10 text-lg font-light">
+          {{ topic.topicDescription }}
+        </p>
       </div>
     </div>
 
@@ -30,14 +33,14 @@
 
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
-    <div v-if="hasSubtopics" class="mb-32 grid lg:grid-cols-3 ">
-
-      <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">{{topic.subtopicsHeading}}</h2>
+    <div v-if="hasSubtopics" class="mb-32 grid lg:grid-cols-3">
+      <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">
+        {{ topic.subtopicsHeading }}
+      </h2>
 
       <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
         <li v-for="subtopic in subtopics" :key="subtopic.name">
-          <TopicLink :topic=subtopic>
-          </TopicLink>
+          <TopicLink :topic="subtopic"> </TopicLink>
         </li>
       </ul>
     </div>
@@ -48,19 +51,16 @@
 
     <!-- Resources --------------------------------------------------------------------------------------------------->
 
-
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
     <div v-if="hasResources" class="mb-32 grid lg:grid-cols-3">
+      <h2 class="p-5 text-4xl font-thin col-span-1">{{ $t('results') }}</h2>
 
-      <h2 class=" p-5 text-4xl font-thin col-span-1">{{ $t('results') }}</h2>
-
-      <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2  gap-2 col-span-2">
+      <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2">
         <!-- Resource card --------------------------------------------------------------------------------------------->
 
         <li v-for="resource in resources" :key="resource.title">
-          <ResourceListItem :resource=resource>
-          </ResourceListItem>
+          <ResourceListItem :resource="resource"> </ResourceListItem>
         </li>
       </ul>
     </div>
@@ -79,22 +79,6 @@ export default {
 
       return dayjs(dateString).format('DD-MM-YYYY')
     },
-  },
-
-  // Computed Properties aka "Getters" --------------------------------------------------------------------------------
-
-  computed:
-  {
-    hasSubtopics()
-    {
-      return !!this.subtopics.length;
-    },
-
-    hasResources()
-    {
-      return !!this.resources.length;
-    }
-
   },
 
   // Hooks ------------------------------------------------------------------------------------------------------------
@@ -220,21 +204,21 @@ export default {
 
     console.log(result)
 
-    const topic = result.data.topicCollection.items[0];
+    const topic = result.data.topicCollection.items[0]
 
-    const alternateLocaleUrlSlug = topic.urlSlug;
+    const alternateLocaleUrlSlug = topic.urlSlug
 
-    console.log(alternateLocaleUrlSlug);
+    console.log(alternateLocaleUrlSlug)
 
-    let enRouteParam = null;
-    let frRouteParam = null;
+    let enRouteParam = null
+    let frRouteParam = null
 
     if (isDefaultLocale) {
-      enRouteParam = urlSlug;
-      frRouteParam = alternateLocaleUrlSlug;
+      enRouteParam = urlSlug
+      frRouteParam = alternateLocaleUrlSlug
     } else {
-      enRouteParam = alternateLocaleUrlSlug;
-      frRouteParam = urlSlug;
+      enRouteParam = alternateLocaleUrlSlug
+      frRouteParam = urlSlug
     }
 
     await store.dispatch('i18n/setRouteParams', {
@@ -242,13 +226,13 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const breadcrumbs = topic.breadcrumbsCollection.items;
-    const subtopics = topic.subtopicsCollection.items;
-    const resources = topic.resourcesCollection.items;
+    const breadcrumbs = topic.breadcrumbsCollection.items
+    const subtopics = topic.subtopicsCollection.items
+    const resources = topic.resourcesCollection.items
 
-    console.log(resources);
+    console.log(resources)
 
-    return { breadcrumbs, resources, topic, subtopics };
+    return { breadcrumbs, resources, topic, subtopics }
   },
 
   // Data -------------------------------------------------------------------------------------------------------------
@@ -258,6 +242,18 @@ export default {
       hello: 'hello',
       title: '',
     }
+  },
+
+  // Computed Properties aka "Getters" --------------------------------------------------------------------------------
+
+  computed: {
+    hasSubtopics() {
+      return !!this.subtopics.length
+    },
+
+    hasResources() {
+      return !!this.resources.length
+    },
   },
 }
 </script>

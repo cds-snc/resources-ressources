@@ -3,8 +3,8 @@ module.exports = {
     extend: {
       transform: ['group-hover'],
       scale: ['group-hover'],
-      translate: ['group-hover']
-    }
+      translate: ['group-hover'],
+    },
   },
 
   theme: {
@@ -12,7 +12,7 @@ module.exports = {
       colors: {
         'cds-yellow': '#ffcc33', // CDS yellow,
         'cds-blue': '#004986',
-      }
+      },
     },
   },
 }

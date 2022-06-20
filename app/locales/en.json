@@ -21,21 +21,18 @@
     "search_button": "Search"
   },
   "contact_us": "Contact Us",
-  "contact":
-  {
+  "contact": {
     "heading": "Contact us",
     "info-1": "We’d love to learn from your experiences, and see how we can help.",
     "info-2": "To inquire about partnering with us to get coaching and advice, you can email us at:"
   },
   "last_updated": "Last updated",
-  "terms":
-  {
+  "terms": {
     "title": "Terms and conditions",
     "urlSlug": "terms"
   },
-  "privacy":
-  {
-    "title" : "Privacy",
-    "urlSlug" : "privacy"
+  "privacy": {
+    "title": "Privacy",
+    "urlSlug": "privacy"
   }
 }

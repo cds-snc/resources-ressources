@@ -67,10 +67,10 @@ module.exports = {
         en: '/resource/:resource',
         fr: '/ressource/:resource',
       },
-      'legal/_legal':{
+      'legal/_legal': {
         en: '/legal/:legal',
-        fr: '/transparence/:legal'
-      }
+        fr: '/transparence/:legal',
+      },
     },
   },
 

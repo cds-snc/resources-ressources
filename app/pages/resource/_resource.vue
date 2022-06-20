@@ -2,7 +2,10 @@
 
 <template>
   <div>
-    <breadcrumbs :breadcrumbs=breadcrumbs :current-page-title=resource.testResourceCollection.items[0].title>
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="resource.testResourceCollection.items[0].title"
+    >
     </breadcrumbs>
 
     <div class="flex justify-center mb-10">
@@ -16,24 +19,18 @@
         <!-- Related Resources --------------------------------------------------------------------------------------->
 
         <div>
-
           <div class="border-t border-gray-300 border-thin my-14"></div>
 
-          <h2 class="p-5 font-thin text-4xl">
-            Explore related resources
-          </h2>
+          <h2 class="p-5 font-thin text-4xl">Explore related resources</h2>
 
           <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
             <!-- Resource card --------------------------------------------------------------------------------------------->
 
             <li v-for="resource in relatedResources" :key="resource.title">
-              <ResourceListItem :resource=resource>
-              </ResourceListItem>
+              <ResourceListItem :resource="resource"> </ResourceListItem>
             </li>
           </ul>
-
         </div>
-
       </div>
     </div>
   </div>
@@ -129,8 +126,10 @@ export default {
         return result.data
       })
 
-    const breadcrumbs = resource.testResourceCollection.items[0].breadcrumbsCollection.items;
-    const relatedResources = resource.testResourceCollection.items[0].relatedResourcesCollection.items;
+    const breadcrumbs =
+      resource.testResourceCollection.items[0].breadcrumbsCollection.items
+    const relatedResources =
+      resource.testResourceCollection.items[0].relatedResourcesCollection.items
 
     console.log(relatedResources)
 
@@ -179,7 +178,7 @@ export default {
       richTextOptions
     )
 
-    console.log("Breadcrumbs:" + breadcrumbs);
+    console.log('Breadcrumbs:' + breadcrumbs)
 
     console.log(richText)
 

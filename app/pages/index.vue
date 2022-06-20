@@ -24,8 +24,7 @@
       <div class="border-2 w-20 border-cds-yellow"></div>
     </div>-->
 
-   <div class="mt-20 mb-40 border-l-4 border-cds-yellow pl-10">
-
+    <div class="mt-20 mb-40 border-l-4 border-cds-yellow pl-10">
       <h1 class="text-3xl md:text-6xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
@@ -47,8 +46,7 @@
 
       <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
         <li v-for="topic in topics" :key="topic.name">
-          <TopicLink :topic=topic>
-          </TopicLink>
+          <TopicLink :topic="topic"> </TopicLink>
         </li>
       </ul>
     </div>
@@ -57,8 +55,7 @@
 
     <!-- Featured ---------------------------------------------------------------------------------------------------->
 
-    <div class="grid lg:grid-cols-3 mb-5" >
-
+    <div class="grid lg:grid-cols-3 mb-5">
       <!-- Heading (left side) -->
       <div class="col-span-1">
         <h2 class="text-4xl font-thin p-5">New</h2>
@@ -66,7 +63,9 @@
 
       <!-- New Resource (right side) -->
 
-      <div class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between">
+      <div
+        class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between"
+      >
         <div>
           <div class="text-gray-700 text-sm">SAMPLE</div>
           <h2 class="text-lg font-medium">{{ newResource.title }}</h2>
@@ -74,7 +73,10 @@
 
         <nuxt-link :to="localePath(`/resource/${newResource.urlSlug}`)">
           Learn more
-          <font-awesome-icon icon="arrow-right" class="ml-2 text-yellow-500"></font-awesome-icon>
+          <font-awesome-icon
+            icon="arrow-right"
+            class="ml-2 text-yellow-500"
+          ></font-awesome-icon>
         </nuxt-link>
       </div>
     </div>
@@ -84,24 +86,21 @@
     <!-- Contact Us -------------------------------------------------------------------------------------------------->
 
     <div class="grid lg:grid-cols-3">
-
       <!-- Heading (left side) -->
       <div class="col-span-1">
-        <h2 class="text-4xl font-thin p-5">{{ $t('contact.heading')}}</h2>
+        <h2 class="text-4xl font-thin p-5">{{ $t('contact.heading') }}</h2>
       </div>
 
       <!-- Contact info (right side) -->
 
       <div class="col-span-2 p-5">
-
         <p>
-          {{ $t('contact.info-1') }} <br/>
+          {{ $t('contact.info-1') }} <br />
           {{ $t('contact.info-2') }}
-          <br/><strong>partnerships-partenariats@cds-snc.ca</strong>
+          <br /><strong>partnerships-partenariats@cds-snc.ca</strong>
         </p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -163,29 +162,28 @@ export default {
     $axios.$request({})
 
     const [topicsRes, newResourceRes] = await Promise.all([
-      $axios.$post(contentfulEndpoint, {query: graphQLQuery,}),
-      $axios.$post(contentfulEndpoint, {query: newResourceQuery,})
-
+      $axios.$post(contentfulEndpoint, { query: graphQLQuery }),
+      $axios.$post(contentfulEndpoint, { query: newResourceQuery }),
     ])
 
     const response = await $axios.$post(contentfulEndpoint, {
       query: graphQLQuery,
     })
 
-    console.log(topicsRes);
-    console.log(newResourceRes);
+    console.log(topicsRes)
+    console.log(newResourceRes)
 
     console.log(response)
     // const responseObj = JSON.parse(JSON.stringify(response));
 
-    const newResource = newResourceRes.data.testResourceCollection.items[0];
-    console.log(newResource.title);
+    const newResource = newResourceRes.data.testResourceCollection.items[0]
+    console.log(newResource.title)
 
-    const topics = response.data.topicCollection.items;
+    const topics = response.data.topicCollection.items
 
     console.log(topics)
 
-    return { topics , newResource }
+    return { topics, newResource }
     // $i18n.locale n
     // axios.get()
     // return Promise.all([
