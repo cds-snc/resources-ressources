@@ -3,7 +3,7 @@
 <template>
   <div class="flex justify-center">
     <div class="max-w-4xl">
-      <h1 class="font-bold text-4xl my-14">{{legalPage.title}}</h1>
+      <h1 class="font-bold text-4xl my-14">{{ legalPage.title }}</h1>
       <div v-html="richText"></div>
     </div>
   </div>
