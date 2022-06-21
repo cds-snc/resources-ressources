@@ -2,7 +2,7 @@
 
 <template>
   <ol class="flex mt-4">
-    <div>
+    <li>
       <nuxt-link to="/" class="font-medium hover:text-blue-800 hover:underline">
         Home
       </nuxt-link>
@@ -11,8 +11,8 @@
         size="sm"
         class="mr-1.5"
       ></font-awesome-icon>
-    </div>
-    <div
+    </li>
+    <li
       v-for="breadcrumb in breadcrumbs"
       :key="breadcrumb.name"
       class="whitespace-nowrap"
@@ -33,7 +33,7 @@
         size="sm"
         class="mr-1.5"
       ></font-awesome-icon>
-    </div>
+    </li>
     <li class="text-gray-600">
       {{ currentPageTitle }}
     </li>

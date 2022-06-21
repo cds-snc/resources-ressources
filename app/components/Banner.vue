@@ -7,7 +7,7 @@
           {{ $t('proof_of_concept.title') }}
         </div> -->
         <div
-          class="pl-2 uppercase border-l-4 border-cds-blue text-cds-blue font-bold"
+          class="px-2 uppercase border border-cds-blue text-cds-blue font-bold"
         >
           {{ $t('proof_of_concept.title') }}
         </div>
