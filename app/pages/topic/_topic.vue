@@ -1,32 +1,49 @@
 <template>
   <!-- Container for all resources -->
   <div>
-    <div class="flex justify-center py-16">
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="topic.name"
+    ></breadcrumbs>
+
+    <div class="flex my-32 border-l-4 border-cds-yellow pl-10">
       <div class="w-5/6 md:w-1/2">
-        <h1 class="font-medium text-5xl text-center">{{ topicTitle }}</h1>
-        <p class="mt-5 pb-5 text-gray-600">{{ description }}</p>
-        <div class="flex justify-center">
-          <div class="border-2 w-20 border-cds-yellow"></div>
-        </div>
+        <h1 class="font-medium text-6xl">{{ topic.name }}</h1>
+        <p v-if="topic.topicDescription" class="pt-10 text-lg font-light">
+          {{ topic.topicDescription }}
+        </p>
       </div>
     </div>
 
-    <!-- Popular resources for topic --------------------------------------------------------------------------------->
+    <!-- Subtopics --------------------------------------------------------------------------------------------------->
 
-    <!-- <div>
-      <label class="text-2xl font-bold">Popular for {{topic}}</label>
+    <!-- <div v-if="hasSubtopics" class="mb-32">
 
-      <ul class="flex flex-col sm:flex-row mt-5 "> -->
-    <!-- TODO: Make into component: Filter chip ------------------------------------------------------------------>
+      <h2 class="text-2xl font-bold pb-10">Topics</h2>
 
-    <!-- <li v-for="keyword in keywords" :key="keyword" >
-
-          <div type="radio" class="border border-gray-600 rounded-full px-3 py-1.5 mr-3 cursor-pointer">{{ keyword }}</div>
-        </li> -->
-
-    <!-- TODO-end ------------------------------------------------------------------------------------------------>
-    <!-- </ul>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <li v-for="subtopic in subtopics" :key="subtopic.name">
+          <TopicLink :topic=subtopic>
+          </TopicLink>
+        </li>
+      </ul>
     </div> -->
+
+    <!-- Experimental UI Layout ************************************************************************************-->
+
+    <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
+
+    <div v-if="hasSubtopics" class="mb-32 grid lg:grid-cols-3">
+      <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">
+        {{ topic.subtopicsHeading }}
+      </h2>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
+        <li v-for="subtopic in subtopics" :key="subtopic.name">
+          <TopicLink :topic="subtopic"> </TopicLink>
+        </li>
+      </ul>
+    </div>
 
     <!-- Divider ----------------------------------------------------------------------------------------------------->
 
@@ -34,33 +51,19 @@
 
     <!-- Resources --------------------------------------------------------------------------------------------------->
 
-    <h2 class="text-2xl font-bold">{{ $t('results') }}</h2>
+    <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
-    <ul class="mt-5">
-      <!-- Resource card --------------------------------------------------------------------------------------------->
-      <!-- TODO: Create component: Resource item -------------------------------------- -->
+    <div v-if="hasResources" class="mb-32 grid lg:grid-cols-3">
+      <h2 class="p-5 text-4xl font-thin col-span-1">{{ $t('results') }}</h2>
 
-      <li v-for="resource in resources" :key="resource.title">
-        <div class="py-6">
-          <!-- Section: Resource type & resource title --------------------------------------------------------------->
+      <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2">
+        <!-- Resource card --------------------------------------------------------------------------------------------->
 
-          <p class="pb-1 font-medium text-gray-600">
-            <small class="text-sm">SAMPLE</small>
-          </p>
-
-          <nuxt-link
-            :to="localePath(`/resource/${resource.urlSlug}`)"
-            class="text-lg font-medium hover:text-gray-600"
-          >
-            {{ resource.title }}
-          </nuxt-link>
-
-          <div class="font-light mt-1.5 text-gray-800">
-            {{ $t('last_updated') }} {{ resource.dateAdded | formatDate }}
-          </div>
-        </div>
-      </li>
-    </ul>
+        <li v-for="resource in resources" :key="resource.title">
+          <ResourceListItem :resource="resource"> </ResourceListItem>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -93,13 +96,13 @@ export default {
 
     const currentLocale = app.i18n.locale + '-CA'
 
-    const otherLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
 
     const isDefaultLocale = currentLocale.includes('en') || false
 
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
-    const topic = params.topic
+    const urlSlug = params.topic
 
     console.log(params)
 
@@ -114,7 +117,7 @@ export default {
 
     /* GraphQL Query *********************************************************/
 
-    const graphQLQuery = `query{
+    /* const graphQLQuery = `query{
       topicCollection(where: {urlSlug: "${topic}"}, limit: 1, locale: "${currentLocale}") {
         items {
           name
@@ -140,6 +143,50 @@ export default {
           }
         }
       }
+    }` */
+
+    const graphQLQuery = `query
+    {
+      topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
+      {
+        items
+        {
+          name
+          topicDescription
+          subtopicsHeading
+          urlSlug(locale: "${alternateLocale}")
+          breadcrumbsCollection
+          {
+            items
+            {
+              name
+              urlSlug
+            }
+          }
+          subtopicsCollection
+          {
+            items
+            {
+              name
+              urlSlug
+              flag
+              {
+                value
+              }
+            }
+          }
+          resourcesCollection
+          {
+            items
+            {
+              title
+              dateAdded
+              urlSlug
+            }
+          }
+        }
+
+      }
     }`
 
     /* END OF: GraphQL Query *************************************************/
@@ -157,19 +204,21 @@ export default {
 
     console.log(result)
 
-    const otherTopicParam = result.data.topicCollection.items[0].urlSlug
+    const topic = result.data.topicCollection.items[0]
 
-    console.log(otherTopicParam)
+    const alternateLocaleUrlSlug = topic.urlSlug
+
+    console.log(alternateLocaleUrlSlug)
 
     let enRouteParam = null
     let frRouteParam = null
 
     if (isDefaultLocale) {
-      enRouteParam = topic
-      frRouteParam = otherTopicParam
+      enRouteParam = urlSlug
+      frRouteParam = alternateLocaleUrlSlug
     } else {
-      enRouteParam = otherTopicParam
-      frRouteParam = topic
+      enRouteParam = alternateLocaleUrlSlug
+      frRouteParam = urlSlug
     }
 
     await store.dispatch('i18n/setRouteParams', {
@@ -177,17 +226,13 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const resources =
-      result.data.topicCollection.items[0].linkedFrom.testResourceCollection
-        .items
-    const description = result.data.topicCollection.items[0].topicDescription
-    const keywords = result.data.topicCollection.items[0].topicKeywords
-    const topicTitle = result.data.topicCollection.items[0].name
+    const breadcrumbs = topic.breadcrumbsCollection.items
+    const subtopics = topic.subtopicsCollection.items
+    const resources = topic.resourcesCollection.items
 
     console.log(resources)
-    console.log(keywords)
 
-    return { resources, topic, keywords, description, topicTitle }
+    return { breadcrumbs, resources, topic, subtopics }
   },
 
   // Data -------------------------------------------------------------------------------------------------------------
@@ -197,6 +242,18 @@ export default {
       hello: 'hello',
       title: '',
     }
+  },
+
+  // Computed Properties aka "Getters" --------------------------------------------------------------------------------
+
+  computed: {
+    hasSubtopics() {
+      return !!this.subtopics.length
+    },
+
+    hasResources() {
+      return !!this.resources.length
+    },
   },
 }
 </script>

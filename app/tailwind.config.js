@@ -1,4 +1,12 @@
 module.exports = {
+  variants: {
+    extend: {
+      transform: ['group-hover'],
+      scale: ['group-hover'],
+      translate: ['group-hover'],
+    },
+  },
+
   theme: {
     extend: {
       colors: {
