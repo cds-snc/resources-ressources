@@ -58,6 +58,7 @@ module.exports = {
   // i18n Module Configuration
   i18n: {
     parsePages: false,
+    differentDomains: true,
     pages: {
       'topic/_topic': {
         en: '/topic/:topic',
