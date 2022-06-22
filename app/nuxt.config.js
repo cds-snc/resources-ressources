@@ -5,7 +5,6 @@ const i18n = require('./config/i18n.js')
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-  ssr: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
