@@ -33,14 +33,29 @@
           >
             <!-- <Link v-if="$i18n.locale == 'fr'" theme="dark" :to="switchLocalePath('en')">English</Link>
             <Link v-else-if="$i18n.locale == 'en'" theme="dark" :to="switchLocalePath('fr')">Français</Link> -->
-            <Link
+
+            <!-- <a
               v-for="locale in availableLocales"
               :key="locale.code"
               theme="light"
               :to="switchLocalePath(locale.code)"
-              external
-              >{{ locale.name }} {{ locale.code }}</Link
+              @click="switchLocale"
+
+            >{{ locale.name }} {{ locale.code }}</a> -->
+            <a
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              :href="switchLocalePath(locale.code)"
+              @click="switchLocale"
+              >{{ locale.name }} {{ locale.code }}</a
             >
+
+            <!-- <button
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              @click="switchLocale">
+              {{locale.name}} {{locale.code}}
+            </button> -->
           </div>
         </div>
       </div>
@@ -53,6 +68,19 @@ export default {
   computed: {
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
+    },
+  },
+  methods: {
+    switchLocale(): void {
+      let alternateLocale = null
+
+      if (this.$i18n.locale === 'en') alternateLocale = 'fr'
+      else alternateLocale = 'en'
+
+      // this.$root.context.app.switchLocalePath(alternateLocale);
+      this.$i18n.setLocale(alternateLocale)
+      this.$i18n.setLocaleCookie(alternateLocale)
+      // this.$root.context.app.l
     },
   },
 }

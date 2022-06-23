@@ -24,4 +24,21 @@ module.exports = {
   },
   differentDomains:
     process.env.ENV === 'staging' || process.env.ENV === 'production',
+
+  parsePages: false,
+
+  pages: {
+    'topic/_topic': {
+      en: '/topic/:topic',
+      fr: '/themes/:topic',
+    },
+    'resource/_resource': {
+      en: '/resource/:resource',
+      fr: '/ressource/:resource',
+    },
+    'legal/_legal': {
+      en: '/legal/:legal',
+      fr: '/transparence/:legal',
+    },
+  },
 }
