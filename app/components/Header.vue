@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     switchLocale(): void {
-
       let alternateLocale = null
 
       if (this.$i18n.locale === 'en') alternateLocale = 'fr'

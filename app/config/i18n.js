@@ -22,7 +22,8 @@ module.exports = {
   vueI18n: {
     fallbackLocale: 'en',
   },
-  differentDomains: process.env.ENV === 'staging' || process.env.ENV === 'production',
+  differentDomains:
+    process.env.ENV === 'staging' || process.env.ENV === 'production',
 
   parsePages: false,
 
