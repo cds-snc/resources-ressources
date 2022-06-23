@@ -23,7 +23,7 @@ module.exports = {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/contentful', '~/plugins/i18n'],
+  plugins: ['~/plugins/contentful'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -71,7 +71,7 @@ module.exports = {
       // Set to always redirect to value stored in the cookie, not just once
       alwaysRedirect: false,
       // If no locale for the browsers locale is a match, use this one as a fallback
-      fallbackLocale: 'en'
+      fallbackLocale: 'en',
     },
     pages: {
       'topic/_topic': {

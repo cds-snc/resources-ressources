@@ -47,8 +47,8 @@
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
               @click="switchLocale"
-
-              >{{ locale.name }} {{ locale.code }}</a>
+              >{{ locale.name }} {{ locale.code }}</a
+            >
 
             <!-- <button
               v-for="locale in availableLocales"
@@ -56,7 +56,6 @@
               @click="switchLocale">
               {{locale.name}} {{locale.code}}
             </button> -->
-
           </div>
         </div>
       </div>
@@ -67,31 +66,23 @@
 export default {
   name: 'Header',
   computed: {
-     availableLocales() {
+    availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
   },
-  methods:
-    {
-      switchLocale(locale: String): void
-      {
-        console.log("-- In switchLocale(): " + this.$i18n.locale);
-        console.log(locale);
+  methods: {
+    switchLocale(): void {
 
-        let alternateLocale = null;
+      let alternateLocale = null
 
-        if (this.$i18n.locale === 'en')
-          alternateLocale = 'fr';
-        else
-          alternateLocale = 'en';
+      if (this.$i18n.locale === 'en') alternateLocale = 'fr'
+      else alternateLocale = 'en'
 
-        // this.$root.context.app.switchLocalePath(alternateLocale);
-        this.$i18n.setLocale(alternateLocale);
-        this.$i18n.setLocaleCookie(alternateLocale);
-        // this.$root.context.app.l
-
-
-      }
-    }
+      // this.$root.context.app.switchLocalePath(alternateLocale);
+      this.$i18n.setLocale(alternateLocale)
+      this.$i18n.setLocaleCookie(alternateLocale)
+      // this.$root.context.app.l
+    },
+  },
 }
 </script>
