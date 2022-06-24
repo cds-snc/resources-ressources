@@ -22,7 +22,7 @@ module.exports = {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/contentful'],
+  plugins: ['~/plugins/contentful', '~/plugins/vue-gtag'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -39,8 +39,6 @@ module.exports = {
     '@nuxtjs/fontawesome',
     // https://typescript.nuxtjs.org/
     '@nuxt/typescript-build',
-    // https://google-analytics.nuxtjs.org/
-    '@nuxtjs/google-analytics'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -128,13 +126,5 @@ module.exports = {
   telemetry: false,
   storybook: {
     // Options
-  },
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID, // Use as fallback if no runtime config is provided
-  },
-  publicRuntimeConfig: {
-    googleAnalytics: {
-      id: process.env.GOOGLE_ANALYTICS_ID
-    }
   }
 }
