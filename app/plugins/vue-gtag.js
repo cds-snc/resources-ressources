@@ -4,8 +4,8 @@ import VueGtag from "vue-gtag";
 /**
  * @type {import('@nuxt/types').Plugin}
  */
-
 export const vueGtag = ({app}) => {
+
   Vue.use(
     VueGtag,
     {
