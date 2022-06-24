@@ -25,6 +25,6 @@ variable "app_hosted_zone_id" {
 }
 
 variable "google_analytics_id" {
-  type = string
+  type      = string
   sensitive = true
 }
