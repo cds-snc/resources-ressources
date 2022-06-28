@@ -2,17 +2,16 @@
   "welcome": "Bienvenue",
   "switch_language": "English",
   "learning_resources": "Ressources d'apprentissage",
-  "search_description": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
+  "search_description": "Nous partageons des ressources de prestation de services ancrées dans notre travail pour aider nos collègues fonctionnaires.",
   "proof_of_concept": {
-    "title": "ALPHA",
-    "in_progress": "Il s'agit d'un site en cours de développement.",
-    "help_improve": "Aidez-nous à l'améliorer."
+    "title": "PILOTE",
+    "in_progress": "Nous testons des idées et travaillons à l'élargissement de cette collection prochainement."
   },
   "landing_page": {
     "title": "Bienvenue aux ressources d'apprentissage",
     "description": "Nous partageons des ressources de prestation de services ancrées dans notre travail pour aider nos collègues fonctionnaires.",
     "slogan": "La prestation de services est difficile. Nous pouvons vous aider.",
-    "topics_heading": "Thèmes des ressources"
+    "topics_heading": "Thèmes"
   },
   "results": "Résultats",
   "search": "Recherche",
@@ -23,10 +22,10 @@
   "contact_us": "Nous joindre",
   "contact": {
     "heading": "Nous joindre",
-    "info-1": "Nous serions ravis d’apprendre de vos expériences, afin de voir comment nous pouvons vous aider.",
-    "info-2": "Pour en savoir plus sur les possibilités de partenariat pour obtenir de l’encadrement et des conseils, veuillez communiquer avec nous par courriel :"
+    "info-1": "Nous serions ravis d'apprendre de vos expériences, afin de voir comment nous pouvons vous aider.",
+    "info-2": "Pour en savoir plus sur les possibilités de partenariat pour obtenir de l'encadrement et des conseils, veuillez communiquer avec nous par courriel :"
   },
-  "last_updated": "Dernière mise à jour le",
+  "last_updated": "Dernière mise à jour :",
   "terms": {
     "title": "Avis",
     "urlSlug": "avis"

@@ -4,9 +4,8 @@
   "learning_resources": "CDS Learning Resources",
   "search_description": "Sharing resources grounded in our work to help fellow public servants.",
   "proof_of_concept": {
-    "title": "Alpha",
-    "in_progress": "We're starting to build out our collection and only have a limited set of resources available at this time.",
-    "help_improve": "Help us improve"
+    "title": "PILOT",
+    "in_progress": "We're testing ideas and working to expand this collection soon."
   },
   "search": "Search",
   "landing_page": {
@@ -17,7 +16,7 @@
   },
   "results": "results",
   "aria": {
-    "search_input": "Search text",
+    "search_input": "Search",
     "search_button": "Search"
   },
   "contact_us": "Contact Us",
