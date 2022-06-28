@@ -13,9 +13,6 @@
         </div>
         <p class="p-2 text-gray-700">
           {{ $t('proof_of_concept.in_progress') }}
-          <Link to="http://google.com" :external="true">{{
-            $t('proof_of_concept.help_improve')
-          }}</Link>
         </p>
       </div>
     </div>
