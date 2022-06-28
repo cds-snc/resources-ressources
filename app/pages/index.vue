@@ -54,7 +54,6 @@
     <div class="border-t border-gray-300 mb-5"></div>
 
     <!-- Featured ---------------------------------------------------------------------------------------------------->
-<!---
     <div class="grid lg:grid-cols-3 mb-5">
       <!-- Heading (left side) -->
       <div class="col-span-1">
@@ -82,7 +81,6 @@
     </div>
 
     <div class="border-t border-gray-300 mb-5"></div>
---->
     <!-- Contact Us -------------------------------------------------------------------------------------------------->
 
     <div class="grid lg:grid-cols-3">
