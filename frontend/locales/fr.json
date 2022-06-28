@@ -1,18 +1,18 @@
 {
   "welcome": "Bienvenue",
   "switch_language": "English",
-  "learning_resources": "Ressources d'apprentissage",
-  "search_description": "Nous apprenons et nous nous adaptons continuellement nos méthodes de travail. \nVoici quelques-unes des façons dont nous avons abordé notre travail.",
+  "learning_resources": "Ressources d'apprentissage du SNC",
+  "search_description": "Nous partageons des ressources ancrées dans notre travail pour aider nos collègues fonctionnaires.",
   "proof_of_concept": {
-    "title": "PREUVE DE CONCEPT",
-    "in_progress": "Il s'agit d'un site en cours de développement.",
+    "title": "Alpha",
+    "in_progress": "Nous commençons à constituer notre collection et ne disponsons que d'un ensemble limité de ressources pour le moment.",
     "help_improve": "Aidez-nous à l'améliorer."
   },
   "landing_page": {
     "title": "Bienvenue aux ressources d'apprentissage",
-    "description": "Nous partageons des ressources de prestation de services ancrées dans notre travail pour aider nos collègues fonctionnaires.",
+    "description": "Nous partageons des ressources ancrées dans notre travail pour aider nos collègues fonctionnaires.",
     "slogan": "La prestation de services est difficile. Nous pouvons vous aider.",
-    "topics_heading": "Thèmes des ressources"
+    "topics_heading": "Ressources disponibles"
   },
   "results": "Résultats",
   "search": "Recherche",
@@ -21,5 +21,5 @@
     "search_button": "Recherche"
   },
   "contact_us": "Nous joindre",
-  "last_updated": "Dernière mise à jour le"
+  "last_updated": "Dernière mise à jour :"
 }
