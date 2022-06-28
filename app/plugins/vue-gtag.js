@@ -9,7 +9,7 @@ export const vueGtag = ({app}) => {
   Vue.use(
     VueGtag,
     {
-      config: { id: process.env.GOOGLE_ANALYTICS_ID },
+      config: { id: `ga-id-${process.env.GOOGLE_ANALYTICS_ID}` },
     },
     app.router
   )
