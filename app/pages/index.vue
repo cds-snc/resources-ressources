@@ -60,7 +60,7 @@
     <div class="grid lg:grid-cols-3 mb-5">
       Heading (left side) -->
       <div class="col-span-1">
-        <h2 class="text-4xl font-thin p-5">New</h2>
+        <h2 class="text-4xl font-thin p-5">{{ $t('New') }}</h2>
       </div>
 
       <!-- New Resource (right side) -->
