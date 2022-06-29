@@ -9,16 +9,16 @@
   },
   "search": "Search",
   "landing_page": {
-    "title": "Welcome to Learning Resources",
+    "title": "Service delivery is hard. We can help.",
     "description": "Sharing service delivery resources grounded in our work to help fellow public servants.",
     "slogan": "Service delivery is hard. We can help.",
-    "topics_heading": "Current resources"
+    "topics_heading": "Topics"
   },
   "results": "results",
   "aria": {
     "search_input": "Search",
     "search_button": "Search"
   },
-  "contact_us": "Contact Us",
+  "contact_us": "Contact us",
   "last_updated": "Last updated"
 }
