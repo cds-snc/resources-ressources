@@ -15,6 +15,9 @@
       <h1 class="text-3xl md:text-5xl font-bold pb-10 text-center">
         {{ $t('landing_page.title') }}
       </h1>
+      <h2 class="text-1xl md:text-3xl font-bold pb-5 text-center">
+        {{ $t('landing_page.subtitle') }}
+      </h2>
       <p class="text-l md:text-xl pb-8 text-center max-w-2xl font-light">
         {{ $t('landing_page.description') }}
       </p>
