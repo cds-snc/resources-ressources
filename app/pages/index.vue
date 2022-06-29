@@ -28,7 +28,9 @@
       <h1 class="text-3xl md:text-6xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
-
+      <h2 class="text-1xl md:text-3xl font-light pb-5">
+        {{ $t('landing_page.subtitle') }}
+      </h2>
       <p class="text-l md:text-xl max-w-2xl font-light">
         {{ $t('landing_page.description') }}
       </p>
@@ -56,7 +58,7 @@
     <!-- Featured ---------------------------------------------------------------------------------------------------->
 <!---
     <div class="grid lg:grid-cols-3 mb-5">
-      <!-- Heading (left side) -->
+      Heading (left side) -->
       <div class="col-span-1">
         <h2 class="text-4xl font-thin p-5">New</h2>
       </div>
@@ -101,7 +103,6 @@
         </p>
       </div>
     </div>
-  </div>
 </template>
 
 <!-- Script ========================================================================================================-->
