@@ -7,9 +7,9 @@
   >
     <!-- Resource type -->
 
-    <p class="pb-1 font-medium text-gray-600">
+    <!-- <p class="pb-1 font-medium text-gray-600">
       <small class="text-sm">SAMPLE</small>
-    </p>
+    </p> -->
 
     <!-- Resource name / resource link -->
 

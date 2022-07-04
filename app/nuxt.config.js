@@ -103,11 +103,10 @@ module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
   ssr: true,
-  resourceHints: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Resources | Resourcess',
+    title: 'Resources | Ressources',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -121,7 +120,8 @@ module.exports = {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/contentful', '~/plugins/axios'],
+
+  plugins: ['~/plugins/contentful', '~/plugins/vue-gtag'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -273,5 +273,5 @@ module.exports = {
   telemetry: false,
   storybook: {
     // Options
-  },
+  }
 }

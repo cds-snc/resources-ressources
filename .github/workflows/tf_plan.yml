@@ -11,6 +11,7 @@ env:
   CONFTEST_VERSION: 0.27.0
   TF_VAR_contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
   TF_VAR_gh_access_token: ${{ secrets.GH_ACCESS_TOKEN }}
+  TF_VAR_google_analytics_id: ${{ secrets.GOOGLE_ANALYTICS_ID }}
 
 
 permissions:

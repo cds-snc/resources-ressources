@@ -1,29 +1,28 @@
 {
   "welcome": "Welcome",
-  "switch_language": "Francais",
+  "switch_language": "Français",
   "learning_resources": "Learning Resources",
-  "search_description": "We're continuously learning and adjusting our practices.\nHere are some of the ways we've approached our work.",
+  "search_description": "Sharing resources grounded in our work to help fellow public servants.",
   "proof_of_concept": {
-    "title": "ALPHA",
-    "in_progress": "This content is a work in progress.",
-    "help_improve": "Help us improve"
+    "title": "PILOT",
+    "in_progress": "We're testing ideas and working to expand this resource collection soon."
   },
   "search": "Search",
   "landing_page": {
-    "title": "Welcome to Learning Resources",
-    "description": "Learning Resources shares resources grounded in our work at the Canadian Digital Service to help fellow public servants improve service delivery.",
+    "title": "Welcome to CDS Learning Resources",
+    "description": "Sharing service delivery resources grounded in our work to help fellow public servants.",
     "slogan": "Service delivery is hard. We can help.",
     "topics_heading": "Topics"
   },
   "results": "Resources",
   "aria": {
-    "search_input": "Search text",
+    "search_input": "Search",
     "search_button": "Search"
   },
-  "contact_us": "Contact Us",
+  "contact_us": "Contact us",
   "contact": {
     "heading": "Contact us",
-    "info-1": "We’d love to learn from your experiences, and see how we can help.",
+    "info-1": "We'd love to learn from your experiences, and see how we can help.",
     "info-2": "To inquire about partnering with us to get coaching and advice, you can email us at:"
   },
   "last_updated": "Last updated",
