@@ -129,10 +129,8 @@ export default {
   // asyncData({env} : {env:any}) {
   async asyncData({ $axios, payload }) {
     // Contentful --
-    const spaceID = 'zy72kv0qwyyq'
-    const accessToken = 'GUc49ra1DWc4wiEZ8vk-6o9oYzDPhg-uc-ZOxh3v2P0'
-    const contentfulEndpoint =
-      'https://graphql.contentful.com/content/v1/spaces/' + spaceID
+
+    const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`;
 
     // const locale = app.i18n.locale + '-CA'
 
@@ -197,7 +195,7 @@ export default {
         }
       }`
 
-    $axios.setToken(accessToken, 'Bearer')
+    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     $axios.$request({})
 
     const [englishTopLevelTopics, frenchTopLevelTopics, newResourceRes] =
