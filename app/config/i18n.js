@@ -8,16 +8,18 @@ module.exports = {
       file: 'en.json',
       name: 'English',
       dir: 'ltr',
-      // domain: process.env.DOMAIN_EN,
-      domain: 'en.learning-resources:8080',
+      domain: process.env.DOMAIN_EN,
+      // For local testing
+      // domain: 'en.learning-resources:8080',
     },
     {
       code: 'fr',
       iso: 'fr-CA',
       file: 'fr.json',
       name: 'Français',
-      // domain: process.env.DOMAIN_FR,
-      domain: 'fr.learning-resources:8080',
+      domain: process.env.DOMAIN_FR,
+      // For local testing
+      // domain: 'fr.learning-resources:8080',
     },
   ],
   defaultLocale: 'en',
