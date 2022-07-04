@@ -9,7 +9,7 @@
             :to="
               localePath({
                 name: 'legal-legal',
-                params: { legal: $t('terms.urlSlug') },
+                params: { legal: $t('terms.urlSlug') }
               })
             "
             >{{ $t('terms.title') }}</nuxt-link
@@ -19,7 +19,7 @@
             :to="
               localePath({
                 name: 'legal-legal',
-                params: { legal: $t('privacy.urlSlug') },
+                params: { legal: $t('privacy.urlSlug') }
               })
             "
             class="ml-5"
@@ -36,8 +36,21 @@
     </div>
   </footer>
 </template>
-<script lang="ts">
+<script>
+// import {Context} from "@nuxt/types";
+
 export default {
   name: 'Footer',
+
+  asyncData({ app })
+  {
+    console.log("-- Footer.vue");
+    console.log("-- Footer.vue | locale: " + app.i18n.locale);
+  },
+
+  mounted()
+  {
+    console.log(this.$i18n.locale);
+  }
 }
 </script>

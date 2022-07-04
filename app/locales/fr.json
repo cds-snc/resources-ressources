@@ -34,5 +34,6 @@
   "privacy": {
     "title": "Confidentialité",
     "urlSlug": "confidentialite"
-  }
+  },
+  "home" : "Accueil"
 }

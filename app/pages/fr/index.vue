@@ -114,12 +114,12 @@
 
 export default {
 
-  /* nuxtI18n: {
+   nuxtI18n: {
     paths: {
       en: '/', // -> accessible at /about-us (no prefix since it's the default locale)
-      fr: '/fr', // -> accessible at /fr/a-propos
+      fr: '/fr/', // -> accessible at /fr/a-propos
     }
-  }, */
+  },
 
 
   name: 'Index',
@@ -138,7 +138,7 @@ export default {
 
     // const locale = app.i18n.locale + '-CA'
 
-    let locale = 'en-CA';
+    let locale = 'fr-CA';
 
     if (payload != null || payload !== undefined)
     {
@@ -147,12 +147,12 @@ export default {
     }
     else
     {
-      locale = 'en-CA'
+      locale = 'fr-CA'
     }
 
     if (locale === 'null-CA' || locale === 'undefined-CA')
     {
-      locale = 'en-CA';
+      locale = 'fr-CA';
     }
 
     console.log("-- index.vue | locale: " + locale)
@@ -241,7 +241,7 @@ export default {
 
     const topicPathPrefix = (locale === 'en-CA') ? '/topic/' : '/themes/';
 
-    topics = topics.map(topic => ({"name" : topic.name, "urlSlug": topic.urlSlug , "path" : topicPathPrefix + topic.urlSlug}));
+    topics = topics.map(topic => ({"name" : topic.name, "urlSlug": topic.urlSlug , "flag" : { "value" : topic.flag.value},  "path" : (topicPathPrefix + topic.urlSlug), "locale" : locale.substring(0, 2)}));
 
     console.log("index.vue | topics: " + topics);
 

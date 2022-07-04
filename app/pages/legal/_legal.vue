@@ -18,10 +18,22 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, store, $axios }) {
+  async asyncData({ app, params, store, $axios, payload }) {
+
+    let currentLocale = app.i18n.locale + '-CA'
+
+    if (payload != null)
+    {
+      currentLocale = payload + '-CA';
+    }
+    else
+    {
+      currentLocale = app.i18n.locale + '-CA'
+    }
+
     /* Get current locale */
 
-    const currentLocale = app.i18n.locale + '-CA'
+    // const currentLocale = app.i18n.locale + '-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -52,13 +64,24 @@ export default {
     $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    const legalPage = await $axios
+    let legalPage = await $axios
       .$post(endpoint, { query: contentfulQuery })
       .then((res) => {
         return res.data.legalPageCollection.items[0]
       })
 
     /* Set alternate url slug */
+
+    if (legalPage == null)
+    {
+      app.i18n.setLocaleCookie('fr');
+
+      legalPage = await $axios
+        .$post(endpoint, { query: contentfulQuery })
+        .then((res) => {
+          return res.data.legalPageCollection.items[0]
+        })
+    }
 
     const alternateLocaleUrlSlug = legalPage.urlSlug
 
