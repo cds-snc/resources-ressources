@@ -3,7 +3,7 @@ const conf = require('./nuxt.config').default.buildModules
 
 let subdomains // get the domains from the nuxt.config.js
 conf.forEach((config) => {
-  if (config[0] == 'k-domains') {
+  if (config[0] === 'k-domains') {
     subdomains = [...config[1].subDomains, config[1].rootDomain] //   add the subdomains and rootDomain in the array
   }
 })
@@ -37,7 +37,8 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
     let isUnderDir = false
     const path = route.path
     if (typeof directory === 'object') {
-      directory.map((dir) => {
+      // eslint-disable-next-line array-callback-return
+      directory.map((dir) =>  {
         if (path === '/' + dir || path.startsWith('/' + dir + '/')) {
           isUnderDir = true
         }
@@ -54,7 +55,7 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
       .filter((route) => {
         // remove routes from other directories
         const toRemove = subdomains.filter((domain) => {
-          return domain != routesDirectory
+          return domain !== routesDirectory
         })
         return !isUnderDirectory(route, toRemove)
       })
