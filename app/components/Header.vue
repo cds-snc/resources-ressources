@@ -19,7 +19,17 @@
     <nav class="bg-white text-black">
       <div class="max-w-7xl mx-auto px-4">
         <div class="relative flex items-center justify-between h-16">
-          <nuxt-link :to="localePath('/')">
+          <!-- <nuxt-link :to="localePath('/')">
+            <img
+              class="sm:block h-12 w-auto"
+              :src="
+                require(`../assets/cds-lockup-light-ko-${$i18n.locale}.svg`)
+              "
+              alt="CDS"
+            />
+          </nuxt-link> -->
+
+          <nuxt-link :to="localePath({ name: 'index' })">
             <img
               class="sm:block h-12 w-auto"
               :src="
@@ -28,6 +38,7 @@
               alt="CDS"
             />
           </nuxt-link>
+
           <div
             class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >

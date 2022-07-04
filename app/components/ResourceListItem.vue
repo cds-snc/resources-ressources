@@ -14,9 +14,13 @@
     <!-- Resource name / resource link -->
 
     <nuxt-link
-      :to="localePath(`/resource/${resource.urlSlug}`)"
+      :to="localePath(resource.path, resource.locale)"
       class="text-lg font-medium hover:text-blue-700"
     >
+      <!--<nuxt-link
+      :to="resource.path"
+      class="text-lg font-medium hover:text-blue-700"
+    >-->
       {{ resource.title }}
     </nuxt-link>
 
@@ -49,14 +53,22 @@ export default {
   // Props ------------------------------------------------------------------------------------------------------------
 
   props: {
-    resource: { title: String, urlSlug: String, dateAdded: String },
+    resource: {
+      title: String,
+      urlSlug: String,
+      dateAdded: String,
+      path: String,
+      locale: String,
+    },
   },
 
   // Methods ----------------------------------------------------------------------------------------------------------
 
   methods: {
     navigateToResource() {
-      this.$router.push(this.localePath(`/resource/${this.resource.urlSlug}`))
+      this.$router.push(
+        this.localePath(this.resource.path, this.resource.locale)
+      )
     },
   },
 }

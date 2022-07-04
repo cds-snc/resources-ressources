@@ -83,8 +83,8 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $axios, store }) {
-    console.log(params)
+  async asyncData({ app, params, $axios, store, payload }) {
+    console.log('_topic.vue params: ' + params)
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action
@@ -94,56 +94,31 @@ export default {
      * not work.
      * */
 
-    const currentLocale = app.i18n.locale + '-CA'
+    let currentLocale = 'en-CA'
+
+    if (
+      payload != null ||
+      JSON.stringify(payload) !== 'null' ||
+      payload !== undefined
+    ) {
+      console.log('_topic.vue | payload: ' + JSON.stringify(payload))
+      currentLocale = payload + '-CA'
+    }
+
+    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
+      if (app.i18n.locale != null) {
+        currentLocale = app.i18n.locale + '-CA'
+      } else {
+        currentLocale = 'en-CA'
+      }
+    }
 
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-
     const isDefaultLocale = currentLocale.includes('en') || false
 
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
     const urlSlug = params.topic
-
-    console.log(params)
-
-    /* Dynamic route parameter translations */
-
-    /* await store.dispatch('i18n/setRouteParams', {
-      en: { topic: 'Hiring' },
-      fr: { topic: 'Embauche de talents' }
-    }); */
-
-    /* END OF: Dynamic route parameter translations */
-
-    /* GraphQL Query *********************************************************/
-
-    /* const graphQLQuery = `query{
-      topicCollection(where: {urlSlug: "${topic}"}, limit: 1, locale: "${currentLocale}") {
-        items {
-          name
-          urlSlug(locale: "${otherLocale}")
-          topicDescription
-          topicKeywords
-          linkedFrom {
-            testResourceCollection {
-              items {
-                sys
-                {
-                  id
-                }
-                title
-                urlSlug
-                dateAdded
-                resourceType
-                {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
-    }` */
 
     const graphQLQuery = `query
     {
@@ -202,8 +177,6 @@ export default {
         // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
       })
 
-    console.log(result)
-
     const topic = result.data.topicCollection.items[0]
 
     const alternateLocaleUrlSlug = topic.urlSlug
@@ -226,11 +199,38 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const breadcrumbs = topic.breadcrumbsCollection.items
-    const subtopics = topic.subtopicsCollection.items
-    const resources = topic.resourcesCollection.items
+    const topicPathPrefix = currentLocale.includes('en')
+      ? '/topic/'
+      : '/themes/'
+    const resourcePathPrefix = currentLocale.includes('en')
+      ? '/resource/'
+      : '/ressource/'
 
-    console.log(resources)
+    console.log(
+      '_topic.vue - topicPathPrefix: ' + topicPathPrefix + ' ' + topic.name
+    )
+
+    let breadcrumbs = topic.breadcrumbsCollection.items
+    breadcrumbs = breadcrumbs.map((breadcrumb) => ({
+      name: breadcrumb.name,
+      path: topicPathPrefix + breadcrumb.urlSlug,
+    }))
+
+    let subtopics = topic.subtopicsCollection.items
+    subtopics = subtopics.map((subtopic) => ({
+      name: subtopic.name,
+      path: topicPathPrefix + subtopic.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
+
+    let resources = topic.resourcesCollection.items
+
+    resources = resources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
 
     return { breadcrumbs, resources, topic, subtopics }
   },
