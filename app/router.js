@@ -38,7 +38,7 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
     const path = route.path
     if (typeof directory === 'object') {
       // eslint-disable-next-line array-callback-return
-      directory.map((dir) =>  {
+      directory.map((dir) => {
         if (path === '/' + dir || path.startsWith('/' + dir + '/')) {
           isUnderDir = true
         }
