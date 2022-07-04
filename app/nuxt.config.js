@@ -5,18 +5,15 @@ const i18n = require('./config/i18n.js')
 
 // --------------------------------------------------------------------------------------------------------------------
 
-const missingRoutes = async() =>
-{
-
+const missingRoutes = async () => {
   // axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-
 
   // axios create
 
   const axiosConfig = {
     headers: {
-      'Authorization': `Bearer GUc49ra1DWc4wiEZ8vk-6o9oYzDPhg-uc-ZOxh3v2P0`
-    }
+      Authorization: `Bearer GUc49ra1DWc4wiEZ8vk-6o9oYzDPhg-uc-ZOxh3v2P0`,
+    },
   }
 
   const endpoint = `https://graphql.contentful.com/content/v1/spaces/zy72kv0qwyyq`
@@ -30,7 +27,7 @@ const missingRoutes = async() =>
         urlSlug
       }
     }
-  }`;
+  }`
 
   const frenchTopicSlugsQuery = `query
   {
@@ -41,7 +38,7 @@ const missingRoutes = async() =>
         urlSlug
       }
     }
-  }`;
+  }`
 
   const frenchResourceSlugsQuery = `query
   {
@@ -52,49 +49,57 @@ const missingRoutes = async() =>
         urlSlug
       }
     }
-  }`;
+  }`
 
   // English Topic Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  const englishTopicSlugs = await axios.post(endpoint, {query: englishTopicSlugsQuery }, axiosConfig)
-    .then(res => {
-      return res.data.data.topicCollection.items.map(topic =>
-        ({ 'route': `topic/${topic.urlSlug}`, 'payload': 'en'})
-      );
-    }
-    );
+  const englishTopicSlugs = await axios
+    .post(endpoint, { query: englishTopicSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.topicCollection.items.map((topic) => ({
+        route: `topic/${topic.urlSlug}`,
+        payload: 'en',
+      }))
+    })
 
   // French Topic Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  const frenchtopicSlugs = await axios.post(endpoint, {query: frenchTopicSlugsQuery }, axiosConfig)
-    .then(res => {
-        return res.data.data.topicCollection.items.map(topic =>
-          ({ 'route': `themes/${topic.urlSlug}`, 'payload': 'fr' } )
-        );
-      }
-    );
+  const frenchtopicSlugs = await axios
+    .post(endpoint, { query: frenchTopicSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.topicCollection.items.map((topic) => ({
+        route: `themes/${topic.urlSlug}`,
+        payload: 'fr',
+      }))
+    })
 
   // French Resources Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  const frenchResources = await axios.post(endpoint, {query: frenchResourceSlugsQuery}, axiosConfig)
-    .then(res => {
-        return res.data.data.testResourceCollection.items
-          .map(resource => ({ 'route': `ressource/${resource.urlSlug}`, 'payload': 'fr' }));
-      }
-    );
+  const frenchResources = await axios
+    .post(endpoint, { query: frenchResourceSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.testResourceCollection.items.map((resource) => ({
+        route: `ressource/${resource.urlSlug}`,
+        payload: 'fr',
+      }))
+    })
 
-  const footerRoutes = [ {route: 'transparence/avis', payload: 'fr'},
-    { route: "legal/terms", payload: 'en'},
-    { route: "legal/privacy", payload: 'en'},
-    { route: "transparence/confidentialite", payload: 'fr'},
-    { route: "/", payload: 'en'},
-    { route: "/fr" , payload: 'fr'},
+  const footerRoutes = [
+    { route: 'transparence/avis', payload: 'fr' },
+    { route: 'legal/terms', payload: 'en' },
+    { route: 'legal/privacy', payload: 'en' },
+    { route: 'transparence/confidentialite', payload: 'fr' },
+    { route: '/', payload: 'en' },
+    { route: '/fr', payload: 'fr' },
     // { route: "" , payload: 'en'}
   ]
 
-  const slugs = englishTopicSlugs.concat(frenchtopicSlugs).concat(frenchResources).concat(footerRoutes); // .concat(indexPage);
+  const slugs = englishTopicSlugs
+    .concat(frenchtopicSlugs)
+    .concat(frenchResources)
+    .concat(footerRoutes) // .concat(indexPage);
 
-  return slugs;
+  return slugs
 }
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -182,7 +187,7 @@ module.exports = {
         name: 'English',
         dir: 'ltr',
         // domain: process.env.DOMAIN_EN,
-        domain: 'en.learning-resources:8080'
+        domain: 'en.learning-resources:8080',
       },
       {
         code: 'fr',
@@ -190,7 +195,7 @@ module.exports = {
         file: 'fr.json',
         name: 'Français',
         // domain: process.env.DOMAIN_FR,
-        domain: 'fr.learning-resources:8080'
+        domain: 'fr.learning-resources:8080',
       },
     ],
     parsePages: false,
@@ -199,16 +204,14 @@ module.exports = {
     // strategy: 'prefix',
     detectBrowserLanguage: false,
     pages: {
-      index:
-      {
+      index: {
         en: '/',
-        fr: '/fr/'
+        fr: '/fr/',
       },
-      'fr/index':
-        {
-          en: '/',
-          fr: '/fr/'
-        },
+      'fr/index': {
+        en: '/',
+        fr: '/fr/',
+      },
       'topic/_topic': {
         en: '/topic/:topic',
         fr: '/themes/:topic',
@@ -232,7 +235,7 @@ module.exports = {
   }, */
 
   generate: {
-    routes: missingRoutes
+    routes: missingRoutes,
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -273,5 +276,5 @@ module.exports = {
   telemetry: false,
   storybook: {
     // Options
-  }
+  },
 }

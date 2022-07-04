@@ -63,32 +63,24 @@ export default {
 
     // const currentLocale = app.i18n.locale + '-CA'
 
-
     let currentLocale = 'en-CA'
 
-    if (JSON.stringify(payload) !== '{}')
-    {
-      currentLocale = payload + '-CA';
+    if (JSON.stringify(payload) !== '{}') {
+      currentLocale = payload + '-CA'
     }
 
-    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA')
-    {
-
-      if (app.i18n.locale != null)
-      {
-        currentLocale = app.i18n.locale + "-CA";
-      }
-      else
-      {
+    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
+      if (app.i18n.locale != null) {
+        currentLocale = app.i18n.locale + '-CA'
+      } else {
         currentLocale = 'en-CA'
       }
     }
 
-
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
-    console.log('_resource current locale: ' + currentLocale);
+    console.log('_resource current locale: ' + currentLocale)
 
     /* Query resource by url slug */
 
@@ -146,15 +138,19 @@ export default {
       })
 
     let breadcrumbs =
-      resource.testResourceCollection.items[0].breadcrumbsCollection.items;
+      resource.testResourceCollection.items[0].breadcrumbsCollection.items
 
-    const topicPathPrefix = currentLocale.includes("en") ? '/topic/' : '/themes/';
+    const topicPathPrefix = currentLocale.includes('en')
+      ? '/topic/'
+      : '/themes/'
 
-    breadcrumbs = breadcrumbs.map(breadcrumb => ({"name" : breadcrumb.name, "path" : topicPathPrefix + breadcrumb.urlSlug}));
+    breadcrumbs = breadcrumbs.map((breadcrumb) => ({
+      name: breadcrumb.name,
+      path: topicPathPrefix + breadcrumb.urlSlug,
+    }))
 
     const relatedResources =
       resource.testResourceCollection.items[0].relatedResourcesCollection.items
-
 
     const alternateLocaleResourceSlug =
       resource.testResourceCollection.items[0].urlSlug

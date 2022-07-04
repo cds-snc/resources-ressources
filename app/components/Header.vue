@@ -29,7 +29,7 @@
             />
           </nuxt-link> -->
 
-          <nuxt-link :to="localePath({name: 'index'})">
+          <nuxt-link :to="localePath({ name: 'index' })">
             <img
               class="sm:block h-12 w-auto"
               :src="

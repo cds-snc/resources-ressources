@@ -1,11 +1,10 @@
-import Vue from "vue";
-import VueGtag from "vue-gtag";
+import Vue from 'vue'
+import VueGtag from 'vue-gtag'
 
 /**
  * @type {import('@nuxt/types').Plugin}
  */
-export const vueGtag = ({app}) => {
-
+export const vueGtag = ({ app }) => {
   Vue.use(
     VueGtag,
     {

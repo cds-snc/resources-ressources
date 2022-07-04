@@ -43,22 +43,20 @@ export default {
 
   // Data -------------------------------------------------------------------------------------------------------------
 
-
   // Props ------------------------------------------------------------------------------------------------------------
 
   props: {
-    topic: {name: String, urlSlug: String, flag: {value: String}, path: String , locale: String},
+    topic: {
+      name: String,
+      urlSlug: String,
+      flag: { value: String },
+      path: String,
+      locale: String,
+    },
   },
 
   // Computed Properties ----------------------------------------------------------------------------------------------
 
-  computed: {
-
-
-    mounted() {
-      console.log('Props: ' + this.topic);
-
-    },
-  },
+  computed: {},
 }
 </script>

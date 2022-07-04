@@ -84,7 +84,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ app, params, $axios, store, payload }) {
-    console.log("_topic.vue params: " + params);
+    console.log('_topic.vue params: ' + params)
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action
@@ -94,34 +94,31 @@ export default {
      * not work.
      * */
 
-    let currentLocale = 'en-CA';
+    let currentLocale = 'en-CA'
 
-    if (payload != null || JSON.stringify(payload) !== 'null' || payload !== undefined)
-    {
-      console.log("_topic.vue | payload: " + JSON.stringify(payload));
-      currentLocale = payload + '-CA';
+    if (
+      payload != null ||
+      JSON.stringify(payload) !== 'null' ||
+      payload !== undefined
+    ) {
+      console.log('_topic.vue | payload: ' + JSON.stringify(payload))
+      currentLocale = payload + '-CA'
     }
 
-    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA')
-    {
-
-      if (app.i18n.locale != null)
-      {
-        currentLocale = app.i18n.locale + "-CA";
-      }
-      else
-      {
+    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
+      if (app.i18n.locale != null) {
+        currentLocale = app.i18n.locale + '-CA'
+      } else {
         currentLocale = 'en-CA'
       }
     }
-
 
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
-    const urlSlug = params.topic;
+    const urlSlug = params.topic
 
     const graphQLQuery = `query
     {
@@ -202,33 +199,38 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const topicPathPrefix = currentLocale.includes("en") ? '/topic/' : '/themes/'
-    const resourcePathPrefix = currentLocale.includes("en") ? '/resource/' : '/ressource/'
+    const topicPathPrefix = currentLocale.includes('en')
+      ? '/topic/'
+      : '/themes/'
+    const resourcePathPrefix = currentLocale.includes('en')
+      ? '/resource/'
+      : '/ressource/'
 
-    console.log("_topic.vue - topicPathPrefix: " + topicPathPrefix + " " + topic.name);
+    console.log(
+      '_topic.vue - topicPathPrefix: ' + topicPathPrefix + ' ' + topic.name
+    )
 
-    let breadcrumbs = topic.breadcrumbsCollection.items;
-    breadcrumbs = breadcrumbs.map(breadcrumb => ({ "name" : breadcrumb.name, "path" : topicPathPrefix + breadcrumb.urlSlug }));
+    let breadcrumbs = topic.breadcrumbsCollection.items
+    breadcrumbs = breadcrumbs.map((breadcrumb) => ({
+      name: breadcrumb.name,
+      path: topicPathPrefix + breadcrumb.urlSlug,
+    }))
 
-    let subtopics = topic.subtopicsCollection.items;
-    subtopics = subtopics.map(subtopic => (
-      {
-        "name" : subtopic.name,
-        "path" : topicPathPrefix + subtopic.urlSlug,
-        "locale" : currentLocale.substring(0, 2)
-      }));
+    let subtopics = topic.subtopicsCollection.items
+    subtopics = subtopics.map((subtopic) => ({
+      name: subtopic.name,
+      path: topicPathPrefix + subtopic.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
 
+    let resources = topic.resourcesCollection.items
 
-    let resources = topic.resourcesCollection.items;
-
-    resources = resources.map(resource => (
-      {
-        "title" : resource.title,
-        "dateAdded" : resource.dateAdded,
-        "path" : resourcePathPrefix + resource.urlSlug,
-        "locale": currentLocale.substring(0, 2)
-      }
-    ));
+    resources = resources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
 
     return { breadcrumbs, resources, topic, subtopics }
   },

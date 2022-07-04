@@ -9,7 +9,7 @@ module.exports = {
       name: 'English',
       dir: 'ltr',
       // domain: process.env.DOMAIN_EN,
-      domain: 'en.learning-resources:8080'
+      domain: 'en.learning-resources:8080',
     },
     {
       code: 'fr',
@@ -17,7 +17,7 @@ module.exports = {
       file: 'fr.json',
       name: 'Français',
       // domain: process.env.DOMAIN_FR,
-      domain: 'fr.learning-resources:8080'
+      domain: 'fr.learning-resources:8080',
     },
   ],
   defaultLocale: 'en',
@@ -25,7 +25,7 @@ module.exports = {
     fallbackLocale: 'en',
   },
   differentDomains: true,
-    // process.env.ENV === 'staging' || process.env.ENV === 'production',
+  // process.env.ENV === 'staging' || process.env.ENV === 'production',
 
   parsePages: false,
 

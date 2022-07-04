@@ -3,7 +3,10 @@
 <template>
   <ol class="flex mt-4">
     <li>
-      <nuxt-link :to="localePath({name: 'index'})" class="font-medium hover:text-blue-800 hover:underline">
+      <nuxt-link
+        :to="localePath({ name: 'index' })"
+        class="font-medium hover:text-blue-800 hover:underline"
+      >
         {{ $t('home') }}
       </nuxt-link>
       <font-awesome-icon
@@ -74,7 +77,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.breadcrumbs);
+    console.log(this.breadcrumbs)
   },
 }
 </script>

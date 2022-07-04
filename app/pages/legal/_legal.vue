@@ -19,15 +19,11 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ app, params, store, $axios, payload }) {
-
     let currentLocale = app.i18n.locale + '-CA'
 
-    if (payload != null)
-    {
-      currentLocale = payload + '-CA';
-    }
-    else
-    {
+    if (payload != null) {
+      currentLocale = payload + '-CA'
+    } else {
       currentLocale = app.i18n.locale + '-CA'
     }
 
@@ -72,9 +68,8 @@ export default {
 
     /* Set alternate url slug */
 
-    if (legalPage == null)
-    {
-      app.i18n.setLocaleCookie('fr');
+    if (legalPage == null) {
+      app.i18n.setLocaleCookie('fr')
 
       legalPage = await $axios
         .$post(endpoint, { query: contentfulQuery })
