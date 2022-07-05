@@ -12,7 +12,7 @@ const missingRoutes = async () => {
 
   const axiosConfig = {
     headers: {
-      Authorization: `Bearer GUc49ra1DWc4wiEZ8vk-6o9oYzDPhg-uc-ZOxh3v2P0`,
+      Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}`,
     },
   }
 
