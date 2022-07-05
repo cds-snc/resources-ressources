@@ -43,7 +43,6 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { BLOCKS } from '@contentful/rich-text-types'
 
 export default {
-
   layout: 'expandedSearch',
   // Hooks ------------------------------------------------------------------------------------------------------------
 
