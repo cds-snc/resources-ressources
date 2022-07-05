@@ -187,6 +187,7 @@ module.exports = {
         name: 'English',
         dir: 'ltr',
         domain: process.env.DOMAIN_EN,
+        // For local testing
         // domain: 'en.learning-resources:8080',
       },
       {
@@ -195,6 +196,7 @@ module.exports = {
         file: 'fr.json',
         name: 'Français',
         domain: process.env.DOMAIN_FR,
+        // For local testing
         // domain: 'fr.learning-resources:8080',
       },
     ],

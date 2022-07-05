@@ -71,6 +71,8 @@
 import dayjs from 'dayjs'
 
 export default {
+
+
   // Filters ----------------------------------------------------------------------------------------------------------
 
   filters: {
@@ -80,6 +82,8 @@ export default {
       return dayjs(dateString).format('DD-MM-YYYY')
     },
   },
+
+  layout: 'expandedSearch',
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
