@@ -8,7 +8,7 @@ const i18n = require('./config/i18n.js')
 const missingRoutes = async () => {
   const axiosConfig = {
     headers: {
-      Authorization: `Bearer ${config.CTF_CDA_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token}`,
     },
   }
 
