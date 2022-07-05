@@ -58,16 +58,10 @@
               v-for="locale in availableLocales"
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
+              class="underline text-blue-900 hover:text-blue-700"
               @click="switchLocale"
-              >{{ locale.name }} {{ locale.code }}</a
-            >
-
-            <!-- <button
-              v-for="locale in availableLocales"
-              :key="locale.code"
-              @click="switchLocale">
-              {{locale.name}} {{locale.code}}
-            </button> -->
+              >{{ locale.name }} {{ locale.code }}
+            </a>
           </div>
         </div>
       </div>
