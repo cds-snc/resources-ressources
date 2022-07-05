@@ -49,6 +49,7 @@ jobs:
       - name: Run build
         env:
           contentful_cda_access_token: ${{ secrets.CONTENTFUL_CDA_ACCESS_TOKEN }}
+          contentful_space_id: ${{ secrets.CONTENTFUL_SPACE_ID }}
         run: |
           cp .contentful.json.sample .contentful.json
           npm run generate --if-present
