@@ -8,11 +8,15 @@ const i18n = require('./config/i18n.js')
 const missingRoutes = async () => {
   const axiosConfig = {
     headers: {
-      Authorization: `Bearer ${config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token}`,
+      Authorization: `Bearer ${
+        config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
+      }`,
     },
   }
 
-  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${config.CTF_SPACE_ID || process.env.contentful_space_id}`
+  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${
+    config.CTF_SPACE_ID || process.env.contentful_space_id
+  }`
 
   const englishTopicSlugsQuery = `query
   {
