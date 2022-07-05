@@ -6,17 +6,13 @@ const i18n = require('./config/i18n.js')
 // --------------------------------------------------------------------------------------------------------------------
 
 const missingRoutes = async () => {
-  // axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-
-  // axios create
-
   const axiosConfig = {
     headers: {
-      Authorization: `Bearer ${process.env.CTF_CDA_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${config.CTF_CDA_ACCESS_TOKEN}`,
     },
   }
 
-  const endpoint = `https://graphql.contentful.com/content/v1/spaces/zy72kv0qwyyq`
+  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${config.CTF_SPACE_ID}`
 
   const englishTopicSlugsQuery = `query
   {
