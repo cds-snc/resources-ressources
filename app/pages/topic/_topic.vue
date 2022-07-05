@@ -81,6 +81,8 @@ export default {
     },
   },
 
+  layout: 'expandedSearch',
+
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ app, params, $axios, store, payload }) {

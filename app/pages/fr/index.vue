@@ -130,7 +130,7 @@ export default {
   async asyncData({ $axios, payload }) {
     // Contentful --
 
-    const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`;
+    const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     // const locale = app.i18n.locale + '-CA'
 

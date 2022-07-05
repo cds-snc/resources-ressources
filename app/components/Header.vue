@@ -14,6 +14,7 @@
       </div>
     </div> -->
     <!-- CDS Banner-->
+    <Banner />
 
     <!-- <nav class="bg-white border-cds-yellow border-t-2 text-black"> -->
     <nav class="bg-white text-black">
