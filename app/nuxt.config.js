@@ -12,7 +12,7 @@ const missingRoutes = async () => {
     },
   }
 
-  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${config.CTF_SPACE_ID}`
+  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${config.CTF_SPACE_ID || process.env.contentful_space_id}`
 
   const englishTopicSlugsQuery = `query
   {
