@@ -122,11 +122,12 @@ module.exports = {
   },
 
   publicRuntimeConfig: {
-    googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID
+    googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
   },
 
   privateRuntimeConfig: {
-    contentfulAccessToken: config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
+    contentfulAccessToken:
+      config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
