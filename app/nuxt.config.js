@@ -121,6 +121,14 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  publicRuntimeConfig: {
+    googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID
+  },
+
+  privateRuntimeConfig: {
+    contentfulAccessToken: config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
