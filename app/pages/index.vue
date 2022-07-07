@@ -54,15 +54,15 @@
 
     <!-- Featured ---------------------------------------------------------------------------------------------------->
 
-    <div class="grid lg:grid-cols-3 mb-5">
+    <!-- <div class="grid lg:grid-cols-3 mb-5">
       Heading (left side)
       <div class="col-span-1">
         <h2 class="text-4xl font-thin p-5">{{ $t('New') }}</h2>
-      </div>
+      </div> -->
 
-      <!-- New Resource (right side) -->
+    <!-- New Resource (right side) -->
 
-      <div
+    <!-- <div
         class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between"
       >
         <div>
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="border-t border-gray-300 mb-5"></div>
+    <div class="border-t border-gray-300 mb-5"></div> -->
 
     <!-- Contact Us -------------------------------------------------------------------------------------------------->
 
