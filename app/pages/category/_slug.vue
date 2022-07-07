@@ -57,11 +57,19 @@ export default {
       .catch((error: any) => {
         console.log('error', error)
       })
-      .then((result: { data: { categoryCollection: { items: { linkedFrom: { topicCollection: { items: any } } }[] } } }) => {
-        // todo make sure this exists
-        return result.data.categoryCollection.items[0].linkedFrom
-          .topicCollection.items
-      })
+      .then(
+        (result: {
+          data: {
+            categoryCollection: {
+              items: { linkedFrom: { topicCollection: { items: any } } }[]
+            }
+          }
+        }) => {
+          // todo make sure this exists
+          return result.data.categoryCollection.items[0].linkedFrom
+            .topicCollection.items
+        }
+      )
 
     console.log(topics)
 

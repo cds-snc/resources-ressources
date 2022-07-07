@@ -86,7 +86,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ app, params, $contentfulApi, store, payload }) {
-    console.log('_topic.vue params: ' + params)
+    console.log('_topic.vue params: ', params)
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action

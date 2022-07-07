@@ -200,7 +200,7 @@ export default {
 
     const [englishTopLevelTopics, frenchTopLevelTopics, newResourceRes] =
       await Promise.all([
-        $contentfulApi.$post('',{ query: englishTopLevelTopicsQuery }),
+        $contentfulApi.$post('', { query: englishTopLevelTopicsQuery }),
         $contentfulApi.$post('', { query: frenchTopLevelTopicsQuery }),
         $contentfulApi.$post('', { query: newResourceQuery }),
         // $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
@@ -211,7 +211,7 @@ export default {
     // const response = await $axios.$post(contentfulEndpoint, {
     //   query: englishTopLevelTopicsQuery,
     // })
-    const response = await $contentfulApi.$post('',{
+    const response = await $contentfulApi.$post('', {
       query: englishTopLevelTopicsQuery,
     })
 

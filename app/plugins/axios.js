@@ -1,13 +1,15 @@
+// Set Contentful baseURL
 
-
-  // Set Contentful baseURL
-  const baseUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-  export default function ({ $axios }, inject) {
-    const contentfulApi = $axios.create({})
-    contentfulApi.setBaseURL(baseUrl)
+export default function (
+  { $axios, $config: { contentfulAccessToken, contentfulSpaceID } },
+  inject
+) {
+  const baseUrl = `https://graphql.contentful.com/content/v1/spaces/${contentfulSpaceID}`
+  const contentfulApi = $axios.create({})
+  contentfulApi.setBaseURL(baseUrl)
   // contentfulApi.setBaseUrl(baseUrl)
 
-  contentfulApi.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+  contentfulApi.setToken(contentfulAccessToken, 'Bearer')
 
   contentfulApi.onResponse((response) => {
     if (response.status === 404) {
