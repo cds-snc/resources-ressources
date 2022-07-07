@@ -58,7 +58,7 @@
               v-for="locale in availableLocales"
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
-              class="underline text-blue-900 hover:text-blue-700"
+              class="underline text-blue-900 hover:text-blue-700 text-xl"
               @click="switchLocale"
               >{{ locale.name }} {{ locale.code }}
             </a>
