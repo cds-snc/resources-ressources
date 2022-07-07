@@ -46,7 +46,7 @@ export default {
   layout: 'expandedSearch',
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $axios, store, payload }) {
+  async asyncData({ app, params, $contentfulApi, store, payload }) {
     /* Query resource by ID */
     /* const graphQLQuery = `query
       {
@@ -128,12 +128,12 @@ export default {
       }
     }`
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    //
+    // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
-    const resource = await $axios
-      .$post(endpoint, { query: graphQLQuery })
+    const resource = await $contentfulApi
+      .$post('', { query: graphQLQuery })
       .then((result) => {
         return result.data
       })

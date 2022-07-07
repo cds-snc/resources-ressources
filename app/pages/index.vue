@@ -125,8 +125,8 @@ export default {
   },
   layout: 'expandedSearch',
 
-  async asyncData({ $axios, payload }) {
-    const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
+  async asyncData({ $contentfulApi, payload }) {
+    // const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     // const locale = app.i18n.locale + '-CA'
 
@@ -191,21 +191,27 @@ export default {
         }
       }`
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-    $axios.$request({})
+    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    // $axios.$request({})
 
     const [englishTopLevelTopics, frenchTopLevelTopics, newResourceRes] =
       await Promise.all([
-        $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
-        $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
-        $axios.$post(contentfulEndpoint, { query: newResourceQuery }),
+        $contentfulApi.$post('',{ query: englishTopLevelTopicsQuery }),
+        $contentfulApi.$post('',{ query: frenchTopLevelTopicsQuery }),
+        $contentfulApi.$post('',{ query: newResourceQuery }),
+        // $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
+        // $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
+        // $axios.$post(contentfulEndpoint, { query: newResourceQuery }),
       ])
 
-    const response = await $axios.$post(contentfulEndpoint, {
+    // const response = await $axios.$post(contentfulEndpoint, {
+    //   query: englishTopLevelTopicsQuery,
+    // })
+    const response = await $contentfulApi.$post({
       query: englishTopLevelTopicsQuery,
     })
 
-    console.log('index.vue | English topics: ' + englishTopLevelTopics)
+    console.log('TESTTTTT index.vue | English topics: ' + englishTopLevelTopics)
     console.log('index.vue | French topics: ' + frenchTopLevelTopics)
     console.log(newResourceRes)
 

@@ -107,7 +107,6 @@ const missingRoutes = async () => {
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-  ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -135,7 +134,7 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
-  plugins: ['~/plugins/contentful', '~/plugins/vue-gtag'],
+  plugins: ['~/plugins/contentful', '~/plugins/vue-gtag', '~/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

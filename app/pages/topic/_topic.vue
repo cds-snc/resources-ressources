@@ -85,7 +85,7 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $axios, store, payload }) {
+  async asyncData({ app, params, $contentfulApi, store, payload }) {
     console.log('_topic.vue params: ' + params)
 
     /* PROBLEM:
@@ -168,12 +168,12 @@ export default {
 
     /* END OF: GraphQL Query *************************************************/
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
+    // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    const result = await $axios
-      .$post(endpoint, { query: graphQLQuery })
+    const result = await $contentfulApi
+      .$post('', { query: graphQLQuery })
       .then((res) => {
         return res
         // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items

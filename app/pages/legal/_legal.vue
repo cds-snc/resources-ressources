@@ -18,7 +18,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, store, $axios, payload }) {
+  async asyncData({ app, params, store, $contentfulApi, payload }) {
     let currentLocale = app.i18n.locale + '-CA'
 
     if (payload != null) {
@@ -57,11 +57,11 @@ export default {
 
     /* Fetch data */
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
+    // $contentfulApi.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    let legalPage = await $axios
-      .$post(endpoint, { query: contentfulQuery })
+    let legalPage = await $contentfulApi
+      .$post('', { query: contentfulQuery })
       .then((res) => {
         return res.data.legalPageCollection.items[0]
       })
@@ -71,8 +71,8 @@ export default {
     if (legalPage == null) {
       app.i18n.setLocaleCookie('fr')
 
-      legalPage = await $axios
-        .$post(endpoint, { query: contentfulQuery })
+      legalPage = await $contentfulApi
+        .$post('', { query: contentfulQuery })
         .then((res) => {
           return res.data.legalPageCollection.items[0]
         })

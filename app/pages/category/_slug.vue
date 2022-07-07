@@ -21,7 +21,7 @@ export default {
   //   console.log(params.slug)
   //   return params.slug
   // },
-  async asyncData({ $axios, params }) {
+  async asyncData({ $contentfulApi, params }) {
     console.log(params.slug)
     const categoryId = params.slug
     const query = `{
@@ -40,9 +40,9 @@ export default {
       }
     }`
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
+    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`
+    const path = `/environments/master/`
     const options = {
       data: JSON.stringify({
         query,
@@ -50,14 +50,14 @@ export default {
     }
 
     console.log('options', options)
-    console.log('url', endpoint)
+    console.log('url', path)
 
-    const topics = await $axios
-      .$post(endpoint, { query })
-      .catch((error) => {
+    const topics = await $contentfulApi
+      .$post(path, { query })
+      .catch((error: any) => {
         console.log('error', error)
       })
-      .then((result) => {
+      .then((result: { data: { categoryCollection: { items: { linkedFrom: { topicCollection: { items: any } } }[] } } }) => {
         // todo make sure this exists
         return result.data.categoryCollection.items[0].linkedFrom
           .topicCollection.items
