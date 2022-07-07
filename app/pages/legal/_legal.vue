@@ -1,7 +1,7 @@
 <!-- Page View =====================================================================================================-->
 
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center mb-5">
     <div class="max-w-4xl">
       <h1 class="font-bold text-4xl my-14">{{ legalPage.title }}</h1>
       <div v-html="richText"></div>
@@ -12,7 +12,7 @@
 <!-- Page Logic ------------------------------------------------------------------------------------------------------>
 
 <script>
-import { BLOCKS } from '@contentful/rich-text-types'
+import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 
 export default {
@@ -99,27 +99,103 @@ export default {
     /* Set rich text rendering options */
 
     const richTextOptions = {
+      renderMark: {
+        [MARKS.BOLD]: (text) => {
+          console.log(text)
+          return `<strong class="font-bold">${text}</strong>`
+        },
+        [MARKS.ITALIC]: (text) => {
+          return `<i class="italic">${text}</i>`
+        },
+      },
       renderNode: {
+        [INLINES.HYPERLINK]: (node) => {
+          console.log('----- _legal: ' + node.content)
+          return `<a class="text-blue-900 underline" href="${node.data.uri}">${node.content[0].value}</a>`
+        },
+        [INLINES.ENTRY_HYPERLINK]: (node) => {
+          console.log(node.data.target.sys.id)
+
+          const entryId = node.data.target.sys.id
+
+          const entryQuery = `query
+          {
+            legalPage(id: "${entryId}")
+            {
+              urlSlug
+            }
+          }`
+
+          const entry = $axios
+            .$post(endpoint, { query: entryQuery })
+            .then((res) => {
+              console.log(res)
+              return res.data.legalPage
+            })
+
+          const path = '/legal/' + entry.urlSlug
+          console.log(path)
+          return `<nuxt-link class="text-blue-900 underline" :to="localePath(${path})">${node.content[0].value}</nuxt-link>`
+        },
+        [BLOCKS.HEADING_1]: (node) => {
+          return `<h1 class="text-3xl font-medium mt-12 mb-2.5" >${node.content[0].value}</h1>`
+        },
         [BLOCKS.HEADING_2]: (node) => {
           return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
         },
-        [BLOCKS.PARAGRAPH]: (node) => {
-          return `<p class="leading-7">${node.content[0].value}</p>`
+        [BLOCKS.HEADING_3]: (node) => {
+          return `<h2 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        [BLOCKS.PARAGRAPH]: (node, next) => {
+          // return `<p class="leading-7">${node.content[0].value}</p>`
+          return `<p class="leading-7">${next(node.content)}</p>`
         },
         [BLOCKS.UL_LIST]: (node, next) => {
-          console.log(JSON.parse(JSON.stringify(node)))
+          // console.log(JSON.parse(JSON.stringify(node)))
           return `<ul class="list-disc ml-4">
                         ${next(node.content)}
                     </ul>`
+        },
+        [BLOCKS.HR]: () => {
+          return `<div class="border-t border-gray-300 my-5"></div>`
         },
       },
     }
 
     /* Apply rich text styling */
 
+    console.log(legalPage.body.json)
+
     const richText = documentToHtmlString(legalPage.body.json, richTextOptions)
 
     return { legalPage, richText }
+  },
+
+  // Methods ----------------------------------------------------------------------------------------------------------
+
+  methods: {
+    getEntrySlug(entryId, axios) {
+      console.log('-- in getEntrySlug')
+
+      const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
+
+      const contentfulQuery = `query
+      {
+        legalPage(id: "${entryId}")
+        {
+          urlSlug
+        }
+      }`
+
+      const entry = axios
+        .$post(endpoint, { query: contentfulQuery })
+        .then((res) => {
+          return res.data.legalPage
+        })
+
+      return entry.urlSlug
+    },
   },
 }
 </script>
