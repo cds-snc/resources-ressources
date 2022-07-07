@@ -127,6 +127,7 @@ module.exports = {
   privateRuntimeConfig: {
     contentfulAccessToken:
       config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
+    contentfulSpaceID: config.CTF_SPACE_ID,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
