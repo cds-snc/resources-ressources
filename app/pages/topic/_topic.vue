@@ -97,9 +97,7 @@ export default {
      * */
 
     let currentLocale = 'en-CA'
-    if (
-      payload && payload.locale
-    ) {
+    if (payload && payload.locale) {
       currentLocale = payload.locale + '-CA'
     }
 
@@ -169,11 +167,11 @@ export default {
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     let topic
-    if( payload && payload.topic ) {
-      topic = { ...payload.topic}
+    if (payload && payload.topic) {
+      topic = { ...payload.topic }
     } else {
       const result = await $contentfulApi
-        .$post('', {query: graphQLQuery})
+        .$post('', { query: graphQLQuery })
         .then((res) => {
           return res
           // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items

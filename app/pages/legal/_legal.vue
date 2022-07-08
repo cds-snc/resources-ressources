@@ -21,7 +21,7 @@ export default {
   async asyncData({ app, params, store, $contentfulApi, payload }) {
     let currentLocale = app.i18n.locale + '-CA'
 
-    if (payload != null) {
+    if (payload && payload.locale) {
       currentLocale = payload + '-CA'
     } else {
       currentLocale = app.i18n.locale + '-CA'
@@ -60,23 +60,30 @@ export default {
     // $contentfulApi.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    let legalPage = await $contentfulApi
-      .$post('', { query: contentfulQuery })
-      .then((res) => {
-        return res.data.legalPageCollection.items[0]
-      })
-
-    /* Set alternate url slug */
-
-    if (legalPage == null) {
-      app.i18n.setLocaleCookie('fr')
-
+    // Get en
+    let legalPage
+    if (payload && payload.legalPage) {
+      legalPage = { ...payload.legalPage }
+    } else {
       legalPage = await $contentfulApi
         .$post('', { query: contentfulQuery })
         .then((res) => {
           return res.data.legalPageCollection.items[0]
         })
     }
+
+    /* Set alternate url slug */
+
+    // TODO: Check if this is actually needed
+    // if (legalPage == null) {
+    //   app.i18n.setLocaleCookie('fr')
+    //
+    //   legalPage = await $contentfulApi
+    //     .$post('', { query: contentfulQuery })
+    //     .then((res) => {
+    //       return res.data.legalPageCollection.items[0]
+    //     })
+    // }
 
     const alternateLocaleUrlSlug = legalPage.urlSlug
 

@@ -88,17 +88,20 @@ const missingRoutes = async () => {
     .then((res) => {
       return res.data.data.testResourceCollection.items.map((resource) => ({
         route: `ressource/${resource.urlSlug}`,
-        payload: 'fr',
+        payload: {
+          locale: 'fr',
+          resource,
+        },
       }))
     })
 
   const footerRoutes = [
-    { route: 'transparence/avis', payload: 'fr' },
-    { route: 'legal/terms', payload: 'en' },
-    { route: 'legal/privacy', payload: 'en' },
-    { route: 'transparence/confidentialite', payload: 'fr' },
-    { route: '/', payload: 'en' },
-    { route: '/fr', payload: 'fr' },
+    { route: 'transparence/avis', payload: { locale: 'fr' } },
+    { route: 'legal/terms', payload: { locale: 'en' } },
+    { route: 'legal/privacy', payload: { locale: 'en' } },
+    { route: 'transparence/confidentialite', payload: { locale: 'fr' } },
+    { route: '/', payload: { locale: 'en' } },
+    { route: '/fr', payload: { locale: 'fr' } },
     // { route: "" , payload: 'en'}
   ]
 
@@ -255,6 +258,13 @@ module.exports = {
 
   generate: {
     routes: missingRoutes,
+    // interval: 10,
+  },
+
+  router: {
+    // trailingSlash: true
+    // prefetchLinks: false,
+    // prefetchPayloads: false
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

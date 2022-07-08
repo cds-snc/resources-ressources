@@ -66,7 +66,7 @@ export default {
 
     let currentLocale = 'en-CA'
 
-    if (JSON.stringify(payload) !== '{}') {
+    if (payload && payload.locale) {
       currentLocale = payload + '-CA'
     }
 
@@ -132,11 +132,16 @@ export default {
     //
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    const resource = await $contentfulApi
-      .$post('', { query: graphQLQuery })
-      .then((result) => {
-        return result.data
-      })
+    let resource
+    if (payload && payload.resource) {
+      resource = { ...payload.resource }
+    } else {
+      resource = await $contentfulApi
+        .$post('', { query: graphQLQuery })
+        .then((result) => {
+          return result.data
+        })
+    }
 
     let breadcrumbs =
       resource.testResourceCollection.items[0].breadcrumbsCollection.items
