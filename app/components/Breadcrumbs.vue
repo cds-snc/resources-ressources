@@ -5,7 +5,7 @@
     <li>
       <nuxt-link
         :to="localePath({ name: 'index' })"
-        class="font-medium hover:text-blue-800 hover:underline"
+        class="font-medium text-xl hover:text-blue-800 hover:underline"
       >
         {{ $t('home') }}
       </nuxt-link>
@@ -34,7 +34,7 @@
       <!-- For full static site -->
       <nuxt-link
         :to="breadcrumb.path"
-        class="font-medium hover:text-blue-800 hover:underline"
+        class="font-medium text-xl hover:text-blue-800 hover:underline"
       >
         {{ breadcrumb.name }}
       </nuxt-link>
@@ -44,7 +44,7 @@
         class="mr-1.5"
       ></font-awesome-icon>
     </li>
-    <li class="text-gray-600">
+    <li class="text-xl text-gray-700">
       {{ currentPageTitle }}
     </li>
   </ol>

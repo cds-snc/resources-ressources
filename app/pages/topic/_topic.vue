@@ -33,12 +33,12 @@
 
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
-    <div v-if="hasSubtopics" class="mb-32 grid lg:grid-cols-3">
+    <div v-if="hasSubtopics" class="mb-32 grid xl:grid-cols-3">
       <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">
         {{ topic.subtopicsHeading }}
       </h2>
 
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2 pt-2">
         <li v-for="subtopic in subtopics" :key="subtopic.name">
           <TopicLink :topic="subtopic"> </TopicLink>
         </li>
@@ -53,10 +53,10 @@
 
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
-    <div v-if="hasResources" class="mb-32 grid lg:grid-cols-3">
+    <div v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
       <h2 class="p-5 text-4xl font-thin col-span-1">{{ $t('results') }}</h2>
 
-      <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2">
+      <ul class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2">
         <!-- Resource card --------------------------------------------------------------------------------------------->
 
         <li v-for="resource in resources" :key="resource.title">

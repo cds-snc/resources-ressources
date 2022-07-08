@@ -8,9 +8,9 @@
     >
     </breadcrumbs>
 
-    <div class="flex justify-center mb-10">
+    <div class="flex mb-10">
       <div class="max-w-4xl">
-        <h1 class="text-4xl font-bold text-center m-20">
+        <h1 class="text-4xl font-bold my-20">
           {{ resource.testResourceCollection.items[0].title }}
         </h1>
 
@@ -21,7 +21,7 @@
         <div>
           <div class="border-t border-gray-300 border-thin my-14"></div>
 
-          <h2 class="p-5 font-thin text-4xl">Explore related resources</h2>
+          <h2 class="p-5 font-thin text-4xl">Related resources</h2>
 
           <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
             <!-- Resource card --------------------------------------------------------------------------------------------->

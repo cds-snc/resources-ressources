@@ -23,7 +23,7 @@
     >-->
     <nuxt-link
       :to="localePath(topic.path, topic.locale)"
-      class="group hover:text-blue-800 font-medium text-lg inline-block"
+      class="group text-blue-800 hover:text-blue-700 hover:underline hover:underline-offset-8 font-medium text-2xl inline-block h-11"
     >
       {{ topic.name }}
       <font-awesome-icon
