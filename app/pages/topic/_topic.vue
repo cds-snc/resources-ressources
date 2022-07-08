@@ -97,14 +97,10 @@ export default {
      * */
 
     let currentLocale = 'en-CA'
-
     if (
-      payload != null ||
-      JSON.stringify(payload) !== 'null' ||
-      payload !== undefined
+      payload && payload.locale
     ) {
-      console.log('_topic.vue | payload: ' + JSON.stringify(payload))
-      currentLocale = payload + '-CA'
+      currentLocale = payload.locale + '-CA'
     }
 
     if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
@@ -172,14 +168,18 @@ export default {
 
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    const result = await $contentfulApi
-      .$post('', { query: graphQLQuery })
-      .then((res) => {
-        return res
-        // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
-      })
-
-    const topic = result.data.topicCollection.items[0]
+    let topic
+    if( payload && payload.topic ) {
+      topic = { ...payload.topic}
+    } else {
+      const result = await $contentfulApi
+        .$post('', {query: graphQLQuery})
+        .then((res) => {
+          return res
+          // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
+        })
+      topic = result.data.topicCollection.items[0]
+    }
 
     const alternateLocaleUrlSlug = topic.urlSlug
 
