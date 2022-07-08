@@ -61,8 +61,8 @@ const missingRoutes = async () => {
         // payload: 'en',
         payload: {
           locale: 'en',
-          topic
-        }
+          topic,
+        },
       }))
     })
 
@@ -76,8 +76,8 @@ const missingRoutes = async () => {
         // payload: 'fr',
         payload: {
           locale: 'fr',
-          topic
-        }
+          topic,
+        },
       }))
     })
 
