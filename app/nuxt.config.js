@@ -95,10 +95,67 @@ const missingRoutes = async () => {
       }))
     })
 
+  const englishLegalSlugsQuery = `query
+    {
+      legalPageCollection(locale: "en-CA")
+      {
+        items
+        {
+          title
+          urlSlug(locale: "en-CA")
+          body
+          {
+            json
+          }
+        }
+      }
+    }`
+
+  const frenchLegalSlugsQuery = `query
+    {
+      legalPageCollection(locale: "fr-CA")
+      {
+        items
+        {
+          title
+          urlSlug(locale: "fr-CA")
+          body
+          {
+            json
+          }
+        }
+      }
+    }`
+
+  // urlSlug = params.legal $t('terms.urlSlug')
+  const englishLegalPages = await axios
+    .post(endpoint, { query: englishLegalSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.legalPageCollection.items.map((legal) => ({
+        route: `legal/${legal.urlSlug}`,
+        payload: {
+          locale: 'en',
+          legal,
+        },
+      }))
+    })
+  const frenchLegalPages = await axios
+    .post(endpoint, { query: frenchLegalSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.legalPageCollection.items.map((legal) => ({
+        route: `transparence/${legal.urlSlug}`,
+        payload: {
+          locale: 'fr',
+          legal,
+        },
+      }))
+    })
+
+
   const footerRoutes = [
     { route: 'transparence/avis', payload: { locale: 'fr' } },
-    { route: 'legal/terms', payload: { locale: 'en' } },
-    { route: 'legal/privacy', payload: { locale: 'en' } },
+    // { route: 'legal/terms', payload: { locale: 'en' } },
+    // { route: 'legal/privacy', payload: { locale: 'en' } },
     { route: 'transparence/confidentialite', payload: { locale: 'fr' } },
     { route: '/', payload: { locale: 'en' } },
     { route: '/fr', payload: { locale: 'fr' } },
@@ -108,6 +165,8 @@ const missingRoutes = async () => {
   const slugs = englishTopicSlugs
     .concat(frenchtopicSlugs)
     .concat(frenchResources)
+    .concat(englishLegalPages)
+    .concat(frenchLegalPages)
     .concat(footerRoutes) // .concat(indexPage);
 
   return slugs
