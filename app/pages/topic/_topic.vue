@@ -33,12 +33,12 @@
 
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
-    <div v-if="hasSubtopics" class="mb-32 grid lg:grid-cols-3">
+    <div v-if="hasSubtopics" class="mb-32 grid xl:grid-cols-3">
       <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">
         {{ topic.subtopicsHeading }}
       </h2>
 
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2 pt-2">
         <li v-for="subtopic in subtopics" :key="subtopic.name">
           <TopicLink :topic="subtopic"> </TopicLink>
         </li>
@@ -53,10 +53,12 @@
 
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
-    <div v-if="hasResources" class="mb-32 grid lg:grid-cols-3">
-      <h2 class="p-5 text-4xl font-thin col-span-1">{{ $t('results') }}</h2>
+    <div v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
+      <h2 class="p-5 text-4xl font-thin col-span-1">
+        {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }}
+      </h2>
 
-      <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2">
+      <ul class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2">
         <!-- Resource card --------------------------------------------------------------------------------------------->
 
         <li v-for="resource in resources" :key="resource.title">
@@ -81,10 +83,12 @@ export default {
     },
   },
 
+  layout: 'expandedSearch',
+
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $axios, store }) {
-    console.log(params)
+  async asyncData({ app, params, $axios, store, payload }) {
+    console.log('_topic.vue params: ' + params)
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action
@@ -94,56 +98,31 @@ export default {
      * not work.
      * */
 
-    const currentLocale = app.i18n.locale + '-CA'
+    let currentLocale = 'en-CA'
+
+    if (
+      payload != null ||
+      JSON.stringify(payload) !== 'null' ||
+      payload !== undefined
+    ) {
+      console.log('_topic.vue | payload: ' + JSON.stringify(payload))
+      currentLocale = payload + '-CA'
+    }
+
+    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
+      if (app.i18n.locale != null) {
+        currentLocale = app.i18n.locale + '-CA'
+      } else {
+        currentLocale = 'en-CA'
+      }
+    }
 
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-
     const isDefaultLocale = currentLocale.includes('en') || false
 
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
     const urlSlug = params.topic
-
-    console.log(params)
-
-    /* Dynamic route parameter translations */
-
-    /* await store.dispatch('i18n/setRouteParams', {
-      en: { topic: 'Hiring' },
-      fr: { topic: 'Embauche de talents' }
-    }); */
-
-    /* END OF: Dynamic route parameter translations */
-
-    /* GraphQL Query *********************************************************/
-
-    /* const graphQLQuery = `query{
-      topicCollection(where: {urlSlug: "${topic}"}, limit: 1, locale: "${currentLocale}") {
-        items {
-          name
-          urlSlug(locale: "${otherLocale}")
-          topicDescription
-          topicKeywords
-          linkedFrom {
-            testResourceCollection {
-              items {
-                sys
-                {
-                  id
-                }
-                title
-                urlSlug
-                dateAdded
-                resourceType
-                {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
-    }` */
 
     const graphQLQuery = `query
     {
@@ -202,8 +181,6 @@ export default {
         // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
       })
 
-    console.log(result)
-
     const topic = result.data.topicCollection.items[0]
 
     const alternateLocaleUrlSlug = topic.urlSlug
@@ -226,11 +203,39 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const breadcrumbs = topic.breadcrumbsCollection.items
-    const subtopics = topic.subtopicsCollection.items
-    const resources = topic.resourcesCollection.items
+    const topicPathPrefix = currentLocale.includes('en')
+      ? '/topic/'
+      : '/themes/'
+    const resourcePathPrefix = currentLocale.includes('en')
+      ? '/resource/'
+      : '/ressource/'
 
-    console.log(resources)
+    console.log(
+      '_topic.vue - topicPathPrefix: ' + topicPathPrefix + ' ' + topic.name
+    )
+
+    let breadcrumbs = topic.breadcrumbsCollection.items
+    breadcrumbs = breadcrumbs.map((breadcrumb) => ({
+      name: breadcrumb.name,
+      path: topicPathPrefix + breadcrumb.urlSlug,
+    }))
+    breadcrumbs.locale = currentLocale.substring(0, 2)
+
+    let subtopics = topic.subtopicsCollection.items
+    subtopics = subtopics.map((subtopic) => ({
+      name: subtopic.name,
+      path: topicPathPrefix + subtopic.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
+
+    let resources = topic.resourcesCollection.items
+
+    resources = resources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
 
     return { breadcrumbs, resources, topic, subtopics }
   },

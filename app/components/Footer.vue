@@ -36,8 +36,19 @@
     </div>
   </footer>
 </template>
-<script lang="ts">
+<script>
+// import {Context} from "@nuxt/types";
+
 export default {
   name: 'Footer',
+
+  asyncData({ app }) {
+    console.log('-- Footer.vue')
+    console.log('-- Footer.vue | locale: ' + app.i18n.locale)
+  },
+
+  mounted() {
+    console.log(this.$i18n.locale)
+  },
 }
 </script>

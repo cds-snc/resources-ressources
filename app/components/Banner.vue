@@ -20,11 +20,9 @@
 </template>
 
 <script lang="ts">
-import Link from '~/components/Link.vue'
+// import Link from '~/components/Link.vue'
 
 export default {
-  components: {
-    Link,
-  },
+  components: {},
 }
 </script>

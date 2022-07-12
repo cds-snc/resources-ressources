@@ -14,17 +14,21 @@
     <!-- Resource name / resource link -->
 
     <nuxt-link
-      :to="localePath(`/resource/${resource.urlSlug}`)"
-      class="text-lg font-medium hover:text-blue-700"
+      :to="localePath(resource.path, resource.locale)"
+      class="text-2xl font-medium text-blue-800 underline hover:text-blue-700"
     >
+      <!--<nuxt-link
+      :to="resource.path"
+      class="text-lg font-medium hover:text-blue-700"
+    >-->
       {{ resource.title }}
     </nuxt-link>
 
     <!-- Resource date -->
 
-    <div class="font-light mt-1.5 text-gray-800">
+    <!-- <div class="font-light mt-1.5 text-gray-800">
       {{ $t('last_updated') }} {{ resource.dateAdded | formatDate }}
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -49,14 +53,22 @@ export default {
   // Props ------------------------------------------------------------------------------------------------------------
 
   props: {
-    resource: { title: String, urlSlug: String, dateAdded: String },
+    resource: {
+      title: String,
+      urlSlug: String,
+      dateAdded: String,
+      path: String,
+      locale: String,
+    },
   },
 
   // Methods ----------------------------------------------------------------------------------------------------------
 
   methods: {
     navigateToResource() {
-      this.$router.push(this.localePath(`/resource/${this.resource.urlSlug}`))
+      this.$router.push(
+        this.localePath(this.resource.path, this.resource.locale)
+      )
     },
   },
 }

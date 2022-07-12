@@ -8,9 +8,9 @@
     >
     </breadcrumbs>
 
-    <div class="flex justify-center mb-10">
+    <div class="flex mb-10">
       <div class="max-w-4xl">
-        <h1 class="text-4xl font-bold text-center m-20">
+        <h1 class="text-4xl font-bold my-20">
           {{ resource.testResourceCollection.items[0].title }}
         </h1>
 
@@ -21,7 +21,13 @@
         <div>
           <div class="border-t border-gray-300 border-thin my-14"></div>
 
-          <h2 class="p-5 font-thin text-4xl">Explore related resources</h2>
+          <h2 class="p-5 font-thin text-4xl">
+            {{
+              breadcrumbs.locale === 'en'
+                ? 'Related resources'
+                : 'Ressources associées'
+            }}
+          </h2>
 
           <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
             <!-- Resource card --------------------------------------------------------------------------------------------->
@@ -43,9 +49,10 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { BLOCKS } from '@contentful/rich-text-types'
 
 export default {
+  layout: 'expandedSearch',
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $axios, store }) {
+  async asyncData({ app, params, $axios, store, payload }) {
     /* Query resource by ID */
     /* const graphQLQuery = `query
       {
@@ -61,11 +68,26 @@ export default {
 
     /* Determine current locale, alternate locale and default locale */
 
-    const currentLocale = app.i18n.locale + '-CA'
+    // const currentLocale = app.i18n.locale + '-CA'
+
+    let currentLocale = 'en-CA'
+
+    if (JSON.stringify(payload) !== '{}') {
+      currentLocale = payload + '-CA'
+    }
+
+    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
+      if (app.i18n.locale != null) {
+        currentLocale = app.i18n.locale + '-CA'
+      } else {
+        currentLocale = 'en-CA'
+      }
+    }
+
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
-    console.log('Current locale: ' + currentLocale)
+    console.log('_resource current locale: ' + currentLocale)
 
     /* Query resource by url slug */
 
@@ -114,24 +136,41 @@ export default {
 
     $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
 
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}/environments/master/`
+    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     const resource = await $axios
       .$post(endpoint, { query: graphQLQuery })
       .then((result) => {
-        // const richText = documentToHtmlString(result.data.body);
-
-        // console.log(richText);
-
         return result.data
       })
 
-    const breadcrumbs =
+    let breadcrumbs =
       resource.testResourceCollection.items[0].breadcrumbsCollection.items
-    const relatedResources =
+
+    const topicPathPrefix = currentLocale.includes('en')
+      ? '/topic/'
+      : '/themes/'
+
+    const resourcePathPrefix = currentLocale.includes('en')
+      ? '/resource/'
+      : '/ressource/'
+
+    breadcrumbs = breadcrumbs.map((breadcrumb) => ({
+      name: breadcrumb.name,
+      path: topicPathPrefix + breadcrumb.urlSlug,
+    }))
+    breadcrumbs.locale = currentLocale.substring(0, 2)
+    console.log('breadcrumbs locale: ' + breadcrumbs.locale)
+
+    let relatedResources =
       resource.testResourceCollection.items[0].relatedResourcesCollection.items
 
-    console.log(relatedResources)
+    relatedResources = relatedResources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
 
     const alternateLocaleResourceSlug =
       resource.testResourceCollection.items[0].urlSlug
@@ -152,10 +191,6 @@ export default {
       fr: { resource: frRouteParam },
     })
 
-    console.log(JSON.parse(JSON.stringify(resource)))
-
-    // const content = resource.body.json;
-
     const richTextOptions = {
       renderNode: {
         [BLOCKS.HEADING_2]: (node) => {
@@ -165,7 +200,6 @@ export default {
           return `<p class="leading-7">${node.content[0].value}</p>`
         },
         [BLOCKS.UL_LIST]: (node, next) => {
-          console.log(JSON.parse(JSON.stringify(node)))
           return `<ul class="list-disc ml-4">
                         ${next(node.content)}
                     </ul>`
@@ -177,10 +211,6 @@ export default {
       resource.testResourceCollection.items[0].body.json,
       richTextOptions
     )
-
-    console.log('Breadcrumbs:' + breadcrumbs)
-
-    console.log(richText)
 
     return { resource, richText, breadcrumbs, relatedResources }
   },

@@ -28,7 +28,6 @@
       <h1 class="text-3xl md:text-6xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
-
       <p class="text-l md:text-xl max-w-2xl font-light">
         {{ $t('landing_page.description') }}
       </p>
@@ -46,7 +45,7 @@
 
       <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 col-span-2 pt-2">
         <li v-for="topic in topics" :key="topic.name">
-          <TopicLink :topic="topic"> </TopicLink>
+          <TopicLink :topic="topic"></TopicLink>
         </li>
       </ul>
     </div>
@@ -54,16 +53,16 @@
     <div class="border-t border-gray-300 mb-5"></div>
 
     <!-- Featured ---------------------------------------------------------------------------------------------------->
-<!---
-    <div class="grid lg:grid-cols-3 mb-5">
-      <!-- Heading (left side) -->
+
+    <!-- <div class="grid lg:grid-cols-3 mb-5">
+      Heading (left side)
       <div class="col-span-1">
-        <h2 class="text-4xl font-thin p-5">New</h2>
-      </div>
+        <h2 class="text-4xl font-thin p-5">{{ $t('New') }}</h2>
+      </div> -->
 
-      <!-- New Resource (right side) -->
+    <!-- New Resource (right side) -->
 
-      <div
+    <!-- <div
         class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between"
       >
         <div>
@@ -81,8 +80,8 @@
       </div>
     </div>
 
-    <div class="border-t border-gray-300 mb-5"></div>
---->
+    <div class="border-t border-gray-300 mb-5"></div> -->
+
     <!-- Contact Us -------------------------------------------------------------------------------------------------->
 
     <div class="grid lg:grid-cols-3">
@@ -113,26 +112,43 @@
 // const client = createClient()
 
 export default {
+  nuxtI18n: {
+    paths: {
+      en: '/', // -> accessible at /about-us (no prefix since it's the default locale)
+      fr: '/fr', // -> accessible at /fr/a-propos
+    },
+  },
+
   name: 'Index',
   components: {
     //  Box,
   },
   layout: 'expandedSearch',
 
-  // asyncData({env} : {env:any}) {
-  async asyncData({ app, $axios }) {
-    // Contentful --
-    const spaceID = 'zy72kv0qwyyq'
-    const accessToken = 'GUc49ra1DWc4wiEZ8vk-6o9oYzDPhg-uc-ZOxh3v2P0'
-    const contentfulEndpoint =
-      'https://graphql.contentful.com/content/v1/spaces/' + spaceID
+  async asyncData({ $axios, payload }) {
+    const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
-    const locale = app.i18n.locale + '-CA'
+    // const locale = app.i18n.locale + '-CA'
 
-    console.log(locale)
+    let locale = 'en-CA'
 
-    const graphQLQuery = `query{
-      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}")
+    if (payload != null || payload !== undefined) {
+      console.log('-- en/index.vue | payload: ' + payload)
+      locale = payload + '-CA'
+    } else {
+      locale = 'en-CA'
+    }
+
+    if (locale === 'null-CA' || locale === 'undefined-CA') {
+      locale = 'en-CA'
+    }
+
+    console.log('-- en/index.vue | locale: ' + locale)
+
+    // Query for English Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    const englishTopLevelTopicsQuery = `query{
+      topicCollection(where: { isTopLevelTopic: true }, locale: "en-CA")
       {
         items
         {
@@ -146,76 +162,55 @@ export default {
       }
     }`
 
-    const newResourceQuery = `query{
-      testResourceCollection(order: [dateAdded_DESC], limit: 1)
+    // Query for French Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    const frenchTopLevelTopicsQuery = `query{
+      topicCollection(where: { isTopLevelTopic: true }, locale: "fr-CA")
+      {
+        items
         {
-          items
+          name
+          urlSlug
+          flag
           {
-            title
-            urlSlug
-            dateAdded
+            value
           }
         }
-      }`
+      }
+    }`
 
-    $axios.setToken(accessToken, 'Bearer')
+    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     $axios.$request({})
 
-    const [topicsRes, newResourceRes] = await Promise.all([
-      $axios.$post(contentfulEndpoint, { query: graphQLQuery }),
-      $axios.$post(contentfulEndpoint, { query: newResourceQuery }),
+    const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
+      $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
+      $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
     ])
 
-    const response = await $axios.$post(contentfulEndpoint, {
-      query: graphQLQuery,
-    })
+    console.log('index.vue | English topics: ' + englishTopLevelTopics)
+    // console.log('index.vue | French topics: ' + frenchTopLevelTopics)
 
-    console.log(topicsRes)
-    console.log(newResourceRes)
+    let topics = null
 
-    console.log(response)
-    // const responseObj = JSON.parse(JSON.stringify(response));
+    if (locale === 'en-CA')
+      topics = englishTopLevelTopics.data.topicCollection.items
+    else topics = frenchTopLevelTopics.data.topicCollection.items
 
-    const newResource = newResourceRes.data.testResourceCollection.items[0]
-    console.log(newResource.title)
+    // let topicPathPrefix =
 
-    const topics = response.data.topicCollection.items
+    console.log('index.vue | topics: ' + JSON.stringify(topics))
 
-    console.log(topics)
+    const topicPathPrefix = locale === 'en-CA' ? '/topic/' : '/themes/'
 
-    return { topics, newResource }
-    // $i18n.locale n
-    // axios.get()
-    // return Promise.all([
-    //   client.getEntries({
-    //     'content_type': env.CTF_BLOG_POST_TYPE_ID,
-    //     order: '-sys.createdAt'
-    //   }),
-    //   client.getContentTypes()
-    // ]).then(([posts, contentTypes]) => {
-    //   return {
-    //     posts: posts.items,
-    //     contentTypes: contentTypes.items
-    //   }
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
-    /* DAINE'S CODE: *******************/
-    /* return Promise.all([
-      client.getEntries({
-        content_type: 'category',
-        order: '-sys.createdAt',
-        locale: app.i18n.localeProperties.iso,
-      }),
-    ])
-      .then(([categories]) => {
-        return {
-          categories: categories.items,
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      }) */
+    topics = topics.map((topic) => ({
+      name: topic.name,
+      urlSlug: topic.urlSlug,
+      path: topicPathPrefix + topic.urlSlug,
+    }))
+
+    console.log('index.vue | topics: ' + topics)
+
+    return { topics }
   },
   data() {
     return {

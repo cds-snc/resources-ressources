@@ -1,6 +1,6 @@
 module.exports = {
   langDir: '~/locales/',
-  strategy: 'prefix',
+  // strategy: 'prefix',
   locales: [
     {
       code: 'en',
@@ -9,6 +9,8 @@ module.exports = {
       name: 'English',
       dir: 'ltr',
       domain: process.env.DOMAIN_EN,
+      /// For local testing
+      // domain: 'en.learning-resources:8080',
     },
     {
       code: 'fr',
@@ -16,14 +18,16 @@ module.exports = {
       file: 'fr.json',
       name: 'Français',
       domain: process.env.DOMAIN_FR,
+      /// For local testing
+      // domain: 'fr.learning-resources:8080',
     },
   ],
   defaultLocale: 'en',
   vueI18n: {
     fallbackLocale: 'en',
   },
-  differentDomains:
-    process.env.ENV === 'staging' || process.env.ENV === 'production',
+  differentDomains: true,
+  // process.env.ENV === 'staging' || process.env.ENV === 'production',
 
   parsePages: false,
 

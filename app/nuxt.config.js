@@ -1,10 +1,135 @@
 /* eslint-disable nuxt/no-cjs-in-config */
+const axios = require('axios')
 const config = require('./.contentful.json')
 const i18n = require('./config/i18n.js')
+
+// --------------------------------------------------------------------------------------------------------------------
+
+const missingRoutes = async () => {
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${
+        config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
+      }`,
+    },
+  }
+
+  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${
+    config.CTF_SPACE_ID || process.env.contentful_space_id
+  }`
+
+  const englishTopicSlugsQuery = `query
+  {
+    topicCollection(locale: "en-CA")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
+
+  const frenchTopicSlugsQuery = `query
+  {
+    topicCollection(locale: "fr-CA")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
+
+  const englishResourceSlugsQuery = `query
+  {
+    testResourceCollection(locale: "en-CA")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
+
+  const frenchResourceSlugsQuery = `query
+  {
+    testResourceCollection(locale: "fr-CA")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
+
+  // English Topic Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const englishTopicSlugs = await axios
+    .post(endpoint, { query: englishTopicSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.topicCollection.items.map((topic) => ({
+        route: `topic/${topic.urlSlug}`,
+        payload: 'en',
+      }))
+    })
+
+  // French Topic Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const frenchtopicSlugs = await axios
+    .post(endpoint, { query: frenchTopicSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.topicCollection.items.map((topic) => ({
+        route: `themes/${topic.urlSlug}`,
+        payload: 'fr',
+      }))
+    })
+
+  // English Resource Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const englishResources = await axios
+    .post(endpoint, { query: englishResourceSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.testResourceCollection.items.map((resource) => ({
+        route: `resource/${resource.urlSlug}`,
+        payload: 'en',
+      }))
+    })
+
+  // French Resources Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const frenchResources = await axios
+    .post(endpoint, { query: frenchResourceSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.testResourceCollection.items.map((resource) => ({
+        route: `ressource/${resource.urlSlug}`,
+        payload: 'fr',
+      }))
+    })
+
+  const footerRoutes = [
+    { route: 'transparence/avis', payload: 'fr' },
+    { route: 'legal/terms', payload: 'en' },
+    { route: 'legal/privacy', payload: 'en' },
+    { route: 'transparence/confidentialite', payload: 'fr' },
+    { route: '/', payload: 'en' },
+    { route: '/fr', payload: 'fr' },
+  ]
+
+  const slugs = englishTopicSlugs
+    .concat(frenchtopicSlugs)
+    .concat(englishResources)
+    .concat(frenchResources)
+    .concat(footerRoutes) // .concat(indexPage);
+
+  return slugs
+}
+
+// --------------------------------------------------------------------------------------------------------------------
 
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -18,10 +143,20 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  publicRuntimeConfig: {
+    googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
+  },
+
+  privateRuntimeConfig: {
+    contentfulAccessToken:
+      config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+
   plugins: ['~/plugins/contentful', '~/plugins/vue-gtag'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -39,7 +174,30 @@ module.exports = {
     '@nuxtjs/fontawesome',
     // https://typescript.nuxtjs.org/
     '@nuxt/typescript-build',
+
+    /* [
+      "k-domains",
+      {
+        // Directories that hold pages for subdomain
+        subDomains: ["fr"],
+        // Directory that holds pages for root domain
+        rootDomain: "en"
+      }
+    ], */
+    // https://www.npmjs.com/package/@nuxtjs/router
+    /* [
+      '@nuxtjs/router',
+      {
+        path: 'router',
+        // fileName: 'index.js',
+        keepDefaultRouter: true
+      }
+    ] */
   ],
+  router: {
+    prefetchLinks: false,
+    prefetchPayloads: false,
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -56,23 +214,41 @@ module.exports = {
   // I18n: https://i18n.nuxtjs.org/
   // i18n Module Configuration
   i18n: {
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-CA',
+        file: 'en.json',
+        name: 'English',
+        dir: 'ltr',
+        domain: process.env.DOMAIN_EN,
+        // For local testing
+        // domain: 'en.learning-resources:8080',
+      },
+      {
+        code: 'fr',
+        iso: 'fr-CA',
+        file: 'fr.json',
+        name: 'Français',
+        domain: process.env.DOMAIN_FR,
+        // For local testing
+        // domain: 'fr.learning-resources:8080',
+      },
+    ],
     parsePages: false,
     differentDomains: true,
-    defaultLocale: 'en',
+    // defaultLocale: 'en',
     // strategy: 'prefix',
-    detectBrowserLanguage: {
-      // If enabled, a cookie is set once a user has been redirected to his
-      // preferred language to prevent subsequent redirections
-      // Set to false to redirect every time
-      useCookie: true,
-      // Cookie name
-      cookieKey: 'i18n_redirected',
-      // Set to always redirect to value stored in the cookie, not just once
-      alwaysRedirect: false,
-      // If no locale for the browsers locale is a match, use this one as a fallback
-      fallbackLocale: 'en',
-    },
+    detectBrowserLanguage: false,
     pages: {
+      index: {
+        en: '/',
+        fr: '/fr',
+      },
+      /* 'fr/index': {
+        en: '/',
+        fr: '/accueil/',
+      }, */
       'topic/_topic': {
         en: '/topic/:topic',
         fr: '/themes/:topic',
@@ -86,6 +262,18 @@ module.exports = {
         fr: '/transparence/:legal',
       },
     },
+  },
+
+  /* generate: {
+    routes: [ {route: 'transparence/avis', payload: 'fr'},
+      { route: "legal/terms"},
+      { route: "legal/privacy"},
+      { route: "transparence/confidentialite", payload: 'fr'}]
+  }, */
+
+  generate: {
+    crawler: false,
+    routes: missingRoutes,
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -126,5 +314,5 @@ module.exports = {
   telemetry: false,
   storybook: {
     // Options
-  }
+  },
 }

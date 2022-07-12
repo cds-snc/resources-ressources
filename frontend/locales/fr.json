@@ -8,11 +8,12 @@
     "in_progress": "Nous testons des idées et travaillons à l'élargissement de cette collection de ressources."
   },
   "landing_page": {
-    "title": "a prestation de services est difficile. Nous pouvons vous aider.",
-    "description": "Nous partageons des ressources ancrées dans notre travail pour aider nos collègues fonctionnaires.",
+    "title": "Bienvenue aux ressources d'apprentissage du SNC",
+    "description": "Nous partageons des ressources de prestation de service ancrées dans notre travail pour aider nos collègues fonctionnaires.",
     "slogan": "La prestation de services est difficile. Nous pouvons vous aider.",
     "topics_heading": "Thèmes"
   },
+  "New": "Nouveautés",
   "results": "Résultats",
   "search": "Recherche",
   "aria": {

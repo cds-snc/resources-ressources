@@ -12,7 +12,7 @@
       {{ topic.flag.value }}
     </div>
 
-    <nuxt-link
+    <!-- <nuxt-link
       :to="
         localePath({
           name: 'topic-topic',
@@ -20,6 +20,10 @@
         })
       "
       class="group hover:text-blue-800 font-medium text-lg inline-block"
+    >-->
+    <nuxt-link
+      :to="localePath(topic.path, topic.locale)"
+      class="group text-blue-800 hover:text-blue-700 hover:underline hover:underline-offset-8 font-medium text-2xl inline-block h-11"
     >
       {{ topic.name }}
       <font-awesome-icon
@@ -37,18 +41,22 @@
 export default {
   name: 'TopicLink',
 
+  // Data -------------------------------------------------------------------------------------------------------------
+
   // Props ------------------------------------------------------------------------------------------------------------
 
   props: {
-    topic: { name: String, urlSlug: String, flag: { value: String } },
+    topic: {
+      name: String,
+      urlSlug: String,
+      flag: { value: String },
+      path: String,
+      locale: String,
+    },
   },
 
   // Computed Properties ----------------------------------------------------------------------------------------------
 
   computed: {},
-
-  mounted() {
-    console.log('Props: ' + this.topic)
-  },
 }
 </script>
