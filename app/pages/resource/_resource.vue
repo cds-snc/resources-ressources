@@ -23,7 +23,7 @@
 
           <h2 class="p-5 font-thin text-4xl">
             {{
-              breadcrumbs.locale === "en"
+              breadcrumbs.locale === 'en'
                 ? 'Related resources'
                 : 'Ressources associées'
             }}
