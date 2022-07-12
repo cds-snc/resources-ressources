@@ -3,6 +3,8 @@ const axios = require('axios')
 const config = require('./.contentful.json')
 const i18n = require('./config/i18n.js')
 
+const generatedRoutes = require('./utils/generateRoutes')
+
 // --------------------------------------------------------------------------------------------------------------------
 
 const missingRoutes = async () => {
@@ -197,7 +199,7 @@ module.exports = {
   privateRuntimeConfig: {
     contentfulAccessToken:
       config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
-    contentfulSpaceID: config.CTF_SPACE_ID,
+    contentfulSpaceID: config.CTF_SPACE_ID || process.env.contentful_space_id,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -316,7 +318,22 @@ module.exports = {
   }, */
 
   generate: {
-    routes: missingRoutes,
+    crawler: false,
+    routes: (callback) => {
+      const accessToken =
+        config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
+      const spaceId = config.CTF_SPACE_ID || process.env.contentful_space_id
+      callback(null, generatedRoutes(accessToken, spaceId))
+    },
+    // routes: generatedRoutes(axios, config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token, config.CTF_SPACE_ID || process.env.contentful_space_id),
+    // routes: (callback) => {
+    //   console.log('in routes -------')
+    //   console.log(this)
+    //   console.log(generatedRoutes)
+    //   callback(null, generatedRoutes())
+    //   console.log('end routes -------')
+    //   return []
+    // }
     // interval: 10,
   },
 

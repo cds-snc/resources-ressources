@@ -34,5 +34,8 @@
     "title": "Privacy",
     "urlSlug": "privacy"
   },
-  "home": "Home"
+  "home": "Home",
+  "page_prefix": {
+    "topic": "topic/"
+  }
 }

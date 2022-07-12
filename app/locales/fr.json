@@ -34,5 +34,8 @@
     "title": "Confidentialité",
     "urlSlug": "confidentialite"
   },
-  "home": "Accueil"
+  "home": "Accueil",
+  "page_prefix": {
+    "topic": "themes/"
+  }
 }

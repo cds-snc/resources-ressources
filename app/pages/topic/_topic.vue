@@ -69,6 +69,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import { topicPageQuery } from '@/utils/queries'
 
 export default {
   // Filters ----------------------------------------------------------------------------------------------------------
@@ -87,6 +88,7 @@ export default {
 
   async asyncData({ app, params, $contentfulApi, store, payload }) {
     console.log('_topic.vue params: ', params)
+    console.log('_topic.vue payload: ', payload)
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action
@@ -96,19 +98,35 @@ export default {
      * not work.
      * */
 
-    let currentLocale = 'en-CA'
+    // let currentLocale = 'en-CA'
+    // if (payload && payload.locale) {
+    //   currentLocale = payload.locale + '-CA'
+    // }
+    //
+    // if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
+    //   if (app.i18n.locale != null) {
+    //     currentLocale = app.i18n.locale + '-CA'
+    //   } else {
+    //     currentLocale = 'en-CA'
+    //   }
+    // }
+
+    // Get currentLocale from either payload or i18n
+    let currentLocale
     if (payload && payload.locale) {
-      currentLocale = payload.locale + '-CA'
+      currentLocale = payload.locale
     }
+    console.log('payload locale', payload)
+    console.log('app i18n locale', app.i18n.locale)
 
-    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
-      if (app.i18n.locale != null) {
-        currentLocale = app.i18n.locale + '-CA'
-      } else {
-        currentLocale = 'en-CA'
-      }
+    if (!currentLocale || typeof currentLocale === 'undefined') {
+      currentLocale = app.i18n.locale + '-CA'
+    } else {
+      // default to english
+      currentLocale = 'en-CA'
     }
-
+    // payload = APIObj.queryTopicPage() // <-- makes a fresh api call
+    // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -116,49 +134,51 @@ export default {
 
     const urlSlug = params.topic
 
-    const graphQLQuery = `query
-    {
-      topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
-      {
-        items
-        {
-          name
-          topicDescription
-          subtopicsHeading
-          urlSlug(locale: "${alternateLocale}")
-          breadcrumbsCollection
-          {
-            items
-            {
-              name
-              urlSlug
-            }
-          }
-          subtopicsCollection
-          {
-            items
-            {
-              name
-              urlSlug
-              flag
-              {
-                value
-              }
-            }
-          }
-          resourcesCollection
-          {
-            items
-            {
-              title
-              dateAdded
-              urlSlug
-            }
-          }
-        }
+    console.log(params, 'slug', urlSlug)
 
-      }
-    }`
+    // const graphQLQuery = `query
+    // {
+    //   topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
+    //   {
+    //     items
+    //     {
+    //       name
+    //       topicDescription
+    //       subtopicsHeading
+    //       urlSlug(locale: "${alternateLocale}")
+    //       breadcrumbsCollection
+    //       {
+    //         items
+    //         {
+    //           name
+    //           urlSlug
+    //         }
+    //       }
+    //       subtopicsCollection
+    //       {
+    //         items
+    //         {
+    //           name
+    //           urlSlug
+    //           flag
+    //           {
+    //             value
+    //           }
+    //         }
+    //       }
+    //       resourcesCollection
+    //       {
+    //         items
+    //         {
+    //           title
+    //           dateAdded
+    //           urlSlug
+    //         }
+    //       }
+    //     }
+    //
+    //   }
+    // }`
 
     /* END OF: GraphQL Query *************************************************/
 
@@ -166,17 +186,25 @@ export default {
 
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
+    const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale)
+    console.log('query is', pageQuery)
     let topic
     if (payload && payload.topic) {
       topic = { ...payload.topic }
+      console.log('got topic from payload', topic)
     } else {
+      // get topic
+      // topic = $contentfulClient.queryTopicPage(urlSlug, currentLocale, alternateLocale)
+
       const result = await $contentfulApi
-        .$post('', { query: graphQLQuery })
+        .$post('', { query: pageQuery })
         .then((res) => {
           return res
           // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
         })
+      console.log(result.data)
       topic = result.data.topicCollection.items[0]
+      console.log('got topic from axios', topic)
     }
 
     const alternateLocaleUrlSlug = topic.urlSlug
