@@ -111,8 +111,8 @@ const missingRoutes = async () => {
     { route: 'legal/terms', payload: 'en' },
     { route: 'legal/privacy', payload: 'en' },
     { route: 'transparence/confidentialite', payload: 'fr' },
-    { route: '/home', payload: 'en' },
-    { route: '/accueil', payload: 'fr' },
+    { route: '/', payload: 'en' },
+    { route: '/fr', payload: 'fr' },
   ]
 
   const slugs = englishTopicSlugs
@@ -242,8 +242,8 @@ module.exports = {
     detectBrowserLanguage: false,
     pages: {
       index: {
-        en: '/home',
-        fr: '/accueil',
+        en: '/',
+        fr: '/fr',
       },
       /* 'fr/index': {
         en: '/',
