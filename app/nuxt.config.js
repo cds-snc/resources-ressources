@@ -40,6 +40,17 @@ const missingRoutes = async () => {
     }
   }`
 
+  const englishResourceSlugsQuery = `query
+  {
+    testResourceCollection(locale: "en-CA")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
+
   const frenchResourceSlugsQuery = `query
   {
     testResourceCollection(locale: "fr-CA")
@@ -73,6 +84,17 @@ const missingRoutes = async () => {
       }))
     })
 
+  // English Resource Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const englishResources = await axios
+    .post(endpoint, { query: englishResourceSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.testResourceCollection.items.map((resource) => ({
+        route: `resource/${resource.urlSlug}`,
+        payload: 'en',
+      }))
+    })
+
   // French Resources Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   const frenchResources = await axios
@@ -89,13 +111,13 @@ const missingRoutes = async () => {
     { route: 'legal/terms', payload: 'en' },
     { route: 'legal/privacy', payload: 'en' },
     { route: 'transparence/confidentialite', payload: 'fr' },
-    { route: '/', payload: 'en' },
-    { route: '/fr', payload: 'fr' },
-    // { route: "" , payload: 'en'}
+    { route: '/home', payload: 'en' },
+    { route: '/accueil', payload: 'fr' },
   ]
 
   const slugs = englishTopicSlugs
     .concat(frenchtopicSlugs)
+    .concat(englishResources)
     .concat(frenchResources)
     .concat(footerRoutes) // .concat(indexPage);
 
@@ -172,6 +194,10 @@ module.exports = {
       }
     ] */
   ],
+  router: {
+    prefetchLinks: false,
+    prefetchPayloads: false,
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -216,13 +242,13 @@ module.exports = {
     detectBrowserLanguage: false,
     pages: {
       index: {
-        en: '/',
-        fr: '/fr/',
+        en: '/home',
+        fr: '/accueil',
       },
-      'fr/index': {
+      /* 'fr/index': {
         en: '/',
-        fr: '/fr/',
-      },
+        fr: '/accueil/',
+      }, */
       'topic/_topic': {
         en: '/topic/:topic',
         fr: '/themes/:topic',
@@ -246,6 +272,7 @@ module.exports = {
   }, */
 
   generate: {
+    crawler: false,
     routes: missingRoutes,
   },
 

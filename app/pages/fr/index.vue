@@ -116,7 +116,7 @@ export default {
   nuxtI18n: {
     paths: {
       en: '/', // -> accessible at /about-us (no prefix since it's the default locale)
-      fr: '/fr/', // -> accessible at /fr/a-propos
+      fr: '/accueil', // -> accessible at /fr/a-propos
     },
   },
 
@@ -137,7 +137,7 @@ export default {
     let locale = 'fr-CA'
 
     if (payload != null || payload !== undefined) {
-      console.log('--index.vue | payload: ' + payload)
+      console.log('-- fr/index.vue | payload: ' + payload)
       locale = payload + '-CA'
     } else {
       locale = 'fr-CA'
@@ -147,7 +147,7 @@ export default {
       locale = 'fr-CA'
     }
 
-    console.log('-- index.vue | locale: ' + locale)
+    console.log('-- fr/index.vue | locale: ' + locale)
 
     // Query for English Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -183,41 +183,16 @@ export default {
       }
     }`
 
-    const newResourceQuery = `query{
-      testResourceCollection(order: [dateAdded_DESC], limit: 1)
-        {
-          items
-          {
-            title
-            urlSlug
-            dateAdded
-          }
-        }
-      }`
-
     $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     $axios.$request({})
 
-    const [englishTopLevelTopics, frenchTopLevelTopics, newResourceRes] =
-      await Promise.all([
-        $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
-        $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
-        $axios.$post(contentfulEndpoint, { query: newResourceQuery }),
-      ])
-
-    const response = await $axios.$post(contentfulEndpoint, {
-      query: englishTopLevelTopicsQuery,
-    })
+    const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
+      $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
+      $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
+    ])
 
     console.log('index.vue | English topics: ' + englishTopLevelTopics)
     console.log('index.vue | French topics: ' + frenchTopLevelTopics)
-    console.log(newResourceRes)
-
-    console.log(response)
-    // const responseObj = JSON.parse(JSON.stringify(response));
-
-    const newResource = newResourceRes.data.testResourceCollection.items[0]
-    console.log(newResource.title)
 
     let topics = null
 
@@ -239,41 +214,9 @@ export default {
       locale: locale.substring(0, 2),
     }))
 
-    console.log('index.vue | topics: ' + topics)
+    console.log('-- fr/index.vue | topics: ' + topics)
 
-    return { topics, newResource }
-    // $i18n.locale n
-    // axios.get()
-    // return Promise.all([
-    //   client.getEntries({
-    //     'content_type': env.CTF_BLOG_POST_TYPE_ID,
-    //     order: '-sys.createdAt'
-    //   }),
-    //   client.getContentTypes()
-    // ]).then(([posts, contentTypes]) => {
-    //   return {
-    //     posts: posts.items,
-    //     contentTypes: contentTypes.items
-    //   }
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
-    /* DAINE'S CODE: *******************/
-    /* return Promise.all([
-      client.getEntries({
-        content_type: 'category',
-        order: '-sys.createdAt',
-        locale: app.i18n.localeProperties.iso,
-      }),
-    ])
-      .then(([categories]) => {
-        return {
-          categories: categories.items,
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      }) */
+    return { topics }
   },
   data() {
     return {

@@ -54,7 +54,9 @@
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
     <div v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
-      <h2 class="p-5 text-4xl font-thin col-span-1">{{ $t('results') }}</h2>
+      <h2 class="p-5 text-4xl font-thin col-span-1">
+        {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }}
+      </h2>
 
       <ul class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2">
         <!-- Resource card --------------------------------------------------------------------------------------------->
@@ -217,6 +219,7 @@ export default {
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
+    breadcrumbs.locale = currentLocale.substring(0, 2)
 
     let subtopics = topic.subtopicsCollection.items
     subtopics = subtopics.map((subtopic) => ({
