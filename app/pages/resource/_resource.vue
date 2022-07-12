@@ -21,7 +21,13 @@
         <div>
           <div class="border-t border-gray-300 border-thin my-14"></div>
 
-          <h2 class="p-5 font-thin text-4xl">Related resources</h2>
+          <h2 class="p-5 font-thin text-4xl">
+            {{
+              currentLocale === 'en-CA'
+                ? 'Related resources'
+                : 'Ressources associées'
+            }}
+          </h2>
 
           <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
             <!-- Resource card --------------------------------------------------------------------------------------------->
@@ -145,13 +151,26 @@ export default {
       ? '/topic/'
       : '/themes/'
 
+    const resourcePathPrefix = currentLocale.includes('en')
+      ? '/resource/'
+      : '/ressource/'
+
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
+    breadcrumbs.locale = currentLocale.substring(0, 2)
+    console.log('breadcrumbs locale: ' + breadcrumbs.locale)
 
-    const relatedResources =
+    let relatedResources =
       resource.testResourceCollection.items[0].relatedResourcesCollection.items
+
+    relatedResources = relatedResources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: currentLocale.substring(0, 2),
+    }))
 
     const alternateLocaleResourceSlug =
       resource.testResourceCollection.items[0].urlSlug
