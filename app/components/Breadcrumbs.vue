@@ -72,7 +72,7 @@ export default {
     },
 
     homePath() {
-      return this.breadcrumbs.locale === 'en' ? '/home' : '/accueil'
+      return this.breadcrumbs.locale === 'en' ? '/' : '/fr'
     },
 
     remainingBreadcrumbs() {
