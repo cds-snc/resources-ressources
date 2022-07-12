@@ -42,6 +42,17 @@ const missingRoutes = async () => {
     }
   }`
 
+  const englishResourceSlugsQuery = `query
+  {
+    testResourceCollection(locale: "en-CA")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
+
   const frenchResourceSlugsQuery = `query
   {
     testResourceCollection(locale: "fr-CA")
@@ -80,6 +91,17 @@ const missingRoutes = async () => {
           locale: 'fr',
           topic,
         },
+      }))
+    })
+
+  // English Resource Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  const englishResources = await axios
+    .post(endpoint, { query: englishResourceSlugsQuery }, axiosConfig)
+    .then((res) => {
+      return res.data.data.testResourceCollection.items.map((resource) => ({
+        route: `resource/${resource.urlSlug}`,
+        payload: 'en',
       }))
     })
 
@@ -155,17 +177,17 @@ const missingRoutes = async () => {
 
 
   const footerRoutes = [
-    { route: 'transparence/avis', payload: { locale: 'fr' } },
-    // { route: 'legal/terms', payload: { locale: 'en' } },
-    // { route: 'legal/privacy', payload: { locale: 'en' } },
-    { route: 'transparence/confidentialite', payload: { locale: 'fr' } },
-    { route: '/', payload: { locale: 'en' } },
-    { route: '/fr', payload: { locale: 'fr' } },
-    // { route: "" , payload: 'en'}
+    { route: 'transparence/avis', payload: 'fr' },
+    { route: 'legal/terms', payload: 'en' },
+    { route: 'legal/privacy', payload: 'en' },
+    { route: 'transparence/confidentialite', payload: 'fr' },
+    { route: '/', payload: 'en' },
+    { route: '/fr', payload: 'fr' },
   ]
 
   const slugs = englishTopicSlugs
     .concat(frenchtopicSlugs)
+    .concat(englishResources)
     .concat(frenchResources)
     .concat(englishLegalPages)
     .concat(frenchLegalPages)
@@ -244,6 +266,10 @@ module.exports = {
       }
     ] */
   ],
+  router: {
+    prefetchLinks: false,
+    prefetchPayloads: false,
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -289,12 +315,12 @@ module.exports = {
     pages: {
       index: {
         en: '/',
-        fr: '/fr/',
+        fr: '/fr',
       },
-      'fr/index': {
+      /* 'fr/index': {
         en: '/',
-        fr: '/fr/',
-      },
+        fr: '/accueil/',
+      }, */
       'topic/_topic': {
         en: '/topic/:topic',
         fr: '/themes/:topic',
@@ -335,12 +361,6 @@ module.exports = {
     //   return []
     // }
     // interval: 10,
-  },
-
-  router: {
-    // trailingSlash: true
-    // prefetchLinks: false,
-    // prefetchPayloads: false
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -4,10 +4,10 @@
   <ol class="flex mt-4">
     <li>
       <nuxt-link
-        :to="localePath({ name: 'index' })"
-        class="font-medium hover:text-blue-800 hover:underline"
+        :to="localePath(homePath, breadcrumbs.locale)"
+        class="font-medium text-xl hover:text-blue-800 hover:underline"
       >
-        {{ $t('home') }}
+        {{ breadcrumbs.locale === 'en' ? 'Home' : 'Accueil' }}
       </nuxt-link>
       <font-awesome-icon
         icon="chevron-right"
@@ -34,7 +34,7 @@
       <!-- For full static site -->
       <nuxt-link
         :to="breadcrumb.path"
-        class="font-medium hover:text-blue-800 hover:underline"
+        class="font-medium text-xl hover:text-blue-800 hover:underline"
       >
         {{ breadcrumb.name }}
       </nuxt-link>
@@ -44,7 +44,7 @@
         class="mr-1.5"
       ></font-awesome-icon>
     </li>
-    <li class="text-gray-600">
+    <li class="text-xl text-gray-700">
       {{ currentPageTitle }}
     </li>
   </ol>
@@ -69,6 +69,10 @@ export default {
   computed: {
     homeBreadcrumb() {
       return this.breadcrumbs[0]
+    },
+
+    homePath() {
+      return this.breadcrumbs.locale === 'en' ? '/' : '/fr'
     },
 
     remainingBreadcrumbs() {

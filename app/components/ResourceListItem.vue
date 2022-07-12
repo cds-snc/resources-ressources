@@ -15,7 +15,7 @@
 
     <nuxt-link
       :to="localePath(resource.path, resource.locale)"
-      class="text-lg font-medium hover:text-blue-700"
+      class="text-2xl font-medium text-blue-800 underline hover:text-blue-700"
     >
       <!--<nuxt-link
       :to="resource.path"
@@ -26,9 +26,9 @@
 
     <!-- Resource date -->
 
-    <div class="font-light mt-1.5 text-gray-800">
+    <!-- <div class="font-light mt-1.5 text-gray-800">
       {{ $t('last_updated') }} {{ resource.dateAdded | formatDate }}
-    </div>
+    </div> -->
   </div>
 </template>
 

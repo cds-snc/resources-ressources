@@ -54,15 +54,15 @@
 
     <!-- Featured ---------------------------------------------------------------------------------------------------->
 
-    <div class="grid lg:grid-cols-3 mb-5">
+    <!-- <div class="grid lg:grid-cols-3 mb-5">
       Heading (left side)
       <div class="col-span-1">
         <h2 class="text-4xl font-thin p-5">{{ $t('New') }}</h2>
-      </div>
+      </div> -->
 
-      <!-- New Resource (right side) -->
+    <!-- New Resource (right side) -->
 
-      <div
+    <!-- <div
         class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between"
       >
         <div>
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="border-t border-gray-300 mb-5"></div>
+    <div class="border-t border-gray-300 mb-5"></div> -->
 
     <!-- Contact Us -------------------------------------------------------------------------------------------------->
 
@@ -112,12 +112,12 @@
 // const client = createClient()
 
 export default {
-  /* nuxtI18n: {
+  nuxtI18n: {
     paths: {
       en: '/', // -> accessible at /about-us (no prefix since it's the default locale)
       fr: '/fr', // -> accessible at /fr/a-propos
-    }
-  }, */
+    },
+  },
 
   name: 'Index',
   components: {
@@ -133,7 +133,7 @@ export default {
     let locale = 'en-CA'
 
     if (payload != null || payload !== undefined) {
-      console.log('--index.vue | payload: ' + payload)
+      console.log('-- en/index.vue | payload: ' + payload)
       locale = payload + '-CA'
     } else {
       locale = 'en-CA'
@@ -143,7 +143,7 @@ export default {
       locale = 'en-CA'
     }
 
-    console.log('-- index.vue | locale: ' + locale)
+    console.log('-- en/index.vue | locale: ' + locale)
 
     // Query for English Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -179,47 +179,16 @@ export default {
       }
     }`
 
-    const newResourceQuery = `query{
-      testResourceCollection(order: [dateAdded_DESC], limit: 1)
-        {
-          items
-          {
-            title
-            urlSlug
-            dateAdded
-          }
-        }
-      }`
-
     // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     // $axios.$request({})
 
-    const [englishTopLevelTopics, frenchTopLevelTopics, newResourceRes] =
-      await Promise.all([
-        $contentfulApi.$post('', { query: englishTopLevelTopicsQuery }),
-        $contentfulApi.$post('', { query: frenchTopLevelTopicsQuery }),
-        $contentfulApi.$post('', { query: newResourceQuery }),
-        // $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
-        // $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
-        // $axios.$post(contentfulEndpoint, { query: newResourceQuery }),
-      ])
+    const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
+      $contentfulApi.$post('', { query: englishTopLevelTopicsQuery }),
+      $contentfulApi.$post('', { query: frenchTopLevelTopicsQuery }),
+    ])
 
-    // const response = await $axios.$post(contentfulEndpoint, {
-    //   query: englishTopLevelTopicsQuery,
-    // })
-    const response = await $contentfulApi.$post({
-      query: englishTopLevelTopicsQuery,
-    })
-
-    console.log('TESTTTTT index.vue | English topics: ' + englishTopLevelTopics)
-    console.log('index.vue | French topics: ' + frenchTopLevelTopics)
-    console.log(newResourceRes)
-
-    console.log(response)
-    // const responseObj = JSON.parse(JSON.stringify(response));
-
-    const newResource = newResourceRes.data.testResourceCollection.items[0]
-    console.log(newResource.title)
+    console.log('index.vue | English topics: ' + englishTopLevelTopics)
+    // console.log('index.vue | French topics: ' + frenchTopLevelTopics)
 
     let topics = null
 
@@ -241,39 +210,7 @@ export default {
 
     console.log('index.vue | topics: ' + topics)
 
-    return { topics, newResource }
-    // $i18n.locale n
-    // axios.get()
-    // return Promise.all([
-    //   client.getEntries({
-    //     'content_type': env.CTF_BLOG_POST_TYPE_ID,
-    //     order: '-sys.createdAt'
-    //   }),
-    //   client.getContentTypes()
-    // ]).then(([posts, contentTypes]) => {
-    //   return {
-    //     posts: posts.items,
-    //     contentTypes: contentTypes.items
-    //   }
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
-    /* DAINE'S CODE: *******************/
-    /* return Promise.all([
-      client.getEntries({
-        content_type: 'category',
-        order: '-sys.createdAt',
-        locale: app.i18n.localeProperties.iso,
-      }),
-    ])
-      .then(([categories]) => {
-        return {
-          categories: categories.items,
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      }) */
+    return { topics }
   },
   data() {
     return {
