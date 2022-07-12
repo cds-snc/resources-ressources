@@ -1,11 +1,11 @@
 {
   "welcome": "Welcome",
   "switch_language": "Français",
-  "learning_resources": "CDS Learning Resources",
+  "learning_resources": "Learning Resources",
   "search_description": "Sharing resources grounded in our work to help fellow public servants.",
   "proof_of_concept": {
     "title": "PILOT",
-    "in_progress": "We're testing ideas and working to expand this resource collection soon."
+    "in_progress": "We're testing ideas and working to expand this resource collection."
   },
   "search": "Search",
   "landing_page": {
