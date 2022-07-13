@@ -22,11 +22,7 @@
           <div class="border-t border-gray-300 border-thin my-14"></div>
 
           <h2 class="p-5 font-thin text-4xl">
-            {{
-              breadcrumbs.locale === 'en'
-                ? 'Related resources'
-                : 'Ressources associées'
-            }}
+            {{ $t('related_resources') }}
           </h2>
 
           <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">

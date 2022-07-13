@@ -7,7 +7,8 @@
         :to="localePath(homePath, breadcrumbs.locale)"
         class="font-medium text-xl hover:text-blue-800 hover:underline"
       >
-        {{ breadcrumbs.locale === 'en' ? 'Home' : 'Accueil' }}
+        <!-- {{ breadcrumbs.locale === 'en' ? 'Home' : 'Accueil' }} -->
+        {{ $t('home')}}
       </nuxt-link>
       <font-awesome-icon
         icon="chevron-right"

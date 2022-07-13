@@ -14,7 +14,8 @@
     "slogan": "Service delivery is hard. We can help.",
     "topics_heading": "Topics"
   },
-  "results": "Resources",
+  "resources": "Resources",
+  "related_resources": "Related resources",
   "aria": {
     "search_input": "Search",
     "search_button": "Search"

@@ -55,7 +55,8 @@
 
     <div v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
       <h2 class="p-5 text-4xl font-thin col-span-1">
-        {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }}
+        <!-- {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }} -->
+        {{ $t('resources') }}
       </h2>
 
       <ul class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2">
