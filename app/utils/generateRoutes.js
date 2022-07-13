@@ -118,8 +118,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       .post(apiURL, { query: pageQuery }, axiosConfig)
       .then((res) => {
         // console.log(`from ${route.urlSlug}`, res, res.data, res.data.data.topicCollection)
-        // console.log(res.data)
-        // console.log(res.data.data)
+        // console.log(res.data, res.data.data)
         return res.data.data.topicCollection.items[0]
       })
     // console.log(topicItem)
@@ -143,8 +142,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     const resourceItem = await axios
       .post(apiURL, { query: pageQuery }, axiosConfig)
       .then((res) => {
-        // console.log(`from ${route.urlSlug}`, res, res.data, res.data.data.topicCollection)
-        // console.log(res.data)
         // console.log(res.data.data)
         return res.data.data.testResourceCollection.items[0]
       })
@@ -169,7 +166,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       .post(apiURL, { query: pageQuery }, axiosConfig)
       .then((res) => {
         // console.log(res.data)
-        // console.log(res.data.data)
         return res.data.data.legalPageCollection.items[0]
       })
     legalRoutesWithPayload.push({
@@ -180,12 +176,12 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       },
     })
   }
-  console.log('------ generated routes ----------')
-  console.log(
-    // topicRoutesWithPayload,
-    // resourceRoutesWithPayload,
-    legalRoutesWithPayload
-  )
+  // console.log('------ generated routes ----------')
+  // console.log(
+  //   topicRoutesWithPayload,
+  //   resourceRoutesWithPayload,
+  //   legalRoutesWithPayload
+  // )
 
   return topicRoutesWithPayload
     .concat(resourceRoutesWithPayload)

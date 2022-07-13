@@ -4,14 +4,14 @@
   <div>
     <breadcrumbs
       :breadcrumbs="breadcrumbs"
-      :current-page-title="resource.testResourceCollection.items[0].title"
+      :current-page-title="resource.title"
     >
     </breadcrumbs>
 
     <div class="flex mb-10">
       <div class="max-w-4xl">
         <h1 class="text-4xl font-bold my-20">
-          {{ resource.testResourceCollection.items[0].title }}
+          {{ resource.title }}
         </h1>
 
         <div v-html="richText"></div>
@@ -99,10 +99,10 @@ export default {
           return result.data
         })
     }
+    // console.log('_resource.vue', resource)
 
-    // todo: add checker if obj exists
     let breadcrumbs =
-      resource.testResourceCollection.items[0].breadcrumbsCollection.items
+      resource.breadcrumbsCollection.items
 
     const topicPathPrefix = currentLocale.includes('en')
       ? '/topic/'
@@ -120,7 +120,7 @@ export default {
     console.log('breadcrumbs locale: ' + breadcrumbs.locale)
 
     let relatedResources =
-      resource.testResourceCollection.items[0].relatedResourcesCollection.items
+      resource.relatedResourcesCollection.items
 
     relatedResources = relatedResources.map((resource) => ({
       title: resource.title,
@@ -130,7 +130,7 @@ export default {
     }))
 
     const alternateLocaleResourceSlug =
-      resource.testResourceCollection.items[0].urlSlug
+      resource.urlSlug
 
     let enRouteParam = null
     let frRouteParam = null
@@ -165,7 +165,7 @@ export default {
     }
 
     const richText = documentToHtmlString(
-      resource.testResourceCollection.items[0].body.json,
+      resource.body.json,
       richTextOptions
     )
 

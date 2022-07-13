@@ -126,9 +126,6 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ $contentfulApi, payload }) {
-    // const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
-    // const locale = app.i18n.locale + '-CA'
 
     let locale = 'en-CA'
 
@@ -147,6 +144,7 @@ export default {
 
     // Query for English Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    // todo: refactor these into utils/queries.js
     const englishTopLevelTopicsQuery = `query{
       topicCollection(where: { isTopLevelTopic: true }, locale: "en-CA")
       {
@@ -178,9 +176,6 @@ export default {
         }
       }
     }`
-
-    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-    // $axios.$request({})
 
     const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
       $contentfulApi.$post('', { query: englishTopLevelTopicsQuery }),
