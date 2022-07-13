@@ -88,7 +88,7 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $contentfulApi, store, payload }) {
+  async asyncData({ params, $contentfulApi, store, payload }) {
     console.log('_topic.vue params: ', params)
     console.log('_topic.vue payload: ', payload)
 
@@ -109,12 +109,13 @@ export default {
       currentLocale = payload.locale
     }
 
-    if (!currentLocale || typeof currentLocale === 'undefined') {
+    /* if (!currentLocale || typeof currentLocale === 'undefined') {
       currentLocale = app.i18n.locale + '-CA'
     } else {
       // default to english
       currentLocale = 'en-CA'
-    }
+    } */
+
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
