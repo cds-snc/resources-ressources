@@ -126,7 +126,6 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ $contentfulApi, payload }) {
-
     let locale = 'en-CA'
 
     if (payload != null || payload !== undefined) {

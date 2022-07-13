@@ -101,8 +101,7 @@ export default {
     }
     // console.log('_resource.vue', resource)
 
-    let breadcrumbs =
-      resource.breadcrumbsCollection.items
+    let breadcrumbs = resource.breadcrumbsCollection.items
 
     const topicPathPrefix = currentLocale.includes('en')
       ? '/topic/'
@@ -119,8 +118,7 @@ export default {
     breadcrumbs.locale = currentLocale.substring(0, 2)
     console.log('breadcrumbs locale: ' + breadcrumbs.locale)
 
-    let relatedResources =
-      resource.relatedResourcesCollection.items
+    let relatedResources = resource.relatedResourcesCollection.items
 
     relatedResources = relatedResources.map((resource) => ({
       title: resource.title,
@@ -129,8 +127,7 @@ export default {
       locale: currentLocale.substring(0, 2),
     }))
 
-    const alternateLocaleResourceSlug =
-      resource.urlSlug
+    const alternateLocaleResourceSlug = resource.urlSlug
 
     let enRouteParam = null
     let frRouteParam = null
@@ -164,10 +161,7 @@ export default {
       },
     }
 
-    const richText = documentToHtmlString(
-      resource.body.json,
-      richTextOptions
-    )
+    const richText = documentToHtmlString(resource.body.json, richTextOptions)
 
     return { resource, richText, breadcrumbs, relatedResources }
   },
