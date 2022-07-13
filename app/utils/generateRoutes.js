@@ -186,8 +186,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     // resourceRoutesWithPayload,
     legalRoutesWithPayload
   )
-  console.log("000000000")
-  console.log(legalRoutes)
 
   return topicRoutesWithPayload
     .concat(resourceRoutesWithPayload)
