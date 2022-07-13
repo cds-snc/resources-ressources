@@ -14,7 +14,8 @@
     "slogan": "Service delivery is hard. We can help.",
     "topics_heading": "Topics"
   },
-  "results": "Resources",
+  "resources": "Resources",
+  "related_resources": "Related resources",
   "aria": {
     "search_input": "Search",
     "search_button": "Search"
@@ -34,5 +35,10 @@
     "title": "Privacy",
     "urlSlug": "privacy"
   },
-  "home": "Home"
+  "home": "Home",
+  "page_prefix": {
+    "topic": "topic/",
+    "resource": "resource/",
+    "legal": "legal/"
+  }
 }

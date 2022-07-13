@@ -55,7 +55,8 @@
 
     <div v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
       <h2 class="p-5 text-4xl font-thin col-span-1">
-        {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }}
+        <!-- {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }} -->
+        {{ $t('resources') }}
       </h2>
 
       <ul class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2">
@@ -71,6 +72,7 @@
 
 <script>
 import dayjs from 'dayjs'
+import { topicPageQuery } from '@/utils/queries'
 
 export default {
   // Filters ----------------------------------------------------------------------------------------------------------
@@ -87,8 +89,9 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $axios, store, payload }) {
-    console.log('_topic.vue params: ' + params)
+  async asyncData({ params, $contentfulApi, store, payload }) {
+    console.log('_topic.vue params: ', params)
+    console.log('_topic.vue payload: ', payload)
 
     /* PROBLEM:
      * When you retrieve data for a page based on the params from a navigation action
@@ -96,27 +99,25 @@ export default {
      * the browser's back and forward buttons the params you are expecting will not
      * reach this page. Thus, any data retrieval action dependent on these params will
      * not work.
+     *
+     * JULY 12: PROBLEM should now be fixed by sending data through payload
+     * todo: delete this comment once confirmed
      * */
 
-    let currentLocale = 'en-CA'
-
-    if (
-      payload != null ||
-      JSON.stringify(payload) !== 'null' ||
-      payload !== undefined
-    ) {
-      console.log('_topic.vue | payload: ' + JSON.stringify(payload))
-      currentLocale = payload + '-CA'
+    // Get currentLocale from either payload or i18n
+    let currentLocale
+    if (payload && payload.locale) {
+      currentLocale = payload.locale
     }
 
-    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
-      if (app.i18n.locale != null) {
-        currentLocale = app.i18n.locale + '-CA'
-      } else {
-        currentLocale = 'en-CA'
-      }
-    }
+    /* if (!currentLocale || typeof currentLocale === 'undefined') {
+      currentLocale = app.i18n.locale + '-CA'
+    } else {
+      // default to english
+      currentLocale = 'en-CA'
+    } */
 
+    // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -124,68 +125,24 @@ export default {
 
     const urlSlug = params.topic
 
-    const graphQLQuery = `query
-    {
-      topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
-      {
-        items
-        {
-          name
-          topicDescription
-          subtopicsHeading
-          urlSlug(locale: "${alternateLocale}")
-          breadcrumbsCollection
-          {
-            items
-            {
-              name
-              urlSlug
-            }
-          }
-          subtopicsCollection
-          {
-            items
-            {
-              name
-              urlSlug
-              flag
-              {
-                value
-              }
-            }
-          }
-          resourcesCollection
-          {
-            items
-            {
-              title
-              dateAdded
-              urlSlug
-            }
-          }
-        }
+    const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale)
+    let topic
+    if (payload && payload.topic) {
+      topic = { ...payload.topic }
+    } else {
+      // get topic
+      // topic = $contentfulClient.queryTopicPage(urlSlug, currentLocale, alternateLocale)
 
-      }
-    }`
-
-    /* END OF: GraphQL Query *************************************************/
-
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-
-    const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
-    const result = await $axios
-      .$post(endpoint, { query: graphQLQuery })
-      .then((res) => {
-        return res
-        // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
-      })
-
-    const topic = result.data.topicCollection.items[0]
+      const result = await $contentfulApi
+        .$post('', { query: pageQuery })
+        .then((res) => {
+          return res
+          // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
+        })
+      topic = result.data.topicCollection.items[0]
+    }
 
     const alternateLocaleUrlSlug = topic.urlSlug
-
-    console.log(alternateLocaleUrlSlug)
 
     let enRouteParam = null
     let frRouteParam = null
@@ -236,6 +193,7 @@ export default {
       path: resourcePathPrefix + resource.urlSlug,
       locale: currentLocale.substring(0, 2),
     }))
+    console.log(`_topic.vue - breadcrumbs`, breadcrumbs)
 
     return { breadcrumbs, resources, topic, subtopics }
   },

@@ -111,6 +111,8 @@
 
 // const client = createClient()
 
+import { topLevelTopicsQuery } from '@/utils/queries'
+
 export default {
   nuxtI18n: {
     paths: {
@@ -125,90 +127,100 @@ export default {
   },
   layout: 'expandedSearch',
 
-  async asyncData({ $axios, payload }) {
-    const contentfulEndpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
-    // const locale = app.i18n.locale + '-CA'
-
-    let locale = 'en-CA'
-
-    if (payload != null || payload !== undefined) {
-      console.log('-- en/index.vue | payload: ' + payload)
-      locale = payload + '-CA'
+  async asyncData({ $contentfulApi, payload }) {
+    // Get currentLocale from either payload or i18n
+    let currentLocale
+    if (payload && payload.locale) {
+      currentLocale = payload.locale
     } else {
-      locale = 'en-CA'
+      currentLocale = 'en-CA'
     }
+    // const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    // const isDefaultLocale = currentLocale.includes('en') || false
 
-    if (locale === 'null-CA' || locale === 'undefined-CA') {
-      locale = 'en-CA'
-    }
+    //
+    // let locale = 'en-CA'
+    //
+    // if (payload != null || payload !== undefined) {
+    //   console.log('-- en/index.vue | payload: ' + payload)
+    //   locale = payload + '-CA'
+    // } else {
+    //   locale = 'en-CA'
+    // }
+    //
+    // if (locale === 'null-CA' || locale === 'undefined-CA') {
+    //   locale = 'en-CA'
+    // }
 
-    console.log('-- en/index.vue | locale: ' + locale)
+    console.log('-- en/index.vue | locale: ' + currentLocale)
 
     // Query for English Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    const englishTopLevelTopicsQuery = `query{
-      topicCollection(where: { isTopLevelTopic: true }, locale: "en-CA")
-      {
-        items
-        {
-          name
-          urlSlug
-          flag
-          {
-            value
-          }
-        }
-      }
-    }`
+    // todo: refactor these into utils/queries.js
+    // const englishTopLevelTopicsQuery = `query{
+    //   topicCollection(where: { isTopLevelTopic: true }, locale: "en-CA")
+    //   {
+    //     items
+    //     {
+    //       name
+    //       urlSlug
+    //       flag
+    //       {
+    //         value
+    //       }
+    //     }
+    //   }
+    // }`
 
     // Query for French Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    const frenchTopLevelTopicsQuery = `query{
-      topicCollection(where: { isTopLevelTopic: true }, locale: "fr-CA")
-      {
-        items
-        {
-          name
-          urlSlug
-          flag
-          {
-            value
-          }
-        }
-      }
-    }`
+    // const frenchTopLevelTopicsQuery = `query{
+    //   topicCollection(where: { isTopLevelTopic: true }, locale: "fr-CA")
+    //   {
+    //     items
+    //     {
+    //       name
+    //       urlSlug
+    //       flag
+    //       {
+    //         value
+    //       }
+    //     }
+    //   }
+    // }`
 
-    $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-    $axios.$request({})
-
-    const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
-      $axios.$post(contentfulEndpoint, { query: englishTopLevelTopicsQuery }),
-      $axios.$post(contentfulEndpoint, { query: frenchTopLevelTopicsQuery }),
-    ])
-
-    console.log('index.vue | English topics: ' + englishTopLevelTopics)
+    // const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
+    //   $contentfulApi.$post('', { query: englishTopLevelTopicsQuery }),
+    //   $contentfulApi.$post('', { query: frenchTopLevelTopicsQuery }),
+    // ])
+    //
+    // console.log('index.vue | English topics: ' + englishTopLevelTopics)
     // console.log('index.vue | French topics: ' + frenchTopLevelTopics)
 
     let topics = null
 
-    if (locale === 'en-CA')
-      topics = englishTopLevelTopics.data.topicCollection.items
-    else topics = frenchTopLevelTopics.data.topicCollection.items
+    // if (locale === 'en-CA')
+    //   topics = englishTopLevelTopics.data.topicCollection.items
+    // else topics = frenchTopLevelTopics.data.topicCollection.items
 
-    // let topicPathPrefix =
+    const pageQuery = topLevelTopicsQuery(currentLocale)
+    if (payload && payload.topics) {
+      topics = [...payload.topics]
+    } else {
+      topics = await $contentfulApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.topicCollection.items
+        })
+    }
 
-    console.log('index.vue | topics: ' + JSON.stringify(topics))
-
-    const topicPathPrefix = locale === 'en-CA' ? '/topic/' : '/themes/'
+    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/themes/'
 
     topics = topics.map((topic) => ({
       name: topic.name,
       urlSlug: topic.urlSlug,
       path: topicPathPrefix + topic.urlSlug,
     }))
-
-    console.log('index.vue | topics: ' + topics)
 
     return { topics }
   },

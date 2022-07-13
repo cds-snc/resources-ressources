@@ -1,135 +1,12 @@
 /* eslint-disable nuxt/no-cjs-in-config */
-const axios = require('axios')
 const config = require('./.contentful.json')
 const i18n = require('./config/i18n.js')
 
-// --------------------------------------------------------------------------------------------------------------------
-
-const missingRoutes = async () => {
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${
-        config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
-      }`,
-    },
-  }
-
-  const endpoint = `https://graphql.contentful.com/content/v1/spaces/${
-    config.CTF_SPACE_ID || process.env.contentful_space_id
-  }`
-
-  const englishTopicSlugsQuery = `query
-  {
-    topicCollection(locale: "en-CA")
-    {
-      items
-      {
-        urlSlug
-      }
-    }
-  }`
-
-  const frenchTopicSlugsQuery = `query
-  {
-    topicCollection(locale: "fr-CA")
-    {
-      items
-      {
-        urlSlug
-      }
-    }
-  }`
-
-  const englishResourceSlugsQuery = `query
-  {
-    testResourceCollection(locale: "en-CA")
-    {
-      items
-      {
-        urlSlug
-      }
-    }
-  }`
-
-  const frenchResourceSlugsQuery = `query
-  {
-    testResourceCollection(locale: "fr-CA")
-    {
-      items
-      {
-        urlSlug
-      }
-    }
-  }`
-
-  // English Topic Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  const englishTopicSlugs = await axios
-    .post(endpoint, { query: englishTopicSlugsQuery }, axiosConfig)
-    .then((res) => {
-      return res.data.data.topicCollection.items.map((topic) => ({
-        route: `topic/${topic.urlSlug}`,
-        payload: 'en',
-      }))
-    })
-
-  // French Topic Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  const frenchtopicSlugs = await axios
-    .post(endpoint, { query: frenchTopicSlugsQuery }, axiosConfig)
-    .then((res) => {
-      return res.data.data.topicCollection.items.map((topic) => ({
-        route: `themes/${topic.urlSlug}`,
-        payload: 'fr',
-      }))
-    })
-
-  // English Resource Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  const englishResources = await axios
-    .post(endpoint, { query: englishResourceSlugsQuery }, axiosConfig)
-    .then((res) => {
-      return res.data.data.testResourceCollection.items.map((resource) => ({
-        route: `resource/${resource.urlSlug}`,
-        payload: 'en',
-      }))
-    })
-
-  // French Resources Slugs - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  const frenchResources = await axios
-    .post(endpoint, { query: frenchResourceSlugsQuery }, axiosConfig)
-    .then((res) => {
-      return res.data.data.testResourceCollection.items.map((resource) => ({
-        route: `ressource/${resource.urlSlug}`,
-        payload: 'fr',
-      }))
-    })
-
-  const footerRoutes = [
-    { route: 'transparence/avis', payload: 'fr' },
-    { route: 'legal/terms', payload: 'en' },
-    { route: 'legal/privacy', payload: 'en' },
-    { route: 'transparence/confidentialite', payload: 'fr' },
-    { route: '/', payload: 'en' },
-    { route: '/fr', payload: 'fr' },
-  ]
-
-  const slugs = englishTopicSlugs
-    .concat(frenchtopicSlugs)
-    .concat(englishResources)
-    .concat(frenchResources)
-    .concat(footerRoutes) // .concat(indexPage);
-
-  return slugs
-}
-
-// --------------------------------------------------------------------------------------------------------------------
+const generatedRoutes = require('./utils/generateRoutes')
 
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-  ssr: true,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -150,6 +27,7 @@ module.exports = {
   privateRuntimeConfig: {
     contentfulAccessToken:
       config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
+    contentfulSpaceID: config.CTF_SPACE_ID || process.env.contentful_space_id,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -157,7 +35,7 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
-  plugins: ['~/plugins/contentful', '~/plugins/vue-gtag'],
+  plugins: ['~/plugins/vue-gtag', '~/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -273,7 +151,22 @@ module.exports = {
 
   generate: {
     crawler: false,
-    routes: missingRoutes,
+    routes: () => {
+      const accessToken =
+        config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
+      const spaceId = config.CTF_SPACE_ID || process.env.contentful_space_id
+      return generatedRoutes(accessToken, spaceId)
+    },
+    // routes: generatedRoutes(axios, config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token, config.CTF_SPACE_ID || process.env.contentful_space_id),
+    // routes: (callback) => {
+    //   console.log('in routes -------')
+    //   console.log(this)
+    //   console.log(generatedRoutes)
+    //   callback(null, generatedRoutes())
+    //   console.log('end routes -------')
+    //   return []
+    // }
+    // interval: 10,
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -292,10 +185,6 @@ module.exports = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   env: {
-    CTF_SPACE_ID: config.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN:
-      config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
-    CTF_PERSON_ID: config.CTF_PERSON_ID,
     CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
   },
   fontawesome: {
