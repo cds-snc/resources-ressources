@@ -37,6 +37,7 @@
   "home": "Accueil",
   "page_prefix": {
     "topic": "themes/",
-    "resource": "ressource/"
+    "resource": "ressource/",
+    "legal": "transparence/"
   }
 }

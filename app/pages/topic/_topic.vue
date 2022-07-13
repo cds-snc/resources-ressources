@@ -98,20 +98,10 @@ export default {
      * the browser's back and forward buttons the params you are expecting will not
      * reach this page. Thus, any data retrieval action dependent on these params will
      * not work.
+     *
+     * JULY 12: PROBLEM should now be fixed by sending data through payload
+     * todo: delete this comment once confirmed
      * */
-
-    // let currentLocale = 'en-CA'
-    // if (payload && payload.locale) {
-    //   currentLocale = payload.locale + '-CA'
-    // }
-    //
-    // if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
-    //   if (app.i18n.locale != null) {
-    //     currentLocale = app.i18n.locale + '-CA'
-    //   } else {
-    //     currentLocale = 'en-CA'
-    //   }
-    // }
 
     // Get currentLocale from either payload or i18n
     let currentLocale
@@ -125,7 +115,6 @@ export default {
       // default to english
       currentLocale = 'en-CA'
     }
-    // payload = APIObj.queryTopicPage() // <-- makes a fresh api call
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
@@ -133,56 +122,6 @@ export default {
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
     const urlSlug = params.topic
-
-    // const graphQLQuery = `query
-    // {
-    //   topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
-    //   {
-    //     items
-    //     {
-    //       name
-    //       topicDescription
-    //       subtopicsHeading
-    //       urlSlug(locale: "${alternateLocale}")
-    //       breadcrumbsCollection
-    //       {
-    //         items
-    //         {
-    //           name
-    //           urlSlug
-    //         }
-    //       }
-    //       subtopicsCollection
-    //       {
-    //         items
-    //         {
-    //           name
-    //           urlSlug
-    //           flag
-    //           {
-    //             value
-    //           }
-    //         }
-    //       }
-    //       resourcesCollection
-    //       {
-    //         items
-    //         {
-    //           title
-    //           dateAdded
-    //           urlSlug
-    //         }
-    //       }
-    //     }
-    //
-    //   }
-    // }`
-
-    /* END OF: GraphQL Query *************************************************/
-
-    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-
-    // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale)
     let topic

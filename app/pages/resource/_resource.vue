@@ -88,51 +88,6 @@ export default {
 
     const urlSlug = params.resource
 
-    // const graphQLQuery = `query
-    // {
-    //   testResourceCollection(where: {
-    //   AND:
-    //     [
-    //       {
-    //         urlSlug: "${resourceSlug}"
-    //       }
-    //     ]
-    // }, locale: "${currentLocale}", limit: 1)
-    //   {
-    //     items
-    //     {
-    //       title
-    //       description
-    //       urlSlug(locale: "${alternateLocale}")
-    //       breadcrumbsCollection
-    //       {
-    //         items
-    //         {
-    //           name
-    //           urlSlug
-    //         }
-    //       }
-    //       relatedResourcesCollection
-    //       {
-    //         items
-    //         {
-    //           title
-    //           dateAdded
-    //           urlSlug
-    //         }
-    //       }
-    //       body
-    //       {
-    //         json
-    //       }
-    //     }
-    //   }
-    // }`
-
-    // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-    //
-    // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
     const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale)
     let resource
     if (payload && payload.resource) {

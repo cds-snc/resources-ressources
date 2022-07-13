@@ -37,6 +37,7 @@
   "home": "Home",
   "page_prefix": {
     "topic": "topic/",
-    "resource": "resource/"
+    "resource": "resource/",
+    "legal": "legal/"
   }
 }

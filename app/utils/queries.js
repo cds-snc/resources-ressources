@@ -91,6 +91,26 @@ export const resourcePageQuery = (
       }
     }`
 
+export const legalPageQuery = (
+  urlSlug,
+  currentLocale,
+  alternateLocale
+) => `query
+    {
+      legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
+      {
+        items
+        {
+          title
+          urlSlug(locale: "${alternateLocale}")
+          body
+          {
+            json
+          }
+        }
+      }
+    }`
+
 export const topicRoutesQuery = (locale) => `query
       {
         topicCollection(locale: "${locale}")
@@ -112,3 +132,22 @@ export const resourceRoutesQuery = (locale) => `query
           }
         }
       }`
+
+export const legalRoutesQuery = (locale) => `query
+      {
+        legalPageCollection(locale: "${locale}")
+        {
+          items
+          {
+            urlSlug
+          }
+        }
+      }`
+
+export const legalEntryQuery = (entryId) => `query
+          {
+            legalPage(id: "${entryId}")
+            {
+              urlSlug
+            }
+          }`

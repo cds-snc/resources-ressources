@@ -14,22 +14,25 @@
 <script>
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { legalEntryQuery, legalPageQuery } from '@/utils/queries'
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ app, params, store, $contentfulApi, payload }) {
-    let currentLocale = app.i18n.locale + '-CA'
-
+    // Get currentLocale from either payload or i18n
+    let currentLocale
     if (payload && payload.locale) {
-      currentLocale = payload + '-CA'
-    } else {
-      currentLocale = app.i18n.locale + '-CA'
+      currentLocale = payload.locale
     }
 
-    /* Get current locale */
-
-    // const currentLocale = app.i18n.locale + '-CA'
+    if (!currentLocale || typeof currentLocale === 'undefined') {
+      currentLocale = app.i18n.locale + '-CA'
+    } else {
+      // default to english
+      currentLocale = 'en-CA'
+    }
+    // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -39,21 +42,23 @@ export default {
 
     /* Query */
 
-    const contentfulQuery = `query
-    {
-      legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
-      {
-        items
-        {
-          title
-          urlSlug(locale: "${alternateLocale}")
-          body
-          {
-            json
-          }
-        }
-      }
-    }`
+    // const contentfulQuery = `query
+    // {
+    //   legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
+    //   {
+    //     items
+    //     {
+    //       title
+    //       urlSlug(locale: "${alternateLocale}")
+    //       body
+    //       {
+    //         json
+    //       }
+    //     }
+    //   }
+    // }`
+
+    const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale)
 
     /* Fetch data */
 
@@ -66,8 +71,9 @@ export default {
       legalPage = { ...payload.legalPage }
     } else {
       legalPage = await $contentfulApi
-        .$post('', { query: contentfulQuery })
+        .$post('', { query: pageQuery })
         .then((res) => {
+          // console.log('_legal.vue', pageQuery, res)
           return res.data.legalPageCollection.items[0]
         })
     }
@@ -125,16 +131,10 @@ export default {
 
           const entryId = node.data.target.sys.id
 
-          const entryQuery = `query
-          {
-            legalPage(id: "${entryId}")
-            {
-              urlSlug
-            }
-          }`
+          const pageQuery = legalEntryQuery(entryId)
 
-          const entry = $axios
-            .$post(endpoint, { query: entryQuery })
+          const entry = $contentfulApi
+            .$post('', { query: pageQuery })
             .then((res) => {
               // console.log(res)
               return res.data.legalPage
@@ -181,28 +181,6 @@ export default {
 
   // Methods ----------------------------------------------------------------------------------------------------------
 
-  methods: {
-    getEntrySlug(entryId, axios) {
-      console.log('-- in getEntrySlug')
-
-      const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
-      const contentfulQuery = `query
-      {
-        legalPage(id: "${entryId}")
-        {
-          urlSlug
-        }
-      }`
-
-      const entry = axios
-        .$post(endpoint, { query: contentfulQuery })
-        .then((res) => {
-          return res.data.legalPage
-        })
-
-      return entry.urlSlug
-    },
-  },
+  methods: {},
 }
 </script>
