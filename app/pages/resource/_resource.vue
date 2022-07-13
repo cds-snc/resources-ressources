@@ -68,14 +68,6 @@ export default {
     if (payload && payload.locale) {
       currentLocale = payload.locale
     }
-
-    /* if (!currentLocale || typeof currentLocale === 'undefined') {
-      currentLocale = app.i18n.locale + '-CA'
-    } else {
-      // default to english
-      currentLocale = 'en-CA'
-    } */
-
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 

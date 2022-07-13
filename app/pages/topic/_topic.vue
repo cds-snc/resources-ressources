@@ -193,6 +193,7 @@ export default {
       path: resourcePathPrefix + resource.urlSlug,
       locale: currentLocale.substring(0, 2),
     }))
+    console.log(`_topic.vue - breadcrumbs`, breadcrumbs)
 
     return { breadcrumbs, resources, topic, subtopics }
   },

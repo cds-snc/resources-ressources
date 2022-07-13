@@ -9,6 +9,7 @@ const {
   resourcePageQuery,
   legalRoutesQuery,
   legalPageQuery,
+  topLevelTopicsQuery,
 } = require('./queries')
 const { CONTENTFUL_CDA_BASE_URL } = require('./constants')
 
@@ -103,6 +104,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   const topicRoutesWithPayload = []
   const resourceRoutesWithPayload = []
   const legalRoutesWithPayload = []
+  const homeRoutesWithPayload = []
 
   // routes: topic
   for (const route of topicRoutes) {
@@ -173,6 +175,37 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       payload: {
         locale: route.locale,
         legalPage: legalItem,
+      },
+    })
+  }
+
+  // routes: homepages
+  const homeRoutes = [
+    {
+      locale: localeEN,
+      path: '/',
+      urlSlug: '',
+    },
+    {
+      locale: localeFR,
+      path: '/fr',
+      urlSlug: '',
+    },
+  ]
+  for (const route of homeRoutes) {
+    // const alternateLocale = route.locale === localeEN ? localeFR : localeEN
+    const pageQuery = topLevelTopicsQuery(route.locale)
+    const homeItem = await axios
+      .post(apiURL, { query: pageQuery }, axiosConfig)
+      .then((res) => {
+        console.log(res.data)
+        return res.data.data.topicCollection.items
+      })
+    homeRoutesWithPayload.push({
+      route: route.path,
+      payload: {
+        locale: route.locale,
+        topics: homeItem,
       },
     })
   }

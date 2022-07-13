@@ -112,42 +112,58 @@ export const legalPageQuery = (
     }`
 
 export const topicRoutesQuery = (locale) => `query
+    {
+      topicCollection(locale: "${locale}")
       {
-        topicCollection(locale: "${locale}")
+        items
         {
-          items
-          {
-            urlSlug
-          }
+          urlSlug
         }
-      }`
+      }
+    }`
 
 export const resourceRoutesQuery = (locale) => `query
+    {
+      testResourceCollection(locale: "${locale}")
       {
-        testResourceCollection(locale: "${locale}")
+        items
         {
-          items
-          {
-            urlSlug
-          }
+          urlSlug
         }
-      }`
+      }
+    }`
 
 export const legalRoutesQuery = (locale) => `query
+    {
+      legalPageCollection(locale: "${locale}")
       {
-        legalPageCollection(locale: "${locale}")
+        items
         {
-          items
-          {
-            urlSlug
-          }
+          urlSlug
         }
-      }`
+      }
+    }`
 
 export const legalEntryQuery = (entryId) => `query
+    {
+      legalPage(id: "${entryId}")
+      {
+        urlSlug
+      }
+    }`
+
+export const topLevelTopicsQuery = (locale) => `query
+    {
+      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}")
+      {
+        items
+        {
+          name
+          urlSlug
+          flag
           {
-            legalPage(id: "${entryId}")
-            {
-              urlSlug
-            }
-          }`
+            value
+          }
+        }
+      }
+    }`

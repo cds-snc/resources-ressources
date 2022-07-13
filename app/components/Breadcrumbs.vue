@@ -8,7 +8,7 @@
         class="font-medium text-xl hover:text-blue-800 hover:underline"
       >
         <!-- {{ breadcrumbs.locale === 'en' ? 'Home' : 'Accueil' }} -->
-        {{ $t('home')}}
+        {{ $t('home') }}
       </nuxt-link>
       <font-awesome-icon
         icon="chevron-right"
