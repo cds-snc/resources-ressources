@@ -205,7 +205,7 @@ export default {
 
     const pageQuery = topLevelTopicsQuery(currentLocale)
     if (payload && payload.topics) {
-      topics = { ...payload.topics }
+      topics = [ ...payload.topics ]
     } else {
       topics = await $contentfulApi
         .$post('', { query: pageQuery })
@@ -215,10 +215,6 @@ export default {
       console.log('index.vue | from contentful')
     }
 
-    // let topicPathPrefix =
-
-    console.log('index.vue | topics: ', topics)
-
     const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/themes/'
 
     topics = topics.map((topic) => ({
@@ -226,8 +222,6 @@ export default {
       urlSlug: topic.urlSlug,
       path: topicPathPrefix + topic.urlSlug,
     }))
-
-    console.log('index.vue | topics: ' + topics)
 
     return { topics }
   },
