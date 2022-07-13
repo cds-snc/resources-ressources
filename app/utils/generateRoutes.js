@@ -4,6 +4,7 @@ const langEN = require('../locales/en.json')
 const langFR = require('../locales/fr.json')
 const { topicRoutesQuery, topicPageQuery } = require('./queries')
 const { CONTENTFUL_CDA_BASE_URL } = require('./constants')
+const { resourceRoutesQuery, resourcePageQuery } = require('./queries')
 
 module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   const apiURL = `${CONTENTFUL_CDA_BASE_URL}${contentfulSpaceId}`
@@ -20,24 +21,20 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   const localeFR = 'fr-CA'
   const locales = [localeEN, localeFR]
 
-  // Topics
+  // Route prefixes
   const topicRoutePrefix = {}
+  const resourceRoutePrefix = {}
+
   topicRoutePrefix[localeEN] = langEN.page_prefix.topic
   topicRoutePrefix[localeFR] = langFR.page_prefix.topic
+  resourceRoutePrefix[localeEN] = langEN.page_prefix.resource
+  resourceRoutePrefix[localeFR] = langFR.page_prefix.resource
 
-  console.log('routes?')
-  console.log(
-    topicRoutePrefix,
-    topicRoutePrefix[localeEN],
-    topicRoutePrefix[localeFR]
-  )
-
-  const topics = []
   const topicRoutes = []
+  const resourceRoutes = []
 
+  // Get routes for all pages
   for (const locale of locales) {
-    topics[locale] = []
-
     // get topic routes
     const topicQuery = topicRoutesQuery(locale)
     await axios.post(apiURL, { query: topicQuery }, axiosConfig).then((res) => {
@@ -46,7 +43,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
           locale === localeEN
             ? topicRoutePrefix[localeEN]
             : topicRoutePrefix[localeFR]
-        const path = `${prefix}${item.urlSlug}`
+        const path = `/${prefix}${item.urlSlug}`
         topicRoutes.push({
           locale,
           path,
@@ -55,14 +52,30 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       })
     })
 
-    console.log('topics', topics)
-    console.log('topicRoutes', topicRoutes)
-
-    // todo: get resource routes
+    const resourceQuery = resourceRoutesQuery(locale)
+    await axios
+      .post(apiURL, { query: resourceQuery }, axiosConfig)
+      .then((res) => {
+        res.data.data.testResourceCollection.items.forEach((item) => {
+          const prefix =
+            locale === localeEN
+              ? resourceRoutePrefix[localeEN]
+              : resourceRoutePrefix[localeFR]
+          const path = `/${prefix}${item.urlSlug}`
+          resourceRoutes.push({
+            locale,
+            path,
+            urlSlug: item.urlSlug,
+          })
+        })
+      })
   }
 
+  // Get payload for each route
   const topicRoutesWithPayload = []
-  // get payload for each route
+  const resourceRoutesWithPayload = []
+
+  // routes: topic
   for (const route of topicRoutes) {
     console.log(route)
     const alternateLocale = route.locale === localeEN ? localeFR : localeEN
@@ -90,10 +103,33 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     })
   }
 
-  console.log('TOPIC ROUTESSS', topicRoutesWithPayload)
-
+  // routes: resources
+  for (const route of resourceRoutes) {
+    const alternateLocale = route.locale === localeEN ? localeFR : localeEN
+    const pageQuery = resourcePageQuery(
+      route.urlSlug,
+      route.locale,
+      alternateLocale
+    )
+    const resourceItem = await axios
+      .post(apiURL, { query: pageQuery }, axiosConfig)
+      .then((res) => {
+        // console.log(`from ${route.urlSlug}`, res, res.data, res.data.data.topicCollection)
+        console.log(res.data)
+        console.log(res.data.data)
+        return res.data.data.testResourceCollection.items[0]
+      })
+    console.log(resourceItem)
+    resourceRoutesWithPayload.push({
+      route: route.path,
+      payload: {
+        locale: route.locale,
+        topic: resourceItem,
+      },
+    })
+  }
   console.log('------ topic routes ----------')
-  console.log(topicRoutesWithPayload)
+  console.log(topicRoutesWithPayload, resourceRoutesWithPayload)
 
-  return topicRoutesWithPayload
+  return topicRoutesWithPayload.concat(resourceRoutesWithPayload)
 }

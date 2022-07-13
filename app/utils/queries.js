@@ -46,9 +46,65 @@ export const topicPageQuery = (
       }
     }`
 
+export const resourcePageQuery = (
+  urlSlug,
+  currentLocale,
+  alternateLocale
+) => `query
+    {
+      testResourceCollection(where: {
+      AND:
+        [
+          {
+            urlSlug: "${urlSlug}"
+          }
+        ]
+    }, locale: "${currentLocale}", limit: 1)
+      {
+        items
+        {
+          title
+          description
+          urlSlug(locale: "${alternateLocale}")
+          breadcrumbsCollection
+          {
+            items
+            {
+              name
+              urlSlug
+            }
+          }
+          relatedResourcesCollection
+          {
+            items
+            {
+              title
+              dateAdded
+              urlSlug
+            }
+          }
+          body
+          {
+            json
+          }
+        }
+      }
+    }`
+
 export const topicRoutesQuery = (locale) => `query
       {
         topicCollection(locale: "${locale}")
+        {
+          items
+          {
+            urlSlug
+          }
+        }
+      }`
+
+export const resourceRoutesQuery = (locale) => `query
+      {
+        testResourceCollection(locale: "${locale}")
         {
           items
           {

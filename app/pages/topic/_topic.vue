@@ -118,8 +118,6 @@ export default {
     if (payload && payload.locale) {
       currentLocale = payload.locale
     }
-    console.log('payload locale', payload)
-    console.log('app i18n locale', app.i18n.locale)
 
     if (!currentLocale || typeof currentLocale === 'undefined') {
       currentLocale = app.i18n.locale + '-CA'
@@ -135,8 +133,6 @@ export default {
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
     const urlSlug = params.topic
-
-    console.log(params, 'slug', urlSlug)
 
     // const graphQLQuery = `query
     // {
@@ -189,11 +185,9 @@ export default {
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale)
-    console.log('query is', pageQuery)
     let topic
     if (payload && payload.topic) {
       topic = { ...payload.topic }
-      console.log('got topic from payload', topic)
     } else {
       // get topic
       // topic = $contentfulClient.queryTopicPage(urlSlug, currentLocale, alternateLocale)
@@ -204,14 +198,10 @@ export default {
           return res
           // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
         })
-      console.log(result.data)
       topic = result.data.topicCollection.items[0]
-      console.log('got topic from axios', topic)
     }
 
     const alternateLocaleUrlSlug = topic.urlSlug
-
-    console.log(alternateLocaleUrlSlug)
 
     let enRouteParam = null
     let frRouteParam = null

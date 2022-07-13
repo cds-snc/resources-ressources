@@ -151,11 +151,11 @@ module.exports = {
 
   generate: {
     crawler: false,
-    routes: (callback) => {
+    routes: () => {
       const accessToken =
         config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token
       const spaceId = config.CTF_SPACE_ID || process.env.contentful_space_id
-      callback(null, generatedRoutes(accessToken, spaceId))
+      return generatedRoutes(accessToken, spaceId)
     },
     // routes: generatedRoutes(axios, config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token, config.CTF_SPACE_ID || process.env.contentful_space_id),
     // routes: (callback) => {

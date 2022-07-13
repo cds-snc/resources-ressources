@@ -47,6 +47,7 @@
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { BLOCKS } from '@contentful/rich-text-types'
+import { resourcePageQuery } from '@/utils/queries'
 
 export default {
   layout: 'expandedSearch',
@@ -66,24 +67,18 @@ export default {
         }
       }`; */
 
-    /* Determine current locale, alternate locale and default locale */
-
-    // const currentLocale = app.i18n.locale + '-CA'
-
-    let currentLocale = 'en-CA'
-
+    // Get currentLocale from either payload or i18n
+    let currentLocale
     if (payload && payload.locale) {
-      currentLocale = payload + '-CA'
+      currentLocale = payload.locale
     }
 
-    if (currentLocale === 'null-CA' || currentLocale === 'undefined-CA') {
-      if (app.i18n.locale != null) {
-        currentLocale = app.i18n.locale + '-CA'
-      } else {
-        currentLocale = 'en-CA'
-      }
+    if (!currentLocale || typeof currentLocale === 'undefined') {
+      currentLocale = app.i18n.locale + '-CA'
+    } else {
+      // default to english
+      currentLocale = 'en-CA'
     }
-
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -91,64 +86,66 @@ export default {
 
     /* Query resource by url slug */
 
-    const resourceSlug = params.resource
+    const urlSlug = params.resource
 
-    const graphQLQuery = `query
-    {
-      testResourceCollection(where: {
-      AND:
-        [
-          {
-            urlSlug: "${resourceSlug}"
-          }
-        ]
-    }, locale: "${currentLocale}", limit: 1)
-      {
-        items
-        {
-          title
-          description
-          urlSlug(locale: "${alternateLocale}")
-          breadcrumbsCollection
-          {
-            items
-            {
-              name
-              urlSlug
-            }
-          }
-          relatedResourcesCollection
-          {
-            items
-            {
-              title
-              dateAdded
-              urlSlug
-            }
-          }
-          body
-          {
-            json
-          }
-        }
-      }
-    }`
+    // const graphQLQuery = `query
+    // {
+    //   testResourceCollection(where: {
+    //   AND:
+    //     [
+    //       {
+    //         urlSlug: "${resourceSlug}"
+    //       }
+    //     ]
+    // }, locale: "${currentLocale}", limit: 1)
+    //   {
+    //     items
+    //     {
+    //       title
+    //       description
+    //       urlSlug(locale: "${alternateLocale}")
+    //       breadcrumbsCollection
+    //       {
+    //         items
+    //         {
+    //           name
+    //           urlSlug
+    //         }
+    //       }
+    //       relatedResourcesCollection
+    //       {
+    //         items
+    //         {
+    //           title
+    //           dateAdded
+    //           urlSlug
+    //         }
+    //       }
+    //       body
+    //       {
+    //         json
+    //       }
+    //     }
+    //   }
+    // }`
 
     // $axios.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
     //
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
+    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale)
     let resource
     if (payload && payload.resource) {
       resource = { ...payload.resource }
     } else {
       resource = await $contentfulApi
-        .$post('', { query: graphQLQuery })
+        .$post('', { query: pageQuery })
         .then((result) => {
           return result.data
         })
     }
 
+    // todo: add checker if obj exists
     let breadcrumbs =
       resource.testResourceCollection.items[0].breadcrumbsCollection.items
 
@@ -184,11 +181,11 @@ export default {
     let frRouteParam = null
 
     if (isDefaultLocale) {
-      enRouteParam = resourceSlug
+      enRouteParam = urlSlug
       frRouteParam = alternateLocaleResourceSlug
     } else {
       enRouteParam = alternateLocaleResourceSlug
-      frRouteParam = resourceSlug
+      frRouteParam = urlSlug
     }
 
     await store.dispatch('i18n/setRouteParams', {

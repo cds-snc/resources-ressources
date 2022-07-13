@@ -36,6 +36,7 @@
   },
   "home": "Home",
   "page_prefix": {
-    "topic": "topic/"
+    "topic": "topic/",
+    "resource": "resource/"
   }
 }
