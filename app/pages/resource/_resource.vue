@@ -53,7 +53,7 @@ export default {
   layout: 'expandedSearch',
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, $contentfulApi, store, payload }) {
+  async asyncData({ params, $contentfulApi, store, payload }) {
     /* Query resource by ID */
     /* const graphQLQuery = `query
       {
@@ -73,16 +73,15 @@ export default {
       currentLocale = payload.locale
     }
 
-    if (!currentLocale || typeof currentLocale === 'undefined') {
+    /* if (!currentLocale || typeof currentLocale === 'undefined') {
       currentLocale = app.i18n.locale + '-CA'
     } else {
       // default to english
       currentLocale = 'en-CA'
-    }
+    } */
+
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
-
-    console.log('_resource current locale: ' + currentLocale)
 
     /* Query resource by url slug */
 
