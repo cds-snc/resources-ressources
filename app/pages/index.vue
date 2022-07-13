@@ -205,14 +205,13 @@ export default {
 
     const pageQuery = topLevelTopicsQuery(currentLocale)
     if (payload && payload.topics) {
-      topics = [ ...payload.topics ]
+      topics = [...payload.topics]
     } else {
       topics = await $contentfulApi
         .$post('', { query: pageQuery })
         .then((result) => {
           return result.data.topicCollection.items
         })
-      console.log('index.vue | from contentful')
     }
 
     const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/themes/'
