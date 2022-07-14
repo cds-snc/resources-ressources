@@ -19,19 +19,13 @@ import { legalEntryQuery, legalPageQuery } from '@/utils/queries'
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ app, params, store, $contentfulApi, payload }) {
+  async asyncData({ params, store, $contentfulApi, payload }) {
     // Get currentLocale from either payload or i18n
     let currentLocale
     if (payload && payload.locale) {
       currentLocale = payload.locale
     }
-
-    if (!currentLocale || typeof currentLocale === 'undefined') {
-      currentLocale = app.i18n.locale + '-CA'
-    } else {
-      // default to english
-      currentLocale = 'en-CA'
-    }
+    
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
