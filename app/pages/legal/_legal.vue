@@ -145,7 +145,7 @@ export default {
           return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
         },
         [BLOCKS.HEADING_3]: (node) => {
-          return `<h2 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
+          return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
         },
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         [BLOCKS.PARAGRAPH]: (node, next) => {
