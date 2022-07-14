@@ -1,7 +1,7 @@
 <!-- Page View =====================================================================================================-->
 
 <template>
-  <div class="flex justify-center mb-5">
+  <div class="mb-10">
     <div class="max-w-4xl">
       <h1 class="font-bold text-4xl my-14">{{ legalPage.title }}</h1>
       <div v-html="richText"></div>
@@ -25,7 +25,7 @@ export default {
     if (payload && payload.locale) {
       currentLocale = payload.locale
     }
-    
+
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
@@ -159,7 +159,7 @@ export default {
                     </ul>`
         },
         [BLOCKS.HR]: () => {
-          return `<div class="border-t border-gray-300 my-5"></div>`
+          return `<div class="border-t border-gray-300 mt-10"></div>`
         },
       },
     }
