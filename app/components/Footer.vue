@@ -28,9 +28,16 @@
         </div>
 
         <img
+          v-show="locale === 'en'"
           class="sm:block h-5 w-auto"
           src="~assets/goc--footer-logo.svg"
-          alt="Government of Canada"
+          :alt="canadaWorkmarkAltText"
+        />
+        <img
+          v-show="locale === 'fr'"
+          class="sm:block h-5 w-auto"
+          src="~assets/goc--footer-logo.svg"
+          :alt="canadaWorkmarkAltText"
         />
       </div>
     </div>
@@ -42,13 +49,14 @@
 export default {
   name: 'Footer',
 
-  asyncData({ app }) {
-    console.log('-- Footer.vue')
-    console.log('-- Footer.vue | locale: ' + app.i18n.locale)
-  },
+  computed: {
+    canadaWorkmarkAltText() {
+      return this.$i18n.t('canada_wordmark_alt')
+    },
 
-  mounted() {
-    console.log(this.$i18n.locale)
+    locale() {
+      return this.$i18n.locale
+    },
   },
 }
 </script>
