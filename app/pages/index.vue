@@ -112,6 +112,7 @@
 // const client = createClient()
 
 import { topLevelTopicsQuery } from '@/utils/queries'
+import { getHeadElement } from '@/utils/headElementAssembler'
 
 export default {
   nuxtI18n: {
@@ -222,11 +223,24 @@ export default {
       path: topicPathPrefix + topic.urlSlug,
     }))
 
-    return { topics }
+    const locale = currentLocale.substring(0, 2)
+    const pageName = currentLocale.includes('en') ? 'Home' : 'Accueil'
+    const headElement = getHeadElement(pageName, locale)
+
+    return { topics, headElement }
   },
   data() {
     return {
       topics: {},
+    }
+  },
+
+  head() {
+    return {
+      title: this.headElement.title,
+      htmlAttrs: {
+        lang: this.headElement.langAttribute,
+      },
     }
   },
 }

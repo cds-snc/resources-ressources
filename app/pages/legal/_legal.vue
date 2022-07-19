@@ -15,6 +15,7 @@
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { legalEntryQuery, legalPageQuery } from '@/utils/queries'
+import { getHeadElement } from '@/utils/headElementAssembler'
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
@@ -71,6 +72,10 @@ export default {
           return res.data.legalPageCollection.items[0]
         })
     }
+
+    const localeCode = currentLocale.substring(0, 2)
+
+    const headElement = getHeadElement(legalPage.title, localeCode)
 
     /* Set alternate url slug */
 
@@ -170,11 +175,16 @@ export default {
 
     const richText = documentToHtmlString(legalPage.body.json, richTextOptions)
 
-    return { legalPage, richText }
+    return { legalPage, richText, headElement }
   },
 
-  // Methods ----------------------------------------------------------------------------------------------------------
-
-  methods: {},
+  head() {
+    return {
+      title: this.headElement.title,
+      htmlAttrs: {
+        lang: this.headElement.langAttribute,
+      },
+    }
+  },
 }
 </script>

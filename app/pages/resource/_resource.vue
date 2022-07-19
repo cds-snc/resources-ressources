@@ -42,8 +42,9 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import {BLOCKS, INLINES, MARKS} from '@contentful/rich-text-types'
-import {legalEntryQuery, resourcePageQuery} from '@/utils/queries'
+import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
+import { resourcePageQuery } from '@/utils/queries'
+import { getHeadElement } from '@/utils/headElementAssembler'
 
 export default {
   layout: 'expandedSearch',
@@ -107,12 +108,16 @@ export default {
 
     let relatedResources = resource.relatedResourcesCollection.items
 
+    const localeCode = currentLocale.substring(0, 2)
+
     relatedResources = relatedResources.map((resource) => ({
       title: resource.title,
       dateAdded: resource.dateAdded,
       path: resourcePathPrefix + resource.urlSlug,
-      locale: currentLocale.substring(0, 2),
+      locale: localeCode,
     }))
+
+    const headElement = getHeadElement(resource.title, localeCode)
 
     const alternateLocaleResourceSlug = resource.urlSlug
 
@@ -212,7 +217,16 @@ export default {
 
     const richText = documentToHtmlString(resource.body.json, richTextOptions)
 
-    return { resource, richText, breadcrumbs, relatedResources }
+    return { resource, richText, breadcrumbs, relatedResources, headElement }
+  },
+
+  head() {
+    return {
+      title: this.headElement.title,
+      htmlAttrs: {
+        lang: this.headElement.langAttribute,
+      },
+    }
   },
 }
 </script>
