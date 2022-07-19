@@ -73,6 +73,7 @@
 <script>
 import dayjs from 'dayjs'
 import { topicPageQuery } from '@/utils/queries'
+import { getHeadElement } from '@/utils/headElementAssembler'
 
 export default {
   // Filters ----------------------------------------------------------------------------------------------------------
@@ -187,15 +188,18 @@ export default {
 
     let resources = topic.resourcesCollection.items
 
+    const localeCode = currentLocale.substring(0, 2)
+
     resources = resources.map((resource) => ({
       title: resource.title,
       dateAdded: resource.dateAdded,
       path: resourcePathPrefix + resource.urlSlug,
-      locale: currentLocale.substring(0, 2),
+      locale: localeCode,
     }))
-    console.log(`_topic.vue - breadcrumbs`, breadcrumbs)
 
-    return { breadcrumbs, resources, topic, subtopics }
+    const headElement = getHeadElement(topic.name, localeCode)
+
+    return { breadcrumbs, resources, topic, subtopics, headElement }
   },
 
   // Data -------------------------------------------------------------------------------------------------------------
@@ -204,6 +208,15 @@ export default {
     return {
       hello: 'hello',
       title: '',
+    }
+  },
+
+  head() {
+    return {
+      title: this.headElement.title,
+      htmlAttrs: {
+        lang: this.headElement.langAttribute,
+      },
     }
   },
 
