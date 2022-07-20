@@ -30,14 +30,32 @@
             />
           </nuxt-link> -->
 
-          <nuxt-link :to="localePath({ name: 'index' })">
+          <nuxt-link
+            v-show="locale === 'en'"
+            :to="localePath({ name: 'index' })"
+            class="flex items-center text-2xl font-medium font-logo"
+            aria-label="Go to the homepage"
+          >
             <img
-              class="sm:block h-12 w-auto"
-              :src="
-                require(`../assets/cds-lockup-light-ko-${$i18n.locale}.svg`)
-              "
-              alt="CDS"
+              class="sm:block h-12 w-auto mr-1.5"
+              :src="require(`../assets/cds-logo-en.svg`)"
+              alt="Canadian Digital Service - Learning resources"
             />
+            {{ $t('learning_resources') }}
+          </nuxt-link>
+
+          <nuxt-link
+            v-show="locale === 'fr'"
+            :to="localePath({ name: 'index' })"
+            class="flex items-center text-2xl font-medium font-logo"
+            aria-label="Accéder à la page d'accueil"
+          >
+            <img
+              class="sm:block h-12 w-auto mr-1.5"
+              :src="require(`../assets/cds-logo-fr.svg`)"
+              alt="Service numérique canadien - Ressources d'apprentissage"
+            />
+            {{ $t('learning_resources') }}
           </nuxt-link>
 
           <div
@@ -72,6 +90,10 @@
 export default {
   name: 'Header',
   computed: {
+    locale() {
+      return this.$i18n.locale
+    },
+
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
