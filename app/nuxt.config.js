@@ -52,6 +52,8 @@ module.exports = {
     '@nuxtjs/fontawesome',
     // https://typescript.nuxtjs.org/
     '@nuxt/typescript-build',
+    // https://google-fonts.nuxtjs.org/
+    '@nuxtjs/google-fonts',
 
     /* [
       "k-domains",
@@ -203,5 +205,11 @@ module.exports = {
   telemetry: false,
   storybook: {
     // Options
+  },
+
+  googleFonts: {
+    families: {
+      Oswald: true,
+    },
   },
 }

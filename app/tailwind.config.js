@@ -14,5 +14,8 @@ module.exports = {
         'cds-blue': '#004986',
       },
     },
+    fontFamily: {
+      logo: ['"Oswald"'],
+    },
   },
 }
