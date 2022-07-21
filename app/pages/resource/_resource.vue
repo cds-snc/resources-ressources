@@ -201,13 +201,21 @@ export default {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         [BLOCKS.PARAGRAPH]: (node, next) => {
           // return `<p class="leading-7">${node.content[0].value}</p>`
-          return `<p class="leading-7">${next(node.content)}</p>`
+          return `<p class="leading-7">${next(node.content).replace(
+            /\n/g,
+            '<br/>'
+          )}</p>`
         },
         [BLOCKS.UL_LIST]: (node, next) => {
           // console.log(JSON.parse(JSON.stringify(node)))
           return `<ul class="list-disc ml-4">
                         ${next(node.content)}
                     </ul>`
+        },
+        [BLOCKS.OL_LIST]: (node, next) => {
+          return `<ol class="list-decimal ml-4">
+                    ${next(node.content)}
+                    </ol>`
         },
         [BLOCKS.HR]: () => {
           return `<div class="border-t border-gray-300 mt-10"></div>`
