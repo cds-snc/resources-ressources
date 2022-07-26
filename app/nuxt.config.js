@@ -129,6 +129,14 @@ module.exports = {
         en: '/',
         fr: '/accueil/',
       }, */
+      about: {
+        en: '/about',
+        fr: '/a-propos',
+      },
+      contact: {
+        en: '/contact',
+        fr: '/nous-joindre',
+      },
       'topic/_topic': {
         en: '/topic/:topic',
         fr: '/themes/:topic',

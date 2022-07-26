@@ -2,33 +2,16 @@
 
 <template>
   <div
-    class="p-5 rounded-2xl h-40 mb-4 hover:bg-gray-100 cursor-pointer drop-shadow-2xl"
+    class="py-5 px-1.5 rounded-2xl mb-4 hover:bg-gray-100 cursor-pointer drop-shadow-2xl -mx-2"
+    style="width: fit-content"
     @click="navigateToResource()"
   >
-    <!-- Resource type -->
-
-    <!-- <p class="pb-1 font-medium text-gray-600">
-      <small class="text-sm">SAMPLE</small>
-    </p> -->
-
-    <!-- Resource name / resource link -->
-
     <nuxt-link
       :to="localePath(resource.path, resource.locale)"
       class="text-2xl font-medium text-blue-800 underline hover:text-blue-700"
     >
-      <!--<nuxt-link
-      :to="resource.path"
-      class="text-lg font-medium hover:text-blue-700"
-    >-->
       {{ resource.title }}
     </nuxt-link>
-
-    <!-- Resource date -->
-
-    <!-- <div class="font-light mt-1.5 text-gray-800">
-      {{ $t('last_updated') }} {{ resource.dateAdded | formatDate }}
-    </div> -->
   </div>
 </template>
 

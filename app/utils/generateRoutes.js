@@ -10,8 +10,11 @@ const {
   legalRoutesQuery,
   legalPageQuery,
   topLevelTopicsQuery,
+  aboutPageQuery,
+  contactPageQuery,
 } = require('./queries')
 const { CONTENTFUL_CDA_BASE_URL } = require('./constants')
+// const {aboutPageQuery, contactPageQuery} = require("~/utils/queries");
 
 module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   const apiURL = `${CONTENTFUL_CDA_BASE_URL}${contentfulSpaceId}`
@@ -179,7 +182,8 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     })
   }
 
-  // routes: homepages
+  // Home Page --------------------------------------------------------------------------------------------------------
+
   const homeRoutes = [
     {
       locale: localeEN,
@@ -209,6 +213,75 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       },
     })
   }
+
+  // About Page -------------------------------------------------------------------------------------------------------
+
+  const aboutPageRoutes = [
+    {
+      locale: localeEN,
+      path: '/about',
+      urlSlug: '',
+    },
+    {
+      locale: localeFR,
+      path: '/a-propos',
+      urlSlug: '',
+    },
+  ]
+
+  for (const route of aboutPageRoutes) {
+    // const alternateLocale = route.locale === localeEN ? localeFR : localeEN
+    const pageQuery = aboutPageQuery(route.locale)
+    const aboutPage = await axios
+      .post(apiURL, { query: pageQuery }, axiosConfig)
+      .then((res) => {
+        console.log(res.data)
+        return res.data.data.aboutPageCollection.items[0]
+      })
+    homeRoutesWithPayload.push({
+      route: route.path,
+      payload: {
+        locale: route.locale,
+        page: aboutPage,
+      },
+    })
+  }
+
+  // Contact Page -----------------------------------------------------------------------------------------------------
+
+  const contactPageRoutes = [
+    {
+      locale: localeEN,
+      path: '/contact',
+      urlSlug: '',
+    },
+    {
+      locale: localeFR,
+      path: '/nous-joindre',
+      urlSlug: '',
+    },
+  ]
+
+  for (const route of contactPageRoutes) {
+    // const alternateLocale = route.locale === localeEN ? localeFR : localeEN
+    const pageQuery = contactPageQuery(route.locale)
+    const contactPage = await axios
+      .post(apiURL, { query: pageQuery }, axiosConfig)
+      .then((res) => {
+        console.log(res.data)
+        return res.data.data.contactPageCollection.items[0]
+      })
+    homeRoutesWithPayload.push({
+      route: route.path,
+      payload: {
+        locale: route.locale,
+        page: contactPage,
+      },
+    })
+  }
+
+  // ------------------------------------------------------------------------------------------------------------------
+
   // console.log('------ generated routes ----------')
   // console.log(
   //   topicRoutesWithPayload,

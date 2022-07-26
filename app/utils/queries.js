@@ -167,3 +167,33 @@ export const topLevelTopicsQuery = (locale) => `query
         }
       }
     }`
+
+export const aboutPageQuery = (locale) => `query
+{
+  aboutPageCollection(locale: "${locale}")
+  {
+    items
+    {
+      title
+      body
+      {
+        json
+      }
+    }
+  }
+}`
+
+export const contactPageQuery = (locale) => `query
+{
+  contactPageCollection(locale: "${locale}")
+  {
+    items
+    {
+      title
+      body
+      {
+        json
+      }
+    }
+  }
+}`

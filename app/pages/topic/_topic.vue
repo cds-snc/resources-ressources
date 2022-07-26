@@ -6,10 +6,13 @@
       :current-page-title="topic.name"
     ></breadcrumbs>
 
-    <div class="flex my-32 border-l-4 border-cds-yellow pl-10">
-      <div class="w-5/6 md:w-1/2">
-        <h1 class="font-medium text-6xl">{{ topic.name }}</h1>
-        <p v-if="topic.topicDescription" class="pt-10 text-lg font-light">
+    <div class="flex my-24 sm:my-28">
+      <div class="md:w-2/3">
+        <h1 class="font-bold text-4xl sm:text-5xl">{{ topic.name }}</h1>
+        <p
+          v-if="topic.topicDescription"
+          class="pt-10 text-lg sm:text-xl text-gray-900 tracking-wide leading-relaxed"
+        >
           {{ topic.topicDescription }}
         </p>
       </div>
@@ -34,7 +37,7 @@
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
     <div v-if="hasSubtopics" class="mb-32 grid xl:grid-cols-3">
-      <h2 class="p-5 text-4xl font-thin pb-10 col-span-1">
+      <h2 class="py-5 text-4xl font-thin pb-10 col-span-1">
         {{ topic.subtopicsHeading }}
       </h2>
 
@@ -54,12 +57,12 @@
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
     <div v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
-      <h2 class="p-5 text-4xl font-thin col-span-1">
+      <h2 class="py-5 text-4xl font-thin col-span-1">
         <!-- {{ breadcrumbs.locale === 'en' ? 'Resources' : 'Ressources' }} -->
         {{ $t('resources') }}
       </h2>
 
-      <ul class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-2 col-span-2">
+      <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
         <!-- Resource card --------------------------------------------------------------------------------------------->
 
         <li v-for="resource in resources" :key="resource.title">
