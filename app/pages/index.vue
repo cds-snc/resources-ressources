@@ -1,7 +1,7 @@
 <!-- Template ======================================================================================================-->
 
 <template>
-  <div class="mx-4 mb-10">
+  <div class="mb-10">
     <!-- Old code:
       <ul class="flex flex-wrap gap-4 justify-start pt-4">
         <li v-for="category in categories" :key="category.id">
@@ -24,11 +24,11 @@
       <div class="border-2 w-20 border-cds-yellow"></div>
     </div>-->
 
-    <div class="mt-20 mb-40 border-l-4 border-cds-yellow pl-10">
-      <h1 class="text-3xl md:text-6xl font-bold pb-8">
+    <div class="mt-20 mb-40">
+      <h1 class="text-3xl md:text-5xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
-      <p class="text-l md:text-xl max-w-2xl font-light">
+      <p class="text-l md:text-2xl max-w-5xl font-medium">
         {{ $t('landing_page.description') }}
       </p>
       <!-- <div class="border-2 w-20 border-cds-yellow"></div> -->
@@ -39,7 +39,7 @@
     <!-- Topics ---------------------------------------------------------------------------------------------------->
 
     <div class="grid lg:grid-cols-3 mb-36">
-      <h2 class="text-4xl font-thin p-5 col-span-1">
+      <h2 class="text-4xl font-thin py-5 col-span-1">
         {{ $t('landing_page.topics_heading') }}
       </h2>
 
@@ -87,13 +87,13 @@
     <div class="grid lg:grid-cols-3">
       <!-- Heading (left side) -->
       <div class="col-span-1">
-        <h2 class="text-4xl font-thin p-5">{{ $t('contact.heading') }}</h2>
+        <h2 class="text-4xl font-thin py-5">{{ $t('contact.heading') }}</h2>
       </div>
 
       <!-- Contact info (right side) -->
 
-      <div class="col-span-2 p-5">
-        <p>
+      <div class="col-span-2 py-5">
+        <p class="text-xl text-gray-900 tracking-wide leading-relaxed">
           {{ $t('contact.info-1') }} <br />
           {{ $t('contact.info-2') }}
           <br /><strong>partnerships-partenariats@cds-snc.ca</strong>

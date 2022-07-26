@@ -7,7 +7,7 @@
   <!-- <nuxt-link :to="localePath(`/topic/${topic.urlSlug}`)" class="flex justify-between hover:text-blue-800 font-medium text-lg"> -->
 
   <!-- Locale Path: Using name of the route (i18n.nuxtjs.org/basic-usage) -->
-  <div class="pl-5 pb-2" :class="topic.flag ? 'pt-0' : 'pt-5'">
+  <div class="pb-2" :class="topic.flag ? 'pt-0' : 'pt-5'">
     <div v-if="topic.flag" class="text-gray-700 text-sm">
       {{ topic.flag.value }}
     </div>

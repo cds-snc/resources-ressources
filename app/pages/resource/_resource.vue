@@ -9,8 +9,8 @@
     </breadcrumbs>
 
     <div class="flex mb-10">
-      <div class="max-w-4xl">
-        <h1 class="text-4xl font-bold my-20">
+      <div class="max-w-5xl">
+        <h1 class="text4xl sm:text-5xl font-bold my-24 sm:my-28">
           {{ resource.title }}
         </h1>
 
@@ -21,11 +21,11 @@
         <div>
           <div class="border-t border-gray-300 border-thin my-14"></div>
 
-          <h2 class="p-5 font-thin text-4xl">
+          <h2 class="py-5 font-thin text-4xl">
             {{ $t('related_resources') }}
           </h2>
 
-          <ul class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
+          <ul class="mt-5 grid grid-cols-1 gap-2">
             <!-- Resource card --------------------------------------------------------------------------------------------->
 
             <li v-for="resource in relatedResources" :key="resource.title">
@@ -42,7 +42,7 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
+import {BLOCKS, INLINES, MARKS} from "@contentful/rich-text-types";
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 
@@ -137,24 +137,7 @@ export default {
       fr: { resource: frRouteParam },
     })
 
-    /* DEPRECATED: richTextOptions */
-    /* const richTextOptions = {
-      renderNode: {
-        [BLOCKS.HEADING_2]: (node) => {
-          return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
-        },
-        [BLOCKS.PARAGRAPH]: (node) => {
-          return `<p class="leading-7">${node.content[0].value}</p>`
-        },
-        [BLOCKS.UL_LIST]: (node, next) => {
-          return `<ul class="list-disc ml-4">
-                        ${next(node.content)}
-                    </ul>`
-        },
-      },
-    } */
-
-    const richTextOptions = {
+    const resourceRichTextRenderOptionsx = {
       renderMark: {
         [MARKS.BOLD]: (text) => {
           console.log(text)
@@ -168,24 +151,6 @@ export default {
         [INLINES.HYPERLINK]: (node) => {
           return `<a class="text-blue-900 underline" href="${node.data.uri}">${node.content[0].value}</a>`
         },
-        /* [INLINES.ENTRY_HYPERLINK]: (node) => {
-          console.log(node.data.target.sys.id)
-
-          const entryId = node.data.target.sys.id
-
-          const pageQuery = legalEntryQuery(entryId)
-
-          const entry = $contentfulApi
-            .$post('', { query: pageQuery })
-            .then((res) => {
-              // console.log(res)
-              return res.data.legalPage
-            })
-
-          const path = '/legal/' + entry.urlSlug
-          console.log(path)
-          return `<nuxt-link class="text-blue-900 underline" :to="localePath(${path})">${node.content[0].value}</nuxt-link>`
-        }, */
         [BLOCKS.HEADING_1]: (node) => {
           return `<h1 class="text-3xl font-medium mt-12 mb-2.5" >${node.content[0].value}</h1>`
         },
@@ -201,13 +166,12 @@ export default {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         [BLOCKS.PARAGRAPH]: (node, next) => {
           // return `<p class="leading-7">${node.content[0].value}</p>`
-          return `<p class="leading-7">${next(node.content).replace(
+          return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(node.content).replace(
             /\n/g,
             '<br/>'
           )}</p>`
         },
         [BLOCKS.UL_LIST]: (node, next) => {
-          // console.log(JSON.parse(JSON.stringify(node)))
           return `<ul class="list-disc ml-4">
                         ${next(node.content)}
                     </ul>`
@@ -223,7 +187,7 @@ export default {
       },
     }
 
-    const richText = documentToHtmlString(resource.body.json, richTextOptions)
+    const richText = documentToHtmlString(resource.body.json, resourceRichTextRenderOptionsx)
 
     return { resource, richText, breadcrumbs, relatedResources, headElement }
   },
