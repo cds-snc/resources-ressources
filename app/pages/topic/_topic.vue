@@ -9,7 +9,10 @@
     <div class="flex my-24 sm:my-28">
       <div class="md:w-2/3">
         <h1 class="font-bold text-4xl sm:text-5xl">{{ topic.name }}</h1>
-        <p v-if="topic.topicDescription" class="pt-10 text-lg sm:text-xl text-gray-900 tracking-wide leading-relaxed">
+        <p
+          v-if="topic.topicDescription"
+          class="pt-10 text-lg sm:text-xl text-gray-900 tracking-wide leading-relaxed"
+        >
           {{ topic.topicDescription }}
         </p>
       </div>

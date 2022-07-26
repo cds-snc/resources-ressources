@@ -8,20 +8,19 @@
 <!-- Page Logic ====================================================================================================-->
 
 <script>
-import {documentToHtmlString} from "@contentful/rich-text-html-renderer";
-import {aboutPageQuery} from "@/utils/queries";
-import {getHeadElement} from "@/utils/headElementAssembler";
-import {richTextRenderOptions} from "@/utils/richTextRenderOptions";
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { aboutPageQuery } from '@/utils/queries'
+import { getHeadElement } from '@/utils/headElementAssembler'
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
 export default {
-
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {
     paths: {
       en: '/contact',
-      fr: '/nous-joindre'
-    }
+      fr: '/nous-joindre',
+    },
   },
 
   name: 'Contact',
@@ -29,7 +28,6 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ $contentfulApi, payload }) {
-
     /* Contentful locale */
     const locale = payload && payload.locale ? payload.locale : 'en-CA'
 
@@ -49,7 +47,10 @@ export default {
 
     const headElement = getHeadElement(contactPage.title, i18nLocaleCode)
 
-    const richText = documentToHtmlString(contactPage.body.json, richTextRenderOptions)
+    const richText = documentToHtmlString(
+      contactPage.body.json,
+      richTextRenderOptions
+    )
 
     return { contactPage, richText, headElement }
   },
@@ -62,7 +63,5 @@ export default {
       },
     }
   },
-
-
 }
 </script>

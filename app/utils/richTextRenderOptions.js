@@ -1,5 +1,5 @@
-import {BLOCKS, INLINES, MARKS} from "@contentful/rich-text-types";
-import {legalEntryQuery} from "~/utils/queries";
+import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
+import { legalEntryQuery } from '~/utils/queries'
 
 export const richTextRenderOptions = {
   renderMark: {
@@ -46,7 +46,9 @@ export const richTextRenderOptions = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     [BLOCKS.PARAGRAPH]: (node, next) => {
       // return `<p class="leading-7">${node.content[0].value}</p>`
-      return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(node.content)}</p>`
+      return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
+        node.content
+      )}</p>`
     },
     [BLOCKS.UL_LIST]: (node, next) => {
       // console.log(JSON.parse(JSON.stringify(node)))
@@ -91,10 +93,9 @@ export const resourceRichTextRenderOptions = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     [BLOCKS.PARAGRAPH]: (node, next) => {
       // return `<p class="leading-7">${node.content[0].value}</p>`
-      return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(node.content).replace(
-        /\n/g,
-        '<br/>'
-      )}</p>`
+      return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
+        node.content
+      ).replace(/\n/g, '<br/>')}</p>`
     },
     [BLOCKS.UL_LIST]: (node, next) => {
       return `<ul class="list-disc ml-4">

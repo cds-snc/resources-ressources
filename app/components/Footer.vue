@@ -5,22 +5,32 @@
       <!-- <div class="relative flex items-end justify-between"> -->
       <div>
         <div class="flex flex-col w-auto">
-
-          <nuxt-link :to="localePath({ name: 'about' })"
-          class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
-          style="width: fit-content">
+          <nuxt-link
+            :to="localePath({ name: 'about' })"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
+            style="width: fit-content"
+          >
             {{ $t('about') }}
           </nuxt-link>
 
-          <nuxt-link :to="localePath({ name: 'contact' })"
-                     class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
-                     style="width: fit-content">
+          <nuxt-link
+            :to="localePath({ name: 'contact' })"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
+            style="width: fit-content"
+          >
             {{ $t('contact_us') }}
           </nuxt-link>
 
-          <nuxt-link :to="localePath({ name: 'legal-legal',params: { legal: $t('terms.urlSlug') }})"
+          <nuxt-link
+            :to="
+              localePath({
+                name: 'legal-legal',
+                params: { legal: $t('terms.urlSlug') },
+              })
+            "
             class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
-            style="width: fit-content">
+            style="width: fit-content"
+          >
             {{ $t('terms.title') }}
           </nuxt-link>
 
@@ -40,15 +50,19 @@
         <div class="border-t border-gray-300 mb-5 mt-5"></div>
 
         <div class="flex justify-between">
-
-          <a v-show="locale === 'en'"
+          <a
+            v-show="locale === 'en'"
             href="https://canada.ca/en.html"
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700">Visit Canada.ca
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
+            >Visit Canada.ca
           </a>
 
-          <a v-show="locale === 'fr'" href="https://canada.ca/fr.html"
-             class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700">
-             Visitez Canada.ca
+          <a
+            v-show="locale === 'fr'"
+            href="https://canada.ca/fr.html"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
+          >
+            Visitez Canada.ca
           </a>
 
           <img

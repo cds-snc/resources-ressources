@@ -11,7 +11,7 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
-import { richTextRenderOptions} from "@/utils/richTextRenderOptions";
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
 export default {
   // Options ----------------------------------------------------------------------------------------------------------
@@ -44,7 +44,10 @@ export default {
 
     const headElement = getHeadElement(aboutPage.title, i18nLocaleCode)
 
-    const richText = documentToHtmlString(aboutPage.body.json, richTextRenderOptions)
+    const richText = documentToHtmlString(
+      aboutPage.body.json,
+      richTextRenderOptions
+    )
 
     return { aboutPage, richText, headElement }
   },

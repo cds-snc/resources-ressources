@@ -155,10 +155,9 @@ export default {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         [BLOCKS.PARAGRAPH]: (node, next) => {
           // return `<p class="leading-7">${node.content[0].value}</p>`
-          return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(node.content).replace(
-            /\n/g,
-            '<br/>'
-          )}</p>`
+          return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
+            node.content
+          ).replace(/\n/g, '<br/>')}</p>`
         },
         [BLOCKS.UL_LIST]: (node, next) => {
           // console.log(JSON.parse(JSON.stringify(node)))
