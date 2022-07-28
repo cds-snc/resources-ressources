@@ -10,18 +10,4 @@ customHeaders:
       - key: 'X-Content-Type-Options'
         value: 'nosniff'
       - key: 'Content-Security-Policy'
-        value: "default-src 'self'"
-      - key: 'Content-Security-Policy'
-        value: "script-src 'self' www.googletagmanager.com"
-      - key: 'Content-Security-Policy'
-        value: "frame-src www.googletagmanager.com"
-      - key: 'Content-Security-Policy'
-        value: "connect-src 'self'"
-      - key: 'Content-Security-Policy'
-        value: "img-src 'self'"
-      - key: 'Content-Security-Policy'
-        value: "style-src 'self'"
-      - key: 'Content-Security-Policy'
-        value: "base-uri 'self'"
-      - key: 'Content-Security-Policy'
-        value: "form-action 'self'"
+        value: "default-src 'self'; script-src 'self' www.googletagmanager.com; frame-src www.googletagmanager.com; connect-src 'self'; img-src 'self'; style-src 'self'; base-uri 'self'; form-action 'self'"
