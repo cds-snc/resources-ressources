@@ -13,3 +13,15 @@ customHeaders:
         value: "default-src 'self'"
       - key: 'Content-Security-Policy'
         value: "script-src 'self' www.googletagmanager.com"
+      - key: 'Content-Security-Policy'
+        value: "frame-src www.googletagmanager.com"
+      - key: 'Content-Security-Policy'
+        value: "connect-src 'self'"
+      - key: 'Content-Security-Policy'
+        value: "img-src 'self'"
+      - key: 'Content-Security-Policy'
+        value: "style-src 'self'"
+      - key: 'Content-Security-Policy'
+        value: "base-uri 'self'"
+      - key: 'Content-Security-Policy'
+        value: "form-action 'self'"
