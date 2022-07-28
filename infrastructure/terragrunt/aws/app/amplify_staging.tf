@@ -70,7 +70,7 @@ resource "aws_amplify_branch" "staging" {
   framework = "NuxtJS"
 
   # Could be one of: PRODUCTION, BETA, DEVELOPMENT, EXPERIMENTAL, PULL_REQUEST
-  stage     = "BETA"
+  stage = "BETA"
 
   display_name = "staging"
 
