@@ -59,7 +59,7 @@ resource "aws_amplify_app" "learning_resources" {
     enable_auto_build             = true
     enable_pull_request_preview   = true
     pull_request_environment_name = "rc"
-    stage                         = "RELEASE"
+    stage                         = "PRODUCTION"
   }
 }
 
