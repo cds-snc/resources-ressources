@@ -38,8 +38,8 @@ resource "aws_amplify_app" "learning_resources_staging" {
     ENV                         = "staging"
     DOMAIN_EN                   = "en.staging.learning-resources.cdssandbox.xyz"
     DOMAIN_FR                   = "fr.staging.learning-resources.cdssandbox.xyz"
-    contentful_cda_access_token = var.contentful_cda_access_token_staging
-    GOOGLE_ANALYTICS_ID         = var.google_analytics_id_none
+    contentful_cda_access_token = var.contentful_cda_access_token
+    GOOGLE_ANALYTICS_ID         = "" # Do not collect data
   }
 
 
@@ -68,9 +68,11 @@ resource "aws_amplify_branch" "staging" {
   branch_name = "staging"
 
   framework = "NuxtJS"
+
+  # Could be one of: PRODUCTION, BETA, DEVELOPMENT, EXPERIMENTAL, PULL_REQUEST
   stage     = "BETA"
 
-  display_name = "beta"
+  display_name = "staging"
 
   enable_pull_request_preview = true
 

@@ -58,8 +58,8 @@ resource "aws_amplify_app" "learning_resources" {
     # Enable auto build for the created branch.
     enable_auto_build             = true
     enable_pull_request_preview   = true
-    pull_request_environment_name = "pr"
-    stage                         = "PULL_REQUEST"
+    pull_request_environment_name = "rc"
+    stage                         = "RELEASE"
   }
 }
 
@@ -68,13 +68,15 @@ resource "aws_amplify_branch" "main" {
   branch_name = "main"
 
   framework = "NuxtJS"
-  stage     = "BETA"
 
-  display_name = "beta"
+  # Could be one of: PRODUCTION, BETA, DEVELOPMENT, EXPERIMENTAL, PULL_REQUEST
+  stage     = "PRODUCTION"
+
+  display_name = "pilot"
 
   enable_pull_request_preview = true
 
-  pull_request_environment_name = "PULL_REQUEST"
+  pull_request_environment_name = "RELEASE"
 
   # environment_variables = {
   # }

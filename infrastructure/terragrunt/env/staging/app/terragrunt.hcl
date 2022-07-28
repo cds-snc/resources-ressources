@@ -19,7 +19,6 @@ inputs = {
   domain_name        = "learning-resources.cdssandbox.xyz"
   app_hosted_zone_id = dependency.hosted_zone.outputs.app_zone_id
   app_domain_name    = "app.learning-resources.cdssandbox.xyz"
-
 }
 
 include {
