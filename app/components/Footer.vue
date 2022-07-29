@@ -7,16 +7,14 @@
         <div class="flex flex-col w-auto">
           <nuxt-link
             :to="localePath({ name: 'about' })"
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
-            style="width: fit-content"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1 w-fit"
           >
             {{ $t('about') }}
           </nuxt-link>
 
           <nuxt-link
             :to="localePath({ name: 'contact' })"
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
-            style="width: fit-content"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1 w-fit"
           >
             {{ $t('contact_us') }}
           </nuxt-link>
@@ -28,8 +26,7 @@
                 params: { legal: $t('terms.urlSlug') },
               })
             "
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1"
-            style="width: fit-content"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 mb-1 w-fit"
           >
             {{ $t('terms.title') }}
           </nuxt-link>
@@ -41,8 +38,7 @@
                 params: { legal: $t('privacy.urlSlug') },
               })
             "
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
-            style="width: fit-content"
+            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700 w-fit"
             >{{ $t('privacy.title') }}</nuxt-link
           >
         </div>
@@ -51,14 +47,14 @@
 
         <div class="flex justify-between">
           <a
-            v-show="locale === 'en'"
+            v-if="locale === 'en'"
             href="https://canada.ca/en.html"
             class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
             >Visit Canada.ca
           </a>
 
           <a
-            v-show="locale === 'fr'"
+            v-if="locale === 'fr'"
             href="https://canada.ca/fr.html"
             class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
           >
@@ -66,13 +62,13 @@
           </a>
 
           <img
-            v-show="locale === 'en'"
+            v-if="locale === 'en'"
             class="lg:block h-8 w-auto"
             src="~assets/goc--footer-logo.svg"
             :alt="canadaWorkmarkAltText"
           />
           <img
-            v-show="locale === 'fr'"
+            v-if="locale === 'fr'"
             class="lg:block h-8 w-auto"
             src="~assets/goc--footer-logo.svg"
             :alt="canadaWorkmarkAltText"
