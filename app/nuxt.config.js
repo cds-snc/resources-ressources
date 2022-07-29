@@ -187,9 +187,7 @@ module.exports = {
     manifest: {
       lang: 'en',
     },
-    workbox: {
-      enabled: false
-    }
+    workbox: false
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
