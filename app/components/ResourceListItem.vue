@@ -2,8 +2,7 @@
 
 <template>
   <div
-    class="py-5 px-1.5 rounded-2xl mb-4 hover:bg-gray-100 cursor-pointer drop-shadow-2xl -mx-2"
-    style="width: fit-content"
+    class="py-5 px-1.5 rounded-2xl mb-4 hover:bg-gray-100 cursor-pointer drop-shadow-2xl -mx-2 w-fit"
     @click="navigateToResource()"
   >
     <nuxt-link
