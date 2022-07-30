@@ -31,7 +31,7 @@
           </nuxt-link> -->
 
           <nuxt-link
-            v-if="locale === 'en'"
+            v-show="locale === 'en'"
             :to="localePath({ name: 'index' })"
             class="flex items-center text-2xl font-medium font-logo"
             aria-label="Go to the homepage"
@@ -45,7 +45,7 @@
           </nuxt-link>
 
           <nuxt-link
-            v-if="locale === 'fr'"
+            v-show="locale === 'fr'"
             :to="localePath({ name: 'index' })"
             class="flex items-center text-2xl font-medium font-logo"
             aria-label="Accéder à la page d'accueil"

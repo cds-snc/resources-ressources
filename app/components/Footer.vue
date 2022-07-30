@@ -47,14 +47,14 @@
 
         <div class="flex justify-between">
           <a
-            v-if="locale === 'en'"
+            v-show="locale === 'en'"
             href="https://canada.ca/en.html"
             class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
             >Visit Canada.ca
           </a>
 
           <a
-            v-if="locale === 'fr'"
+            v-show="locale === 'fr'"
             href="https://canada.ca/fr.html"
             class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
           >
@@ -62,13 +62,13 @@
           </a>
 
           <img
-            v-if="locale === 'en'"
+            v-show="locale === 'en'"
             class="lg:block h-8 w-auto"
             src="~assets/goc--footer-logo.svg"
             :alt="canadaWorkmarkAltText"
           />
           <img
-            v-if="locale === 'fr'"
+            v-show="locale === 'fr'"
             class="lg:block h-8 w-auto"
             src="~assets/goc--footer-logo.svg"
             :alt="canadaWorkmarkAltText"
