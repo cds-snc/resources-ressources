@@ -77,6 +77,7 @@
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
               class="underline text-blue-900 hover:text-blue-700 text-xl"
+              :lang="locale.code"
               @click="switchLocale"
               >{{ locale.name }}
             </a>
