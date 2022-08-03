@@ -187,13 +187,16 @@ module.exports = {
     manifest: {
       lang: 'en',
     },
+    workbox: false,
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extractCSS: true,
+  },
   env: {
     CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
   },
