@@ -44,23 +44,8 @@
         </div>
 
         <div class="border-t border-gray-300 mb-5 mt-5"></div>
-
-        <div class="flex justify-between">
-          <a
-            v-show="locale === 'en'"
-            href="https://canada.ca/en.html"
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
-            >Visit Canada.ca
-          </a>
-
-          <a
-            v-show="locale === 'fr'"
-            href="https://canada.ca/fr.html"
-            class="text-gray-800 text-2xl font-medium hover:underline hover:text-blue-700"
-          >
-            Visitez Canada.ca
-          </a>
-
+        
+        <div class="flex justify-end">
           <img
             v-show="locale === 'en'"
             class="lg:block h-8 w-auto"
@@ -73,8 +58,7 @@
             src="~assets/goc--footer-logo.svg"
             :alt="canadaWorkmarkAltText"
           />
-        </div>
-      </div>
+       </div>
     </div>
   </footer>
 </template>
