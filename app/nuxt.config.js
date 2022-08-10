@@ -22,6 +22,7 @@ module.exports = {
 
   publicRuntimeConfig: {
     googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
+    googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID
   },
 
   privateRuntimeConfig: {
@@ -35,7 +36,7 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
-  plugins: ['~/plugins/vue-gtag', '~/plugins/axios'],
+  plugins: ['~/plugins/vue-gtag', '~/plugins/vue-gtm', '~/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
