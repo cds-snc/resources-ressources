@@ -58,7 +58,8 @@
             src="~assets/goc--footer-logo.svg"
             :alt="canadaWorkmarkAltText"
           />
-       </div>
+        </div>
+      </div>
     </div>
   </footer>
 </template>
