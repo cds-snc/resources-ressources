@@ -22,7 +22,7 @@ module.exports = {
 
   publicRuntimeConfig: {
     googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
-    googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID
+    googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID,
   },
 
   privateRuntimeConfig: {

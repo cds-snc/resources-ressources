@@ -44,7 +44,7 @@
         </div>
 
         <div class="border-t border-gray-300 mb-5 mt-5"></div>
-        
+
         <div class="flex justify-end">
           <img
             v-show="locale === 'en'"
