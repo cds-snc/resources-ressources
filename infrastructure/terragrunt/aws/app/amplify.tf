@@ -40,6 +40,7 @@ resource "aws_amplify_app" "learning_resources" {
     DOMAIN_FR                   = "fr.learning-resources.cdssandbox.xyz"
     contentful_cda_access_token = var.contentful_cda_access_token
     GOOGLE_ANALYTICS_ID         = var.google_analytics_id
+    GOOGLE_TAG_MANAGER_ID       = var.google_tag_manager_id
   }
 
 

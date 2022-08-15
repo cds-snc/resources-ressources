@@ -28,3 +28,8 @@ variable "google_analytics_id" {
   type      = string
   sensitive = true
 }
+
+variable "google_tag_manager_id" {
+  type      = string
+  sensitive = true
+}
