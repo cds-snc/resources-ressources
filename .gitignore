@@ -96,6 +96,7 @@ sw.*
 
 # Contentful
 .contentful.json
+set_contentful_token.sh
 
 # Storybook
 .nuxt-storybook

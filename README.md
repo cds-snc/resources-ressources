@@ -22,6 +22,8 @@ A few common, reusable components have been created, which can be found under th
 This app uses [TailwindCSS](https://tailwindcss.com/) for its CSS framework. On dev mode, you can easily access colors and helpers by visiting [http://localhost:3000/_tailwind/](http://localhost:3000/_tailwind/)
 
 ## Storybook
+_Note: We are not actively using storybook right now, so this feature and corresponding documentation needs to be revisited._
+
 Storybook is integrated in this app to make UI components easier to manage and to be explored. 
 To run storybook locally, simply type `npm run storybook` which makes it available at [http://localhost:3003/](http://localhost:3003/)
 
@@ -42,7 +44,12 @@ To run storybook locally, simply type `npm run storybook` which makes it availab
     "CTF_CDA_ACCESS_TOKEN": "",
 }
 ```
+```bash
+export contentful_access_token=""
 
+# Set other env vars
+$ . scripts/set_envs.sh
+```
 3. On a terminal, install the  node packages and dependencies. You may need to include `--legacy-peer-deps`
 ```bash
 # install dependencies
