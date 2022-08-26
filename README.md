@@ -38,11 +38,8 @@ To run storybook locally, simply type `npm run storybook` which makes it availab
 2. Configure the environment variables for Contentful. Create a file called `.contentful.json`. If you are in the Learning Resources team, the contents of this file should have been shared with you through LastPass. Copy the content and paste it into this file. It should look like the structure below.
 ```bash
 {
-    "CTF_PERSON_ID": "",
-    "CTF_BLOG_POST_TYPE_ID": "",
     "CTF_SPACE_ID": "",
     "CTF_CDA_ACCESS_TOKEN": "",
-    "CTF_CMA_ACCESS_TOKEN": ""
 }
 ```
 

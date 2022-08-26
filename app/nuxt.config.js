@@ -198,9 +198,6 @@ module.exports = {
   build: {
     extractCSS: true,
   },
-  env: {
-    CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
-  },
   fontawesome: {
     icons: {
       solid: true,
