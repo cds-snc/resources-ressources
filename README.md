@@ -62,8 +62,9 @@ $ npm run dev
 **🎉 You're done for now, but there are a few more optional things you may want to explore.**
 - [Generate a static website and serve the static files](#generate-a-static-website-and-serve-the-static-files)
 - [Build with SSR](#build-with-ssr)
+- [Run both french and english](#run-both-french-and-english)
 
-## Generate a static website and serve the static files
+### Generate a static website and serve the static files
 ```bash
 # make sure config in nuxt.config.js is set to
 #   target: static
@@ -86,7 +87,7 @@ $ npm run build
 $ npm run start
 ```
 
-#### Run both french and english
+### Run both french and english
 The website is currently set to run on different domains on production. This makes it slightly tricky to test locally. The quickest way 
 to test both the french and english version of the site on your local machine, you may need to do a few extra manual steps.
    1. Serve the static files (see step 6)
