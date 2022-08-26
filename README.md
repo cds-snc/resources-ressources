@@ -63,6 +63,7 @@ $ npm run dev
 - [Generate a static website and serve the static files](#generate-a-static-website-and-serve-the-static-files)
 - [Build with SSR](#build-with-ssr)
 - [Run both french and english](#run-both-french-and-english)
+- [Committing to the repo](#committing-to-the-repo)
 
 ### Generate a static website and serve the static files
 ```bash
@@ -103,9 +104,109 @@ $ sudo vim /etc/hosts
 127.0.0.1       fr.learning-resources
 ```
 
+### Committing to the repo
+Committing to the repo from your local machine may require a few extra steps.
+
+**Conventional Commits**
+
+The initial setup of NuxtJS added the option to have conventional commits on the repo. Isn't that fun?
+This requires committers to use [conventional commit syntax](https://www.conventionalcommits.org/en/v1.0.0/#summary) to ensure a cleaner commit history.
+
+This step is set up in the root folder though, using commitlint. Which requires the extra step of installing it on the **_root_** folder.
+
+`npm run install`
+
+**Linting**
+
+There are lint checks, and it would be nice to have a git hook to ensure linting. 
+
+To check your linting, run `npm run lint`. 
+
+Most lint issues can be quickly fixed by the command `npm run lintfix`
+
+**Terraform**
+
+If making changes to the terraform files, we have a github workflow that detects these changes, shows the plan and applies them after the PR gets merged.
+
+Format your terraform files by running `make fmt` and `make hclfmt` inside the `infrastructure/` folder.
+
+
+**Pull Requests**
+
+If you cloned the repo, you would have noticed that the default branch is `staging`. The deployment process can be found on our infrastructure documentation for further understanding.
+To open a Pull Request, make sure you are merging your PR into `staging`.
+
+Before merging:
+- Make sure your PR is passing
+- It is recommended to ask for a PR Review before merging.
+
+AWS Amplify will create a PR Preview URL for your changes. The only thing you will be unable to test on this URL is switching languages.g
+
 # Frequently Asked Questions
 - [What is the `frontend` folder?](#what-is-the-frontend-folder)
+- [How to do translation within the app](#how-to-do-translation-within-the-app)
 
 ## What is the `frontend` folder?
 
 The `frontend` folder contains the files needed to migrate to [Nuxt3](https://v3.nuxtjs.org/). Unfortunately, the release date for Nuxt3 is unknown, so we have decided to remain on Nuxt2 in the meantime. There is a [github issue](https://github.com/cds-snc/resources-ressources/issues/211) to delete the folder but keep it on a separate branch.
+
+## How to do translation within the app
+
+The [nuxt-i18n plugin](https://i18n.nuxtjs.org/) handles the translation files. Only apply changes under the `app/` folder to avoid duplication and unnecessary work (which means, ignore the `frontend/` folder for now 😅).
+
+The translation files are located in the `app/locales` directory, namely:
+
+- `en.json`
+
+- `fr.json`
+
+**How do I format translation variables?**
+
+You would need to name the word/sentence with a variable, then define that variable in a translation file `*.json`
+The translation file is in a JSON format.
+
+Sample sentence:
+
+`en.json`
+```json
+{
+  "landing_page": {
+    "title": "Welcome to CDS Learning Resources"
+  }
+}
+```
+`fr.json`
+```json
+{
+  "landing_page": {
+    "title": "Bienvenue aux ressources d'apprentissage du SNC"
+  }
+}
+```
+You may now use this variable in any of the components like this
+```vue
+<h1>{{ $t('landing_page.title') }}</h1>
+```
+
+There are many [more formatting options](https://kazupon.github.io/vue-i18n/guide/formatting.html) available to you on the `vue-i18n` documentation. These include [pluralization](https://kazupon.github.io/vue-i18n/guide/pluralization.html#accessing-the-number-via-the-pre-defined-argument), [date and time localization](https://kazupon.github.io/vue-i18n/guide/datetime.html), and [number and curency localization](https://kazupon.github.io/vue-i18n/guide/number.html#custom-formatting).
+
+
+**What if I forget to translate something?**
+
+Nuxt-i18n uses vue-i18n under the hood, so it will output a warning on the console.
+
+If no translation can be found:
+```
+[vue-i18n] Value of key 'hello' is not a string!
+```
+
+For missing translations, the default behaviour is to fallback to English.
+
+On `app/config/i18n.js`, `fallbackLocale` is set to `en`. This is mostly for the benefit of developers, so if this is not the desired setting, please feel free to open a ticket.
+
+Here's what a missing translation warning looks like when it has fallen back to English:
+```
+[vue-i18n] Fall back to translate the keypath 'hello' with 'en' locale.
+```
+
+There is no current and automated way to detect missing translations. It would be nice to have the JSON files automatically generated in the future.
