@@ -35,27 +35,20 @@ To run storybook locally, simply type `npm run storybook` which makes it availab
 
 **Installation**
 
-1. Change into the `/app` directory.
 
-2. Configure the environment variables for Contentful. Create a file called `.contentful.json`. If you are in the Learning Resources team, the contents of this file should have been shared with you through LastPass. Copy the content and paste it into this file. It should look like the structure below.
+1. Configure the environment variables for Contentful.
 ```bash
-{
-    "CTF_SPACE_ID": "",
-    "CTF_CDA_ACCESS_TOKEN": "",
-}
-```
-```bash
-export contentful_access_token=""
+$ export contentful_access_token=""
+
+$ chmod +x scripts/set_envs.sh
 
 # Set other env vars
 $ . scripts/set_envs.sh
 ```
+2. Change into the `/app` directory.
+
 3. On a terminal, install the  node packages and dependencies. You may need to include `--legacy-peer-deps`
 ```bash
-# install dependencies
-$ npm install
-
-# - or -
 $ npm install --legacy-peer-deps
 ```
 4. Run the development server
@@ -63,9 +56,14 @@ $ npm install --legacy-peer-deps
 # serve with hot reload at localhost:3000
 $ npm run dev
 ```
-5. Go to a browser and visit [http://localhost:3000](http://localhost:3000)
+5. Go to a browser and visit [http://localhost:3000](http://localhost:3000) 
 
-6. (Optional) Generate a static website and serve the static files
+
+**🎉 You're done for now, but there are a few more optional things you may want to explore.**
+- [Generate a static website and serve the static files](#generate-a-static-website-and-serve-the-static-files)
+- [Build with SSR](#build-with-ssr)
+
+## Generate a static website and serve the static files
 ```bash
 # make sure config in nuxt.config.js is set to
 #   target: static
@@ -75,7 +73,10 @@ $ npm run generate
 $ npm run start
 ```
 
-7. (Optional) To test the build for production with server-side rendering you need to build first and then run the server
+### Build with SSR
+To test the build for production with server-side rendering you need to build first and then run the server.
+
+_Note: This setup is not used by our application_
 ```bash
 # build for production and launch server
 # make sure config in nuxt.config.js is set to
@@ -85,3 +86,25 @@ $ npm run build
 $ npm run start
 ```
 
+#### Run both french and english
+The website is currently set to run on different domains on production. This makes it slightly tricky to test locally. The quickest way 
+to test both the french and english version of the site on your local machine, you may need to do a few extra manual steps.
+   1. Serve the static files (see step 6)
+   2. Verify that your domain envs are set (the `set_env_vars.sh` script should have set these)
+```bash
+$ echo $DOMAIN_EN $DOMAIN_FR
+en.learning-resources:8080 fr.learning-resources:8080
+```
+   3. Modify your hosts file
+```bash
+$ sudo vim /etc/hosts
+127.0.0.1       en.learning-resources
+127.0.0.1       fr.learning-resources
+```
+
+# Frequently Asked Questions
+- [What is the `frontend` folder?](#what-is-the-frontend-folder)
+
+## What is the `frontend` folder?
+
+The `frontend` folder contains the files needed to migrate to [Nuxt3](https://v3.nuxtjs.org/). Unfortunately, the release date for Nuxt3 is unknown, so we have decided to remain on Nuxt2 in the meantime. There is a [github issue](https://github.com/cds-snc/resources-ressources/issues/211) to delete the folder but keep it on a separate branch.
