@@ -18,7 +18,7 @@ This app is built using [NuxtJS](https://nuxtjs.org/). Data is pulled in from [C
 
 ## I18N / Bilingual support.
 This app is set up to support both of Canada's official languages, English (Canada) and French (Canada). It uses [nuxt/i18n](https://i18n.nuxtjs.org/) to manage app languages.
-The text used in the website is pulled from the json files inside the `locales` directory. To add text, simply add a variable to both json files and access it using {{ $t('your_variable_name') }} within the app.
+The text used in the website is pulled from the json files inside the `locales` directory. To add text, simply add a variable to both json files and access it using {{ $t('your_variable_name') }} within the app. Read more: [How to do translation within the app](#how-to-do-translation-within-the-app)
 
 ## Layouts
 A few common, reusable components have been created, which can be found under the `app/components` folder. To easily create pages, we have a few different layouts depending on what page the user is looking at. These layouts uses the components and can be found under the `app/layouts` folder.
