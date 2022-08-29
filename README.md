@@ -16,7 +16,7 @@ Créer, conserver et maintenir un espace centralisé pour partager les apprentis
 # Overview 
 This app is built using [NuxtJS](https://nuxtjs.org/). Data is pulled in from [Contentful](https://www.contentful.com/).
 
-## I18N / Bilingual support.
+## I18N / Bilingual support
 This app is set up to support both of Canada's official languages, English (Canada) and French (Canada). It uses [nuxt/i18n](https://i18n.nuxtjs.org/) to manage app languages.
 The text used in the website is pulled from the json files inside the `locales` directory. To add text, simply add a variable to both json files and access it using {{ $t('your_variable_name') }} within the app. Read more: [How to do translation within the app](#how-to-do-translation-within-the-app)
 
@@ -43,6 +43,7 @@ To run storybook locally, simply type `npm run storybook` which makes it availab
 
 1. Configure the environment variables for Contentful.
 ```bash
+# Contentful access token can be found in the LastPass shared folder
 $ export contentful_access_token=""
 
 $ chmod +x scripts/set_envs.sh
