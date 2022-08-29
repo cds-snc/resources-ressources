@@ -1,6 +1,6 @@
 ---
 name: User Story
-about: Describe this issue template's purpose here.
+about: Report an issue in a user story format
 title: ''
 labels: ''
 assignees: ''
