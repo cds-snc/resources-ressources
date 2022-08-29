@@ -155,7 +155,7 @@ Before merging:
 - Make sure your PR is passing
 - It is recommended to ask for a PR Review before merging.
 
-AWS Amplify will create a PR Preview URL for your changes. The only thing you will be unable to test on this URL is switching languages.g
+AWS Amplify will create a PR Preview URL for your changes. Take note that it is **_not currently possible_** to test the language switcher on this preview URL.
 
 # Frequently Asked Questions
 - [What is the `frontend` folder?](#what-is-the-frontend-folder)
