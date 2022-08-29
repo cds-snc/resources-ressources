@@ -168,16 +168,6 @@ module.exports = {
       const spaceId = config.CTF_SPACE_ID || process.env.contentful_space_id
       return generatedRoutes(accessToken, spaceId)
     },
-    // routes: generatedRoutes(axios, config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token, config.CTF_SPACE_ID || process.env.contentful_space_id),
-    // routes: (callback) => {
-    //   console.log('in routes -------')
-    //   console.log(this)
-    //   console.log(generatedRoutes)
-    //   callback(null, generatedRoutes())
-    //   console.log('end routes -------')
-    //   return []
-    // }
-    // interval: 10,
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -197,9 +187,6 @@ module.exports = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extractCSS: true,
-  },
-  env: {
-    CTF_BLOG_POST_TYPE_ID: config.CTF_BLOG_POST_TYPE_ID,
   },
   fontawesome: {
     icons: {
