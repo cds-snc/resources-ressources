@@ -274,11 +274,10 @@ export default {
       while (
         --numberOfHeadings &&
         window.scrollY - 10 < headings[numberOfHeadings].offsetTop
-      ) {}
-
-      jumpLinks.forEach((jumpLink) =>
-        jumpLink.classList.remove('activeJumpLink')
       )
+        jumpLinks.forEach((jumpLink) =>
+          jumpLink.classList.remove('activeJumpLink')
+        )
 
       if (
         isPassedFirstHeading ||
