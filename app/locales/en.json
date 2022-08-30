@@ -42,5 +42,6 @@
     "resource": "resource/",
     "legal": "legal/"
   },
-  "canada_wordmark_alt": "Symbol of the Government of Canada"
+  "canada_wordmark_alt": "Symbol of the Government of Canada",
+  "jump_to": "Jump to"
 }

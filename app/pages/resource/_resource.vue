@@ -9,29 +9,58 @@
     </breadcrumbs>
 
     <div class="flex mb-10">
-      <div class="max-w-5xl">
-        <h1 class="text4xl sm:text-5xl font-bold my-24 sm:my-28">
-          {{ resource.title }}
-        </h1>
+      <div class="max-w-full">
+        <div class="flex flex-col lg:flex-row items-start gap-8">
+          <!-- MVP Feature 3: Content jump links --------------------------------------------------------------------->
 
-        <div v-html="richText"></div>
+          <div class="lg:sticky lg:top-5 self-start min-w-1/4 mt-10">
+            <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
+            <nav class="jumpLinks">
+              <ol>
+                <li
+                  v-for="heading in headings"
+                  :key="heading.linkId"
+                  class="border-l-4 border-solid rounded-r-lg border-gray-200 mx-0 hover:border-blue-700 p-3 hover:bg-blue-50 active:bg-blue-700"
+                >
+                  <a
+                    :href="'#' + heading.linkId"
+                    class="text-lg text-blue-900 block hover:text-blue-700 hover:underline active:text-white"
+                    @click="setActiveJumpLink(heading.linkId)"
+                  >
+                    {{ heading.linkName }}
+                  </a>
+                </li>
+              </ol>
+            </nav>
+          </div>
 
-        <!-- Related Resources --------------------------------------------------------------------------------------->
+          <!-- FEATURE: end ------------------------------------------------------------------------------------------>
 
-        <div>
-          <div class="border-t border-gray-300 border-thin my-14"></div>
+          <div class="grow-[2]">
+            <h1 class="text4xl sm:text-5xl font-bold my-10 sm:my-10">
+              {{ resource.title }}
+            </h1>
 
-          <h2 class="py-5 font-thin text-4xl">
-            {{ $t('related_resources') }}
-          </h2>
+            <div v-html="richText"></div>
 
-          <ul class="mt-5 grid grid-cols-1 gap-2">
-            <!-- Resource card --------------------------------------------------------------------------------------------->
+            <!-- Related Resources ----------------------------------------------------------------------------------->
 
-            <li v-for="resource in relatedResources" :key="resource.title">
-              <ResourceListItem :resource="resource"> </ResourceListItem>
-            </li>
-          </ul>
+            <div>
+              <div class="border-t border-gray-300 border-thin my-14"></div>
+
+              <h2 class="py-5 font-thin text-4xl">
+                {{ $t('related_resources') }}
+              </h2>
+
+              <ul class="mt-5 grid grid-cols-1 gap-2">
+                <!-- Resource card ----------------------------------------------------------------------------------->
+
+                <li v-for="resource in relatedResources" :key="resource.title">
+                  <ResourceListItem :resource="resource"> </ResourceListItem>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -48,7 +77,6 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 
 export default {
   layout: 'expandedSearch',
-  // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
     /* Query resource by ID */
@@ -137,6 +165,10 @@ export default {
       fr: { resource: frRouteParam },
     })
 
+    // const name = "Dylan"
+    // console.log(name);
+    const headings = []
+
     const resourceRichTextRenderOptionsx = {
       renderMark: {
         [MARKS.BOLD]: (text) => {
@@ -155,7 +187,10 @@ export default {
           return `<h1 class="text-3xl font-medium mt-12 mb-2.5" >${node.content[0].value}</h1>`
         },
         [BLOCKS.HEADING_2]: (node) => {
-          return `<h2 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
+          const heading = node.content[0].value
+          const headingId = heading.replace(/\s+/g, '-').toLowerCase()
+          headings.push({ linkName: heading, linkId: headingId })
+          return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
         },
         [BLOCKS.HEADING_3]: (node) => {
           return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
@@ -186,12 +221,27 @@ export default {
       },
     }
 
+    console.log(headings)
+
     const richText = documentToHtmlString(
       resource.body.json,
       resourceRichTextRenderOptionsx
     )
 
-    return { resource, richText, breadcrumbs, relatedResources, headElement }
+    return {
+      resource,
+      richText,
+      breadcrumbs,
+      relatedResources,
+      headElement,
+      headings,
+    }
+  },
+
+  data() {
+    return {
+      activeHeadingId: '',
+    }
   },
 
   head() {
@@ -202,5 +252,49 @@ export default {
       },
     }
   },
+  // Hooks ------------------------------------------------------------------------------------------------------------
+
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+
+  methods: {
+    setActiveJumpLink(headingId) {
+      this.activeHeadingId = headingId
+    },
+
+    handleScroll() {
+      const jumpLinks = document.querySelectorAll('.jumpLinks li')
+      const headings = document.querySelectorAll('h2')
+      let isPassedFirstHeading = false
+
+      let numberOfHeadings = headings.length
+
+      // eslint-disable-next-line no-empty
+      while (
+        --numberOfHeadings &&
+        window.scrollY - 10 < headings[numberOfHeadings].offsetTop
+      ) {}
+
+      jumpLinks.forEach((jumpLink) =>
+        jumpLink.classList.remove('activeJumpLink')
+      )
+
+      if (
+        isPassedFirstHeading ||
+        scrollY - headings[0].offsetHeight >= headings[0].offsetTop
+      ) {
+        jumpLinks[numberOfHeadings].className += ' activeJumpLink'
+        isPassedFirstHeading = true
+      }
+    },
+  },
 }
 </script>
+
+<style>
+.activeJumpLink {
+  background-color: #eff6ff;
+  border-left-color: #1d4fd8;
+}
+</style>
