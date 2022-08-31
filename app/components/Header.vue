@@ -17,7 +17,7 @@
     <Banner />
 
     <!-- <nav class="bg-white border-cds-yellow border-t-2 text-black"> -->
-    <nav class="bg-white text-black">
+    <nav class="bg-white text-black pb-2.5">
       <div class="max-w-7xl mx-auto px-4">
         <div class="relative flex items-center justify-between h-16">
           <!-- <nuxt-link :to="localePath('/')">
