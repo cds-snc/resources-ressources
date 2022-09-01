@@ -18,4 +18,4 @@ As a ___, I want to __, so that ___.
 - [ ] 
 
 
-## 🛡More info
+## 📝 More info
