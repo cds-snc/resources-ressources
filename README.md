@@ -1,4 +1,6 @@
 [![Website learning-resources.cdssandbox.xyz](https://img.shields.io/website-up-down-green-red/http/learning-resources.cdssandbox.xyz.svg)](http://learning-resources.cdssandbox.xyz/)
+[![staging staging.learning-resources.cdssandbox.xyz](https://img.shields.io/website?label=staging&up_message=up&url=https%3A%2F%2Fstaging.learning-resources.cdssandbox.xyz%2F)](http://staging.learning-resources.cdssandbox.xyz/)
+
 
 [![accessibility (axe)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml)
 [![ci](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml)
