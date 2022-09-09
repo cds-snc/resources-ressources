@@ -17,6 +17,7 @@
     <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <section v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
+      <SectionDivider></SectionDivider>
       <PageSectionHeading :heading-text="$t('resources')"></PageSectionHeading>
 
       <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
