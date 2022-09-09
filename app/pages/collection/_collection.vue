@@ -19,7 +19,9 @@
     <div v-if="hasResources">
       <section-divider></section-divider>
       <section class="mb-32 grid xl:grid-cols-3">
-        <PageSectionHeading :heading-text="$t('resources')"></PageSectionHeading>
+        <PageSectionHeading
+          :heading-text="$t('resources')"
+        ></PageSectionHeading>
 
         <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
           <li v-for="resource in resources" :key="resource.title">
