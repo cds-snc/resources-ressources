@@ -16,16 +16,18 @@
 
     <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <section v-if="hasResources" class="mb-32 grid xl:grid-cols-3">
-      <SectionDivider></SectionDivider>
-      <PageSectionHeading :heading-text="$t('resources')"></PageSectionHeading>
+    <div v-if="hasResources">
+      <section-divider></section-divider>
+      <section class="mb-32 grid xl:grid-cols-3">
+        <PageSectionHeading :heading-text="$t('resources')"></PageSectionHeading>
 
-      <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
-        <li v-for="resource in resources" :key="resource.title">
-          <ResourceListItem :resource="resource"></ResourceListItem>
-        </li>
-      </ul>
-    </section>
+        <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
+          <li v-for="resource in resources" :key="resource.title">
+            <ResourceListItem :resource="resource"></ResourceListItem>
+          </li>
+        </ul>
+      </section>
+    </div>
 
     <!-- Related collections - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
