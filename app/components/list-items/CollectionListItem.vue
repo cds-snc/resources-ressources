@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="h-36 border border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer pt-5 px-5"
+    class="h-36 border border-gray-300 rounded-lg hover:bg-blue-50 hover:border-blue-50 cursor-pointer pt-5 px-5"
   >
     <nuxt-link
       :to="localePath(collection.path, collection.locale)"
