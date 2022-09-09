@@ -150,6 +150,10 @@ module.exports = {
         en: '/legal/:legal',
         fr: '/transparence/:legal',
       },
+      'collection/_collection': {
+        en: '/collection/:collection',
+        fr: '/collection/:collection',
+      },
     },
   },
 
