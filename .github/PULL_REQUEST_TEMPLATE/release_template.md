@@ -17,7 +17,7 @@ FR - https://fr.staging.learning-resources.cdssandbox.xyz/fr/
 
 Item | Checked / Reviewed by | Status | Notes
 -- | -- | -- | --
-- [] Metrics - Google Analytics working and collecting data |  @daine @hillaryl   | Not started | [Prioritized for next release](https://github.com/cds-snc/resources-ressources/issues/154)
+Metrics - Google Analytics working and collecting data |  @daine @hillaryl   | Not started | [Prioritized for next release](https://github.com/cds-snc/resources-ressources/issues/154)
 Content - Contentful |   | ☀️ Ready |
 Content - English | @anikbrazeau  | ☀️ Ready |
 Content - French | @anikbrazeau  | ☀️ Ready |
