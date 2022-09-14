@@ -41,10 +41,62 @@ export const topicPageQuery = (
               urlSlug
             }
           }
+          collectionsCollection
+          {
+            items
+            {
+              name
+              urlSlug
+            }
+          }
         }
 
       }
     }`
+
+export const getCollectionPageQuery = (
+  urlSlug,
+  currentLocale,
+  alternateLocale
+) => `query
+{
+  collectionCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
+  {
+    items
+    {
+      name
+      urlSlug(locale: "${alternateLocale}")
+      description
+      {
+        json
+      }
+      breadcrumbsCollection
+      {
+        items
+        {
+          name
+          urlSlug
+        }
+      }
+      resourcesCollection
+      {
+        items
+        {
+          title
+          urlSlug
+        }
+      }
+      relatedCollectionsCollection
+      {
+        items
+        {
+          name
+          urlSlug
+        }
+      }
+    }
+  }
+}`
 
 export const resourcePageQuery = (
   urlSlug,
@@ -121,6 +173,17 @@ export const topicRoutesQuery = (locale) => `query
         }
       }
     }`
+
+export const getQueryForAllCollectionUrlSlugs = (locale) => `query
+  {
+    collectionCollection(locale: "${locale}")
+    {
+      items
+      {
+        urlSlug
+      }
+    }
+  }`
 
 export const resourceRoutesQuery = (locale) => `query
     {
