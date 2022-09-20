@@ -27,9 +27,10 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ $contentfulApi, payload }) {
+  async asyncData({ $contentfulApi, payload, query }) {
     /* Contentful locale */
     const locale = payload && payload.locale ? payload.locale : 'en-CA'
+    const contentfulPreview = (query && query.preview === "true")
 
     let contactPage
 
@@ -37,7 +38,7 @@ export default {
       contactPage = { ...payload.page }
     } else {
       contactPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: aboutPageQuery(locale, contentfulPreview) })
         .then((result) => {
           return result.data.contactPageCollection.items[0]
         })

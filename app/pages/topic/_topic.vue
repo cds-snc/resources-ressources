@@ -93,7 +93,7 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
+  async asyncData({ params, $contentfulApi, store, payload, query }) {
     console.log('_topic.vue params: ', params)
     console.log('_topic.vue payload: ', payload)
 
