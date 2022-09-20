@@ -78,25 +78,11 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 export default {
   layout: 'expandedSearch',
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    /* Query resource by ID */
-    /* const graphQLQuery = `query
-      {
-        testResource(urlSlug: "1OFEeF6m6iFrvYd9g07u2F")
-        {
-          title
-          body
-          {
-            json
-          }
-        }
-      }`; */
+  async asyncData({ params, $contentfulApi, store, payload, query }) {
+    // Get currentLocale from either payload or ..?
+    // let currentLocale
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -104,7 +90,9 @@ export default {
 
     const urlSlug = params.resource
 
-    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale)
+    const contentfulPreview = (query && query.preview === "true")
+
+    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale, contentfulPreview)
     let resource
     if (payload && payload.resource) {
       resource = { ...payload.resource }

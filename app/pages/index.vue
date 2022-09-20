@@ -128,14 +128,13 @@ export default {
   },
   layout: 'expandedSearch',
 
-  async asyncData({ $contentfulApi, payload }) {
+  async asyncData({ $contentfulApi, payload, query }) {
     // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    } else {
-      currentLocale = 'en-CA'
-    }
+    // Get currentLocale from either payload or ..?
+    // let currentLocale
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+    const contentfulPreview = (query && query.preview === "true")
+
     // const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     // const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -204,7 +203,7 @@ export default {
     //   topics = englishTopLevelTopics.data.topicCollection.items
     // else topics = frenchTopLevelTopics.data.topicCollection.items
 
-    const pageQuery = topLevelTopicsQuery(currentLocale)
+    const pageQuery = topLevelTopicsQuery(currentLocale, contentfulPreview)
     if (payload && payload.topics) {
       topics = [...payload.topics]
     } else {

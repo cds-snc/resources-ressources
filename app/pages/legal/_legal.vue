@@ -20,12 +20,10 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, store, $contentfulApi, payload }) {
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
+  async asyncData({ params, store, $contentfulApi, payload, query }) {
+    // Get currentLocale from either payload or ..?
+    // let currentLocale
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
@@ -53,7 +51,9 @@ export default {
     //   }
     // }`
 
-    const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale)
+    const contentfulPreview = (query && query.preview === "true")
+
+    const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale, contentfulPreview)
 
     /* Fetch data */
 
@@ -130,7 +130,7 @@ export default {
 
           const entryId = node.data.target.sys.id
 
-          const pageQuery = legalEntryQuery(entryId)
+          const pageQuery = legalEntryQuery(entryId, contentfulPreview)
 
           const entry = $contentfulApi
             .$post('', { query: pageQuery })

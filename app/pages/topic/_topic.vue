@@ -97,29 +97,9 @@ export default {
     console.log('_topic.vue params: ', params)
     console.log('_topic.vue payload: ', payload)
 
-    /* PROBLEM:
-     * When you retrieve data for a page based on the params from a navigation action
-     * it only works when you navigate by clicking on the link. If you are using
-     * the browser's back and forward buttons the params you are expecting will not
-     * reach this page. Thus, any data retrieval action dependent on these params will
-     * not work.
-     *
-     * JULY 12: PROBLEM should now be fixed by sending data through payload
-     * todo: delete this comment once confirmed
-     * */
-
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
-
-    /* if (!currentLocale || typeof currentLocale === 'undefined') {
-      currentLocale = app.i18n.locale + '-CA'
-    } else {
-      // default to english
-      currentLocale = 'en-CA'
-    } */
+    // Get currentLocale from either payload or ..?
+    // let currentLocale
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
