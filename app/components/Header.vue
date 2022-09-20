@@ -1,6 +1,6 @@
 <template>
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <header>
+  <header data-app>
     <!-- GoC Banner -->
     <!-- <div class="bg-black">
       <div class="max-w-7xl mx-auto px-4">
@@ -72,11 +72,58 @@
               @click="switchLocale"
 
             >{{ locale.name }} {{ locale.code }}</a> -->
+
+            <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4">
+              <template #activator="{ on, attrs }">
+                <button
+                  class="p-3 text-xl rounded-lg hover:bg-gray-100"
+                  v-on="on"
+                >
+                  {{ $t('landing_page.topics_heading') }}
+                  <font-awesome-icon
+                    v-if="menuOpened"
+                    icon="chevron-up"
+                    size="sm"
+                    class="ml-1"
+                  ></font-awesome-icon>
+                  <font-awesome-icon
+                    v-else
+                    icon="chevron-down"
+                    size="sm"
+                    class="ml-1"
+                  ></font-awesome-icon>
+                </button>
+              </template>
+              <v-list v-if="locale === 'en'">
+                <v-list-item
+                  v-for="(topic, index) in topicsEN"
+                  :key="index"
+                  class="hover:bg-blue-100 cursor-pointer"
+                >
+                  <nuxt-link
+                    :to="localePath(`/topic/${topic.urlSlug}`, 'en')"
+                    class="text-lg"
+                  >
+                    {{ topic.name }}
+                  </nuxt-link>
+                </v-list-item>
+              </v-list>
+              <v-list v-else>
+                <v-list-item v-for="(topic, index) in topicsFR" :key="index">
+                  <nuxt-link
+                    :to="localePath(`/themes/${topic.urlSlug}`, 'fr')"
+                    class="text-lg"
+                    >{{ topic.name }}</nuxt-link
+                  >
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
             <a
               v-for="locale in availableLocales"
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
-              class="underline text-blue-900 hover:text-blue-700 text-xl"
+              class="underline text-blue-900 hover:text-blue-700 text-xl ml-5"
               :lang="locale.code"
               @click="switchLocale"
               >{{ locale.name }}
@@ -87,9 +134,18 @@
     </nav>
   </header>
 </template>
-<script lang="ts">
+<script>
 export default {
   name: 'Header',
+
+  data() {
+    return {
+      topicsEN: this.$store.state.topics_English,
+
+      topicsFR: this.$store.state.topics_French,
+    }
+  },
+
   computed: {
     locale() {
       return this.$i18n.locale
@@ -99,8 +155,9 @@ export default {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
   },
+
   methods: {
-    switchLocale(): void {
+    switchLocale() {
       let alternateLocale = null
 
       if (this.$i18n.locale === 'en') alternateLocale = 'fr'

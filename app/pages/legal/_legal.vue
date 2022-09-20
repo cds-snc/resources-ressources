@@ -122,12 +122,9 @@ export default {
       },
       renderNode: {
         [INLINES.HYPERLINK]: (node) => {
-          console.log('----- _legal: ' + node.content)
           return `<a class="text-blue-900 underline" href="${node.data.uri}">${node.content[0].value}</a>`
         },
         [INLINES.ENTRY_HYPERLINK]: (node) => {
-          console.log(node.data.target.sys.id)
-
           const entryId = node.data.target.sys.id
 
           const pageQuery = legalEntryQuery(entryId)

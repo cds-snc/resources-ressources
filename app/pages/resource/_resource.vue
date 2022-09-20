@@ -13,7 +13,7 @@
         <div class="flex flex-col lg:flex-row items-start gap-8">
           <!-- MVP Feature 3: Content jump links --------------------------------------------------------------------->
 
-          <div class="lg:sticky lg:top-5 self-start min-w-1/4 mt-10">
+          <div class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10">
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
               <ol>
@@ -190,7 +190,7 @@ export default {
           const heading = node.content[0].value
           const headingId = heading.replace(/\s+/g, '-').toLowerCase()
           headings.push({ linkName: heading, linkId: headingId })
-          return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h2>`
+          return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
         },
         [BLOCKS.HEADING_3]: (node) => {
           return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
@@ -273,7 +273,7 @@ export default {
       // eslint-disable-next-line no-empty
       while (
         --numberOfHeadings &&
-        window.scrollY - 10 < headings[numberOfHeadings].offsetTop
+        window.scrollY < headings[numberOfHeadings].offsetTop
       )
         jumpLinks.forEach((jumpLink) =>
           jumpLink.classList.remove('activeJumpLink')

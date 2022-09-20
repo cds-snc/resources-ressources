@@ -174,6 +174,18 @@ export const topicRoutesQuery = (locale) => `query
       }
     }`
 
+export const getTopLevelTopicsQuery = (locale) => `query
+{
+  topicCollection(where: {isTopLevelTopic: true} locale: "${locale}")
+  {
+    items
+    {
+      name
+      urlSlug
+    }
+  }
+}`
+
 export const getQueryForAllCollectionUrlSlugs = (locale) => `query
   {
     collectionCollection(locale: "${locale}")
