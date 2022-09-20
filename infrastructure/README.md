@@ -12,7 +12,8 @@ There is currently only one Contentful environment, which is `master`. Both stag
 All new pull requests on `staging` will spin up a Preview; Amplify deploys the code and generates a preview URL where you can test the code in a PR environment.
 
 ### Environment variables
-- `contentful_cda_access_token`: Access token for connecting to contenful
+- `contentful_cda_access_token`: Access token for connecting to contentful
+- `contentful_cpa_access_token`: Access token for the contentful preview api
 
 ### Deployment strategy
 ```mermaid

@@ -25,16 +25,35 @@ export default {
 
   name: 'About',
 
-  async asyncData({ $contentfulApi, payload }) {
+  async asyncData({ $contentfulApi, payload, query }) {
     const locale = payload && payload.locale ? payload.locale : 'en-CA'
 
+    // const setAboutPage = async (contentfulQuery) => {
+    //   return await $contentfulApi
+    //     .$post('', {query: contentfulQuery})
+    //     .then((result) => {
+    //       return result.data.aboutPageCollection.items[0]
+    //     })
+    // }
     let aboutPage
 
+    const contentfulPreview = (query && query.preview === "true")
+
+    console.log('--------------')
+    console.log(query)
+    console.log('--------------end')
+    // todo: contentful preview access token is only available on ssr or on dev
+    // Contentful preview
+    // if(query && query.preview === "true"){
+    //   console.log('preview')
+    //   aboutPage = await setAboutPage(aboutPageQuery(locale, {preview: true}))
+    // }
+    // else
     if (payload && payload.page) {
       aboutPage = { ...payload.page }
     } else {
       aboutPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: aboutPageQuery(locale, contentfulPreview) })
         .then((result) => {
           return result.data.aboutPageCollection.items[0]
         })

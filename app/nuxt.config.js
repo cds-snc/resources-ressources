@@ -29,6 +29,8 @@ module.exports = {
     contentfulAccessToken:
       config.CTF_CDA_ACCESS_TOKEN || process.env.contentful_cda_access_token,
     contentfulSpaceID: config.CTF_SPACE_ID || process.env.contentful_space_id,
+    contentfulPreviewToken:
+      config.CTF_CPA_ACCESS_TOKEN || process.env.contentful_cpa_access_token,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

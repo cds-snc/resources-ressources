@@ -129,7 +129,9 @@ export default {
 
     const urlSlug = params.topic
 
-    const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale)
+    const contentfulPreview = (query && query.preview === "true")
+
+    const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale, contentfulPreview)
     let topic
     if (payload && payload.topic) {
       topic = { ...payload.topic }

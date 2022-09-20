@@ -3,6 +3,12 @@ variable "contentful_cda_access_token" {
   sensitive = true
 }
 
+variable "contentful_cpa_access_token" {
+  type      = string
+  sensitive = true
+}
+
+
 variable "gh_access_token" {
   type      = string
   sensitive = true
