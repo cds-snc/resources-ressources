@@ -74,7 +74,7 @@
             >{{ locale.name }} {{ locale.code }}</a> -->
 
             <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4">
-              <template #activator="{ on, attrs }">
+              <template #activator="{ on }">
                 <button
                   class="p-3 text-xl rounded-lg hover:bg-gray-100"
                   v-on="on"
