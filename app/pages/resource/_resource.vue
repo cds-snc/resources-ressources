@@ -165,8 +165,6 @@ export default {
       fr: { resource: frRouteParam },
     })
 
-    // const name = "Dylan"
-    // console.log(name);
     const headings = []
 
     const resourceRichTextRenderOptionsx = {
