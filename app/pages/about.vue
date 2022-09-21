@@ -49,7 +49,7 @@ export default {
     //   aboutPage = await setAboutPage(aboutPageQuery(locale, {preview: true}))
     // }
     // else
-    if (payload && payload.page) {
+    if (payload && payload.page&& !contentfulPreview) {
       aboutPage = { ...payload.page }
     } else {
       aboutPage = await $contentfulApi

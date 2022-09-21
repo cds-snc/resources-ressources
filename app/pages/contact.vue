@@ -34,7 +34,7 @@ export default {
 
     let contactPage
 
-    if (payload && payload.page) {
+    if (payload && payload.page && !contentfulPreview) {
       contactPage = { ...payload.page }
     } else {
       contactPage = await $contentfulApi

@@ -204,7 +204,7 @@ export default {
     // else topics = frenchTopLevelTopics.data.topicCollection.items
 
     const pageQuery = topLevelTopicsQuery(currentLocale, contentfulPreview)
-    if (payload && payload.topics) {
+    if (payload && payload.topics && !contentfulPreview) {
       topics = [...payload.topics]
     } else {
       topics = await $contentfulApi

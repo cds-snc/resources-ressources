@@ -94,7 +94,7 @@ export default {
 
     const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale, contentfulPreview)
     let resource
-    if (payload && payload.resource) {
+    if (payload && payload.resource && !contentfulPreview) {
       resource = { ...payload.resource }
     } else {
       resource = await $contentfulApi

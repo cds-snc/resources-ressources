@@ -62,7 +62,7 @@ export default {
 
     // Get en
     let legalPage
-    if (payload && payload.legalPage) {
+    if (payload && payload.legalPage && !contentfulPreview) {
       legalPage = { ...payload.legalPage }
     } else {
       legalPage = await $contentfulApi
