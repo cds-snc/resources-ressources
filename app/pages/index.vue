@@ -133,7 +133,7 @@ export default {
     // Get currentLocale from either payload or ..?
     // let currentLocale
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
-    const contentfulPreview = (query && query.preview === "true")
+    const contentfulPreview = query && query.preview === 'true'
 
     // const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     // const isDefaultLocale = currentLocale.includes('en') || false

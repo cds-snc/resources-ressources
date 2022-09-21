@@ -90,9 +90,14 @@ export default {
 
     const urlSlug = params.resource
 
-    const contentfulPreview = (query && query.preview === "true")
+    const contentfulPreview = query && query.preview === 'true'
 
-    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale, contentfulPreview)
+    const pageQuery = resourcePageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      contentfulPreview
+    )
     let resource
     if (payload && payload.resource && !contentfulPreview) {
       resource = { ...payload.resource }

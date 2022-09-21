@@ -37,7 +37,7 @@ export default {
     // }
     let aboutPage
 
-    const contentfulPreview = (query && query.preview === "true")
+    const contentfulPreview = query && query.preview === 'true'
 
     console.log('--------------')
     console.log(query)
@@ -49,7 +49,7 @@ export default {
     //   aboutPage = await setAboutPage(aboutPageQuery(locale, {preview: true}))
     // }
     // else
-    if (payload && payload.page&& !contentfulPreview) {
+    if (payload && payload.page && !contentfulPreview) {
       aboutPage = { ...payload.page }
     } else {
       aboutPage = await $contentfulApi

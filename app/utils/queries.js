@@ -1,7 +1,8 @@
 export const topicPageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale, preview = false
+  alternateLocale,
+  preview = false
 ) => `query
     {
       topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}", preview: ${preview})
@@ -101,7 +102,8 @@ export const getCollectionPageQuery = (
 export const resourcePageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale, preview = false
+  alternateLocale,
+  preview = false
 ) => `query
     {
       testResourceCollection(where: {
@@ -146,7 +148,8 @@ export const resourcePageQuery = (
 export const legalPageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale, preview = false
+  alternateLocale,
+  preview = false
 ) => `query
     {
       legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}", preview: ${preview})

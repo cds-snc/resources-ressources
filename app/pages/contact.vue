@@ -30,7 +30,7 @@ export default {
   async asyncData({ $contentfulApi, payload, query }) {
     /* Contentful locale */
     const locale = payload && payload.locale ? payload.locale : 'en-CA'
-    const contentfulPreview = (query && query.preview === "true")
+    const contentfulPreview = query && query.preview === 'true'
 
     let contactPage
 

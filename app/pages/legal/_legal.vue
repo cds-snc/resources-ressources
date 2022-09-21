@@ -51,9 +51,14 @@ export default {
     //   }
     // }`
 
-    const contentfulPreview = (query && query.preview === "true")
+    const contentfulPreview = query && query.preview === 'true'
 
-    const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale, contentfulPreview)
+    const pageQuery = legalPageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      contentfulPreview
+    )
 
     /* Fetch data */
 
