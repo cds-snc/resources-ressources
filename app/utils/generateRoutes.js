@@ -12,6 +12,8 @@ const {
   topLevelTopicsQuery,
   aboutPageQuery,
   contactPageQuery,
+  getCollectionPageQuery,
+  getQueryForAllCollectionUrlSlugs,
 } = require('./queries')
 const { CONTENTFUL_CDA_BASE_URL } = require('./constants')
 // const {aboutPageQuery, contactPageQuery} = require("~/utils/queries");
@@ -35,6 +37,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   const topicRoutePrefix = {}
   const resourceRoutePrefix = {}
   const legalRoutePrefix = {}
+  const collectionRoutePrefix = {}
 
   topicRoutePrefix[localeEN] = langEN.page_prefix.topic
   topicRoutePrefix[localeFR] = langFR.page_prefix.topic
@@ -42,8 +45,11 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   resourceRoutePrefix[localeFR] = langFR.page_prefix.resource
   legalRoutePrefix[localeEN] = langEN.page_prefix.legal
   legalRoutePrefix[localeFR] = langFR.page_prefix.legal
+  collectionRoutePrefix[localeEN] = langEN.page_prefix.collection
+  collectionRoutePrefix[localeFR] = langFR.page_prefix.collection
 
   const topicRoutes = []
+  const collectionRoutes = []
   const resourceRoutes = []
   const legalRoutes = []
 
@@ -65,6 +71,26 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
         })
       })
     })
+
+    // get collection routes
+    const queryForAllCollectionUrlslugs =
+      getQueryForAllCollectionUrlSlugs(locale)
+    await axios
+      .post(apiURL, { query: queryForAllCollectionUrlslugs }, axiosConfig)
+      .then((res) => {
+        res.data.data.collectionCollection.items.forEach((collectionItem) => {
+          const pathPrefix =
+            locale === localeEN
+              ? collectionRoutePrefix[localeEN]
+              : collectionRoutePrefix[localeFR]
+          const path = `/${pathPrefix}${collectionItem.urlSlug}`
+          collectionRoutes.push({
+            locale,
+            path,
+            urlSlug: collectionItem.urlSlug,
+          })
+        })
+      })
 
     // get resource routes
     const resourceQuery = resourceRoutesQuery(locale)
@@ -108,6 +134,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   const resourceRoutesWithPayload = []
   const legalRoutesWithPayload = []
   const homeRoutesWithPayload = []
+  const collectionRoutesWithPayload = []
 
   // routes: topic
   for (const route of topicRoutes) {
@@ -132,6 +159,32 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
       payload: {
         locale: route.locale,
         topic: topicItem,
+      },
+    })
+  }
+
+  // routes: collections
+  for (const collectionRoute of collectionRoutes) {
+    const alternateLocale =
+      collectionRoute.locale === localeEN ? localeFR : localeEN
+
+    const collectionPageQuery = getCollectionPageQuery(
+      collectionRoute.urlSlug,
+      collectionRoute.locale,
+      alternateLocale
+    )
+
+    const collectionItem = await axios
+      .post(apiURL, { query: collectionPageQuery }, axiosConfig)
+      .then((res) => {
+        return res.data.data.collectionCollection.items[0]
+      })
+
+    collectionRoutesWithPayload.push({
+      route: collectionRoute.path,
+      payload: {
+        locale: collectionRoute.locale,
+        collection: collectionItem,
       },
     })
   }
@@ -293,4 +346,5 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     .concat(homeRoutesWithPayload)
     .concat(resourceRoutesWithPayload)
     .concat(legalRoutesWithPayload)
+    .concat(collectionRoutesWithPayload)
 }

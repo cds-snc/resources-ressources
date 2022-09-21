@@ -63,12 +63,32 @@
       </h2>
 
       <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
-        <!-- Resource card --------------------------------------------------------------------------------------------->
+        <!-- Resource card - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
         <li v-for="resource in resources" :key="resource.title">
           <ResourceListItem :resource="resource"> </ResourceListItem>
         </li>
       </ul>
+    </div>
+
+    <!-- Resource collections ======================================================================================-->
+
+    <div v-if="hasCollections">
+      <div class="border-t border-gray-300 mb-5"></div>
+
+      <div class="mb-32 grid xl:grid-cols-3">
+        <h2 class="py-5 text-4xl font-thin col-span-1">
+          {{ $t('collections') }}
+        </h2>
+
+        <ul
+          class="grid grid-cols-1 col-span-2 md:grid-cols-2 gap-8 mt-8 xl:mt-6"
+        >
+          <li v-for="collection in collections" :key="collection.name">
+            <CollectionListItem :collection="collection"></CollectionListItem>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -77,8 +97,11 @@
 import dayjs from 'dayjs'
 import { topicPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { getCollectionPath } from '@/utils/pathUtility'
+import CollectionListItem from '@/components/list-items/CollectionListItem'
 
 export default {
+  components: { CollectionListItem },
   // Filters ----------------------------------------------------------------------------------------------------------
 
   filters: {
@@ -153,10 +176,6 @@ export default {
       ? '/resource/'
       : '/ressource/'
 
-    console.log(
-      '_topic.vue - topicPathPrefix: ' + topicPathPrefix + ' ' + topic.name
-    )
-
     let breadcrumbs = topic.breadcrumbsCollection.items
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
@@ -182,9 +201,23 @@ export default {
       locale: localeCode,
     }))
 
+    let collections = topic.collectionsCollection.items
+    collections = collections.map((collection) => ({
+      name: collection.name,
+      path: getCollectionPath(collection.urlSlug),
+      locale: localeCode,
+    }))
+
     const headElement = getHeadElement(topic.name, localeCode)
 
-    return { breadcrumbs, resources, topic, subtopics, headElement }
+    return {
+      breadcrumbs,
+      resources,
+      topic,
+      subtopics,
+      collections,
+      headElement,
+    }
   },
 
   // Data -------------------------------------------------------------------------------------------------------------
@@ -214,6 +247,10 @@ export default {
 
     hasResources() {
       return !!this.resources.length
+    },
+
+    hasCollections() {
+      return !!this.collections.length
     },
   },
 }
