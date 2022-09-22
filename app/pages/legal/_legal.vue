@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<!-- Page Logic ------------------------------------------------------------------------------------------------------>
+<!-- Page Logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 <script>
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
@@ -34,24 +34,6 @@ export default {
     /* Get urlSlug */
 
     const urlSlug = params.legal
-
-    /* Query */
-
-    // const contentfulQuery = `query
-    // {
-    //   legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
-    //   {
-    //     items
-    //     {
-    //       title
-    //       urlSlug(locale: "${alternateLocale}")
-    //       body
-    //       {
-    //         json
-    //       }
-    //     }
-    //   }
-    // }`
 
     const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale)
 

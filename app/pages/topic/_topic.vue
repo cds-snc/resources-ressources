@@ -18,21 +18,7 @@
       </div>
     </div>
 
-    <!-- Subtopics --------------------------------------------------------------------------------------------------->
-
-    <!-- <div v-if="hasSubtopics" class="mb-32">
-
-      <h2 class="text-2xl font-bold pb-10">Topics</h2>
-
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-        <li v-for="subtopic in subtopics" :key="subtopic.name">
-          <TopicLink :topic=subtopic>
-          </TopicLink>
-        </li>
-      </ul>
-    </div> -->
-
-    <!-- Experimental UI Layout ************************************************************************************-->
+    <!-- Subtopics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
@@ -48,11 +34,7 @@
       </ul>
     </div>
 
-    <!-- Divider ----------------------------------------------------------------------------------------------------->
-
-    <!-- <div class="border my-10"></div>-->
-
-    <!-- Resources --------------------------------------------------------------------------------------------------->
+    <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
@@ -117,29 +99,11 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    /* PROBLEM:
-     * When you retrieve data for a page based on the params from a navigation action
-     * it only works when you navigate by clicking on the link. If you are using
-     * the browser's back and forward buttons the params you are expecting will not
-     * reach this page. Thus, any data retrieval action dependent on these params will
-     * not work.
-     *
-     * JULY 12: PROBLEM should now be fixed by sending data through payload
-     * todo: delete this comment once confirmed
-     * */
 
-    // Get currentLocale from either payload or i18n
     let currentLocale
     if (payload && payload.locale) {
       currentLocale = payload.locale
     }
-
-    /* if (!currentLocale || typeof currentLocale === 'undefined') {
-      currentLocale = app.i18n.locale + '-CA'
-    } else {
-      // default to english
-      currentLocale = 'en-CA'
-    } */
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'

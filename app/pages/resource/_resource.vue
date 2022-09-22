@@ -11,7 +11,7 @@
     <div class="flex mb-10">
       <div class="max-w-full">
         <div class="flex flex-col lg:flex-row items-start gap-8">
-          <!-- MVP Feature 3: Content jump links --------------------------------------------------------------------->
+          <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
           <div class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10">
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
@@ -34,7 +34,7 @@
             </nav>
           </div>
 
-          <!-- FEATURE: end ------------------------------------------------------------------------------------------>
+          <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
             <h1 class="text4xl sm:text-5xl font-bold my-10 sm:my-10">
@@ -43,7 +43,7 @@
 
             <div v-html="richText"></div>
 
-            <!-- Related Resources ----------------------------------------------------------------------------------->
+            <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
             <div>
               <div class="border-t border-gray-300 border-thin my-14"></div>
@@ -53,7 +53,7 @@
               </h2>
 
               <ul class="mt-5 grid grid-cols-1 gap-2">
-                <!-- Resource card ----------------------------------------------------------------------------------->
+                <!-- Resource card - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
                 <li v-for="resource in relatedResources" :key="resource.title">
                   <ResourceListItem :resource="resource"> </ResourceListItem>
@@ -79,18 +79,6 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    /* Query resource by ID */
-    /* const graphQLQuery = `query
-      {
-        testResource(urlSlug: "1OFEeF6m6iFrvYd9g07u2F")
-        {
-          title
-          body
-          {
-            json
-          }
-        }
-      }`; */
 
     // Get currentLocale from either payload or i18n
     let currentLocale
@@ -165,8 +153,6 @@ export default {
       fr: { resource: frRouteParam },
     })
 
-    // const name = "Dylan"
-    // console.log(name);
     const headings = []
 
     const resourceRichTextRenderOptionsx = {
