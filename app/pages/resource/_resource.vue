@@ -79,7 +79,6 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-
     // Get currentLocale from either payload or i18n
     let currentLocale
     if (payload && payload.locale) {

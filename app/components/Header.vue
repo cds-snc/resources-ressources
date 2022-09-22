@@ -1,13 +1,14 @@
 <!-- Header view - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 <template>
   <header data-app>
-
     <!-- Pilot banner -->
     <Banner />
 
     <nav class="bg-white text-black pb-2.5">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="relative flex flex-col md:flex-row items-center justify-between md:h-16">
+        <div
+          class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
+        >
           <div>
             <nuxt-link
               v-show="locale === 'en'"
@@ -37,8 +38,10 @@
               {{ $t('learning_resources') }}
             </nuxt-link>
           </div>
-          
-          <div class="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+          <div
+            class="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+          >
             <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4">
               <template #activator="{ on }">
                 <button

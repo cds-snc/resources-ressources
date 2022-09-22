@@ -2,7 +2,6 @@
 
 <template>
   <div class="mb-10">
-
     <!-- Welcome message - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div class="mt-20 mb-20 sm:mb-40">
@@ -56,7 +55,6 @@
 <!-- Script ========================================================================================================-->
 
 <script>
-
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 
