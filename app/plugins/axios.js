@@ -10,24 +10,25 @@ export default function (
       contentfulSpaceID,
       contentfulPreviewToken,
     },
-    params,
-    route,
+    // params,
+    // route,
     query,
   },
   inject
 ) {
-  console.log('inside axios plugin')
-  console.log(`env: ${process.env.contentful_cda_access_token}`)
-  console.log('route')
-  console.log(params)
-  console.log(route)
-  console.log(query)
-  console.log(
-    'space id',
-    contentfulSpaceID,
-    process.env.contentful_space_id,
-    config.CTF_SPACE_ID
-  )
+  // For debugging
+  // console.log('inside axios plugin')
+  // console.log(`env: ${process.env.contentful_cda_access_token}`)
+  // console.log('route')
+  // console.log(params)
+  // console.log(route)
+  // console.log(query)
+  // console.log(
+  //   'space id',
+  //   contentfulSpaceID,
+  //   process.env.contentful_space_id,
+  //   config.CTF_SPACE_ID
+  // )
   contentfulSpaceID = contentfulSpaceID || config.CTF_SPACE_ID
   const baseUrl = `${CONTENTFUL_CDA_BASE_URL}${contentfulSpaceID}`
 
@@ -45,8 +46,7 @@ export default function (
   }
 
   contentfulApi.onResponse((response) => {
-    // console.log('response?')
-    // console.log(response)
+
     if (response.status === 404) {
       console.log('Oh no it returned a 404')
     }

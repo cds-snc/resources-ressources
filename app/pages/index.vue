@@ -129,14 +129,9 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ $contentfulApi, payload, query }) {
-    // Get currentLocale from either payload or i18n
     // Get currentLocale from either payload or ..?
-    // let currentLocale
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
     const contentfulPreview = query && query.preview === 'true'
-
-    // const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    // const isDefaultLocale = currentLocale.includes('en') || false
 
     //
     // let locale = 'en-CA'

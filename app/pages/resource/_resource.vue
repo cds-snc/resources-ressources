@@ -80,7 +80,6 @@ export default {
 
   async asyncData({ params, $contentfulApi, store, payload, query }) {
     // Get currentLocale from either payload or ..?
-    // let currentLocale
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
