@@ -5,11 +5,11 @@
 
     <!-- Welcome message - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <div class="mt-20 mb-40">
-      <h1 class="text-3xl md:text-5xl font-bold pb-8">
+    <div class="mt-20 mb-20 sm:mb-40">
+      <h1 class="text-4xl md:text-5xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
-      <p class="text-l md:text-2xl max-w-5xl font-medium">
+      <p class="text-lg md:text-2xl max-w-5xl font-medium">
         {{ $t('landing_page.description') }}
       </p>
     </div>
@@ -18,7 +18,7 @@
 
     <!-- Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-    <div class="grid lg:grid-cols-3 mb-36">
+    <div class="grid lg:grid-cols-3 mb-16 sm:mb-36">
       <h2 class="text-4xl font-thin py-5 col-span-1">
         {{ $t('landing_page.topics_heading') }}
       </h2>
