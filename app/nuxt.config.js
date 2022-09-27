@@ -57,6 +57,9 @@ module.exports = {
     '@nuxt/typescript-build',
     // https://google-fonts.nuxtjs.org/
     '@nuxtjs/google-fonts',
+    // https://vuetifyjs.com/en/getting-started/installation/#nuxt-install
+    // https://www.npmjs.com/package/@nuxtjs/vuetify
+    '@nuxtjs/vuetify',
 
     /* [
       "k-domains",

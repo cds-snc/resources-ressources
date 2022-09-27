@@ -1,7 +1,7 @@
 {
   "welcome": "Welcome",
   "switch_language": "Français",
-  "learning_resources": "Learning Resources",
+  "learning_resources": "Learning resources",
   "search_description": "Browse service delivery resources grounded in our work at the Canadian Digital Service.",
   "proof_of_concept": {
     "title": "PILOT",
@@ -9,7 +9,7 @@
   },
   "search": "Search",
   "landing_page": {
-    "title": "Welcome to CDS Learning Resources",
+    "title": "Welcome to CDS learning resources",
     "description": "Browse service delivery resources grounded in our work at the Canadian Digital Service.",
     "slogan": "Service delivery is hard. We can help.",
     "topics_heading": "Topics"
@@ -44,7 +44,7 @@
     "legal": "legal/"
   },
   "canada_wordmark_alt": "Symbol of the Government of Canada",
-  "collections": "Browse collections",
+  "collections": "Collections",
   "related_collections": "Related collections",
   "jump_to": "On this page"
 }

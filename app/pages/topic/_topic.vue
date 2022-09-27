@@ -18,21 +18,7 @@
       </div>
     </div>
 
-    <!-- Subtopics --------------------------------------------------------------------------------------------------->
-
-    <!-- <div v-if="hasSubtopics" class="mb-32">
-
-      <h2 class="text-2xl font-bold pb-10">Topics</h2>
-
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-        <li v-for="subtopic in subtopics" :key="subtopic.name">
-          <TopicLink :topic=subtopic>
-          </TopicLink>
-        </li>
-      </ul>
-    </div> -->
-
-    <!-- Experimental UI Layout ************************************************************************************-->
+    <!-- Subtopics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
@@ -48,11 +34,7 @@
       </ul>
     </div>
 
-    <!-- Divider ----------------------------------------------------------------------------------------------------->
-
-    <!-- <div class="border my-10"></div>-->
-
-    <!-- Resources --------------------------------------------------------------------------------------------------->
+    <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
