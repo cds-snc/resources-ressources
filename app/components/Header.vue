@@ -109,15 +109,11 @@
 <script>
 export default {
   name: 'Header',
-
   data() {
     return {
-      topicsEN: this.$store.state.topics_English,
-
-      topicsFR: this.$store.state.topics_French,
+      menuOpened: false,
     }
   },
-
   computed: {
     locale() {
       return this.$i18n.locale
@@ -125,6 +121,14 @@ export default {
 
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
+    },
+
+    topicsEN() {
+      return this.$store.state.topics['en-CA']
+    },
+
+    topicsFR() {
+      return this.$store.state.topics['fr-CA']
     },
   },
 

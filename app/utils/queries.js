@@ -179,7 +179,7 @@ export const topicRoutesQuery = (locale, preview = false) => `query
 
 export const getTopLevelTopicsQuery = (locale) => `query
 {
-  topicCollection(where: {isTopLevelTopic: true} locale: "${locale}")
+  topicCollection(where: {isTopLevelTopic: true} locale: "${locale}", order: name_ASC)
   {
     items
     {
@@ -232,7 +232,7 @@ export const legalEntryQuery = (entryId, preview = false) => `query
 
 export const topLevelTopicsQuery = (locale, preview = false) => `query
     {
-      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}", preview: ${preview})
+      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}", order: name_ASC, preview: ${preview})
       {
         items
         {
