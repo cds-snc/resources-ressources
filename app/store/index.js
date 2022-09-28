@@ -4,33 +4,32 @@ const axios = require('axios')
 const config = require('../.contentful.json')
 
 export const state = () => ({
-  topics_English: [],
-  topics_French: [],
+  topics: {
+    'en-CA': [],
+    'fr-CA': [],
+  },
+  topicsLoaded: false,
 })
 
 export const getters = {
-  getTopics_French(state) {
-    return state.topics_French
-  },
-
-  getTopics_English(state) {
-    return state.topics_English
+  getTopics(state, locale) {
+    return state.topics[locale]
   },
 }
 
 export const mutations = {
-  ADD_TOPIC_ENGLISH(state, topic) {
-    state.topics_English.push(topic)
+  addTopic(state, { locale, topic }) {
+    state.topics[locale].push(topic)
   },
-
-  ADD_TOPIC_FRENCH(state, topic) {
-    state.topics_French.push(topic)
+  setTopicsLoaded(state) {
+    state.topicsLoaded = true
   },
 }
 
 export const actions = {
   async nuxtServerInit({ state, commit }) {
     // Locales
+    // todo: refactor to use locales from config
     const localeEN = 'en-CA'
     const localeFR = 'fr-CA'
     const locales = [localeEN, localeFR]
@@ -41,25 +40,23 @@ export const actions = {
 
     const apiURL = `${CONTENTFUL_CDA_BASE_URL}${spaceId}`
 
+    // todo: refactor to not have duplication
     const axiosConfig = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     }
 
-    if (state.topics_English.length < 1) {
+    if (!state.topicsLoaded) {
       for (const locale of locales) {
-        const topicQuery =
-          locale === localeEN
-            ? getTopLevelTopicsQuery(localeEN)
-            : getTopLevelTopicsQuery(localeFR)
+        const topicQuery = getTopLevelTopicsQuery(locale)
 
         await axios
           .post(apiURL, { query: topicQuery }, axiosConfig)
           .then((res) => {
             res.data.data.topicCollection.items.forEach((item) => {
-              if (locale === localeEN) commit('ADD_TOPIC_ENGLISH', item)
-              else commit('ADD_TOPIC_FRENCH', item)
+              commit('addTopic', { locale, topic: item })
+              commit('setTopicsLoaded', true)
             })
           })
       }
