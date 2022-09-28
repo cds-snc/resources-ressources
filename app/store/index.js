@@ -20,7 +20,6 @@ export const getters = {
 export const mutations = {
   addTopic(state, { locale, topic }) {
     state.topics[locale].push(topic)
-
   },
   setTopicsLoaded(state) {
     state.topicsLoaded = true
@@ -58,7 +57,6 @@ export const actions = {
             res.data.data.topicCollection.items.forEach((item) => {
               commit('addTopic', { locale, topic: item })
               commit('setTopicsLoaded', true)
-
             })
           })
       }
