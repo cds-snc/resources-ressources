@@ -93,6 +93,8 @@ module.exports = {
     '@nuxt/content',
     // https://i18n.nuxtjs.org/
     ['@nuxtjs/i18n', i18n],
+    // https://sentry.nuxtjs.org/
+    '@nuxtjs/sentry'
   ],
 
   // I18n: https://i18n.nuxtjs.org/
@@ -218,4 +220,13 @@ module.exports = {
       Oswald: true,
     },
   },
+
+  sentry: {
+    // Additional Module Options go here
+    // https://sentry.nuxtjs.org/sentry/options
+    config: {
+      // Add native Sentry config here
+      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
+    },
+  }
 }
