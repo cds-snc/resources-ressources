@@ -41,6 +41,7 @@ resource "aws_amplify_app" "learning_resources_staging" {
     contentful_cda_access_token = var.contentful_cda_access_token
     GOOGLE_ANALYTICS_ID         = "" # Do not collect data
     GOOGLE_TAG_MANAGER_ID       = var.google_tag_manager_id
+    SENTRY_DSN                  = var.sentry_dsn
   }
 
 
