@@ -64,7 +64,7 @@
     "husky": "^6.0.0",
     "jest": "^27.0.5",
     "postcss": "^8.4.5",
-    "prettier": "^2.5.1",
+    "prettier": "2.5.1",
     "serverless": "^2.67.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-offline": "^8.3.1",
