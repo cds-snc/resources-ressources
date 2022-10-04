@@ -94,7 +94,7 @@ module.exports = {
     // https://i18n.nuxtjs.org/
     ['@nuxtjs/i18n', i18n],
     // https://sentry.nuxtjs.org/
-    '@nuxtjs/sentry'
+    '@nuxtjs/sentry',
   ],
 
   // I18n: https://i18n.nuxtjs.org/
@@ -228,5 +228,5 @@ module.exports = {
       // Add native Sentry config here
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
-  }
+  },
 }
