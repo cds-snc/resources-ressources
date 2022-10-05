@@ -46,7 +46,6 @@ export default function (
   }
 
   contentfulApi.onResponse((response) => {
-
     if (response.status === 404) {
       console.log('Oh no it returned a 404')
     }
