@@ -10,4 +10,4 @@ customHeaders:
       - key: 'X-Content-Type-Options'
         value: 'nosniff'
       - key: 'Content-Security-Policy'
-        value: "default-src 'self'; script-src 'self' www.googletagmanager.com www.google-analytics.com; frame-src www.googletagmanager.com www.google-analytics.com; connect-src 'self' www.googletagmanager.com www.google-analytics.com; img-src 'self'; style-src 'unsafe-inline' https: 'strict-dynamic' 'self'; base-uri 'self'; form-action 'self'"
+        value: "report-uri https://csp-report-to.security.cdssandbox.xyz/report; default-src 'self'; script-src 'self' www.googletagmanager.com www.google-analytics.com; frame-src www.googletagmanager.com www.google-analytics.com; connect-src 'self' www.googletagmanager.com www.google-analytics.com; img-src 'self'; style-src 'unsafe-inline' https: 'strict-dynamic' 'self'; base-uri 'self'; form-action 'self'"

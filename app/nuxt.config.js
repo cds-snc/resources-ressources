@@ -16,6 +16,8 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
+      // Temporarily removing search engine indexing until we are ready to launch
+      { name: 'robots', content: 'noindex' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
@@ -95,6 +97,8 @@ module.exports = {
     '@nuxt/content',
     // https://i18n.nuxtjs.org/
     ['@nuxtjs/i18n', i18n],
+    // https://sentry.nuxtjs.org/
+    '@nuxtjs/sentry',
   ],
 
   // I18n: https://i18n.nuxtjs.org/
@@ -218,6 +222,15 @@ module.exports = {
   googleFonts: {
     families: {
       Oswald: true,
+    },
+  },
+
+  sentry: {
+    // Additional Module Options go here
+    // https://sentry.nuxtjs.org/sentry/options
+    config: {
+      // Add native Sentry config here
+      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
   },
 }

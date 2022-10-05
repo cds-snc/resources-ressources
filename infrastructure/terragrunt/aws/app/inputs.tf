@@ -39,3 +39,8 @@ variable "google_tag_manager_id" {
   type      = string
   sensitive = true
 }
+
+variable "sentry_dsn" {
+  type      = string
+  sensitive = true
+}
