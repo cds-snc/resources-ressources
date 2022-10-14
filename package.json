@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@commitlint/cli": "^13.2.0",
-    "@commitlint/config-conventional": "^13.2.0",
-    "vue": "^3.2.37"
+    "@commitlint/cli": "13.2.0",
+    "@commitlint/config-conventional": "13.2.0",
+    "vue": "3.2.37"
   }
 }
