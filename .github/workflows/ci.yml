@@ -35,7 +35,7 @@ jobs:
           check-latest: true
 
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # tag=v2.1.7
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
