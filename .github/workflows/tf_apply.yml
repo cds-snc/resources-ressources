@@ -37,10 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # tag=v2.4.2
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1.2.1
+        uses: hashicorp/setup-terraform@ed3a0531877aca392eb870f440d9ae7aba83a6bd # tag=v1.4.0
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
           terraform_wrapper: false
@@ -62,7 +62,7 @@ jobs:
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
 
       - name: configure aws credentials using OIDC
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # tag=v1.7.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
