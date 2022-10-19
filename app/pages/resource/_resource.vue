@@ -206,7 +206,6 @@ export default {
       },
     }
 
-    console.log(headings)
 
     const richText = documentToHtmlString(
       resource.body.json,
