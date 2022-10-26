@@ -5,6 +5,7 @@ resource "aws_acm_certificate" "main" {
 
   tags = {
     Environment = "staging"
+    # change environment to var.environment
   }
 
   lifecycle {
@@ -12,19 +13,19 @@ resource "aws_acm_certificate" "main" {
   }
 }
 
-resource "aws_acm_certificate" "app" {
-  domain_name               = var.app_domain_name
-  subject_alternative_names = ["*.${var.app_domain_name}"]
-  validation_method         = "DNS"
-
-  tags = {
-    Environment = "staging"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#resource "aws_acm_certificate" "app" {
+#  domain_name               = var.app_domain_name
+#  subject_alternative_names = ["*.${var.app_domain_name}"]
+#  validation_method         = "DNS"
+#
+#  tags = {
+#    Environment = "staging"
+#  }
+#
+#  lifecycle {
+#    create_before_destroy = true
+#  }
+#}
 
 resource "aws_route53_record" "validation_main" {
   zone_id = var.hosted_zone_id

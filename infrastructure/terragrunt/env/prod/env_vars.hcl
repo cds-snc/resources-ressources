@@ -1,7 +1,7 @@
 inputs = {
-  account_id        = "236007890657"
-  env               = "staging"
+  account_id        = "774443804833"
+  env               = "prod"
   product_name      = "learning-resources"
-  domain_name = "learning-resources.cdssandbox.xyz"
+  domain_name = "resources.alpha.canada.ca"
 #  app_domain_name       = "app.learning-resources.cdssandbox.xyz"
 }

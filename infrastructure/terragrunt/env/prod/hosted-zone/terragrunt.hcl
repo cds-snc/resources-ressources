@@ -3,7 +3,7 @@ include {
 }
 
 inputs = {
-  zone_name     = "learning-resources.cdssandbox.xyz"
+  zone_name     = "resources.alpha.canada.ca"
 #  app_zone_name = "app.learning-resources.cdssandbox.xyz"
 }
 
