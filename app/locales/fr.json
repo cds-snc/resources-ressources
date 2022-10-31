@@ -4,14 +4,14 @@
   "learning_resources": "Ressources d'apprentissage",
   "search_description": "Feuilletez des ressources de prestation de services ancrées dans notre travail au Service numérique canadien.",
   "proof_of_concept": {
-    "title": "PILOTE",
+    "title": "ALPHA",
     "in_progress": "Nous testons des idées et travaillons à l'élargissement de cette collection de ressources."
   },
   "landing_page": {
     "title": "Bienvenue aux ressources d'apprentissage du SNC",
     "description": "Feuilletez des ressources de prestation de services ancrées dans notre travail au Service numérique canadien.",
     "slogan": "La prestation de services est difficile. Nous pouvons vous aider.",
-    "topics_heading": "Thèmes"
+    "topics_heading": "Sujets"
   },
   "resources": "Ressources",
   "related_resources": "Ressources connexes",
@@ -39,7 +39,7 @@
   "home": "Accueil",
   "page_prefix": {
     "collection": "collection/",
-    "topic": "themes/",
+    "topic": "sujet/",
     "resource": "ressource/",
     "legal": "transparence/"
   },
