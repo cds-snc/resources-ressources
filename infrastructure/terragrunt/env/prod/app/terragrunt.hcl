@@ -17,6 +17,8 @@ dependency "hosted_zone" {
 inputs = {
   hosted_zone_id     = dependency.hosted_zone.outputs.zone_id
   domain_name        = "resources.alpha.canada.ca"
+  fr_hosted_zone_id = dependency.hosted_zone.outputs.fr_zone_id
+  fr_domain_name = "ressources.alpha.canada.ca"
 }
 
 include {

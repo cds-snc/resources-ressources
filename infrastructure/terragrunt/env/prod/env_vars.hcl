@@ -3,5 +3,7 @@ inputs = {
   env               = "prod"
   product_name      = "learning-resources"
   domain_name = "resources.alpha.canada.ca"
-#  app_domain_name       = "app.learning-resources.cdssandbox.xyz"
+  fr_domain_name       = "ressources.alpha.canada.ca"
+  app_domain_name = "resources.alpha.canada.ca"
+  fr_app_domain_name = "ressources.alpha.canada.ca"
 }

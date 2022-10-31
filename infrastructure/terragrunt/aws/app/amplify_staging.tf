@@ -1,4 +1,6 @@
 resource "aws_amplify_app" "learning_resources_staging" {
+  # Legacy -- keep this in old aws account only
+  count = var.env == "staging" ? 1 : 0
   name       = "Learning Resources (Staging)"
   repository = "https://github.com/cds-snc/resources-ressources"
 
@@ -66,7 +68,9 @@ resource "aws_amplify_app" "learning_resources_staging" {
 }
 
 resource "aws_amplify_branch" "staging" {
-  app_id      = aws_amplify_app.learning_resources_staging.id
+  count = var.env == "staging" ? 1 : 0
+
+  app_id      = one(aws_amplify_app.learning_resources_staging[*].id)
   branch_name = "staging"
 
   framework = "NuxtJS"
@@ -85,28 +89,30 @@ resource "aws_amplify_branch" "staging" {
 }
 
 resource "aws_amplify_domain_association" "learning_resources_staging" {
-  app_id      = aws_amplify_app.learning_resources_staging.id
+  count = var.env == "staging" ? 1 : 0
+
+  app_id      = one(aws_amplify_app.learning_resources_staging[*].id)
   domain_name = "staging.learning-resources.cdssandbox.xyz"
 
   wait_for_verification = false
 
   sub_domain {
-    branch_name = aws_amplify_branch.staging.branch_name
+    branch_name = one(aws_amplify_branch.staging[*].branch_name)
     prefix      = ""
   }
 
   sub_domain {
-    branch_name = aws_amplify_branch.staging.branch_name
+    branch_name = one(aws_amplify_branch.staging[*].branch_name)
     prefix      = "en"
   }
 
   sub_domain {
-    branch_name = aws_amplify_branch.staging.branch_name
+    branch_name = one(aws_amplify_branch.staging[*].branch_name)
     prefix      = "fr"
   }
 
   sub_domain {
-    branch_name = aws_amplify_branch.staging.branch_name
+    branch_name = one(aws_amplify_branch.staging[*].branch_name)
     prefix      = "www"
   }
 }
