@@ -35,10 +35,7 @@ resource "aws_amplify_app" "learning_resources" {
   }
 
   environment_variables = {
-#    ENV                         = "staging"
     ENV = var.env
-#    DOMAIN_EN                   = "en.learning-resources.cdssandbox.xyz"
-#    DOMAIN_FR                   = "fr.learning-resources.cdssandbox.xyz"
     DOMAIN_EN                   = var.domain_name
     DOMAIN_FR                   = var.fr_domain_name
     contentful_cda_access_token = var.contentful_cda_access_token
