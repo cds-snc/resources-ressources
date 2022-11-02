@@ -40,7 +40,7 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <h1 class="text4xl sm:text-5xl font-bold my-10 sm:my-10">
+            <h1 class="text-3xl sm:text-5xl font-bold my-10 sm:my-10">
               {{ resource.title }}
             </h1>
 
