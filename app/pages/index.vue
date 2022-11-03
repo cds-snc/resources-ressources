@@ -108,6 +108,12 @@ export default {
 
     return { topics, headElement }
   },
+  mounted() {
+    // Hack - the index page for french needs to be redirected to /fr
+    if(this.$i18n.locale === 'fr'){
+      this.$router.push('/fr')
+    }
+  },
   data() {
     return {
       topics: {},
