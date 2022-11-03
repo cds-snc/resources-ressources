@@ -79,7 +79,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = (payload && payload.locale) ?? payload.locale
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false

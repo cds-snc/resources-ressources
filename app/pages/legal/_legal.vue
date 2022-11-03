@@ -21,11 +21,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, store, $contentfulApi, payload }) {
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
