@@ -94,7 +94,7 @@ export default {
         })
     }
 
-    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/themes/'
+    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/sujet/'
 
     topics = topics.map((topic) => ({
       name: topic.name,

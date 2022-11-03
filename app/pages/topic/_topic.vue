@@ -149,7 +149,7 @@ export default {
 
     const topicPathPrefix = currentLocale.includes('en')
       ? '/topic/'
-      : '/themes/'
+      : '/sujet/'
     const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
       : '/ressource/'
