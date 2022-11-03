@@ -103,9 +103,7 @@ export default {
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
-    const topicPathPrefix = currentLocale.includes('en')
-      ? '/topic/'
-      : '/sujet/'
+    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
     const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
@@ -202,7 +200,6 @@ export default {
         },
       },
     }
-
 
     const richText = documentToHtmlString(
       resource.body.json,

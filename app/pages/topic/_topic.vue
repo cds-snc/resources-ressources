@@ -144,9 +144,7 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const topicPathPrefix = currentLocale.includes('en')
-      ? '/topic/'
-      : '/sujet/'
+    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
     const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
       : '/ressource/'
