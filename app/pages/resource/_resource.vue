@@ -79,11 +79,8 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
 
@@ -106,9 +103,7 @@ export default {
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
-    const topicPathPrefix = currentLocale.includes('en')
-      ? '/topic/'
-      : '/themes/'
+    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
     const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
@@ -205,7 +200,6 @@ export default {
         },
       },
     }
-
 
     const richText = documentToHtmlString(
       resource.body.json,

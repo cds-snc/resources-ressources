@@ -34,7 +34,7 @@ module.exports = {
   pages: {
     'topic/_topic': {
       en: '/topic/:topic',
-      fr: '/themes/:topic',
+      fr: '/sujet/:topic',
     },
     'resource/_resource': {
       en: '/resource/:resource',

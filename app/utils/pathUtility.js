@@ -1,5 +1,5 @@
 const topicPrefixEN = '/topic/'
-const topicPrefixFR = '/themes/'
+const topicPrefixFR = '/sujet/'
 const resourcePrefixEN = '/resource/'
 const resourcePrefixFR = '/ressource/'
 const collectionPrefix = '/collection/'
