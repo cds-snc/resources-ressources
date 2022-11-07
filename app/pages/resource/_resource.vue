@@ -13,7 +13,10 @@
         <div class="flex flex-col lg:flex-row items-start gap-8">
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-          <div class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10">
+          <div
+            v-if="headings.length > 0"
+            class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10"
+          >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
               <ol>
@@ -37,7 +40,7 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <h1 class="text4xl sm:text-5xl font-bold my-10 sm:my-10">
+            <h1 class="text-3xl sm:text-5xl font-bold my-10 sm:my-10">
               {{ resource.title }}
             </h1>
 
