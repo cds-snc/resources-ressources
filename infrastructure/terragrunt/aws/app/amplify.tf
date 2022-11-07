@@ -35,7 +35,7 @@ resource "aws_amplify_app" "learning_resources" {
   }
 
   environment_variables = {
-    ENV = var.env
+    ENV                         = var.env
     DOMAIN_EN                   = var.domain_name
     DOMAIN_FR                   = var.fr_domain_name
     contentful_cda_access_token = var.contentful_cda_access_token
@@ -87,8 +87,8 @@ resource "aws_amplify_branch" "main" {
 resource "aws_amplify_domain_association" "learning_resources" {
   count = var.env == "staging" ? 1 : 0
 
-  app_id      = aws_amplify_app.learning_resources.id
-#  domain_name = "learning-resources.cdssandbox.xyz"
+  app_id = aws_amplify_app.learning_resources.id
+  #  domain_name = "learning-resources.cdssandbox.xyz"
   domain_name = var.domain_name
 
   wait_for_verification = false
@@ -117,7 +117,7 @@ resource "aws_amplify_domain_association" "learning_resources" {
 resource "aws_amplify_domain_association" "learning_resources_en" {
   count = var.env != "staging" ? 1 : 0
 
-  app_id      = aws_amplify_app.learning_resources.id
+  app_id = aws_amplify_app.learning_resources.id
   #  domain_name = "learning-resources.cdssandbox.xyz"
   domain_name = var.domain_name
 
@@ -137,7 +137,7 @@ resource "aws_amplify_domain_association" "learning_resources_en" {
 resource "aws_amplify_domain_association" "learning_resources_fr" {
   count = var.env == "prod" ? 1 : 0
 
-  app_id      = aws_amplify_app.learning_resources.id
+  app_id = aws_amplify_app.learning_resources.id
   #  domain_name = "learning-resources.cdssandbox.xyz"
   domain_name = var.fr_domain_name
 
@@ -180,7 +180,7 @@ resource "aws_amplify_domain_association" "learning_resources_staging_en" {
   count = var.env != "staging" ? 1 : 0
   # staging account in aws prod?
 
-  app_id      = aws_amplify_app.learning_resources.id
+  app_id = aws_amplify_app.learning_resources.id
   #  domain_name = "learning-resources.cdssandbox.xyz"
   domain_name = "staging.${var.domain_name}"
 

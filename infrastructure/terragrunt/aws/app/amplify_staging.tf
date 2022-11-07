@@ -1,6 +1,6 @@
 resource "aws_amplify_app" "learning_resources_staging" {
   # Legacy -- keep this in old aws account only
-  count = var.env == "staging" ? 1 : 0
+  count      = var.env == "staging" ? 1 : 0
   name       = "Learning Resources (Staging)"
   repository = "https://github.com/cds-snc/resources-ressources"
 
