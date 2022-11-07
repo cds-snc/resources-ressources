@@ -14,7 +14,7 @@ resource "aws_amplify_app" "learning_resources" {
           commands:
             - cd app
             - cp .contentful.json.sample .contentful.json
-            - npm install
+            - npm install --legacy-peer-deps
         build:
           commands:
             - npm run generate
