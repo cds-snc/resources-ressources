@@ -18,21 +18,7 @@
       </div>
     </div>
 
-    <!-- Subtopics --------------------------------------------------------------------------------------------------->
-
-    <!-- <div v-if="hasSubtopics" class="mb-32">
-
-      <h2 class="text-2xl font-bold pb-10">Topics</h2>
-
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-        <li v-for="subtopic in subtopics" :key="subtopic.name">
-          <TopicLink :topic=subtopic>
-          </TopicLink>
-        </li>
-      </ul>
-    </div> -->
-
-    <!-- Experimental UI Layout ************************************************************************************-->
+    <!-- Subtopics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div v-if="hasSubtopics" class="border-t border-gray-300 mb-5"></div>
 
@@ -48,11 +34,7 @@
       </ul>
     </div>
 
-    <!-- Divider ----------------------------------------------------------------------------------------------------->
-
-    <!-- <div class="border my-10"></div>-->
-
-    <!-- Resources --------------------------------------------------------------------------------------------------->
+    <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div v-if="hasResources" class="border-t border-gray-300 mb-5"></div>
 
@@ -63,12 +45,32 @@
       </h2>
 
       <ul class="mt-5 grid grid-cols-1 gap-2 col-span-2">
-        <!-- Resource card --------------------------------------------------------------------------------------------->
+        <!-- Resource card - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
         <li v-for="resource in resources" :key="resource.title">
           <ResourceListItem :resource="resource"> </ResourceListItem>
         </li>
       </ul>
+    </div>
+
+    <!-- Resource collections ======================================================================================-->
+
+    <div v-if="hasCollections">
+      <div class="border-t border-gray-300 mb-5"></div>
+
+      <div class="mb-32 grid xl:grid-cols-3">
+        <h2 class="py-5 text-4xl font-thin col-span-1">
+          {{ $t('collections') }}
+        </h2>
+
+        <ul
+          class="grid grid-cols-1 col-span-2 md:grid-cols-2 gap-8 mt-8 xl:mt-6"
+        >
+          <li v-for="collection in collections" :key="collection.name">
+            <CollectionListItem :collection="collection"></CollectionListItem>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -77,8 +79,11 @@
 import dayjs from 'dayjs'
 import { topicPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { getCollectionPath } from '@/utils/pathUtility'
+import CollectionListItem from '@/components/list-items/CollectionListItem'
 
 export default {
+  components: { CollectionListItem },
   // Filters ----------------------------------------------------------------------------------------------------------
 
   filters: {
@@ -94,32 +99,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    console.log('_topic.vue params: ', params)
-    console.log('_topic.vue payload: ', payload)
-
-    /* PROBLEM:
-     * When you retrieve data for a page based on the params from a navigation action
-     * it only works when you navigate by clicking on the link. If you are using
-     * the browser's back and forward buttons the params you are expecting will not
-     * reach this page. Thus, any data retrieval action dependent on these params will
-     * not work.
-     *
-     * JULY 12: PROBLEM should now be fixed by sending data through payload
-     * todo: delete this comment once confirmed
-     * */
-
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
-
-    /* if (!currentLocale || typeof currentLocale === 'undefined') {
-      currentLocale = app.i18n.locale + '-CA'
-    } else {
-      // default to english
-      currentLocale = 'en-CA'
-    } */
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
@@ -164,16 +144,10 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const topicPathPrefix = currentLocale.includes('en')
-      ? '/topic/'
-      : '/themes/'
+    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
     const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
       : '/ressource/'
-
-    console.log(
-      '_topic.vue - topicPathPrefix: ' + topicPathPrefix + ' ' + topic.name
-    )
 
     let breadcrumbs = topic.breadcrumbsCollection.items
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
@@ -200,9 +174,23 @@ export default {
       locale: localeCode,
     }))
 
+    let collections = topic.collectionsCollection.items
+    collections = collections.map((collection) => ({
+      name: collection.name,
+      path: getCollectionPath(collection.urlSlug),
+      locale: localeCode,
+    }))
+
     const headElement = getHeadElement(topic.name, localeCode)
 
-    return { breadcrumbs, resources, topic, subtopics, headElement }
+    return {
+      breadcrumbs,
+      resources,
+      topic,
+      subtopics,
+      collections,
+      headElement,
+    }
   },
 
   // Data -------------------------------------------------------------------------------------------------------------
@@ -232,6 +220,10 @@ export default {
 
     hasResources() {
       return !!this.resources.length
+    },
+
+    hasCollections() {
+      return !!this.collections.length
     },
   },
 }

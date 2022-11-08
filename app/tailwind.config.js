@@ -1,5 +1,7 @@
 module.exports = {
   variants: {
+    backgroundColor: ['hover', 'active'],
+    textColor: ['hover', 'active'],
     extend: {
       transform: ['group-hover'],
       scale: ['group-hover'],
@@ -16,6 +18,9 @@ module.exports = {
     },
     fontFamily: {
       logo: ['"Oswald"'],
+    },
+    minWidth: {
+      '1/4': '25%',
     },
   },
 }

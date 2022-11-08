@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<!-- Page Logic ------------------------------------------------------------------------------------------------------>
+<!-- Page Logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
 <script>
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
@@ -21,11 +21,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, store, $contentfulApi, payload }) {
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
@@ -34,24 +30,6 @@ export default {
     /* Get urlSlug */
 
     const urlSlug = params.legal
-
-    /* Query */
-
-    // const contentfulQuery = `query
-    // {
-    //   legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
-    //   {
-    //     items
-    //     {
-    //       title
-    //       urlSlug(locale: "${alternateLocale}")
-    //       body
-    //       {
-    //         json
-    //       }
-    //     }
-    //   }
-    // }`
 
     const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale)
 
@@ -122,12 +100,9 @@ export default {
       },
       renderNode: {
         [INLINES.HYPERLINK]: (node) => {
-          console.log('----- _legal: ' + node.content)
           return `<a class="text-blue-900 underline" href="${node.data.uri}">${node.content[0].value}</a>`
         },
         [INLINES.ENTRY_HYPERLINK]: (node) => {
-          console.log(node.data.target.sys.id)
-
           const entryId = node.data.target.sys.id
 
           const pageQuery = legalEntryQuery(entryId)

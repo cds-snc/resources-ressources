@@ -17,10 +17,10 @@ FR - https://fr.staging.learning-resources.cdssandbox.xyz/fr/
 
 Item | Checked / Reviewed by | Status | Notes
 -- | -- | -- | --
-- [] Metrics - Google Analytics working and collecting data |  @daine @hillaryl   | Not started | [Prioritized for next release](https://github.com/cds-snc/resources-ressources/issues/154)
-Content - Contentful |   | ☀️ Ready |
-Content - English | @anikbrazeau  | ☀️ Ready |
-Content - French | @anikbrazeau  | ☀️ Ready |
+Metrics - Google Analytics working and collecting data |  @daine @hillaryl   | Not started | [Prioritized for next release](https://github.com/cds-snc/resources-ressources/issues/154)
+Content - Contentful |   | Not started |
+Content - English | @anikbrazeau  | Not started |
+Content - French | @anikbrazeau  | Not started |
 Infra - Domains OK | @daine   | ☀️ Ready |
 Infra - Amplify OK | @daine | ☀️ Ready  |
 Monitoring (Uptime Robot)| @daine | ☀️ Ready  |  [Status page dashboard](https://stats.uptimerobot.com/gP5gohqEVQ)

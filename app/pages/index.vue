@@ -2,43 +2,22 @@
 
 <template>
   <div class="mb-10">
-    <!-- Old code:
-      <ul class="flex flex-wrap gap-4 justify-start pt-4">
-        <li v-for="category in categories" :key="category.id">
-          <Box :item="category" content-type="category" />
-        </li>
-      </ul> -->
+    <!-- Welcome message - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <!-- Welcome message ------------------------------------------------------------------------------------------->
-
-    <!-- <div class="py-32 flex flex-col items-center">
-      <h1 class="text-3xl md:text-5xl font-bold pb-10 text-center">
+    <div class="mt-20 mb-20 sm:mb-40">
+      <h1 class="text-4xl md:text-5xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
-      <p class="text-l md:text-xl pb-8 text-center max-w-2xl font-light">
+      <p class="text-lg md:text-2xl max-w-5xl font-medium">
         {{ $t('landing_page.description') }}
       </p>
-      <p class="text-l md:text-xl font-bold pb-5 text-center">
-        {{ $t('landing_page.slogan') }}
-      </p>
-      <div class="border-2 w-20 border-cds-yellow"></div>
-    </div>-->
-
-    <div class="mt-20 mb-40">
-      <h1 class="text-3xl md:text-5xl font-bold pb-8">
-        {{ $t('landing_page.title') }}
-      </h1>
-      <p class="text-l md:text-2xl max-w-5xl font-medium">
-        {{ $t('landing_page.description') }}
-      </p>
-      <!-- <div class="border-2 w-20 border-cds-yellow"></div> -->
     </div>
 
     <div class="border-t border-gray-300 mb-5"></div>
 
-    <!-- Topics ---------------------------------------------------------------------------------------------------->
+    <!-- Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-    <div class="grid lg:grid-cols-3 mb-36">
+    <div class="grid lg:grid-cols-3 mb-16 sm:mb-36">
       <h2 class="text-4xl font-thin py-5 col-span-1">
         {{ $t('landing_page.topics_heading') }}
       </h2>
@@ -52,37 +31,7 @@
 
     <div class="border-t border-gray-300 mb-5"></div>
 
-    <!-- Featured ---------------------------------------------------------------------------------------------------->
-
-    <!-- <div class="grid lg:grid-cols-3 mb-5">
-      Heading (left side)
-      <div class="col-span-1">
-        <h2 class="text-4xl font-thin p-5">{{ $t('New') }}</h2>
-      </div> -->
-
-    <!-- New Resource (right side) -->
-
-    <!-- <div
-        class="col-span-2 p-5 bg-gray-100 h-48 flex flex-col justify-between"
-      >
-        <div>
-          <div class="text-gray-700 text-sm">SAMPLE</div>
-          <h2 class="text-lg font-medium">{{ newResource.title }}</h2>
-        </div>
-
-        <nuxt-link :to="localePath(`/resource/${newResource.urlSlug}`)">
-          Learn more
-          <font-awesome-icon
-            icon="arrow-right"
-            class="ml-2 text-yellow-500"
-          ></font-awesome-icon>
-        </nuxt-link>
-      </div>
-    </div>
-
-    <div class="border-t border-gray-300 mb-5"></div> -->
-
-    <!-- Contact Us -------------------------------------------------------------------------------------------------->
+    <!-- Contact Us - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div class="grid lg:grid-cols-3">
       <!-- Heading (left side) -->
@@ -106,11 +55,6 @@
 <!-- Script ========================================================================================================-->
 
 <script>
-// import Box from '~/components/Box.vue'
-// import { createClient } from '~/plugins/contentful.js'
-
-// const client = createClient()
-
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 
@@ -129,80 +73,9 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ $contentfulApi, payload }) {
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    } else {
-      currentLocale = 'en-CA'
-    }
-    // const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    // const isDefaultLocale = currentLocale.includes('en') || false
-
-    //
-    // let locale = 'en-CA'
-    //
-    // if (payload != null || payload !== undefined) {
-    //   console.log('-- en/index.vue | payload: ' + payload)
-    //   locale = payload + '-CA'
-    // } else {
-    //   locale = 'en-CA'
-    // }
-    //
-    // if (locale === 'null-CA' || locale === 'undefined-CA') {
-    //   locale = 'en-CA'
-    // }
-
-    console.log('-- en/index.vue | locale: ' + currentLocale)
-
-    // Query for English Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    // todo: refactor these into utils/queries.js
-    // const englishTopLevelTopicsQuery = `query{
-    //   topicCollection(where: { isTopLevelTopic: true }, locale: "en-CA")
-    //   {
-    //     items
-    //     {
-    //       name
-    //       urlSlug
-    //       flag
-    //       {
-    //         value
-    //       }
-    //     }
-    //   }
-    // }`
-
-    // Query for French Topics - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    // const frenchTopLevelTopicsQuery = `query{
-    //   topicCollection(where: { isTopLevelTopic: true }, locale: "fr-CA")
-    //   {
-    //     items
-    //     {
-    //       name
-    //       urlSlug
-    //       flag
-    //       {
-    //         value
-    //       }
-    //     }
-    //   }
-    // }`
-
-    // const [englishTopLevelTopics, frenchTopLevelTopics] = await Promise.all([
-    //   $contentfulApi.$post('', { query: englishTopLevelTopicsQuery }),
-    //   $contentfulApi.$post('', { query: frenchTopLevelTopicsQuery }),
-    // ])
-    //
-    // console.log('index.vue | English topics: ' + englishTopLevelTopics)
-    // console.log('index.vue | French topics: ' + frenchTopLevelTopics)
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     let topics = null
-
-    // if (locale === 'en-CA')
-    //   topics = englishTopLevelTopics.data.topicCollection.items
-    // else topics = frenchTopLevelTopics.data.topicCollection.items
 
     const pageQuery = topLevelTopicsQuery(currentLocale)
     if (payload && payload.topics) {
@@ -215,7 +88,7 @@ export default {
         })
     }
 
-    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/themes/'
+    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/sujet/'
 
     topics = topics.map((topic) => ({
       name: topic.name,
@@ -241,6 +114,12 @@ export default {
       htmlAttrs: {
         lang: this.headElement.langAttribute,
       },
+    }
+  },
+  mounted() {
+    // Hack - the index page for french needs to be redirected to /fr
+    if (this.$i18n.locale === 'fr') {
+      this.$router.push('/fr')
     }
   },
 }

@@ -1,4 +1,4 @@
-# learning-resources
+# Learning Resources
 
 ## Build Setup
 
