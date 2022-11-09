@@ -14,6 +14,8 @@ env:
   TF_VAR_google_analytics_id: ${{ secrets.GOOGLE_ANALYTICS_ID }}
   TF_VAR_google_tag_manager_id: ${{ secrets.GOOGLE_TAG_MANAGER_ID }}
   TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN }}
+  TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+  TF_VAR_fr_domain_name: ${{ secrets.FR_DOMAIN_NAME }}
 
 
 permissions:
