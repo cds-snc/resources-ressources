@@ -73,13 +73,7 @@ export default {
   layout: 'expandedSearch',
 
   async asyncData({ $contentfulApi, payload }) {
-    // Get currentLocale from either payload or i18n
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    } else {
-      currentLocale = 'en-CA'
-    }
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     let topics = null
 
@@ -94,7 +88,7 @@ export default {
         })
     }
 
-    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/themes/'
+    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/sujet/'
 
     topics = topics.map((topic) => ({
       name: topic.name,
@@ -120,6 +114,12 @@ export default {
       htmlAttrs: {
         lang: this.headElement.langAttribute,
       },
+    }
+  },
+  mounted() {
+    // Hack - the index page for french needs to be redirected to /fr
+    if (this.$i18n.locale === 'fr') {
+      this.$router.push('/fr')
     }
   },
 }

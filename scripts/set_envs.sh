@@ -7,7 +7,7 @@ export CTF_CDA_ACCESS_TOKEN=$contentful_access_token
 export contentful_space_id="zy72kv0qwyyq"
 export CTF_SPACE_ID=$contentful_space_id
 export GOOGLE_ANALYTICS_ID="X-AE-A-X12"
-export GOOGLE_TAG_MANAGER_ID="GTM-X-AE-A-X12"
+export GOOGLE_TAG_MANAGER_ID="GTM-XAEAX12"
 export SENTRY_DSN=$sentry_dsn
 
 FILE=".contentful.json"

@@ -80,7 +80,7 @@
               <v-list v-else>
                 <v-list-item v-for="(topic, index) in topicsFR" :key="index">
                   <nuxt-link
-                    :to="localePath(`/themes/${topic.urlSlug}`, 'fr')"
+                    :to="localePath(`/sujet/${topic.urlSlug}`, 'fr')"
                     class="text-lg"
                     >{{ topic.name }}</nuxt-link
                   >

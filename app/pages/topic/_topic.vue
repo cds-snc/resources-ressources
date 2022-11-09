@@ -99,10 +99,7 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    let currentLocale
-    if (payload && payload.locale) {
-      currentLocale = payload.locale
-    }
+    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
@@ -147,9 +144,7 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const topicPathPrefix = currentLocale.includes('en')
-      ? '/topic/'
-      : '/themes/'
+    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
     const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
       : '/ressource/'
