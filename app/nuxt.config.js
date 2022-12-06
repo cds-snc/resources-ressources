@@ -73,7 +73,7 @@ module.exports = {
     '@nuxtjs/google-fonts',
     // https://vuetifyjs.com/en/getting-started/installation/#nuxt-install
     // https://www.npmjs.com/package/@nuxtjs/vuetify
-    /* vuetify has an issue with generate and run dev mode, so we disable treeShake for now */
+    /* vuetify has an issue with generate and run dev mode, so we enable treeShake for now */
     ['@nuxtjs/vuetify', { treeShake: true }],
 
     /* [
