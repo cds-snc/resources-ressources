@@ -27,13 +27,26 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ $contentfulApi, payload }) {
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+  }) {
     /* Contentful locale */
     const locale = payload && payload.locale ? payload.locale : 'en-CA'
 
     let contactPage
+    const preview = query.preview || ($preview && $preview.enabled)
 
-    if (payload && payload.page) {
+    if (preview) {
+      contactPage = await $contentfulPreviewApi
+        .$post('', { query: aboutPageQuery(locale, preview) })
+        .then((result) => {
+          return result.data.contactPageCollection.items[0]
+        })
+    } else if (payload && payload.page) {
       contactPage = { ...payload.page }
     } else {
       contactPage = await $contentfulApi

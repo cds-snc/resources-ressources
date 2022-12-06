@@ -2,7 +2,16 @@
 import { CONTENTFUL_CDA_BASE_URL } from '~/utils/constants'
 
 export default function (
-  { $axios, $config: { contentfulAccessToken, contentfulPreviewAccessToken, contentfulSpaceID, contentfulPreviewSpaceID, previewEnv } },
+  {
+    $axios,
+    $config: {
+      contentfulAccessToken,
+      contentfulPreviewAccessToken,
+      contentfulSpaceID,
+      contentfulPreviewSpaceID,
+      previewEnv,
+    },
+  },
   inject
 ) {
   const baseUrl = `${CONTENTFUL_CDA_BASE_URL}${contentfulSpaceID}`
@@ -22,8 +31,10 @@ export default function (
 
   // Set Contentful preview API
   const contentfulPreviewApi = $axios.create({})
-  contentfulPreviewApi.setBaseURL(CONTENTFUL_CDA_BASE_URL + contentfulPreviewSpaceID)
-  if(previewEnv){
+  contentfulPreviewApi.setBaseURL(
+    CONTENTFUL_CDA_BASE_URL + contentfulPreviewSpaceID
+  )
+  if (previewEnv) {
     contentfulPreviewApi.setToken(contentfulPreviewAccessToken, 'Bearer')
   }
   inject('contentfulPreviewApi', contentfulPreviewApi)

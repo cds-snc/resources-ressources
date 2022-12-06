@@ -72,16 +72,22 @@ export default {
   },
   layout: 'expandedSearch',
 
-  async asyncData({ $contentfulApi, payload, $contentfulPreviewApi, query, $preview }) {
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+  }) {
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     let topics = null
 
-    const preview = query.preview || $preview && $preview.enabled
+    const preview = query.preview || ($preview && $preview.enabled)
 
     const pageQuery = topLevelTopicsQuery(currentLocale, preview)
 
-    if(preview){
+    if (preview) {
       topics = await $contentfulPreviewApi
         .$post('', { query: pageQuery })
         .then((result) => {
