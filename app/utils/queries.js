@@ -227,9 +227,9 @@ export const legalEntryQuery = (entryId) => `query
       }
     }`
 
-export const topLevelTopicsQuery = (locale) => `query
+export const topLevelTopicsQuery = (locale, preview=false) => `query
     {
-      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}", order: name_ASC)
+      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}", preview: ${preview}, order: name_ASC)
       {
         items
         {

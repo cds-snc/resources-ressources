@@ -72,13 +72,22 @@ export default {
   },
   layout: 'expandedSearch',
 
-  async asyncData({ $contentfulApi, payload }) {
+  async asyncData({ $contentfulApi, payload, $contentfulPreviewApi, query, $preview }) {
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
     let topics = null
 
-    const pageQuery = topLevelTopicsQuery(currentLocale)
-    if (payload && payload.topics) {
+    const preview = query.preview || $preview && $preview.enabled
+
+    const pageQuery = topLevelTopicsQuery(currentLocale, preview)
+
+    if(preview){
+      topics = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.topicCollection.items
+        })
+    } else if (payload && payload.topics) {
       topics = [...payload.topics]
     } else {
       topics = await $contentfulApi

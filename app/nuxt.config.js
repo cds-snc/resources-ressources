@@ -12,19 +12,24 @@ module.exports = {
   head: {
     title: 'Resources | Ressources',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: ''},
+      {name: 'format-detection', content: 'telephone=no'},
       // Temporarily removing search engine indexing until we are ready to launch
-      { name: 'robots', content: 'noindex' },
+      {name: 'robots', content: 'noindex'},
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
   },
 
   publicRuntimeConfig: {
     googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
     googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID,
+    previewEnv: process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true',
+    contentfulPreviewAccessToken:
+      (process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true' ? (config.CTF_CPA_ACCESS_TOKEN || process.env.contentful_cpa_access_token) : null),
+    contentfulPreviewSpaceID: (process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true' ? (config.CTF_SPACE_ID || process.env.contentful_space_id) : null),
+
   },
 
   privateRuntimeConfig: {
@@ -38,7 +43,7 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 
-  plugins: ['~/plugins/vue-gtag', '~/plugins/vue-gtm', '~/plugins/axios'],
+  plugins: ['~/plugins/vue-gtag', '~/plugins/vue-gtm', '~/plugins/axios', '~/plugins/preview.client.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -60,7 +65,7 @@ module.exports = {
     // https://vuetifyjs.com/en/getting-started/installation/#nuxt-install
     // https://www.npmjs.com/package/@nuxtjs/vuetify
     /* vuetify has an issue with generate and run dev mode, so we disable treeShake for now */
-    ['@nuxtjs/vuetify',{treeShake: true}],
+    ['@nuxtjs/vuetify', {treeShake: true}],
 
     /* [
       "k-domains",
