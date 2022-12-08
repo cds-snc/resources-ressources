@@ -138,6 +138,24 @@ export const resourcePageQuery = (
           body
           {
             json
+            links
+            {
+              entries
+              {
+                hyperlink
+                {
+                  __typename ... on TestResource
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    title
+                    urlSlug
+                  }
+                }
+              }
+            }
           }
         }
       }
