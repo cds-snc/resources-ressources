@@ -178,7 +178,7 @@ export default {
 
             if (entry.__typename === 'TestResource') {
               const resourcePath = resourcePathPrefix + entry.urlSlug
-              return `<a class="text-blue-900 underline" href="${resourcePath}">${entry.title}</a>`
+              return `<a class="text-blue-900 underline" href="${resourcePath}">${node.content[0].value}</a>`
             }
           },
           [BLOCKS.HEADING_1]: (node) => {
