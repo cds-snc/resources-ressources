@@ -78,6 +78,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import {getCollectionPath, getTopicPathPrefix} from "@/utils/pathUtility";
+import {ContentTypes} from "@/utils/contentTypes";
 
 export default {
   layout: 'expandedSearch',
@@ -177,15 +178,15 @@ export default {
           [INLINES.ENTRY_HYPERLINK]: (node) => {
             const entry = entryLinks.get(node.data.target.sys.id)
 
-            if (entry.__typename === 'TestResource') {
+            if (entry.__typename === ContentTypes.RESOURCE) {
               const resourcePath = resourcePathPrefix + entry.urlSlug
               return `<a class="text-blue-900 underline" href="${resourcePath}">${node.content[0].value}</a>`
             }
-            if (entry.__typename === 'Topic') {
+            if (entry.__typename === ContentTypes.TOPIC) {
               const topicPath = getTopicPathPrefix(currentLocale) + entry.urlSlug
               return `<a class="text-blue-900 underline" href="${topicPath}">${node.content[0].value}</a>`
             }
-            if (entry.__typename === 'Collection') {
+            if (entry.__typename === ContentTypes.COLLECTION) {
               const collectionPath = getCollectionPath(entry.urlSlug)
               return `<a class="text-blue-900 underline" href="${collectionPath}">${node.content[0].value}</a>`
             }

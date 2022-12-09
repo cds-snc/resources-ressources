@@ -1,3 +1,5 @@
+import {ContentTypes} from "./contentTypes";
+
 export const topicPageQuery = (
   urlSlug,
   currentLocale,
@@ -144,37 +146,34 @@ export const resourcePageQuery = (
               {
                 hyperlink
                 {
-                  __typename ... on TestResource
+                  __typename ... on ${ContentTypes.RESOURCE}
                   {
                     sys
                     {
                       id
                     }
-                    title
                     urlSlug
                   }
                 }
                 hyperlink
                 {
-                  __typename ... on Topic
+                  __typename ... on ${ContentTypes.TOPIC}
                   {
                     sys
                     {
                       id
                     }
-                    name
                     urlSlug
                   }
                 }
                 hyperlink
                 {
-                  __typename ... on Collection
+                  __typename ... on ${ContentTypes.COLLECTION}
                   {
                     sys
                     {
                       id
                     }
-                    name
                     urlSlug
                   }
                 }
