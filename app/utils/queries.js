@@ -154,6 +154,18 @@ export const resourcePageQuery = (
                     urlSlug
                   }
                 }
+                hyperlink
+                {
+                  __typename ... on Topic
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    name
+                    urlSlug
+                  }
+                }
               }
             }
           }
