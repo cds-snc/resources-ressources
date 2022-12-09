@@ -166,6 +166,18 @@ export const resourcePageQuery = (
                     urlSlug
                   }
                 }
+                hyperlink
+                {
+                  __typename ... on Collection
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    name
+                    urlSlug
+                  }
+                }
               }
             }
           }
