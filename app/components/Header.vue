@@ -42,9 +42,10 @@
           <div
             class="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >
-            <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4">
+            <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4" attach="#menuButton">
               <template #activator="{ on }">
                 <button
+                  id="menuButton"
                   class="p-3 text-xl rounded-lg hover:bg-gray-100"
                   v-on="on"
                 >
