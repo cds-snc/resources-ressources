@@ -42,7 +42,7 @@
           <div
             class="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >
-            <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4" attach="#menuButton">
+            <v-menu v-model="menuOpened" bottom nudge-left="60" :offset-y="true" class="mr-6" attach="#menuButton">
               <template #activator="{ on }">
                 <button
                   id="menuButton"
@@ -78,8 +78,8 @@
                   </nuxt-link>
                 </v-list-item>
               </v-list>
-              <v-list v-else>
-                <v-list-item v-for="(topic, index) in topicsFR" :key="index">
+              <v-list v-else class="w-max">
+                <v-list-item v-for="(topic, index) in topicsFR" :key="index" class="hover:bg-blue-100 cursor-pointer">
                   <nuxt-link
                     :to="localePath(`/sujet/${topic.urlSlug}`, 'fr')"
                     class="text-lg"
@@ -93,7 +93,7 @@
               v-for="locale in availableLocales"
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
-              class="underline text-blue-900 hover:text-blue-700 text-xl ml-5"
+              class="underline text-blue-900 hover:text-blue-700 text-xl ml-12"
               :lang="locale.code"
               @click="switchLocale"
               >{{ locale.name }}
