@@ -1,4 +1,4 @@
-import {ContentTypes} from "./contentTypes";
+import { ContentTypes } from './contentTypes'
 
 export const topicPageQuery = (
   urlSlug,

@@ -77,8 +77,8 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
-import {getCollectionPath, getTopicPathPrefix} from "@/utils/pathUtility";
-import {ContentTypes} from "@/utils/contentTypes";
+import { getCollectionPath, getTopicPathPrefix } from '@/utils/pathUtility'
+import { ContentTypes } from '@/utils/contentTypes'
 
 export default {
   layout: 'expandedSearch',
@@ -183,7 +183,8 @@ export default {
               return `<a class="text-blue-900 underline" href="${resourcePath}">${node.content[0].value}</a>`
             }
             if (entry.__typename === ContentTypes.TOPIC) {
-              const topicPath = getTopicPathPrefix(currentLocale) + entry.urlSlug
+              const topicPath =
+                getTopicPathPrefix(currentLocale) + entry.urlSlug
               return `<a class="text-blue-900 underline" href="${topicPath}">${node.content[0].value}</a>`
             }
             if (entry.__typename === ContentTypes.COLLECTION) {
