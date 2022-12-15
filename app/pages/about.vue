@@ -46,7 +46,7 @@ export default {
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
-      richTextRenderOptions(aboutPage.body.links)
+      richTextRenderOptions()
     )
 
     return { aboutPage, richText, headElement }

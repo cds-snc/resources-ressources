@@ -46,10 +46,10 @@ export default {
     const i18nLocaleCode = locale.substring(0, 2)
 
     const headElement = getHeadElement(contactPage.title, i18nLocaleCode)
-
+    
     const richText = documentToHtmlString(
       contactPage.body.json,
-      richTextRenderOptions
+      richTextRenderOptions()
     )
 
     return { contactPage, richText, headElement }
