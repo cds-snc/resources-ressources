@@ -1,10 +1,9 @@
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { legalEntryQuery } from '~/utils/queries'
-import {ContentTypes} from "~/utils/contentTypes";
-import {getCollectionPath, getTopicPathPrefix} from "~/utils/pathUtility";
+import { ContentTypes } from '~/utils/contentTypes'
+import { getCollectionPath, getTopicPathPrefix } from '~/utils/pathUtility'
 
 export const richTextRenderOptions = () => {
-
   return {
     renderMark: {
       [MARKS.BOLD]: (text) => {
@@ -27,8 +26,7 @@ export const richTextRenderOptions = () => {
           return `<a class="text-blue-900 underline" href="${resourcePath}">${node.content[0].value}</a>`
         }
         if (entry.__typename === ContentTypes.TOPIC) {
-          const topicPath =
-            getTopicPathPrefix(currentLocale) + entry.urlSlug
+          const topicPath = getTopicPathPrefix(currentLocale) + entry.urlSlug
           return `<a class="text-blue-900 underline" href="${topicPath}">${node.content[0].value}</a>`
         }
         if (entry.__typename === ContentTypes.COLLECTION) {
