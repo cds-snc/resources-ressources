@@ -12,7 +12,7 @@
 
     <div class="my-24 sm:my-28">
       <PageTitle :title-text="collection.name"></PageTitle>
-      <div v-html="descriptionRichText"></div>
+      <div v-html="descriptionRichText" class="md:w-2/3"></div>
     </div>
 
     <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
