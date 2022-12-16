@@ -62,6 +62,7 @@
 <!-- Page logic ====================================================================================================-->
 
 <script>
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import {
   generateBreadcrumbs,
   generateCollections,
@@ -71,8 +72,7 @@ import {
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
-import {documentToHtmlString} from "@contentful/rich-text-html-renderer";
-import {richTextRenderOptions} from "@/utils/richTextRenderOptions";
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
 export default {
   name: 'Collection',
@@ -155,7 +155,7 @@ export default {
       resources,
       relatedCollections,
       headElement,
-      descriptionRichText
+      descriptionRichText,
     }
   },
 
