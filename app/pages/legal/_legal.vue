@@ -15,6 +15,7 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import { legalPageQuery } from '@/utils/queries'
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------

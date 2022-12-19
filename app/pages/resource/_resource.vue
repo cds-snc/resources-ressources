@@ -200,18 +200,18 @@ export default {
             const heading = node.content[0].value
             const headingId = heading.replace(/\s+/g, '-').toLowerCase()
             headings.push({ linkName: heading, linkId: headingId })
-            return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
+            return `<h2 id="${headingId}" class="text-3xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
           },
           [BLOCKS.HEADING_3]: (node) => {
-            return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
+            return `<h3 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
           },
           [BLOCKS.HEADING_4]: (node) => {
-            return `<h4 class="text-lg font-medium mt-12 mb-2.5">${node.content[0].value}</h4>`
+            return `<h4 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h4>`
           },
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           [BLOCKS.PARAGRAPH]: (node, next) => {
             // return `<p class="leading-7">${node.content[0].value}</p>`
-            return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
+            return `<p class="leading-relaxed text-lg tracking-wide text-gray-800 mt-5">${next(
               node.content
             ).replace(/\n/g, '<br/>')}</p>`
           },
@@ -224,6 +224,17 @@ export default {
             return `<ol class="list-decimal ml-4">
                     ${next(node.content)}
                     </ol>`
+          },
+          [BLOCKS.LIST_ITEM]: (node) => {
+            node.content = node.content
+              .map((listItemNode) =>
+                listItemNode.nodeType === BLOCKS.PARAGRAPH
+                  ? listItemNode.content
+                  : listItemNode
+              )
+              .flat()
+
+            return `<li class="text-lg leading-relaxed tracking-wide text-gray-800 mt-3">${node.content[0].value}</li>`
           },
           [BLOCKS.HR]: () => {
             return `<div class="border-t border-gray-300 mt-10"></div>`
