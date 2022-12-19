@@ -211,7 +211,7 @@ export default {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           [BLOCKS.PARAGRAPH]: (node, next) => {
             // return `<p class="leading-7">${node.content[0].value}</p>`
-            return `<p class="leading-relaxed text-lg tracking-wide text-gray-800 mt-5">${next(
+            return `<p class="leading-relaxed text-lg tracking-wide text-gray-800">${next(
               node.content
             ).replace(/\n/g, '<br/>')}</p>`
           },
@@ -225,7 +225,7 @@ export default {
                     ${next(node.content)}
                     </ol>`
           },
-          [BLOCKS.LIST_ITEM]: (node) => {
+          /* [BLOCKS.LIST_ITEM]: (node) => {
             node.content = node.content
               .map((listItemNode) =>
                 listItemNode.nodeType === BLOCKS.PARAGRAPH
@@ -235,7 +235,7 @@ export default {
               .flat()
 
             return `<li class="text-lg leading-relaxed tracking-wide text-gray-800 mt-3">${node.content[0].value}</li>`
-          },
+          }, */
           [BLOCKS.HR]: () => {
             return `<div class="border-t border-gray-300 mt-10"></div>`
           },
