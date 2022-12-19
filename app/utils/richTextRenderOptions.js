@@ -85,7 +85,7 @@ export const richTextRenderOptions = (currentLocale, links) => {
                     ${next(node.content)}
                     </ol>`
       },
-      [BLOCKS.LIST_ITEM]: (node) => {
+      /* [BLOCKS.LIST_ITEM]: (node) => {
         node.content = node.content
           .map((listItemNode) =>
             listItemNode.nodeType === BLOCKS.PARAGRAPH
@@ -95,7 +95,7 @@ export const richTextRenderOptions = (currentLocale, links) => {
           .flat()
 
         return `<li class="text-lg leading-relaxed tracking-wide text-gray-800 mt-3">${node.content[0].value}</li>`
-      },
+      }, */
       [BLOCKS.HR]: () => {
         return `<div class="border-t border-gray-300 mt-10"></div>`
       },
