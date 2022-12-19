@@ -16,6 +16,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { legalEntryQuery, legalPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import {richTextRenderOptions} from "@/utils/richTextRenderOptions";
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
@@ -88,7 +89,7 @@ export default {
 
     /* Set rich text rendering options */
 
-    const richTextOptions = {
+    /* const richTextOptions = {
       renderMark: {
         [MARKS.BOLD]: (text) => {
           console.log(text)
@@ -144,13 +145,17 @@ export default {
           return `<div class="border-t border-gray-300 mt-10"></div>`
         },
       },
-    }
+    } */
 
     /* Apply rich text styling */
 
     console.log(legalPage.body.json)
 
-    const richText = documentToHtmlString(legalPage.body.json, richTextOptions)
+    const richText = documentToHtmlString(
+      legalPage.body.json,
+      // richTextOptions
+      richTextRenderOptions(currentLocale, legalPage.body?.links)
+    )
 
     return { legalPage, richText, headElement }
   },
