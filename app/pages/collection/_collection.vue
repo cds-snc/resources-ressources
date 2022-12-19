@@ -12,6 +12,7 @@
 
     <div class="my-24 sm:my-28">
       <PageTitle :title-text="collection.name"></PageTitle>
+      <div class="md:w-2/3" v-html="descriptionRichText"></div>
     </div>
 
     <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
@@ -61,6 +62,7 @@
 <!-- Page logic ====================================================================================================-->
 
 <script>
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import {
   generateBreadcrumbs,
   generateCollections,
@@ -70,6 +72,7 @@ import {
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
 export default {
   name: 'Collection',
@@ -141,12 +144,18 @@ export default {
       getLocaleCode(currentLocale)
     )
 
+    const descriptionRichText = documentToHtmlString(
+      collection.description?.json,
+      richTextRenderOptions()
+    )
+
     return {
       collection,
       breadcrumbs,
       resources,
       relatedCollections,
       headElement,
+      descriptionRichText,
     }
   },
 

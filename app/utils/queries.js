@@ -199,6 +199,23 @@ export const legalPageQuery = (
           body
           {
             json
+            links
+            {
+              entries
+              {
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.LEGAL_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
+              }
+            }
           }
         }
       }

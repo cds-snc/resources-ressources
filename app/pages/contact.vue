@@ -49,7 +49,7 @@ export default {
 
     const richText = documentToHtmlString(
       contactPage.body.json,
-      richTextRenderOptions
+      richTextRenderOptions()
     )
 
     return { contactPage, richText, headElement }
