@@ -125,7 +125,7 @@ export default {
 
     if (relatedResources) {
       relatedResources = relatedResources
-        .filter(resource => resource?.title != null)
+        .filter((resource) => resource?.title != null)
         .map((resource) => ({
           title: resource.title,
           dateAdded: resource?.dateAdded,
@@ -232,7 +232,7 @@ export default {
       }
     }
 
-    let richText = null;
+    let richText = null
 
     if (resource.body) {
       richText = documentToHtmlString(

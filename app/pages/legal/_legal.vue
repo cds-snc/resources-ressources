@@ -14,7 +14,7 @@
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { getHeadElement } from '@/utils/headElementAssembler'
-import {richTextRenderOptions} from "@/utils/richTextRenderOptions";
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------

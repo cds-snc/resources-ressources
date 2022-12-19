@@ -1,21 +1,22 @@
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
-import { legalEntryQuery } from '~/utils/queries'
 import { ContentTypes } from '~/utils/contentTypes'
-import {getCollectionPath, getLegalPathPrefix, getResourcePathPrefix, getTopicPathPrefix} from '~/utils/pathUtility'
+import {
+  getCollectionPath,
+  getLegalPathPrefix,
+  getResourcePathPrefix,
+  getTopicPathPrefix,
+} from '~/utils/pathUtility'
 
 export const richTextRenderOptions = (currentLocale, links) => {
+  const headings = []
 
-    const headings = []
+  const entryLinks = new Map()
 
-    const entryLinks = new Map()
-
-
-    if (links) {
-      for (const entryHyperlink of links.entries.hyperlink) {
-        entryLinks.set(entryHyperlink.sys.id, entryHyperlink)
-      }
+  if (links) {
+    for (const entryHyperlink of links.entries.hyperlink) {
+      entryLinks.set(entryHyperlink.sys.id, entryHyperlink)
     }
-
+  }
 
   return {
     renderMark: {
@@ -35,7 +36,8 @@ export const richTextRenderOptions = (currentLocale, links) => {
         const entry = entryLinks.get(node.data.target.sys.id)
 
         if (entry.__typename === ContentTypes.RESOURCE) {
-          const resourcePath = getResourcePathPrefix(currentLocale) + entry.urlSlug
+          const resourcePath =
+            getResourcePathPrefix(currentLocale) + entry.urlSlug
           return `<a class="text-blue-900 underline" href="${resourcePath}">${node.content[0].value}</a>`
         }
         if (entry.__typename === ContentTypes.TOPIC) {

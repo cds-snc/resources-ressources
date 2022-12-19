@@ -169,13 +169,13 @@ export default {
 
     if (resources) {
       resources = resources
-        .filter(resource => resource.title != null)
+        .filter((resource) => resource.title != null)
         .map((resource) => ({
-        title: resource?.title,
-        dateAdded: resource?.dateAdded,
-        path: resourcePathPrefix + resource?.urlSlug,
-        locale: localeCode,
-      }))
+          title: resource?.title,
+          dateAdded: resource?.dateAdded,
+          path: resourcePathPrefix + resource?.urlSlug,
+          locale: localeCode,
+        }))
     }
 
     let collections = topic.collectionsCollection.items
