@@ -1,9 +1,22 @@
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { legalEntryQuery } from '~/utils/queries'
 import { ContentTypes } from '~/utils/contentTypes'
-import { getCollectionPath, getTopicPathPrefix } from '~/utils/pathUtility'
+import {getCollectionPath, getLegalPathPrefix, getResourcePathPrefix, getTopicPathPrefix} from '~/utils/pathUtility'
 
-export const richTextRenderOptions = () => {
+export const richTextRenderOptions = (currentLocale, links) => {
+
+    const headings = []
+
+    const entryLinks = new Map()
+
+
+    if (links) {
+      for (const entryHyperlink of links.entries.hyperlink) {
+        entryLinks.set(entryHyperlink.sys.id, entryHyperlink)
+      }
+    }
+
+
   return {
     renderMark: {
       [MARKS.BOLD]: (text) => {
@@ -22,7 +35,7 @@ export const richTextRenderOptions = () => {
         const entry = entryLinks.get(node.data.target.sys.id)
 
         if (entry.__typename === ContentTypes.RESOURCE) {
-          const resourcePath = resourcePathPrefix + entry.urlSlug
+          const resourcePath = getResourcePathPrefix(currentLocale) + entry.urlSlug
           return `<a class="text-blue-900 underline" href="${resourcePath}">${node.content[0].value}</a>`
         }
         if (entry.__typename === ContentTypes.TOPIC) {
@@ -32,6 +45,10 @@ export const richTextRenderOptions = () => {
         if (entry.__typename === ContentTypes.COLLECTION) {
           const collectionPath = getCollectionPath(entry.urlSlug)
           return `<a class="text-blue-900 underline" href="${collectionPath}">${node.content[0].value}</a>`
+        }
+        if (entry.__typename === ContentTypes.LEGAL_PAGE) {
+          const legalPath = getLegalPathPrefix(currentLocale) + entry.urlSlug
+          return `<a class="text-blue-900 underline" href="${legalPath}">${node.content[0].value}</a>`
         }
       },
       [BLOCKS.HEADING_1]: (node) => {
