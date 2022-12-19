@@ -44,7 +44,7 @@
               {{ resource.title }}
             </h1>
 
-            <div v-html="richText"></div>
+            <div v-if="richText != null" v-html="richText"></div>
 
             <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
@@ -104,7 +104,6 @@ export default {
           return result.data
         })
     }
-    // console.log('_resource.vue', resource)
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
@@ -119,7 +118,6 @@ export default {
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
     breadcrumbs.locale = currentLocale.substring(0, 2)
-    console.log('breadcrumbs locale: ' + breadcrumbs.locale)
 
     let relatedResources = resource.relatedResourcesCollection.items
 
@@ -168,7 +166,6 @@ export default {
       return {
         renderMark: {
           [MARKS.BOLD]: (text) => {
-            console.log(text)
             return `<strong class="font-bold">${text}</strong>`
           },
           [MARKS.ITALIC]: (text) => {
@@ -235,10 +232,14 @@ export default {
       }
     }
 
-    const richText = documentToHtmlString(
-      resource.body.json,
-      resourceRichTextRenderOptionsx(resource.body.links)
-    )
+    let richText = null;
+
+    if (resource.body) {
+      richText = documentToHtmlString(
+        resource.body.json,
+        resourceRichTextRenderOptionsx(resource.body.links)
+      )
+    }
 
     return {
       resource,
