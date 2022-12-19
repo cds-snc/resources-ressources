@@ -167,16 +167,12 @@ export default {
 
     const localeCode = currentLocale.substring(0, 2)
 
-    if (resources) {
-      resources = resources
-        .filter((resource) => resource.title != null)
-        .map((resource) => ({
-          title: resource?.title,
-          dateAdded: resource?.dateAdded,
-          path: resourcePathPrefix + resource?.urlSlug,
-          locale: localeCode,
-        }))
-    }
+    resources = resources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: localeCode,
+    }))
 
     let collections = topic.collectionsCollection.items
     collections = collections.map((collection) => ({

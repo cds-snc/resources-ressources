@@ -44,7 +44,7 @@
               {{ resource.title }}
             </h1>
 
-            <div v-if="richText != null" v-html="richText"></div>
+            <div v-html="richText"></div>
 
             <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
@@ -104,6 +104,7 @@ export default {
           return result.data
         })
     }
+    // console.log('_resource.vue', resource)
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
@@ -118,21 +119,18 @@ export default {
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
     breadcrumbs.locale = currentLocale.substring(0, 2)
+    console.log('breadcrumbs locale: ' + breadcrumbs.locale)
 
     let relatedResources = resource.relatedResourcesCollection.items
 
     const localeCode = currentLocale.substring(0, 2)
 
-    if (relatedResources) {
-      relatedResources = relatedResources
-        .filter((resource) => resource?.title != null)
-        .map((resource) => ({
-          title: resource.title,
-          dateAdded: resource?.dateAdded,
-          path: resourcePathPrefix + resource?.urlSlug,
-          locale: localeCode,
-        }))
-    }
+    relatedResources = relatedResources.map((resource) => ({
+      title: resource.title,
+      dateAdded: resource.dateAdded,
+      path: resourcePathPrefix + resource.urlSlug,
+      locale: localeCode,
+    }))
 
     const headElement = getHeadElement(resource.title, localeCode)
 
@@ -166,6 +164,7 @@ export default {
       return {
         renderMark: {
           [MARKS.BOLD]: (text) => {
+            console.log(text)
             return `<strong class="font-bold">${text}</strong>`
           },
           [MARKS.ITALIC]: (text) => {
@@ -200,18 +199,18 @@ export default {
             const heading = node.content[0].value
             const headingId = heading.replace(/\s+/g, '-').toLowerCase()
             headings.push({ linkName: heading, linkId: headingId })
-            return `<h2 id="${headingId}" class="text-3xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
+            return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
           },
           [BLOCKS.HEADING_3]: (node) => {
-            return `<h3 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
+            return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
           },
           [BLOCKS.HEADING_4]: (node) => {
-            return `<h4 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h4>`
+            return `<h4 class="text-lg font-medium mt-12 mb-2.5">${node.content[0].value}</h4>`
           },
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           [BLOCKS.PARAGRAPH]: (node, next) => {
             // return `<p class="leading-7">${node.content[0].value}</p>`
-            return `<p class="leading-relaxed text-lg tracking-wide text-gray-800 mt-5">${next(
+            return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
               node.content
             ).replace(/\n/g, '<br/>')}</p>`
           },
@@ -225,17 +224,6 @@ export default {
                     ${next(node.content)}
                     </ol>`
           },
-          [BLOCKS.LIST_ITEM]: (node) => {
-            node.content = node.content
-              .map((listItemNode) =>
-                listItemNode.nodeType === BLOCKS.PARAGRAPH
-                  ? listItemNode.content
-                  : listItemNode
-              )
-              .flat()
-
-            return `<li class="text-lg leading-relaxed tracking-wide text-gray-800 mt-3">${node.content[0].value}</li>`
-          },
           [BLOCKS.HR]: () => {
             return `<div class="border-t border-gray-300 mt-10"></div>`
           },
@@ -243,14 +231,10 @@ export default {
       }
     }
 
-    let richText = null
-
-    if (resource.body) {
-      richText = documentToHtmlString(
-        resource.body.json,
-        resourceRichTextRenderOptionsx(resource.body.links)
-      )
-    }
+    const richText = documentToHtmlString(
+      resource.body.json,
+      resourceRichTextRenderOptionsx(resource.body.links)
+    )
 
     return {
       resource,
