@@ -125,12 +125,16 @@ export default {
 
     const localeCode = currentLocale.substring(0, 2)
 
-    relatedResources = relatedResources.map((resource) => ({
-      title: resource.title,
-      dateAdded: resource.dateAdded,
-      path: resourcePathPrefix + resource.urlSlug,
-      locale: localeCode,
-    }))
+    if (relatedResources) {
+      relatedResources = relatedResources
+        .filter(resource => resource?.title != null)
+        .map((resource) => ({
+          title: resource.title,
+          dateAdded: resource?.dateAdded,
+          path: resourcePathPrefix + resource?.urlSlug,
+          locale: localeCode,
+        }))
+    }
 
     const headElement = getHeadElement(resource.title, localeCode)
 
