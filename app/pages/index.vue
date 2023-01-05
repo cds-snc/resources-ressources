@@ -57,6 +57,7 @@
 <script>
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE } from '@/utils/constants'
 
 export default {
   nuxtI18n: {
@@ -79,7 +80,7 @@ export default {
     query,
     $preview,
   }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
 
     let topics = null
 
@@ -103,7 +104,7 @@ export default {
         })
     }
 
-    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/sujet/'
+    const topicPathPrefix = currentLocale === EN_LOCALE ? '/topic/' : '/sujet/'
 
     topics = topics.map((topic) => ({
       name: topic.name,

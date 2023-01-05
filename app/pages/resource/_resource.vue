@@ -77,14 +77,15 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 
 export default {
   layout: 'expandedSearch',
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
 
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
     const isDefaultLocale = currentLocale.includes('en') || false
 
     /* Query resource by url slug */

@@ -1,4 +1,8 @@
-import { CONTENTFUL_CDA_BASE_URL } from '~/utils/constants'
+import {
+  CONTENTFUL_CDA_BASE_URL,
+  EN_LOCALE,
+  FR_LOCALE,
+} from '~/utils/constants'
 import { getTopLevelTopicsQuery } from '~/utils/queries'
 const axios = require('axios')
 const config = require('../.contentful.json')
@@ -30,9 +34,7 @@ export const actions = {
   async nuxtServerInit({ state, commit }) {
     // Locales
     // todo: refactor to use locales from config
-    const localeEN = 'en-CA'
-    const localeFR = 'fr-CA'
-    const locales = [localeEN, localeFR]
+    const locales = [EN_LOCALE, FR_LOCALE]
 
     const spaceId = config.CTF_SPACE_ID || process.env.contentful_space_id
     const accessToken =

@@ -70,6 +70,7 @@ import {
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 
 export default {
   name: 'Collection',
@@ -79,9 +80,9 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
 
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
     const isDefaultLocale = currentLocale.includes('en') || false
 
     const urlSlug = params.collection

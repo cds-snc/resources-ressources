@@ -12,6 +12,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import { EN_LOCALE } from '@/utils/constants'
 
 export default {
   // Options ----------------------------------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ export default {
     $preview,
   }) {
     /* Contentful locale */
-    const locale = payload && payload.locale ? payload.locale : 'en-CA'
+    const locale = payload && payload.locale ? payload.locale : EN_LOCALE
 
     let contactPage
     const preview = query.preview || ($preview && $preview.enabled)

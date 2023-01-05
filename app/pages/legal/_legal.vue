@@ -16,15 +16,16 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { legalEntryQuery, legalPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, store, $contentfulApi, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
     const isDefaultLocale = currentLocale.includes('en') || false
 
     /* Get urlSlug */

@@ -107,6 +107,8 @@
 <!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 <script>
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+
 export default {
   name: 'Header',
   data() {
@@ -124,11 +126,11 @@ export default {
     },
 
     topicsEN() {
-      return this.$store.state.topics['en-CA']
+      return this.$store.state.topics[EN_LOCALE]
     },
 
     topicsFR() {
-      return this.$store.state.topics['fr-CA']
+      return this.$store.state.topics[FR_LOCALE]
     },
   },
 

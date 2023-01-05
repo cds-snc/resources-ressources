@@ -81,6 +81,7 @@ import { topicPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPath } from '@/utils/pathUtility'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 
 export default {
   components: { CollectionListItem },
@@ -99,10 +100,10 @@ export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
+    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
     const isDefaultLocale = currentLocale.includes('en') || false
 
     // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
