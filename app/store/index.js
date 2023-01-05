@@ -9,8 +9,8 @@ const config = require('../.contentful.json')
 
 export const state = () => ({
   topics: {
-    'en-CA': [],
-    'fr-CA': [],
+    EN_LOCALE: [],
+    FR_LOCALE: [],
   },
   topicsLoaded: false,
 })
