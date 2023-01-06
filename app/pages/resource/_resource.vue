@@ -14,14 +14,14 @@
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
           <div
-            v-if="headings.length > 0"
+            v-if="myHeadings.length > 0"
             class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
               <ol>
                 <li
-                  v-for="heading in headings"
+                  v-for="heading in myHeadings"
                   :key="heading.linkId"
                   class="border-l-4 border-solid rounded-r-lg border-gray-200 mx-0 hover:border-blue-700 p-3 hover:bg-blue-50 active:bg-blue-700"
                 >
@@ -79,6 +79,16 @@ import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPath, getTopicPathPrefix } from '@/utils/pathUtility'
 import { ContentTypes } from '@/utils/contentTypes'
+import {richTextRenderOptions} from "@/utils/richTextRenderOptions";
+
+let myHeadings = [];
+
+export const myCallback = (heading) => {
+  console.log("-- heading: " + heading.linkName)
+  myHeadings.push(heading)
+}
+
+
 
 export default {
   layout: 'expandedSearch',
@@ -156,7 +166,8 @@ export default {
 
     const headings = []
 
-    const resourceRichTextRenderOptionsx = (bodyLinks) => {
+
+    /* const resourceRichTextRenderOptionsx = (bodyLinks) => {
       const entryLinks = new Map()
 
       for (const entry of bodyLinks.entries.hyperlink) {
@@ -235,20 +246,23 @@ export default {
               .flat()
 
             return `<li class="text-lg leading-relaxed tracking-wide text-gray-800 mt-3">${node.content[0].value}</li>`
-          }, */
+          },
           [BLOCKS.HR]: () => {
             return `<div class="border-t border-gray-300 mt-10"></div>`
           },
         },
       }
-    }
+    } */
 
     let richText = null
+
+    myHeadings = []
 
     if (resource.body) {
       richText = documentToHtmlString(
         resource.body.json,
-        resourceRichTextRenderOptionsx(resource.body.links)
+        // resourceRichTextRenderOptionsx(resource.body.links)
+        richTextRenderOptions(currentLocale, resource.body.links, myCallback)
       )
     }
 
@@ -259,6 +273,7 @@ export default {
       relatedResources,
       headElement,
       headings,
+      myHeadings
     }
   },
 
@@ -285,6 +300,10 @@ export default {
   methods: {
     setActiveJumpLink(headingId) {
       this.activeHeadingId = headingId
+    },
+
+    myMethodCallback(heading){
+      console.log("-- heading: " + heading)
     },
 
     handleScroll() {

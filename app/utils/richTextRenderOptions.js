@@ -7,7 +7,7 @@ import {
   getTopicPathPrefix,
 } from '~/utils/pathUtility'
 
-export const richTextRenderOptions = (currentLocale, links) => {
+export const richTextRenderOptions = (currentLocale, links, callbackMethod) => {
   const headings = []
 
   const entryLinks = new Map()
@@ -60,6 +60,7 @@ export const richTextRenderOptions = (currentLocale, links) => {
         const heading = node.content[0].value
         const headingId = heading.replace(/\s+/g, '-').toLowerCase()
         headings.push({ linkName: heading, linkId: headingId })
+        callbackMethod({ linkName: heading, linkId: headingId })
         return `<h2 id="${headingId}" class="text-3xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
       },
       [BLOCKS.HEADING_3]: (node) => {
