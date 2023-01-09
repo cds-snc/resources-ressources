@@ -82,6 +82,7 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPath } from '@/utils/pathUtility'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   components: { CollectionListItem },
@@ -99,9 +100,18 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
-
+  async asyncData({
+    params,
+    $contentfulApi,
+    store,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const preview = query.preview || ($preview && $preview.enabled)
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
     const isDefaultLocale = currentLocale.includes('en') || false
@@ -110,9 +120,28 @@ export default {
 
     const urlSlug = params.topic
 
-    const pageQuery = topicPageQuery(urlSlug, currentLocale, alternateLocale)
-    let topic
-    if (payload && payload.topic) {
+    const pageQuery = topicPageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      preview
+    )
+    let topic = null
+
+    if (preview) {
+      console.log(i18n)
+      console.log('i18n locale', i18n.locale)
+      console.log('index.vue preview mode', currentLocale, payload)
+      console.log(pageQuery)
+
+      const result = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((res) => {
+          return res
+          // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
+        })
+      topic = result.data.topicCollection.items[0]
+    } else if (payload && payload.topic) {
       topic = { ...payload.topic }
     } else {
       // get topic

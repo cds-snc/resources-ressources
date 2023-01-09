@@ -58,6 +58,7 @@
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   nuxtI18n: {
@@ -79,21 +80,29 @@ export default {
     $contentfulPreviewApi,
     query,
     $preview,
+    i18n,
   }) {
-    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
-
-    let topics = null
+    // const currentLocale = payload && payload.locale ? payload.locale : (i18n && i18n.locale) ? i18n.locale : EN_LOCALE
+    const currentLocale = getCurrentLocale(payload, i18n)
 
     const preview = query.preview || ($preview && $preview.enabled)
 
     const pageQuery = topLevelTopicsQuery(currentLocale, preview)
 
+    let topics = null
+
     if (preview) {
+      console.log(i18n)
+      console.log('i18n locale', i18n.locale)
+      console.log('index.vue preview mode', currentLocale, payload)
+      console.log(pageQuery)
       topics = await $contentfulPreviewApi
         .$post('', { query: pageQuery })
         .then((result) => {
+          console.log(result.data)
           return result.data.topicCollection.items
         })
+      console.log(topics)
     } else if (payload && payload.topics) {
       topics = [...payload.topics]
     } else {
