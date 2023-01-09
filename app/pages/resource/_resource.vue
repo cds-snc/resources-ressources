@@ -76,12 +76,11 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
-import {richTextRenderOptions} from "@/utils/richTextRenderOptions";
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
-let headings = [];
+let headings = []
 
 export const myCallback = (heading) => {
-  console.log("-- heading: " + heading.linkName)
   headings.push(heading)
 }
 
@@ -159,10 +158,9 @@ export default {
       fr: { resource: frRouteParam },
     })
 
+    headings = []
 
     let richText = null
-
-    headings = []
 
     if (resource.body) {
       richText = documentToHtmlString(
@@ -205,7 +203,7 @@ export default {
     setActiveJumpLink(headingId) {
       this.activeHeadingId = headingId
     },
-    
+
     handleScroll() {
       const jumpLinks = document.querySelectorAll('.jumpLinks li')
       const headings = document.querySelectorAll('h2')

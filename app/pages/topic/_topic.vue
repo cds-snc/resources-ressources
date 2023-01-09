@@ -101,11 +101,8 @@ export default {
   async asyncData({ params, $contentfulApi, store, payload }) {
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
-    // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
-
-    // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
     const urlSlug = params.topic
 
