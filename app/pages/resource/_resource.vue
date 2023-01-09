@@ -205,11 +205,7 @@ export default {
     setActiveJumpLink(headingId) {
       this.activeHeadingId = headingId
     },
-
-    myMethodCallback(heading){
-      console.log("-- heading: " + heading)
-    },
-
+    
     handleScroll() {
       const jumpLinks = document.querySelectorAll('.jumpLinks li')
       const headings = document.querySelectorAll('h2')
