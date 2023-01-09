@@ -12,7 +12,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
-import { EN_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   // Options ----------------------------------------------------------------------------------------------------------
@@ -26,24 +26,44 @@ export default {
 
   name: 'About',
 
-  async asyncData({ $contentfulApi, payload }) {
-    const locale = payload && payload.locale ? payload.locale : EN_LOCALE
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const preview = query.preview || ($preview && $preview.enabled)
 
-    let aboutPage
+    const pageQuery = aboutPageQuery(currentLocale, preview)
 
-    if (payload && payload.page) {
+    let aboutPage = null
+
+    if (preview) {
+      console.log(i18n)
+      console.log('i18n locale', i18n.locale)
+      console.log('index.vue preview mode', currentLocale, payload)
+      console.log(pageQuery)
+      aboutPage = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.aboutPageCollection.items[0]
+        })
+    } else if (payload && payload.page) {
       aboutPage = { ...payload.page }
     } else {
       aboutPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: pageQuery })
         .then((result) => {
           return result.data.aboutPageCollection.items[0]
         })
     }
 
-    const i18nLocaleCode = locale.substring(0, 2)
+    // const i18nLocaleCode = locale.substring(0, 2)
 
-    const headElement = getHeadElement(aboutPage.title, i18nLocaleCode)
+    const headElement = getHeadElement(aboutPage.title, i18n.locale)
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
