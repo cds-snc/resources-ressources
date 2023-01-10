@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-4xl sm:text-5xl font-bold">{{ titleText }}</h1>
+  <h1 class="text-4xl sm:text-5xl font-bold">{{ headingText }}</h1>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ export default {
   name: 'Heading1',
 
   props: {
-    titleText: {
+    headingText: {
       type: String,
       required: true,
     },
