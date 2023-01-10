@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-5xl mb-10">
-    <h1 class="font-bold text-4xl my-14">{{ aboutPage.title }}</h1>
+    <heading1 :heading-text="aboutPage.title" class="my-10"></heading1>
     <div v-html="richText"></div>
   </div>
 </template>
@@ -12,8 +12,11 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import Heading1 from '@/components/headings/Heading1'
 
 export default {
+  name: 'About',
+  components: { Heading1 },
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {
@@ -22,8 +25,6 @@ export default {
       fr: '/a-propos',
     },
   },
-
-  name: 'About',
 
   async asyncData({ $contentfulApi, payload }) {
     const locale = payload && payload.locale ? payload.locale : 'en-CA'

@@ -11,7 +11,7 @@
     <!-- Collection name & description - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div class="my-24 sm:my-28">
-      <PageTitle :title-text="collection.name"></PageTitle>
+      <Heading1 :heading-text="collection.name"></Heading1>
       <div class="md:w-2/3" v-html="descriptionRichText"></div>
     </div>
 
@@ -73,10 +73,11 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import Heading1 from '@/components/headings/Heading1'
 
 export default {
   name: 'Collection',
-  components: { CollectionListItem },
+  components: { Heading1, CollectionListItem },
   layout: 'expandedSearch',
 
   // Hooks ------------------------------------------------------------------------------------------------------------
