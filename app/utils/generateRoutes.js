@@ -330,8 +330,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     })
   }
 
-  // ------------------------------------------------------------------------------------------------------------------
-  
   return topicRoutesWithPayload
     .concat(homeRoutesWithPayload)
     .concat(resourceRoutesWithPayload)
