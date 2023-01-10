@@ -4,7 +4,8 @@
 
 <script>
 export default {
-  name: 'PageTitle',
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Heading1',
 
   props: {
     titleText: {
