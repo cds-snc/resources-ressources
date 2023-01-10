@@ -15,7 +15,6 @@ import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import Heading1 from '@/components/headings/Heading1'
 
 export default {
-
   name: 'About',
   components: { Heading1 },
   // Options ----------------------------------------------------------------------------------------------------------
