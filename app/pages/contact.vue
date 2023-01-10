@@ -9,10 +9,10 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { aboutPageQuery } from '@/utils/queries'
+import { contactPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
-import { EN_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   // Options ----------------------------------------------------------------------------------------------------------
@@ -34,32 +34,32 @@ export default {
     $contentfulPreviewApi,
     query,
     $preview,
+    i18n,
   }) {
     /* Contentful locale */
-    const locale = payload && payload.locale ? payload.locale : EN_LOCALE
+    const currentLocale = getCurrentLocale(payload, i18n)
 
     let contactPage
     const preview = query.preview || ($preview && $preview.enabled)
 
     if (preview) {
       contactPage = await $contentfulPreviewApi
-        .$post('', { query: aboutPageQuery(locale, preview) })
+        .$post('', { query: contactPageQuery(currentLocale, preview) })
         .then((result) => {
+          console.log(result, result.data)
           return result.data.contactPageCollection.items[0]
         })
     } else if (payload && payload.page) {
       contactPage = { ...payload.page }
     } else {
       contactPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: contactPageQuery(currentLocale) })
         .then((result) => {
           return result.data.contactPageCollection.items[0]
         })
     }
 
-    const i18nLocaleCode = locale.substring(0, 2)
-
-    const headElement = getHeadElement(contactPage.title, i18nLocaleCode)
+    const headElement = getHeadElement(contactPage.title, i18n.locale)
 
     const richText = documentToHtmlString(
       contactPage.body.json,

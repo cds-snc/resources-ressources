@@ -23,6 +23,8 @@ export const richTextRenderOptions = {
 
       const pageQuery = legalEntryQuery(entryId)
 
+      // todo: add in preview api for this
+      console.log('are we in preview?', preview)
       const entry = $contentfulApi
         .$post('', { query: pageQuery })
         .then((res) => {

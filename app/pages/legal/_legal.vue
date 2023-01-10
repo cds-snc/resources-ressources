@@ -17,22 +17,45 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { legalEntryQuery, legalPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, store, $contentfulApi, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
+  async asyncData({
+    params,
+    store,
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
 
     // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
+
+    console.log(
+      'currentLocal, alternateLocale, isDefaultLocale',
+      currentLocale,
+      alternateLocale,
+      isDefaultLocale
+    )
+    const preview = query.preview || ($preview && $preview.enabled)
 
     /* Get urlSlug */
 
     const urlSlug = params.legal
 
-    const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale)
+    const pageQuery = legalPageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      preview
+    )
 
     /* Fetch data */
 
@@ -40,8 +63,18 @@ export default {
     // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
 
     // Get en
-    let legalPage
-    if (payload && payload.legalPage) {
+    let legalPage = null
+    if (preview) {
+      console.log(i18n)
+      console.log('i18n locale', i18n.locale)
+      console.log('_legal.vue preview mode', currentLocale, payload)
+      legalPage = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((res) => {
+          // console.log('_legal.vue', pageQuery, res)
+          return res.data.legalPageCollection.items[0]
+        })
+    } else if (payload && payload.legalPage) {
       legalPage = { ...payload.legalPage }
     } else {
       legalPage = await $contentfulApi
@@ -108,12 +141,22 @@ export default {
 
           const pageQuery = legalEntryQuery(entryId)
 
-          const entry = $contentfulApi
-            .$post('', { query: pageQuery })
-            .then((res) => {
-              // console.log(res)
-              return res.data.legalPage
-            })
+          let entry = null
+          if (preview) {
+            entry = $contentfulPreviewApi
+              .$post('', { query: pageQuery })
+              .then((res) => {
+                // console.log(res)
+                return res.data.legalPage
+              })
+          } else {
+            entry = $contentfulApi
+              .$post('', { query: pageQuery })
+              .then((res) => {
+                // console.log(res)
+                return res.data.legalPage
+              })
+          }
 
           const path = '/legal/' + entry.urlSlug
           console.log(path)
