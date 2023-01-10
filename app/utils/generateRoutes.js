@@ -255,7 +255,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     const homeItem = await axios
       .post(apiURL, { query: pageQuery }, axiosConfig)
       .then((res) => {
-        console.log(res.data)
         return res.data.data.topicCollection.items
       })
     homeRoutesWithPayload.push({
@@ -288,7 +287,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     const aboutPage = await axios
       .post(apiURL, { query: pageQuery }, axiosConfig)
       .then((res) => {
-        console.log(res.data)
         return res.data.data.aboutPageCollection.items[0]
       })
     homeRoutesWithPayload.push({
@@ -321,7 +319,6 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
     const contactPage = await axios
       .post(apiURL, { query: pageQuery }, axiosConfig)
       .then((res) => {
-        console.log(res.data)
         return res.data.data.contactPageCollection.items[0]
       })
     homeRoutesWithPayload.push({
@@ -334,14 +331,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   }
 
   // ------------------------------------------------------------------------------------------------------------------
-
-  // console.log('------ generated routes ----------')
-  // console.log(
-  //   topicRoutesWithPayload,
-  //   resourceRoutesWithPayload,
-  //   legalRoutesWithPayload
-  // )
-
+  
   return topicRoutesWithPayload
     .concat(homeRoutesWithPayload)
     .concat(resourceRoutesWithPayload)
