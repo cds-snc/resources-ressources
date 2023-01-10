@@ -80,7 +80,7 @@ import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 
 let headings = []
 
-export const myCallback = (heading) => {
+export const addHeading = (heading) => {
   headings.push(heading)
 }
 
@@ -165,7 +165,7 @@ export default {
     if (resource.body) {
       richText = documentToHtmlString(
         resource.body.json,
-        richTextRenderOptions(currentLocale, resource.body.links, myCallback)
+        richTextRenderOptions(currentLocale, resource.body.links, addHeading)
       )
     }
 

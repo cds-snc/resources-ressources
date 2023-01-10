@@ -7,9 +7,11 @@ import {
   getTopicPathPrefix,
 } from '~/utils/pathUtility'
 
-export const richTextRenderOptions = (currentLocale, links, callbackMethod) => {
-  const headings = []
-
+export const richTextRenderOptions = (
+  currentLocale,
+  links,
+  addToResourceHeadings
+) => {
   const entryLinks = new Map()
 
   if (links) {
@@ -59,9 +61,11 @@ export const richTextRenderOptions = (currentLocale, links, callbackMethod) => {
       [BLOCKS.HEADING_2]: (node) => {
         const heading = node.content[0].value
         const headingId = heading.replace(/\s+/g, '-').toLowerCase()
-        if (callbackMethod && typeof callbackMethod === "function") {
-          // headings.push({linkName: heading, linkId: headingId})
-          callbackMethod({linkName: heading, linkId: headingId})
+        if (
+          addToResourceHeadings &&
+          typeof addToResourceHeadings === 'function'
+        ) {
+          addToResourceHeadings({ linkName: heading, linkId: headingId })
         }
         return `<h2 id="${headingId}" class="text-3xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
       },
