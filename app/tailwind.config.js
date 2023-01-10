@@ -1,4 +1,8 @@
 module.exports = {
+  content: [
+    './utils/richTextRenderOptions.js'
+  ],
+
   variants: {
     backgroundColor: ['hover', 'active'],
     textColor: ['hover', 'active'],
