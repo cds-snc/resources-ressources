@@ -40,9 +40,7 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <h1 class="text-3xl sm:text-5xl font-bold my-10 sm:my-10">
-              {{ resource.title }}
-            </h1>
+            <Heading1 :heading-text="resource.title" class="my-10"></Heading1>
 
             <div v-if="richText != null" v-html="richText"></div>
 
@@ -77,6 +75,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import Heading1 from '@/components/headings/Heading1'
 
 let headings = []
 
@@ -85,6 +84,7 @@ export const addHeading = (heading) => {
 }
 
 export default {
+  components: { Heading1 },
   layout: 'expandedSearch',
 
   async asyncData({ params, $contentfulApi, store, payload }) {
