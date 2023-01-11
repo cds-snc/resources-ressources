@@ -11,7 +11,7 @@
     <!-- Collection name & description - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div class="my-24 sm:my-28">
-      <Heading1 :heading-text="collection.name"></Heading1>
+      <heading1 :heading-text="collection.name"></heading1>
       <div class="md:w-2/3" v-html="descriptionRichText"></div>
     </div>
 
