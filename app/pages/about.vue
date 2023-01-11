@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-5xl mb-10">
-    <heading1 :heading-text="aboutPage.title" class="my-10"></heading1>
+    <r-h1 :heading-text="aboutPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
 </template>
@@ -12,11 +12,11 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
-import Heading1 from '@/components/headings/Heading1'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
   name: 'About',
-  components: { Heading1 },
+  components: { RH1 },
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {

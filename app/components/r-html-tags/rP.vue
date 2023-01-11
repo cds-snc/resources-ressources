@@ -10,6 +10,6 @@
 
 <script>
 export default {
-  name: 'LrParagraph',
+  name: 'RP',
 }
 </script>

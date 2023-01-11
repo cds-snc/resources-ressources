@@ -8,10 +8,10 @@
 
     <div class="flex my-24 sm:my-28">
       <div class="md:w-2/3">
-        <heading1 :heading-text="topic.name"></heading1>
-        <lr-paragraph v-if="topic.topicDescription">
+        <r-h1 :heading-text="topic.name"></r-h1>
+        <r-p v-if="topic.topicDescription">
           {{ topic.topicDescription }}
-        </lr-paragraph>
+        </r-p>
       </div>
     </div>
 
@@ -78,13 +78,13 @@ import { topicPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPath } from '@/utils/pathUtility'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
-import Heading1 from '@/components/headings/Heading1'
-import LrParagraph from '@/components/Paragraph'
+import RP from '@/components/r-html-tags/rP'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
   components: {
-    LrParagraph,
-    Heading1,
+    RH1,
+    RP,
     CollectionListItem,
   },
   // Filters ----------------------------------------------------------------------------------------------------------

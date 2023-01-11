@@ -3,7 +3,7 @@
 <template>
   <div class="mb-10">
     <div class="max-w-5xl">
-      <heading1 :heading-text="legalPage.title" class="my-10"></heading1>
+      <r-h1 :heading-text="legalPage.title" class="my-10"></r-h1>
       <div v-html="richText"></div>
     </div>
   </div>
@@ -16,10 +16,10 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { legalPageQuery } from '@/utils/queries'
-import Heading1 from '@/components/headings/Heading1'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
-  components: { Heading1 },
+  components: { RH1 },
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({ params, store, $contentfulApi, payload }) {
