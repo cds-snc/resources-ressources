@@ -71,6 +71,7 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   name: 'Collection',
@@ -79,23 +80,42 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
+  async asyncData({
+    params,
+    $contentfulApi,
+    store,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const preview = query.preview || ($preview && $preview.enabled)
 
-    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
 
     const urlSlug = params.collection
 
     const pageQuery = getCollectionPageQuery(
       urlSlug,
       currentLocale,
-      alternateLocale
+      alternateLocale,
+      preview
     )
 
-    let collection
+    let collection = null
 
-    if (payload && payload.collection) {
+    if (preview) {
+      const result = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((res) => {
+          return res
+        })
+
+      collection = result.data.collectionCollection.items[0]
+    } else if (payload && payload.collection) {
       collection = { ...payload.collection }
     } else {
       const result = await $contentfulApi

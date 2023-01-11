@@ -78,29 +78,51 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale } from '@/utils/getCurrentLocale'
 
 export default {
   layout: 'expandedSearch',
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : EN_LOCALE
+  async asyncData({
+    params,
+    $contentfulApi,
+    store,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
 
-    const alternateLocale = currentLocale.includes('en') ? FR_LOCALE : EN_LOCALE
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const preview = query.preview || ($preview && $preview.enabled)
 
     /* Query resource by url slug */
 
     const urlSlug = params.resource
 
-    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale)
-    let resource
-    if (payload && payload.resource) {
+    const pageQuery = resourcePageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      preview
+    )
+    let resource = null
+    if (preview) {
+      resource = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.testResourceCollection.items[0]
+        })
+    } else if (payload && payload.resource) {
       resource = { ...payload.resource }
     } else {
       resource = await $contentfulApi
         .$post('', { query: pageQuery })
         .then((result) => {
-          return result.data
+          return result.data.testResourceCollection.items[0]
         })
     }
     // console.log('_resource.vue', resource)
