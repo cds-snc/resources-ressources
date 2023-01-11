@@ -5,7 +5,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Heading1',
+  name: 'RH1',
 
   props: {
     headingText: {
