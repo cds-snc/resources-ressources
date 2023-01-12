@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-5xl mb-10">
-    <h1 class="font-bold text-4xl my-14">{{ contactPage.title }}</h1>
+    <r-h1 :heading-text="contactPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
 </template>
@@ -13,8 +13,11 @@ import { contactPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
+  name: 'Contact',
+  components: { RH1 },
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {
@@ -23,8 +26,6 @@ export default {
       fr: '/nous-joindre',
     },
   },
-
-  name: 'Contact',
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
@@ -63,7 +64,7 @@ export default {
 
     const richText = documentToHtmlString(
       contactPage.body.json,
-      richTextRenderOptions
+      richTextRenderOptions()
     )
 
     return { contactPage, richText, headElement }

@@ -11,7 +11,8 @@
     <!-- Collection name & description - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div class="my-24 sm:my-28">
-      <PageTitle :title-text="collection.name"></PageTitle>
+      <r-h1 :heading-text="collection.name"></r-h1>
+      <div class="md:w-2/3" v-html="descriptionRichText"></div>
     </div>
 
     <!-- Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
@@ -61,6 +62,7 @@
 <!-- Page logic ====================================================================================================-->
 
 <script>
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import {
   generateBreadcrumbs,
   generateCollections,
@@ -72,10 +74,12 @@ import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
   name: 'Collection',
-  components: { CollectionListItem },
+  components: { RH1, CollectionListItem },
   layout: 'expandedSearch',
 
   // Hooks ------------------------------------------------------------------------------------------------------------
@@ -162,12 +166,18 @@ export default {
       getLocaleCode(currentLocale)
     )
 
+    const descriptionRichText = documentToHtmlString(
+      collection.description?.json,
+      richTextRenderOptions()
+    )
+
     return {
       collection,
       breadcrumbs,
       resources,
       relatedCollections,
       headElement,
+      descriptionRichText,
     }
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-5xl mb-10">
-    <h1 class="font-bold text-4xl my-14">{{ aboutPage.title }}</h1>
+    <r-h1 :heading-text="aboutPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
 </template>
@@ -13,8 +13,11 @@ import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
+  name: 'About',
+  components: { RH1 },
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {
@@ -23,8 +26,6 @@ export default {
       fr: '/a-propos',
     },
   },
-
-  name: 'About',
 
   async asyncData({
     $contentfulApi,
@@ -36,6 +37,7 @@ export default {
   }) {
     const currentLocale = getCurrentLocale(payload, i18n)
     const preview = query.preview || ($preview && $preview.enabled)
+
 
     const pageQuery = aboutPageQuery(currentLocale, preview)
 
@@ -67,7 +69,7 @@ export default {
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
-      richTextRenderOptions
+      richTextRenderOptions()
     )
 
     return { aboutPage, richText, headElement }

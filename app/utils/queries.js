@@ -1,3 +1,5 @@
+import { ContentTypes } from './contentTypes'
+
 export const topicPageQuery = (
   urlSlug,
   currentLocale,
@@ -141,6 +143,45 @@ export const resourcePageQuery = (
           body
           {
             json
+            links
+            {
+              entries
+              {
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.RESOURCE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.TOPIC}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.COLLECTION}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -162,6 +203,23 @@ export const legalPageQuery = (
           body
           {
             json
+            links
+            {
+              entries
+              {
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.LEGAL_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
+              }
+            }
           }
         }
       }
