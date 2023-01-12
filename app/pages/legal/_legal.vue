@@ -3,6 +3,11 @@
 <template>
   <div class="mb-10">
     <div class="max-w-5xl">
+      <breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        :current-page-title="legalPage.title"
+      >
+      </breadcrumbs>
       <r-h1 :heading-text="legalPage.title" class="my-10"></r-h1>
       <div v-html="richText"></div>
     </div>
@@ -85,6 +90,8 @@ export default {
     }
 
     const localeCode = getLocaleCode(currentLocale)
+    const breadcrumbs = []
+    breadcrumbs.locale = localeCode
 
     const headElement = getHeadElement(legalPage.title, localeCode)
 
@@ -111,7 +118,7 @@ export default {
       richTextRenderOptions(currentLocale, legalPage.body?.links)
     )
 
-    return { legalPage, richText, headElement }
+    return { legalPage, richText, headElement, breadcrumbs }
   },
 
   head() {

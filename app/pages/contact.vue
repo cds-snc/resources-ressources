@@ -1,5 +1,10 @@
 <template>
   <div class="max-w-5xl mb-10">
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="contactPage.title"
+    >
+    </breadcrumbs>
     <r-h1 :heading-text="contactPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
@@ -12,7 +17,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contactPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
-import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import {getCurrentLocale, getLocaleCode} from '@/utils/getCurrentLocale'
 import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
@@ -60,14 +65,19 @@ export default {
         })
     }
 
-    const headElement = getHeadElement(contactPage.title, i18n.locale)
+    const localeCode = getLocaleCode(currentLocale)
+
+    const breadcrumbs = []
+    breadcrumbs.locale = localeCode
+
+    const headElement = getHeadElement(contactPage.title, localeCode)
 
     const richText = documentToHtmlString(
       contactPage.body.json,
       richTextRenderOptions()
     )
 
-    return { contactPage, richText, headElement }
+    return { contactPage, richText, headElement, breadcrumbs }
   },
 
   head() {

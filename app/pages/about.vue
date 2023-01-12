@@ -1,5 +1,10 @@
 <template>
   <div class="max-w-5xl mb-10">
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="aboutPage.title"
+    >
+    </breadcrumbs>
     <r-h1 :heading-text="aboutPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
@@ -62,17 +67,19 @@ export default {
         })
     }
 
-    const headElement = getHeadElement(
-      aboutPage.title,
-      getLocaleCode(currentLocale)
-    )
+    const localeCode = getLocaleCode(currentLocale)
+
+    const breadcrumbs = []
+    breadcrumbs.locale = localeCode
+
+    const headElement = getHeadElement(aboutPage.title, localeCode)
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
       richTextRenderOptions()
     )
 
-    return { aboutPage, richText, headElement }
+    return { aboutPage, richText, headElement, breadcrumbs }
   },
 
   head() {
