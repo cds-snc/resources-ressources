@@ -15,7 +15,7 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
-import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { legalPageQuery } from '@/utils/queries'
 import RH1 from '@/components/r-html-tags/rH1'

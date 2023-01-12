@@ -79,7 +79,7 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPath } from '@/utils/pathUtility'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
-import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RP from '@/components/r-html-tags/rP'
 import RH1 from '@/components/r-html-tags/rH1'
 
