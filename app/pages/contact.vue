@@ -17,7 +17,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contactPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
-import {getCurrentLocale, getLocaleCode} from '@/utils/getCurrentLocale'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
