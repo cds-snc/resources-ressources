@@ -67,13 +67,12 @@ import {
   generateBreadcrumbs,
   generateCollections,
   generateResources,
-  getLocaleCode,
 } from '@/utils/listItemsUtility'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
-import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 

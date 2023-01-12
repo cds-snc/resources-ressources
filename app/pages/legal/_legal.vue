@@ -48,7 +48,6 @@ export default {
     )
     const preview = query.preview || ($preview && $preview.enabled)
 
-
     const urlSlug = params.legal
 
     const pageQuery = legalPageQuery(
@@ -85,7 +84,7 @@ export default {
         })
     }
 
-    const localeCode = currentLocale.substring(0, 2)
+    const localeCode = getLocaleCode(currentLocale)
 
     const headElement = getHeadElement(legalPage.title, localeCode)
 
@@ -106,7 +105,6 @@ export default {
       en: { legal: enRouteParam },
       fr: { legal: frRouteParam },
     })
-
 
     const richText = documentToHtmlString(
       legalPage.body.json,

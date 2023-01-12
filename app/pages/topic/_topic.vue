@@ -83,7 +83,6 @@ import { getCurrentLocale } from '@/utils/getCurrentLocale'
 import RP from '@/components/r-html-tags/rP'
 import RH1 from '@/components/r-html-tags/rH1'
 
-
 export default {
   components: {
     RH1,
@@ -182,23 +181,22 @@ export default {
       ? '/resource/'
       : '/ressource/'
 
+    const localeCode = getLocaleCode(currentLocale)
     let breadcrumbs = topic.breadcrumbsCollection.items
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
-    breadcrumbs.locale = currentLocale.substring(0, 2)
+    breadcrumbs.locale = localeCode
 
     let subtopics = topic.subtopicsCollection.items
     subtopics = subtopics.map((subtopic) => ({
       name: subtopic.name,
       path: topicPathPrefix + subtopic.urlSlug,
-      locale: currentLocale.substring(0, 2),
+      locale: localeCode,
     }))
 
     let resources = topic.resourcesCollection.items
-
-    const localeCode = currentLocale.substring(0, 2)
 
     if (resources) {
       resources = resources

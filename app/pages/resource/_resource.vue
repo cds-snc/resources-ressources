@@ -75,7 +75,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
-import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 
@@ -140,15 +140,14 @@ export default {
       ? '/resource/'
       : '/ressource/'
 
+    const localeCode = getLocaleCode(currentLocale)
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
-    breadcrumbs.locale = currentLocale.substring(0, 2)
+    breadcrumbs.locale = localeCode
 
     let relatedResources = resource.relatedResourcesCollection.items
-
-    const localeCode = currentLocale.substring(0, 2)
 
     if (relatedResources) {
       relatedResources = relatedResources

@@ -15,3 +15,7 @@ export const getCurrentLocale = (payload, i18n) => {
 
   return currentLocale
 }
+
+export const getLocaleCode = (locale) => {
+  return locale.substring(0, 2)
+}

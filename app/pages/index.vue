@@ -58,7 +58,7 @@
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE } from '@/utils/constants'
-import { getCurrentLocale } from '@/utils/getCurrentLocale'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 
 export default {
   nuxtI18n: {
@@ -121,7 +121,7 @@ export default {
       path: topicPathPrefix + topic.urlSlug,
     }))
 
-    const locale = currentLocale.substring(0, 2)
+    const locale = getLocaleCode(currentLocale)
     const pageName = currentLocale.includes('en') ? 'Home' : 'Accueil'
     const headElement = getHeadElement(pageName, locale)
 
