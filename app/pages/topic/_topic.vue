@@ -1,10 +1,10 @@
 <template>
   <!-- Container for all resources -->
   <div>
-    <breadcrumbs
-      :breadcrumbs="breadcrumbs"
-      :current-page-title="topic.name"
-    ></breadcrumbs>
+<!--    <breadcrumbs-->
+<!--      :breadcrumbs="breadcrumbs"-->
+<!--      :current-page-title="topic.name"-->
+<!--    ></breadcrumbs>-->
 
     <div class="flex my-24 sm:my-28">
       <div class="md:w-2/3">
