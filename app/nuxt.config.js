@@ -204,6 +204,7 @@ module.exports = {
   pwa: {
     manifest: {
       lang: 'en',
+      crossorigin: 'use-credentials'
     },
     workbox: false,
   },
