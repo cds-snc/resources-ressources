@@ -131,7 +131,6 @@ export default {
     let topic = null
 
     if (preview) {
-      console.log(i18n)
       console.log('i18n locale', i18n.locale)
       console.log('_topic.vue preview mode', currentLocale)
       console.log(pageQuery)
