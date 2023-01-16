@@ -133,7 +133,7 @@ export default {
     if (preview) {
       console.log(i18n)
       console.log('i18n locale', i18n.locale)
-      console.log('index.vue preview mode', currentLocale, payload)
+      console.log('_topic.vue preview mode', currentLocale)
       console.log(pageQuery)
 
       const result = await $contentfulPreviewApi
@@ -143,6 +143,7 @@ export default {
           // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
         })
       topic = result.data.topicCollection.items[0]
+      console.log('topic - ', topic, topic.name)
     } else if (payload && payload.topic) {
       topic = { ...payload.topic }
     } else {
