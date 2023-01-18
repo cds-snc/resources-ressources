@@ -99,7 +99,6 @@ module.exports = {
   router: {
     prefetchLinks: false,
     prefetchPayloads: false,
-    trailingSlash: true,
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
