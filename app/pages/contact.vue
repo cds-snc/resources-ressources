@@ -52,7 +52,6 @@ export default {
       contactPage = await $contentfulPreviewApi
         .$post('', { query: contactPageQuery(currentLocale, preview) })
         .then((result) => {
-          console.log(result, result.data)
           return result.data.contactPageCollection.items[0]
         })
     } else if (payload && payload.page) {

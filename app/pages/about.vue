@@ -48,10 +48,6 @@ export default {
     let aboutPage = null
 
     if (preview) {
-      console.log(i18n)
-      console.log('i18n locale', i18n.locale)
-      console.log('index.vue preview mode', currentLocale, payload)
-      console.log(pageQuery)
       aboutPage = await $contentfulPreviewApi
         .$post('', { query: pageQuery })
         .then((result) => {

@@ -41,16 +41,9 @@ export default {
   }) {
     const currentLocale = getCurrentLocale(payload, i18n)
 
-    // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
     const isDefaultLocale = currentLocale === EN_LOCALE || false
 
-    console.log(
-      'currentLocal, alternateLocale, isDefaultLocale',
-      currentLocale,
-      alternateLocale,
-      isDefaultLocale
-    )
     const preview = query.preview || ($preview && $preview.enabled)
 
     const urlSlug = params.legal
@@ -62,21 +55,12 @@ export default {
       preview
     )
 
-    /* Fetch data */
-
-    // $contentfulApi.setToken(process.env.CTF_CDA_ACCESS_TOKEN, 'Bearer')
-    // const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.CTF_SPACE_ID}`
-
     // Get en
     let legalPage = null
     if (preview) {
-      console.log(i18n)
-      console.log('i18n locale', i18n.locale)
-      console.log('_legal.vue preview mode', currentLocale, payload)
       legalPage = await $contentfulPreviewApi
         .$post('', { query: pageQuery })
         .then((res) => {
-          // console.log('_legal.vue', pageQuery, res)
           return res.data.legalPageCollection.items[0]
         })
     } else if (payload && payload.legalPage) {

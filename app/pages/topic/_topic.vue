@@ -131,29 +131,21 @@ export default {
     let topic = null
 
     if (preview) {
-      console.log('i18n locale', i18n.locale)
-      console.log('_topic.vue preview mode', currentLocale)
-      console.log(pageQuery)
-
       const result = await $contentfulPreviewApi
         .$post('', { query: pageQuery })
         .then((res) => {
           return res
-          // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
         })
       topic = result.data.topicCollection.items[0]
-      console.log('topic - ', topic, topic.name)
     } else if (payload && payload.topic) {
       topic = { ...payload.topic }
     } else {
       // get topic
-      // topic = $contentfulClient.queryTopicPage(urlSlug, currentLocale, alternateLocale)
 
       const result = await $contentfulApi
         .$post('', { query: pageQuery })
         .then((res) => {
           return res
-          // return result.data.topicCollection.items[0].linkedFrom.testResourceCollection.items
         })
       topic = result.data.topicCollection.items[0]
     }

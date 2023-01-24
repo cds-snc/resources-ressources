@@ -92,17 +92,11 @@ export default {
     let topics = null
 
     if (preview) {
-      console.log(i18n)
-      console.log('i18n locale', i18n.locale)
-      console.log('index.vue preview mode', currentLocale, payload)
-      console.log(pageQuery)
       topics = await $contentfulPreviewApi
         .$post('', { query: pageQuery })
         .then((result) => {
-          console.log(result.data)
           return result.data.topicCollection.items
         })
-      console.log(topics)
     } else if (payload && payload.topics) {
       topics = [...payload.topics]
     } else {
