@@ -26,12 +26,16 @@ module.exports = {
   publicRuntimeConfig: {
     googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
     googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID,
-    previewEnv: process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true',
+    previewEnv:
+      process.env.PREVIEW_ENV &&
+      process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true',
     contentfulPreviewAccessToken:
+      process.env.PREVIEW_ENV &&
       process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true'
         ? config.CTF_CPA_ACCESS_TOKEN || process.env.contentful_cpa_access_token
         : null,
     contentfulPreviewSpaceID:
+      process.env.PREVIEW_ENV &&
       process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true'
         ? config.CTF_SPACE_ID || process.env.contentful_space_id
         : null,
@@ -204,7 +208,7 @@ module.exports = {
   pwa: {
     manifest: {
       lang: 'en',
-      crossorigin: 'use-credentials'
+      crossorigin: 'use-credentials',
     },
     workbox: false,
   },

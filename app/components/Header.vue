@@ -119,6 +119,7 @@
 <!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 <script>
+import { mapState } from 'vuex'
 import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 
 export default {
@@ -136,14 +137,10 @@ export default {
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
-
-    topicsEN() {
-      return this.$store.state.topics[EN_LOCALE]
-    },
-
-    topicsFR() {
-      return this.$store.state.topics[FR_LOCALE]
-    },
+    ...mapState({
+      topicsEN: (state) => state.menu.topics[EN_LOCALE],
+      topicsFR: (state) => state.menu.topics[FR_LOCALE],
+    }),
   },
 
   methods: {
