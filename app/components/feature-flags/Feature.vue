@@ -12,7 +12,6 @@
 import FeatureConfigUtil from '@/utils/featureConfigUtil.ts'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Feature',
 
   props: {
