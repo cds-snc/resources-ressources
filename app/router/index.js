@@ -4,7 +4,6 @@ Vue.use(Router)
 export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
   const options = routerOptions || createDefaultRouter(ssrContext).options
 
-
   // console.log("hostname: " + hostname);
 
   return new Router({
