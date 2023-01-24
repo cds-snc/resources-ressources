@@ -8,13 +8,10 @@
 
     <div class="flex my-24 sm:my-28">
       <div class="md:w-2/3">
-        <h1 class="font-bold text-4xl sm:text-5xl">{{ topic.name }}</h1>
-        <p
-          v-if="topic.topicDescription"
-          class="pt-10 text-lg sm:text-xl text-gray-900 tracking-wide leading-relaxed"
-        >
+        <r-h1 :heading-text="topic.name"></r-h1>
+        <r-p v-if="topic.topicDescription">
           {{ topic.topicDescription }}
-        </p>
+        </r-p>
       </div>
     </div>
 
@@ -81,9 +78,15 @@ import { topicPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPath } from '@/utils/pathUtility'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
+import RP from '@/components/r-html-tags/rP'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
-  components: { CollectionListItem },
+  components: {
+    RH1,
+    RP,
+    CollectionListItem,
+  },
   // Filters ----------------------------------------------------------------------------------------------------------
 
   filters: {
@@ -101,11 +104,8 @@ export default {
   async asyncData({ params, $contentfulApi, store, payload }) {
     const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
 
-    // const currentLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
     const isDefaultLocale = currentLocale.includes('en') || false
-
-    // const topic = params.topic[0].toUpperCase() + params.topic.substring(1);
 
     const urlSlug = params.topic
 
@@ -167,12 +167,16 @@ export default {
 
     const localeCode = currentLocale.substring(0, 2)
 
-    resources = resources.map((resource) => ({
-      title: resource.title,
-      dateAdded: resource.dateAdded,
-      path: resourcePathPrefix + resource.urlSlug,
-      locale: localeCode,
-    }))
+    if (resources) {
+      resources = resources
+        .filter((resource) => resource.title != null)
+        .map((resource) => ({
+          title: resource?.title,
+          dateAdded: resource?.dateAdded,
+          path: resourcePathPrefix + resource?.urlSlug,
+          locale: localeCode,
+        }))
+    }
 
     let collections = topic.collectionsCollection.items
     collections = collections.map((collection) => ({

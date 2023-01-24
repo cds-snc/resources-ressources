@@ -1,6 +1,11 @@
 <template>
   <div class="max-w-5xl mb-10">
-    <h1 class="font-bold text-4xl my-14">{{ aboutPage.title }}</h1>
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="aboutPage.title"
+    >
+    </breadcrumbs>
+    <r-h1 :heading-text="aboutPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
 </template>
@@ -12,8 +17,11 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
+  name: 'About',
+  components: { RH1 },
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {
@@ -22,8 +30,6 @@ export default {
       fr: '/a-propos',
     },
   },
-
-  name: 'About',
 
   async asyncData({ $contentfulApi, payload }) {
     const locale = payload && payload.locale ? payload.locale : 'en-CA'
@@ -42,14 +48,17 @@ export default {
 
     const i18nLocaleCode = locale.substring(0, 2)
 
+    const breadcrumbs = []
+    breadcrumbs.locale = i18nLocaleCode
+
     const headElement = getHeadElement(aboutPage.title, i18nLocaleCode)
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
-      richTextRenderOptions
+      richTextRenderOptions()
     )
 
-    return { aboutPage, richText, headElement }
+    return { aboutPage, richText, headElement, breadcrumbs }
   },
 
   head() {

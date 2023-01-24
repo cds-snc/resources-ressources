@@ -1,17 +1,12 @@
 <!-- Component View ================================================================================================-->
 
 <template>
-  <div
-    class="py-5 px-1.5 rounded-2xl mb-4 hover:bg-gray-100 cursor-pointer drop-shadow-2xl -mx-2 w-fit"
-    @click="navigateToResource()"
+  <nuxt-link
+    :to="localePath(resource.path, resource.locale)"
+    class="text-2xl font-medium text-blue-800 underline hover:text-blue-700 inline-block py-5 hover:bg-gray-100 px-1.5 rounded-2xl cursor-pointer mb-4 w-fit -mx-2"
   >
-    <nuxt-link
-      :to="localePath(resource.path, resource.locale)"
-      class="text-2xl font-medium text-blue-800 underline hover:text-blue-700"
-    >
-      {{ resource.title }}
-    </nuxt-link>
-  </div>
+    {{ resource.title }}
+  </nuxt-link>
 </template>
 
 <!-- Component Logic ===============================================================================================-->
@@ -41,16 +36,6 @@ export default {
       dateAdded: String,
       path: String,
       locale: String,
-    },
-  },
-
-  // Methods ----------------------------------------------------------------------------------------------------------
-
-  methods: {
-    navigateToResource() {
-      this.$router.push(
-        this.localePath(this.resource.path, this.resource.locale)
-      )
     },
   },
 }

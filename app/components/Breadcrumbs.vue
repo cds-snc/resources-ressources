@@ -8,7 +8,6 @@
           :to="localePath(homePath, breadcrumbs.locale)"
           class="font-medium text-xl hover:text-blue-800 hover:underline"
         >
-          <!-- {{ breadcrumbs.locale === 'en' ? 'Home' : 'Accueil' }} -->
           {{ $t('home') }}
         </nuxt-link>
         <font-awesome-icon
@@ -22,18 +21,6 @@
         :key="breadcrumb.name"
         class="whitespace-nowrap"
       >
-        <!-- For dynamic path -->
-        <!-- <nuxt-link
-          :to="
-            localePath({
-              name: 'topic-topic',
-              params: { topic: breadcrumb.urlSlug, name: breadcrumb.name },
-            })
-          "
-          class="font-medium hover:text-blue-800 hover:underline"
-        >-->
-
-        <!-- For full static site -->
         <nuxt-link
           :to="breadcrumb.path"
           class="font-medium text-xl hover:text-blue-800 hover:underline"

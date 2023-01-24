@@ -40,11 +40,9 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <h1 class="text-3xl sm:text-5xl font-bold my-10 sm:my-10">
-              {{ resource.title }}
-            </h1>
+            <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
 
-            <div v-html="richText"></div>
+            <div v-if="richText != null" v-html="richText"></div>
 
             <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
@@ -74,11 +72,19 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import RH1 from '@/components/r-html-tags/rH1'
+
+let headings = []
+
+export const addHeading = (heading) => {
+  headings.push(heading)
+}
 
 export default {
+  components: { RH1 },
   layout: 'expandedSearch',
 
   async asyncData({ params, $contentfulApi, store, payload }) {
@@ -102,7 +108,6 @@ export default {
           return result.data
         })
     }
-    // console.log('_resource.vue', resource)
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
@@ -117,18 +122,21 @@ export default {
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
     breadcrumbs.locale = currentLocale.substring(0, 2)
-    console.log('breadcrumbs locale: ' + breadcrumbs.locale)
 
     let relatedResources = resource.relatedResourcesCollection.items
 
     const localeCode = currentLocale.substring(0, 2)
 
-    relatedResources = relatedResources.map((resource) => ({
-      title: resource.title,
-      dateAdded: resource.dateAdded,
-      path: resourcePathPrefix + resource.urlSlug,
-      locale: localeCode,
-    }))
+    if (relatedResources) {
+      relatedResources = relatedResources
+        .filter((resource) => resource?.title != null)
+        .map((resource) => ({
+          title: resource.title,
+          dateAdded: resource?.dateAdded,
+          path: resourcePathPrefix + resource?.urlSlug,
+          locale: localeCode,
+        }))
+    }
 
     const headElement = getHeadElement(resource.title, localeCode)
 
@@ -150,64 +158,16 @@ export default {
       fr: { resource: frRouteParam },
     })
 
-    const headings = []
+    headings = []
 
-    const resourceRichTextRenderOptionsx = {
-      renderMark: {
-        [MARKS.BOLD]: (text) => {
-          console.log(text)
-          return `<strong class="font-bold">${text}</strong>`
-        },
-        [MARKS.ITALIC]: (text) => {
-          return `<i class="italic">${text}</i>`
-        },
-      },
-      renderNode: {
-        [INLINES.HYPERLINK]: (node) => {
-          return `<a class="text-blue-900 underline" href="${node.data.uri}">${node.content[0].value}</a>`
-        },
-        [BLOCKS.HEADING_1]: (node) => {
-          return `<h1 class="text-3xl font-medium mt-12 mb-2.5" >${node.content[0].value}</h1>`
-        },
-        [BLOCKS.HEADING_2]: (node) => {
-          const heading = node.content[0].value
-          const headingId = heading.replace(/\s+/g, '-').toLowerCase()
-          headings.push({ linkName: heading, linkId: headingId })
-          return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
-        },
-        [BLOCKS.HEADING_3]: (node) => {
-          return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
-        },
-        [BLOCKS.HEADING_4]: (node) => {
-          return `<h4 class="text-lg font-medium mt-12 mb-2.5">${node.content[0].value}</h4>`
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        [BLOCKS.PARAGRAPH]: (node, next) => {
-          // return `<p class="leading-7">${node.content[0].value}</p>`
-          return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
-            node.content
-          ).replace(/\n/g, '<br/>')}</p>`
-        },
-        [BLOCKS.UL_LIST]: (node, next) => {
-          return `<ul class="list-disc ml-4">
-                        ${next(node.content)}
-                    </ul>`
-        },
-        [BLOCKS.OL_LIST]: (node, next) => {
-          return `<ol class="list-decimal ml-4">
-                    ${next(node.content)}
-                    </ol>`
-        },
-        [BLOCKS.HR]: () => {
-          return `<div class="border-t border-gray-300 mt-10"></div>`
-        },
-      },
+    let richText = null
+
+    if (resource.body) {
+      richText = documentToHtmlString(
+        resource.body.json,
+        richTextRenderOptions(currentLocale, resource.body.links, addHeading)
+      )
     }
-
-    const richText = documentToHtmlString(
-      resource.body.json,
-      resourceRichTextRenderOptionsx
-    )
 
     return {
       resource,
