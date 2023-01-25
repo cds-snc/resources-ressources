@@ -25,9 +25,13 @@ export const generateCollections = (collectionItems, locale) => {
 }
 
 export const generateResources = (resourceItems, locale) => {
-  return resourceItems.map((resourceItem) => ({
-    title: resourceItem.title,
-    path: getResourcePath(resourceItem.urlSlug, locale),
-    locale: getLocaleCode(locale),
-  }))
+  return resourceItems
+    .filter(
+      (resourceItem) => resourceItem != null && resourceItem?.title != null
+    )
+    .map((resourceItem) => ({
+      title: resourceItem.title,
+      path: getResourcePath(resourceItem.urlSlug, locale),
+      locale: getLocaleCode(locale),
+    }))
 }

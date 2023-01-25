@@ -82,6 +82,7 @@ import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RP from '@/components/r-html-tags/rP'
 import RH1 from '@/components/r-html-tags/rH1'
+import { generateResources } from '@/utils/listItemsUtility'
 
 export default {
   components: {
@@ -169,9 +170,6 @@ export default {
     })
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
-    const resourcePathPrefix = currentLocale.includes('en')
-      ? '/resource/'
-      : '/ressource/'
 
     const localeCode = getLocaleCode(currentLocale)
     let breadcrumbs = topic.breadcrumbsCollection.items
@@ -191,14 +189,7 @@ export default {
     let resources = topic.resourcesCollection.items
 
     if (resources) {
-      resources = resources
-        .filter((resource) => resource.title != null)
-        .map((resource) => ({
-          title: resource?.title,
-          dateAdded: resource?.dateAdded,
-          path: resourcePathPrefix + resource?.urlSlug,
-          locale: localeCode,
-        }))
+      resources = generateResources(resources, currentLocale)
     }
 
     let collections = topic.collectionsCollection.items
