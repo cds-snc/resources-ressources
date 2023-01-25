@@ -1,11 +1,10 @@
 <template>
   <div class="flex flex-col min-h-screen scroll-p-36">
-    <!-- <Banner /> -->
+    <Banner />
     <Header
-      class="border-b border-solid border-gray-200 fixed top-0 w-full z-50"
+      class="border-b border-solid border-gray-200 sticky top-0 w-full z-50"
     />
-    <!-- <main class="flex-grow"> -->
-    <main class="mt-56 md:mt-36">
+    <main>
       <div class="max-w-7xl mx-auto px-5">
         <Nuxt />
       </div>

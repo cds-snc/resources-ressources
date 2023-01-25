@@ -15,7 +15,7 @@
 
           <div
             v-if="headings.length > 0"
-            class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10"
+            class="lg:sticky lg:top-20 self-start min-w-1/4 mt-10"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">

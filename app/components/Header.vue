@@ -2,9 +2,9 @@
 <template>
   <header data-app>
     <!-- Pilot banner -->
-    <Banner />
+    <!-- <Banner /> -->
 
-    <nav class="bg-white text-black pb-2.5">
+    <nav class="bg-white text-black pt-2 md:pt-0">
       <div class="max-w-7xl mx-auto px-4">
         <div
           class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
