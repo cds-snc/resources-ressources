@@ -2,9 +2,9 @@
 <template>
   <header data-app>
     <!-- Pilot banner -->
-    <Banner />
+    <!-- <Banner /> -->
 
-    <nav class="bg-white text-black pb-2.5">
+    <nav class="bg-white text-black pt-2 md:pt-0">
       <div class="max-w-7xl mx-auto px-4">
         <div
           class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
@@ -119,6 +119,9 @@
 <!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 <script>
+import { mapState } from 'vuex'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+
 export default {
   name: 'Header',
   data() {
@@ -134,14 +137,10 @@ export default {
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
-
-    topicsEN() {
-      return this.$store.state.topics['en-CA']
-    },
-
-    topicsFR() {
-      return this.$store.state.topics['fr-CA']
-    },
+    ...mapState({
+      topicsEN: (state) => state.menu.topics[EN_LOCALE],
+      topicsFR: (state) => state.menu.topics[FR_LOCALE],
+    }),
   },
 
   methods: {

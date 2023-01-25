@@ -35,7 +35,6 @@ export const richTextRenderOptions = (
       },
       [INLINES.ENTRY_HYPERLINK]: (node) => {
         const entry = entryLinks.get(node.data.target.sys.id)
-
         if (entry.__typename === ContentTypes.RESOURCE) {
           const resourcePath =
             getResourcePathPrefix(currentLocale) + entry.urlSlug

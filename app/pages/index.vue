@@ -4,7 +4,7 @@
   <div class="mb-10">
     <!-- Welcome message - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <div class="mt-20 mb-20 sm:mb-40">
+    <div class="mt-20 mb-20 sm:mb-24">
       <h1 class="text-4xl md:text-5xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
@@ -57,6 +57,8 @@
 <script>
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE } from '@/utils/constants'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 
 export default {
   nuxtI18n: {
@@ -72,13 +74,30 @@ export default {
   },
   layout: 'expandedSearch',
 
-  async asyncData({ $contentfulApi, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    // const currentLocale = payload && payload.locale ? payload.locale : (i18n && i18n.locale) ? i18n.locale : EN_LOCALE
+    const currentLocale = getCurrentLocale(payload, i18n)
+
+    const preview = query.preview || ($preview && $preview.enabled)
+
+    const pageQuery = topLevelTopicsQuery(currentLocale, preview)
 
     let topics = null
 
-    const pageQuery = topLevelTopicsQuery(currentLocale)
-    if (payload && payload.topics) {
+    if (preview) {
+      topics = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.topicCollection.items
+        })
+    } else if (payload && payload.topics) {
       topics = [...payload.topics]
     } else {
       topics = await $contentfulApi
@@ -88,7 +107,7 @@ export default {
         })
     }
 
-    const topicPathPrefix = currentLocale === 'en-CA' ? '/topic/' : '/sujet/'
+    const topicPathPrefix = currentLocale === EN_LOCALE ? '/topic/' : '/sujet/'
 
     topics = topics.map((topic) => ({
       name: topic.name,
@@ -96,7 +115,7 @@ export default {
       path: topicPathPrefix + topic.urlSlug,
     }))
 
-    const locale = currentLocale.substring(0, 2)
+    const locale = getLocaleCode(currentLocale)
     const pageName = currentLocale.includes('en') ? 'Home' : 'Accueil'
     const headElement = getHeadElement(pageName, locale)
 
