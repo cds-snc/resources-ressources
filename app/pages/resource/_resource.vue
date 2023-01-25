@@ -137,7 +137,6 @@ export default {
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
-
     const localeCode = getLocaleCode(currentLocale)
 
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
