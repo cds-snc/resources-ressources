@@ -180,6 +180,37 @@ export const resourcePageQuery = (
                     urlSlug
                   }
                 }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.ABOUT_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                  }
+                }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.CONTACT_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                  }
+                }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.LEGAL_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
               }
             }
           }
