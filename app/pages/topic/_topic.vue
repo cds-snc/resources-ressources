@@ -80,6 +80,7 @@ import { getCollectionPath } from '@/utils/pathUtility'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
 import RP from '@/components/r-html-tags/rP'
 import RH1 from '@/components/r-html-tags/rH1'
+import { generateResources } from '@/utils/listItemsUtility'
 
 export default {
   components: {
@@ -145,9 +146,9 @@ export default {
     })
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
-    const resourcePathPrefix = currentLocale.includes('en')
+    /* const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
-      : '/ressource/'
+      : '/ressource/' */
 
     let breadcrumbs = topic.breadcrumbsCollection.items
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
@@ -168,14 +169,16 @@ export default {
     const localeCode = currentLocale.substring(0, 2)
 
     if (resources) {
-      resources = resources
-        .filter((resource) => resource.title != null)
+      resources = generateResources(resources, currentLocale)
+
+      /* resources
+        .filter((resource) => resource != null && resource?.title != null)
         .map((resource) => ({
           title: resource?.title,
           dateAdded: resource?.dateAdded,
           path: resourcePathPrefix + resource?.urlSlug,
           locale: localeCode,
-        }))
+        })) */
     }
 
     let collections = topic.collectionsCollection.items

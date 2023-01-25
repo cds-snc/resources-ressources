@@ -76,6 +76,7 @@ import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
+import { generateResources } from '@/utils/listItemsUtility'
 
 let headings = []
 
@@ -113,9 +114,9 @@ export default {
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
-    const resourcePathPrefix = currentLocale.includes('en')
+    /* const resourcePathPrefix = currentLocale.includes('en')
       ? '/resource/'
-      : '/ressource/'
+      : '/ressource/' */
 
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
@@ -128,14 +129,16 @@ export default {
     const localeCode = currentLocale.substring(0, 2)
 
     if (relatedResources) {
-      relatedResources = relatedResources
-        .filter((resource) => resource?.title != null)
+      relatedResources = generateResources(relatedResources, currentLocale)
+
+      /* relatedResources
+        .filter((resource) => resource != null && resource?.title != null)
         .map((resource) => ({
           title: resource.title,
           dateAdded: resource?.dateAdded,
           path: resourcePathPrefix + resource?.urlSlug,
           locale: localeCode,
-        }))
+        })) */
     }
 
     const headElement = getHeadElement(resource.title, localeCode)
