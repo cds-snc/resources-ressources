@@ -4,7 +4,7 @@
   <div class="mb-10">
     <!-- Welcome message - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <div class="mt-20 mb-20 sm:mb-40">
+    <div class="mt-20 mb-20 sm:mb-24">
       <h1 class="text-4xl md:text-5xl font-bold pb-8">
         {{ $t('landing_page.title') }}
       </h1>
