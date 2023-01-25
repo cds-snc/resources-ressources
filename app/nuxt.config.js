@@ -26,6 +26,9 @@ module.exports = {
   publicRuntimeConfig: {
     googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
     googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID,
+
+    features: {},
+
     previewEnv:
       process.env.PREVIEW_ENV &&
       process.env.PREVIEW_ENV.toLocaleLowerCase() === 'true',

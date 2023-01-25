@@ -35,6 +35,7 @@ module.exports = {
           'Box',
           'Link',
           'Button',
+          'Feature',
         ],
       },
     ],
