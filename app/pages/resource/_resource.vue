@@ -114,10 +114,6 @@ export default {
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
-    /* const resourcePathPrefix = currentLocale.includes('en')
-      ? '/resource/'
-      : '/ressource/' */
-
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
@@ -130,15 +126,6 @@ export default {
 
     if (relatedResources) {
       relatedResources = generateResources(relatedResources, currentLocale)
-
-      /* relatedResources
-        .filter((resource) => resource != null && resource?.title != null)
-        .map((resource) => ({
-          title: resource.title,
-          dateAdded: resource?.dateAdded,
-          path: resourcePathPrefix + resource?.urlSlug,
-          locale: localeCode,
-        })) */
     }
 
     const headElement = getHeadElement(resource.title, localeCode)
