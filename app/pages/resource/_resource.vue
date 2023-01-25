@@ -74,6 +74,8 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 import { generateResources } from '@/utils/listItemsUtility'
@@ -88,25 +90,46 @@ export default {
   components: { RH1 },
   layout: 'expandedSearch',
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+  async asyncData({
+    params,
+    $contentfulApi,
+    store,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
 
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const preview = query.preview || ($preview && $preview.enabled)
 
     /* Query resource by url slug */
 
     const urlSlug = params.resource
 
-    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale)
-    let resource
-    if (payload && payload.resource) {
+    const pageQuery = resourcePageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      preview
+    )
+    let resource = null
+    if (preview) {
+      resource = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.testResourceCollection.items[0]
+        })
+    } else if (payload && payload.resource) {
       resource = { ...payload.resource }
     } else {
       resource = await $contentfulApi
         .$post('', { query: pageQuery })
         .then((result) => {
-          return result.data
+          return result.data.testResourceCollection.items[0]
         })
     }
 
@@ -114,15 +137,15 @@ export default {
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
+    const localeCode = getLocaleCode(currentLocale)
+
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
-    breadcrumbs.locale = currentLocale.substring(0, 2)
+    breadcrumbs.locale = localeCode
 
     let relatedResources = resource.relatedResourcesCollection.items
-
-    const localeCode = currentLocale.substring(0, 2)
 
     if (relatedResources) {
       relatedResources = generateResources(relatedResources, currentLocale)

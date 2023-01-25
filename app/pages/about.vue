@@ -17,6 +17,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
@@ -31,27 +32,43 @@ export default {
     },
   },
 
-  async asyncData({ $contentfulApi, payload }) {
-    const locale = payload && payload.locale ? payload.locale : 'en-CA'
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const preview = query.preview || ($preview && $preview.enabled)
 
-    let aboutPage
+    const pageQuery = aboutPageQuery(currentLocale, preview)
 
-    if (payload && payload.page) {
+    let aboutPage = null
+
+    if (preview) {
+      aboutPage = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.aboutPageCollection.items[0]
+        })
+    } else if (payload && payload.page) {
       aboutPage = { ...payload.page }
     } else {
       aboutPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: pageQuery })
         .then((result) => {
           return result.data.aboutPageCollection.items[0]
         })
     }
 
-    const i18nLocaleCode = locale.substring(0, 2)
+    const localeCode = getLocaleCode(currentLocale)
 
     const breadcrumbs = []
-    breadcrumbs.locale = i18nLocaleCode
+    breadcrumbs.locale = localeCode
 
-    const headElement = getHeadElement(aboutPage.title, i18nLocaleCode)
+    const headElement = getHeadElement(aboutPage.title, localeCode)
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
