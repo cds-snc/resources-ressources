@@ -9,9 +9,9 @@
 > problème (« issue ») GitHub ou la fiche Trello, le cas échéant.
 
 ## ⚠️ This PR can be tested through the following URL(s):
-Main - https://staging.resources.alpha.canada.ca/
-EN - https://en.staging.resources.alpha.canada.ca/
-FR - https://fr.staging.resources.alpha.canada.ca/fr/
+Main - [https://staging.resources.alpha.canada.ca/](https://staging.resources.alpha.canada.ca/)
+EN - [https://staging.resources.alpha.canada.ca/](https://staging.resources.alpha.canada.ca/)
+FR - [https://staging.ressources.alpha.canada.ca/fr/](https://ressources.alpha.canada.ca/fr/)
 
 
 # After merge, do this:
