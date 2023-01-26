@@ -46,7 +46,7 @@
 
             <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-            <div>
+            <div v-if="relatedResources && relatedResources.length > 0">
               <div class="border-t border-gray-300 border-thin my-14"></div>
 
               <h2 class="py-5 font-thin text-4xl">

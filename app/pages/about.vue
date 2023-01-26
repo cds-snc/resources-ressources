@@ -19,6 +19,7 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RH1 from '@/components/r-html-tags/rH1'
+import { aboutPathEN, aboutPathFR } from '@/utils/pathUtility'
 
 export default {
   name: 'About',
@@ -27,8 +28,8 @@ export default {
 
   nuxtI18n: {
     paths: {
-      en: '/about',
-      fr: '/a-propos',
+      en: aboutPathEN,
+      fr: aboutPathFR,
     },
   },
 
