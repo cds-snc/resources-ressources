@@ -19,6 +19,7 @@ import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RH1 from '@/components/r-html-tags/rH1'
+import { contactPathEN, contactPathFR } from '@/utils/pathUtility'
 
 export default {
   name: 'Contact',
@@ -27,8 +28,8 @@ export default {
 
   nuxtI18n: {
     paths: {
-      en: '/contact',
-      fr: '/nous-joindre',
+      en: contactPathEN,
+      fr: contactPathFR,
     },
   },
 

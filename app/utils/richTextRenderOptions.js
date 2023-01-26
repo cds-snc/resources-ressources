@@ -1,7 +1,9 @@
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { ContentTypes } from '~/utils/contentTypes'
 import {
+  getAboutPagePath,
   getCollectionPath,
+  getContactPagePath,
   getLegalPathPrefix,
   getResourcePathPrefix,
   getTopicPathPrefix,
@@ -51,6 +53,14 @@ export const richTextRenderOptions = (
         if (entry.__typename === ContentTypes.LEGAL_PAGE) {
           const legalPath = getLegalPathPrefix(currentLocale) + entry.urlSlug
           return `<a class="text-blue-900 underline" href="${legalPath}">${node.content[0].value}</a>`
+        }
+        if (entry.__typename === ContentTypes.ABOUT_PAGE) {
+          const aboutPagePath = getAboutPagePath(currentLocale)
+          return `<a class="text-blue-900 underline" href="${aboutPagePath}">${node.content[0].value}</a>`
+        }
+        if (entry.__typename === ContentTypes.CONTACT_PAGE) {
+          const contactPagePath = getContactPagePath(currentLocale)
+          return `<a class="text-blue-900 underline" href="${contactPagePath}">${node.content[0].value}</a>`
         }
       },
       [BLOCKS.HEADING_1]: (node) => {
