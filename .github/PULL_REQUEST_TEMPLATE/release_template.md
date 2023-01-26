@@ -9,25 +9,10 @@
 > problème (« issue ») GitHub ou la fiche Trello, le cas échéant.
 
 ## ⚠️ This PR can be tested through the following URL(s):
-Main - https://staging.learning-resources.cdssandbox.xyz/
-EN - https://en.staging.learning-resources.cdssandbox.xyz/
-FR - https://fr.staging.learning-resources.cdssandbox.xyz/fr/
+Main - https://staging.resources.alpha.canada.ca/
+EN - https://en.staging.resources.alpha.canada.ca/
+FR - https://fr.staging.resources.alpha.canada.ca/fr/
 
-# 🚀  Release Checklist
-
-Item | Checked / Reviewed by | Status | Notes
--- | -- | -- | --
-Metrics - Google Analytics working and collecting data |  @daine @hillaryl   | Not started | [Prioritized for next release](https://github.com/cds-snc/resources-ressources/issues/154)
-Content - Contentful |   | Not started |
-Content - English | @anikbrazeau  | Not started |
-Content - French | @anikbrazeau  | Not started |
-Infra - Domains OK | @daine   | ☀️ Ready |
-Infra - Amplify OK | @daine | ☀️ Ready  |
-Monitoring (Uptime Robot)| @daine | ☀️ Ready  |  [Status page dashboard](https://stats.uptimerobot.com/gP5gohqEVQ)
-Accessibility - aXe DevTools | @daine @dylanzheng94   | Not started |
-Accessibility - Lighthouse checks | @daine @dylanzheng94 | Not started |
-Accessibility - WCAG 2.0 AA | @emanelfy | Not started | The intention is to achieve AAA for full launch
-Infra - Content Security Policy | @daine  | ☀️ Ready |
 
 # After merge, do this:
 From your terminal, make sure you are in the `main` branch, then type
