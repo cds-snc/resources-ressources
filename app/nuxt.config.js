@@ -4,6 +4,7 @@ const i18n = require('./config/i18n.js')
 
 const generatedRoutes = require('./utils/generateRoutes')
 const { EN_LOCALE, FR_LOCALE } = require('./utils/constants')
+const { featureNames } = require('./utils/constants')
 
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
@@ -27,7 +28,10 @@ module.exports = {
     googleAnalyticsID: process.env.GOOGLE_ANALYTICS_ID,
     googleTagManagerID: process.env.GOOGLE_TAG_MANAGER_ID,
 
-    features: {},
+    features: {
+      [featureNames.F_HEADLINE]: process.env.F_HEADLINE,
+      [featureNames.F_HEADLINE_ALT]: process.env.F_HEADLINE_ALT,
+    },
 
     previewEnv:
       process.env.PREVIEW_ENV &&

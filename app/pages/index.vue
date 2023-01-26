@@ -5,12 +5,22 @@
     <!-- Welcome message - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <div class="mt-20 mb-20 sm:mb-24">
-      <h1 class="text-4xl md:text-5xl font-bold pb-8">
-        {{ $t('landing_page.title') }}
-      </h1>
-      <p class="text-lg md:text-2xl max-w-5xl font-medium">
-        {{ $t('landing_page.description') }}
-      </p>
+      <feature :name="featureNames.F_HEADLINE">
+        <h1 class="text-4xl md:text-5xl font-bold pb-8">
+          {{ $t('landing_page.title') }}
+        </h1>
+        <p class="text-lg md:text-2xl max-w-5xl font-medium">
+          {{ $t('landing_page.description') }}
+        </p>
+      </feature>
+
+      <feature :name="featureNames.F_HEADLINE_ALT">
+        <h1
+          class="text-4xl md:text-5xl md:leading-normal leading-tight font-medium pb-8 max-w-3xl"
+        >
+          {{ $t('landing_page.description') }}
+        </h1>
+      </feature>
     </div>
 
     <div class="border-t border-gray-300 mb-5"></div>
@@ -59,6 +69,7 @@ import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { EN_LOCALE } from '@/utils/constants'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
+import Feature from '@/components/feature-flags/Feature'
 
 export default {
   nuxtI18n: {
@@ -70,6 +81,7 @@ export default {
 
   name: 'Index',
   components: {
+    Feature,
     //  Box,
   },
   layout: 'expandedSearch',
@@ -119,7 +131,10 @@ export default {
     const pageName = currentLocale.includes('en') ? 'Home' : 'Accueil'
     const headElement = getHeadElement(pageName, locale)
 
-    return { topics, headElement }
+    const consts = require('@/utils/constants')
+    const featureNames = consts.featureNames
+
+    return { topics, headElement, featureNames }
   },
   data() {
     return {
