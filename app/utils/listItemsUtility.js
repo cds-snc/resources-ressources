@@ -3,6 +3,7 @@ import {
   getResourcePath,
   getTopicPath,
 } from '~/utils/pathUtility'
+import { getLocaleCode } from '~/utils/getCurrentLocale'
 
 export const generateBreadcrumbs = (breadcrumbItems, locale) => {
   const breadcrumbs = breadcrumbItems.map((breadcrumbItem) => ({
@@ -10,7 +11,7 @@ export const generateBreadcrumbs = (breadcrumbItems, locale) => {
     path: getTopicPath(breadcrumbItem.urlSlug, locale),
   }))
 
-  breadcrumbs.locale = locale.substring(0, 2)
+  breadcrumbs.locale = getLocaleCode(locale)
 
   return breadcrumbs
 }
@@ -24,13 +25,13 @@ export const generateCollections = (collectionItems, locale) => {
 }
 
 export const generateResources = (resourceItems, locale) => {
-  return resourceItems.map((resourceItem) => ({
-    title: resourceItem.title,
-    path: getResourcePath(resourceItem.urlSlug, locale),
-    locale: getLocaleCode(locale),
-  }))
-}
-
-export const getLocaleCode = (locale) => {
-  return locale.substring(0, 2)
+  return resourceItems
+    .filter(
+      (resourceItem) => resourceItem != null && resourceItem?.title != null
+    )
+    .map((resourceItem) => ({
+      title: resourceItem.title,
+      path: getResourcePath(resourceItem.urlSlug, locale),
+      locale: getLocaleCode(locale),
+    }))
 }

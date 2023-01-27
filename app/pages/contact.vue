@@ -14,10 +14,12 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { aboutPageQuery } from '@/utils/queries'
+import { contactPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RH1 from '@/components/r-html-tags/rH1'
+import { contactPathEN, contactPathFR } from '@/utils/pathUtility'
 
 export default {
   name: 'Contact',
@@ -26,35 +28,49 @@ export default {
 
   nuxtI18n: {
     paths: {
-      en: '/contact',
-      fr: '/nous-joindre',
+      en: contactPathEN,
+      fr: contactPathFR,
     },
   },
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ $contentfulApi, payload }) {
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
     /* Contentful locale */
-    const locale = payload && payload.locale ? payload.locale : 'en-CA'
+    const currentLocale = getCurrentLocale(payload, i18n)
 
     let contactPage
+    const preview = query.preview || ($preview && $preview.enabled)
 
-    if (payload && payload.page) {
+    if (preview) {
+      contactPage = await $contentfulPreviewApi
+        .$post('', { query: contactPageQuery(currentLocale, preview) })
+        .then((result) => {
+          return result.data.contactPageCollection.items[0]
+        })
+    } else if (payload && payload.page) {
       contactPage = { ...payload.page }
     } else {
       contactPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: contactPageQuery(currentLocale) })
         .then((result) => {
           return result.data.contactPageCollection.items[0]
         })
     }
 
-    const i18nLocaleCode = locale.substring(0, 2)
+    const localeCode = getLocaleCode(currentLocale)
 
     const breadcrumbs = []
-    breadcrumbs.locale = i18nLocaleCode
+    breadcrumbs.locale = localeCode
 
-    const headElement = getHeadElement(contactPage.title, i18nLocaleCode)
+    const headElement = getHeadElement(contactPage.title, localeCode)
 
     const richText = documentToHtmlString(
       contactPage.body.json,

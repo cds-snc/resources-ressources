@@ -19,6 +19,8 @@
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import { legalPageQuery } from '@/utils/queries'
 import RH1 from '@/components/r-html-tags/rH1'
@@ -27,18 +29,41 @@ export default {
   components: { RH1 },
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, store, $contentfulApi, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+  async asyncData({
+    params,
+    store,
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
 
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
+
+    const preview = query.preview || ($preview && $preview.enabled)
 
     const urlSlug = params.legal
 
-    const pageQuery = legalPageQuery(urlSlug, currentLocale, alternateLocale)
+    const pageQuery = legalPageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      preview
+    )
 
-    let legalPage
-    if (payload && payload.legalPage) {
+    // Get en
+    let legalPage = null
+    if (preview) {
+      legalPage = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((res) => {
+          return res.data.legalPageCollection.items[0]
+        })
+    } else if (payload && payload.legalPage) {
       legalPage = { ...payload.legalPage }
     } else {
       legalPage = await $contentfulApi
@@ -48,7 +73,7 @@ export default {
         })
     }
 
-    const localeCode = currentLocale.substring(0, 2)
+    const localeCode = getLocaleCode(currentLocale)
     const breadcrumbs = []
     breadcrumbs.locale = localeCode
 

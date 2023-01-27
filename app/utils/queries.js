@@ -3,10 +3,11 @@ import { ContentTypes } from './contentTypes'
 export const topicPageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale
+  alternateLocale,
+  preview = false
 ) => `query
     {
-      topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
+      topicCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}", preview: ${preview})
       {
         items
         {
@@ -59,10 +60,11 @@ export const topicPageQuery = (
 export const getCollectionPageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale
+  alternateLocale,
+  preview = false
 ) => `query
 {
-  collectionCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}")
+  collectionCollection(where: {urlSlug: "${urlSlug}"}, limit: 1, locale: "${currentLocale}", preview: ${preview})
   {
     items
     {
@@ -103,7 +105,8 @@ export const getCollectionPageQuery = (
 export const resourcePageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale
+  alternateLocale,
+  preview = false
 ) => `query
     {
       testResourceCollection(where: {
@@ -113,7 +116,7 @@ export const resourcePageQuery = (
             urlSlug: "${urlSlug}"
           }
         ]
-    }, locale: "${currentLocale}", limit: 1)
+    }, locale: "${currentLocale}", limit: 1, preview: ${preview})
       {
         items
         {
@@ -177,6 +180,37 @@ export const resourcePageQuery = (
                     urlSlug
                   }
                 }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.ABOUT_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                  }
+                }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.CONTACT_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                  }
+                }
+                hyperlink
+                {
+                  __typename ... on ${ContentTypes.LEGAL_PAGE}
+                  {
+                    sys
+                    {
+                      id
+                    }
+                    urlSlug
+                  }
+                }
               }
             }
           }
@@ -187,10 +221,11 @@ export const resourcePageQuery = (
 export const legalPageQuery = (
   urlSlug,
   currentLocale,
-  alternateLocale
+  alternateLocale,
+  preview = false
 ) => `query
     {
-      legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}")
+      legalPageCollection(where: { urlSlug: "${urlSlug}" }, limit: 1, locale: "${currentLocale}", preview: ${preview})
       {
         items
         {
@@ -221,9 +256,9 @@ export const legalPageQuery = (
       }
     }`
 
-export const topicRoutesQuery = (locale) => `query
+export const topicRoutesQuery = (locale, preview = false) => `query
     {
-      topicCollection(locale: "${locale}")
+      topicCollection(locale: "${locale}", preview: ${preview})
       {
         items
         {
@@ -232,9 +267,9 @@ export const topicRoutesQuery = (locale) => `query
       }
     }`
 
-export const getTopLevelTopicsQuery = (locale) => `query
+export const getTopLevelTopicsQuery = (locale, preview = false) => `query
 {
-  topicCollection(where: {isTopLevelTopic: true} locale: "${locale}", order: name_ASC)
+  topicCollection(where: {isTopLevelTopic: true} locale: "${locale}", order: name_ASC, preview: ${preview})
   {
     items
     {
@@ -244,9 +279,12 @@ export const getTopLevelTopicsQuery = (locale) => `query
   }
 }`
 
-export const getQueryForAllCollectionUrlSlugs = (locale) => `query
+export const getQueryForAllCollectionUrlSlugs = (
+  locale,
+  preview = false
+) => `query
   {
-    collectionCollection(locale: "${locale}")
+    collectionCollection(locale: "${locale}", preview: ${preview})
     {
       items
       {
@@ -255,9 +293,9 @@ export const getQueryForAllCollectionUrlSlugs = (locale) => `query
     }
   }`
 
-export const resourceRoutesQuery = (locale) => `query
+export const resourceRoutesQuery = (locale, preview = false) => `query
     {
-      testResourceCollection(locale: "${locale}")
+      testResourceCollection(locale: "${locale}", preview: ${preview})
       {
         items
         {
@@ -266,9 +304,9 @@ export const resourceRoutesQuery = (locale) => `query
       }
     }`
 
-export const legalRoutesQuery = (locale) => `query
+export const legalRoutesQuery = (locale, preview = false) => `query
     {
-      legalPageCollection(locale: "${locale}")
+      legalPageCollection(locale: "${locale}", preview: ${preview})
       {
         items
         {
@@ -277,17 +315,17 @@ export const legalRoutesQuery = (locale) => `query
       }
     }`
 
-export const legalEntryQuery = (entryId) => `query
+export const legalEntryQuery = (entryId, preview = false) => `query
     {
-      legalPage(id: "${entryId}")
+      legalPage(id: "${entryId}", preview: ${preview})
       {
         urlSlug
       }
     }`
 
-export const topLevelTopicsQuery = (locale) => `query
+export const topLevelTopicsQuery = (locale, preview = false) => `query
     {
-      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}", order: name_ASC)
+      topicCollection(where: { isTopLevelTopic: true }, locale: "${locale}", preview: ${preview}, order: name_ASC)
       {
         items
         {
@@ -301,9 +339,9 @@ export const topLevelTopicsQuery = (locale) => `query
       }
     }`
 
-export const aboutPageQuery = (locale) => `query
+export const aboutPageQuery = (locale, preview = false) => `query
 {
-  aboutPageCollection(locale: "${locale}")
+  aboutPageCollection(locale: "${locale}", preview: ${preview})
   {
     items
     {
@@ -316,9 +354,9 @@ export const aboutPageQuery = (locale) => `query
   }
 }`
 
-export const contactPageQuery = (locale) => `query
+export const contactPageQuery = (locale, preview = false) => `query
 {
-  contactPageCollection(locale: "${locale}")
+  contactPageCollection(locale: "${locale}", preview: ${preview})
   {
     items
     {

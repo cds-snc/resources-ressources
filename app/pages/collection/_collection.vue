@@ -67,11 +67,12 @@ import {
   generateBreadcrumbs,
   generateCollections,
   generateResources,
-  getLocaleCode,
 } from '@/utils/listItemsUtility'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { getCollectionPageQuery } from '@/utils/queries'
 import CollectionListItem from '@/components/list-items/CollectionListItem'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 
@@ -82,23 +83,42 @@ export default {
 
   // Hooks ------------------------------------------------------------------------------------------------------------
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+  async asyncData({
+    params,
+    $contentfulApi,
+    store,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const preview = query.preview || ($preview && $preview.enabled)
 
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
 
     const urlSlug = params.collection
 
     const pageQuery = getCollectionPageQuery(
       urlSlug,
       currentLocale,
-      alternateLocale
+      alternateLocale,
+      preview
     )
 
-    let collection
+    let collection = null
 
-    if (payload && payload.collection) {
+    if (preview) {
+      const result = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((res) => {
+          return res
+        })
+
+      collection = result.data.collectionCollection.items[0]
+    } else if (payload && payload.collection) {
       collection = { ...payload.collection }
     } else {
       const result = await $contentfulApi
