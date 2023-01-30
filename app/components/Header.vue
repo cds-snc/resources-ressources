@@ -2,9 +2,9 @@
 <template>
   <header data-app>
     <!-- Pilot banner -->
-    <Banner />
+    <!-- <Banner /> -->
 
-    <nav class="bg-white text-black pb-2.5">
+    <nav class="bg-white text-black pt-2 md:pt-0">
       <div class="max-w-7xl mx-auto px-4">
         <div
           class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
@@ -42,9 +42,17 @@
           <div
             class="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
           >
-            <v-menu v-model="menuOpened" bottom :offset-y="true" class="mr-4">
+            <v-menu
+              v-model="menuOpened"
+              bottom
+              nudge-left="60"
+              :offset-y="true"
+              class="mr-6"
+              attach="#menuButton"
+            >
               <template #activator="{ on }">
                 <button
+                  id="menuButton"
                   class="p-3 text-xl rounded-lg hover:bg-gray-100"
                   v-on="on"
                 >
@@ -77,8 +85,12 @@
                   </nuxt-link>
                 </v-list-item>
               </v-list>
-              <v-list v-else>
-                <v-list-item v-for="(topic, index) in topicsFR" :key="index">
+              <v-list v-else class="w-max">
+                <v-list-item
+                  v-for="(topic, index) in topicsFR"
+                  :key="index"
+                  class="hover:bg-blue-100 cursor-pointer"
+                >
                   <nuxt-link
                     :to="localePath(`/sujet/${topic.urlSlug}`, 'fr')"
                     class="text-lg"
@@ -92,7 +104,7 @@
               v-for="locale in availableLocales"
               :key="locale.code"
               :href="switchLocalePath(locale.code)"
-              class="underline text-blue-900 hover:text-blue-700 text-xl ml-5"
+              class="underline text-blue-900 hover:text-blue-700 text-xl ml-12"
               :lang="locale.code"
               @click="switchLocale"
               >{{ locale.name }}
@@ -107,6 +119,9 @@
 <!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 <script>
+import { mapState } from 'vuex'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+
 export default {
   name: 'Header',
   data() {
@@ -122,14 +137,10 @@ export default {
     availableLocales() {
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale)
     },
-
-    topicsEN() {
-      return this.$store.state.topics['en-CA']
-    },
-
-    topicsFR() {
-      return this.$store.state.topics['fr-CA']
-    },
+    ...mapState({
+      topicsEN: (state) => state.menu.topics[EN_LOCALE],
+      topicsFR: (state) => state.menu.topics[FR_LOCALE],
+    }),
   },
 
   methods: {

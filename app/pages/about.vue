@@ -1,6 +1,11 @@
 <template>
   <div class="max-w-5xl mb-10">
-    <h1 class="font-bold text-4xl my-14">{{ aboutPage.title }}</h1>
+    <breadcrumbs
+      :breadcrumbs="breadcrumbs"
+      :current-page-title="aboutPage.title"
+    >
+    </breadcrumbs>
+    <r-h1 :heading-text="aboutPage.title" class="my-10"></r-h1>
     <div v-html="richText"></div>
   </div>
 </template>
@@ -12,44 +17,66 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { aboutPageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
+import RH1 from '@/components/r-html-tags/rH1'
+import { aboutPathEN, aboutPathFR } from '@/utils/pathUtility'
 
 export default {
+  name: 'About',
+  components: { RH1 },
   // Options ----------------------------------------------------------------------------------------------------------
 
   nuxtI18n: {
     paths: {
-      en: '/about',
-      fr: '/a-propos',
+      en: aboutPathEN,
+      fr: aboutPathFR,
     },
   },
 
-  name: 'About',
+  async asyncData({
+    $contentfulApi,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const preview = query.preview || ($preview && $preview.enabled)
 
-  async asyncData({ $contentfulApi, payload }) {
-    const locale = payload && payload.locale ? payload.locale : 'en-CA'
+    const pageQuery = aboutPageQuery(currentLocale, preview)
 
-    let aboutPage
+    let aboutPage = null
 
-    if (payload && payload.page) {
+    if (preview) {
+      aboutPage = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.aboutPageCollection.items[0]
+        })
+    } else if (payload && payload.page) {
       aboutPage = { ...payload.page }
     } else {
       aboutPage = await $contentfulApi
-        .$post('', { query: aboutPageQuery(locale) })
+        .$post('', { query: pageQuery })
         .then((result) => {
           return result.data.aboutPageCollection.items[0]
         })
     }
 
-    const i18nLocaleCode = locale.substring(0, 2)
+    const localeCode = getLocaleCode(currentLocale)
 
-    const headElement = getHeadElement(aboutPage.title, i18nLocaleCode)
+    const breadcrumbs = []
+    breadcrumbs.locale = localeCode
+
+    const headElement = getHeadElement(aboutPage.title, localeCode)
 
     const richText = documentToHtmlString(
       aboutPage.body.json,
-      richTextRenderOptions
+      richTextRenderOptions()
     )
 
-    return { aboutPage, richText, headElement }
+    return { aboutPage, richText, headElement, breadcrumbs }
   },
 
   head() {

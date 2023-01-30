@@ -15,7 +15,7 @@
 
           <div
             v-if="headings.length > 0"
-            class="lg:sticky lg:top-40 self-start min-w-1/4 mt-10"
+            class="lg:sticky lg:top-20 self-start min-w-1/4 mt-10"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
@@ -40,15 +40,13 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <h1 class="text-3xl sm:text-5xl font-bold my-10 sm:my-10">
-              {{ resource.title }}
-            </h1>
+            <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
 
-            <div v-html="richText"></div>
+            <div v-if="richText != null" v-html="richText"></div>
 
             <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-            <div>
+            <div v-if="relatedResources && relatedResources.length > 0">
               <div class="border-t border-gray-300 border-thin my-14"></div>
 
               <h2 class="py-5 font-thin text-4xl">
@@ -74,61 +72,84 @@
 
 <script>
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
+import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
+import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
+import RH1 from '@/components/r-html-tags/rH1'
+import { generateResources } from '@/utils/listItemsUtility'
+
+let headings = []
+
+export const addHeading = (heading) => {
+  headings.push(heading)
+}
 
 export default {
+  components: { RH1 },
   layout: 'expandedSearch',
 
-  async asyncData({ params, $contentfulApi, store, payload }) {
-    const currentLocale = payload && payload.locale ? payload.locale : 'en-CA'
+  async asyncData({
+    params,
+    $contentfulApi,
+    store,
+    payload,
+    $contentfulPreviewApi,
+    query,
+    $preview,
+    i18n,
+  }) {
+    const currentLocale = getCurrentLocale(payload, i18n)
+    const alternateLocale = currentLocale === EN_LOCALE ? FR_LOCALE : EN_LOCALE
+    const isDefaultLocale = currentLocale === EN_LOCALE || false
 
-    const alternateLocale = currentLocale.includes('en') ? 'fr-CA' : 'en-CA'
-    const isDefaultLocale = currentLocale.includes('en') || false
+    const preview = query.preview || ($preview && $preview.enabled)
 
     /* Query resource by url slug */
 
     const urlSlug = params.resource
 
-    const pageQuery = resourcePageQuery(urlSlug, currentLocale, alternateLocale)
-    let resource
-    if (payload && payload.resource) {
+    const pageQuery = resourcePageQuery(
+      urlSlug,
+      currentLocale,
+      alternateLocale,
+      preview
+    )
+    let resource = null
+    if (preview) {
+      resource = await $contentfulPreviewApi
+        .$post('', { query: pageQuery })
+        .then((result) => {
+          return result.data.testResourceCollection.items[0]
+        })
+    } else if (payload && payload.resource) {
       resource = { ...payload.resource }
     } else {
       resource = await $contentfulApi
         .$post('', { query: pageQuery })
         .then((result) => {
-          return result.data
+          return result.data.testResourceCollection.items[0]
         })
     }
-    // console.log('_resource.vue', resource)
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
     const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
 
-    const resourcePathPrefix = currentLocale.includes('en')
-      ? '/resource/'
-      : '/ressource/'
+    const localeCode = getLocaleCode(currentLocale)
 
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
       path: topicPathPrefix + breadcrumb.urlSlug,
     }))
-    breadcrumbs.locale = currentLocale.substring(0, 2)
-    console.log('breadcrumbs locale: ' + breadcrumbs.locale)
+    breadcrumbs.locale = localeCode
 
     let relatedResources = resource.relatedResourcesCollection.items
 
-    const localeCode = currentLocale.substring(0, 2)
-
-    relatedResources = relatedResources.map((resource) => ({
-      title: resource.title,
-      dateAdded: resource.dateAdded,
-      path: resourcePathPrefix + resource.urlSlug,
-      locale: localeCode,
-    }))
+    if (relatedResources) {
+      relatedResources = generateResources(relatedResources, currentLocale)
+    }
 
     const headElement = getHeadElement(resource.title, localeCode)
 
@@ -150,64 +171,16 @@ export default {
       fr: { resource: frRouteParam },
     })
 
-    const headings = []
+    headings = []
 
-    const resourceRichTextRenderOptionsx = {
-      renderMark: {
-        [MARKS.BOLD]: (text) => {
-          console.log(text)
-          return `<strong class="font-bold">${text}</strong>`
-        },
-        [MARKS.ITALIC]: (text) => {
-          return `<i class="italic">${text}</i>`
-        },
-      },
-      renderNode: {
-        [INLINES.HYPERLINK]: (node) => {
-          return `<a class="text-blue-900 underline" href="${node.data.uri}">${node.content[0].value}</a>`
-        },
-        [BLOCKS.HEADING_1]: (node) => {
-          return `<h1 class="text-3xl font-medium mt-12 mb-2.5" >${node.content[0].value}</h1>`
-        },
-        [BLOCKS.HEADING_2]: (node) => {
-          const heading = node.content[0].value
-          const headingId = heading.replace(/\s+/g, '-').toLowerCase()
-          headings.push({ linkName: heading, linkId: headingId })
-          return `<h2 id="${headingId}" class="text-2xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
-        },
-        [BLOCKS.HEADING_3]: (node) => {
-          return `<h3 class="text-xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
-        },
-        [BLOCKS.HEADING_4]: (node) => {
-          return `<h4 class="text-lg font-medium mt-12 mb-2.5">${node.content[0].value}</h4>`
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        [BLOCKS.PARAGRAPH]: (node, next) => {
-          // return `<p class="leading-7">${node.content[0].value}</p>`
-          return `<p class="leading-relaxed text-xl tracking-wide text-gray-800">${next(
-            node.content
-          ).replace(/\n/g, '<br/>')}</p>`
-        },
-        [BLOCKS.UL_LIST]: (node, next) => {
-          return `<ul class="list-disc ml-4">
-                        ${next(node.content)}
-                    </ul>`
-        },
-        [BLOCKS.OL_LIST]: (node, next) => {
-          return `<ol class="list-decimal ml-4">
-                    ${next(node.content)}
-                    </ol>`
-        },
-        [BLOCKS.HR]: () => {
-          return `<div class="border-t border-gray-300 mt-10"></div>`
-        },
-      },
+    let richText = null
+
+    if (resource.body) {
+      richText = documentToHtmlString(
+        resource.body.json,
+        richTextRenderOptions(currentLocale, resource.body.links, addHeading)
+      )
     }
-
-    const richText = documentToHtmlString(
-      resource.body.json,
-      resourceRichTextRenderOptionsx
-    )
 
     return {
       resource,
