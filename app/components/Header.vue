@@ -4,11 +4,14 @@
     <!-- Pilot banner -->
     <!-- <Banner /> -->
 
-    <nav class="bg-white text-black pt-2 md:pt-0">
+    <nav class="bg-white text-black">
       <div class="max-w-7xl mx-auto px-4">
-        <div
+        <!-- <div
           class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
-        >
+        > -->
+        <div class="relative flex items-center justify-between h-16">
+          <!-- CDS Logo and wordmark -->
+
           <div>
             <nuxt-link
               v-show="locale === 'en'"
@@ -21,7 +24,7 @@
                 :src="require(`../assets/cds-logo-en.svg`)"
                 alt="Canadian Digital Service - Learning resources"
               />
-              {{ $t('learning_resources') }}
+              {{ isMobile ? 'LR' : $t('learning_resources') }}
             </nuxt-link>
 
             <nuxt-link
@@ -100,6 +103,8 @@
               </v-list>
             </v-menu>
 
+            <!-- Language toggle -->
+
             <a
               v-for="locale in availableLocales"
               :key="locale.code"
@@ -107,7 +112,7 @@
               class="underline text-blue-900 hover:text-blue-700 text-xl ml-12"
               :lang="locale.code"
               @click="switchLocale"
-              >{{ locale.name }}
+              >{{ getLanguageToggleText(locale) }}
             </a>
           </div>
         </div>
@@ -116,7 +121,7 @@
   </header>
 </template>
 
-<!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!-- Component logic ===============================================================================================-->
 
 <script>
 import { mapState } from 'vuex'
@@ -127,8 +132,27 @@ export default {
   data() {
     return {
       menuOpened: false,
+      isMobile: false,
     }
   },
+
+  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  beforeDestroy() {
+    if (typeof window === 'undefined')
+      window.removeEventListener('resize', this.onWindowResize, {
+        passive: true,
+      })
+  },
+
+  mounted() {
+    this.onWindowResize()
+
+    window.addEventListener('resize', this.onWindowResize, { passive: true })
+  },
+
+  // Computed Properties - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   computed: {
     locale() {
       return this.$i18n.locale
@@ -143,6 +167,8 @@ export default {
     }),
   },
 
+  // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   methods: {
     switchLocale() {
       let alternateLocale = null
@@ -152,6 +178,15 @@ export default {
 
       this.$i18n.setLocale(alternateLocale)
       this.$i18n.setLocaleCookie(alternateLocale)
+    },
+
+    getLanguageToggleText(locale) {
+      if (this.isMobile) return locale.code.toUpperCase()
+      else return locale.name
+    },
+
+    onWindowResize() {
+      this.isMobile = window.innerWidth < 500
     },
   },
 }
