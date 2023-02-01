@@ -38,7 +38,7 @@
                 :src="require(`../assets/cds-logo-fr.svg`)"
                 alt="Service numérique canadien - Ressources d'apprentissage"
               />
-              {{ $t('learning_resources') }}
+              {{ isMobile ? 'RA' : $t('learning_resources') }}
             </nuxt-link>
           </div>
 
@@ -186,7 +186,7 @@ export default {
     },
 
     onWindowResize() {
-      this.isMobile = window.innerWidth < 500
+      this.isMobile = window.innerWidth < 550
     },
   },
 }

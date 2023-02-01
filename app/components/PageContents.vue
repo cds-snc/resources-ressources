@@ -3,32 +3,21 @@
 <template>
   <div
     v-if="hasHeadings"
-    class="border-y border-solid border-gray-300 sticky top-16 bg-white -mx-5 px-4"
-    :class="{ 'shadow-xl': isShowPageContents }"
+    class="border-y border-solid border-gray-300 sticky top-16 -mx-5 bg-white text-gray-800"
+    :class="{ 'shadow-xl' : isShowPageContents, 'rounded-b-2xl' : isShowPageContents }"
   >
-    <!-- Container for label and chevron icons -->
-    <!-- <div role="button"
-      class="flex justify-between items-center py-3 cursor-pointer"
-      @click="togglePageContents"
-    >
-      <h2 class="text-xl font-medium">Page contents</h2>
-
-      <font-awesome-icon
-        v-if="!isShowPageContents"
-        icon="chevron-down"
-        size="md"
-      >
-      </font-awesome-icon>
-      <font-awesome-icon v-if="isShowPageContents" icon="chevron-up" size="md">
-      </font-awesome-icon>
-    </div> -->
-
     <!-- Page contents button -->
 
-    <button class="py-3 cursor-pointer w-full" @click="togglePageContents">
+    <button
+      aria-label="Expand page contents menu"
+      class="py-3 px-5 cursor-pointer w-full hover:bg-gray-100 hover:text-black"
+      @click="togglePageContents"
+    >
       <div class="flex justify-between items-center">
+        <!-- Button text -->
         <span class="text-xl font-medium">Page contents</span>
-        <!-- Chevron icons -->
+
+        <!-- Button icons -->
         <font-awesome-icon
           v-if="!isShowPageContents"
           icon="chevron-down"
@@ -45,17 +34,23 @@
     </button>
 
     <!-- List of page contents -->
-    <nav v-if="isShowPageContents" class="h-fit">
+    <nav v-if="isShowPageContents" class="h-fit px-5">
       <ol>
-        <li v-for="heading in headings" :key="heading.linkId" class="py-2.5">
+        <li v-for="heading in headings" :key="heading.linkId" class="py-3">
           <a
             :href="'#' + heading.linkId"
-            class="text-lg"
+            class="text-lg text-blue-700 hover:text-blue-900 focus:bg-yellow-300 focus:text-black hover:underline hover:underline-offset-4"
             @click="closePageContents"
             >{{ heading.linkName }}</a
           >
         </li>
       </ol>
+      <div class="flex justify-center mt-5 mb-3">
+        <button
+          class="border border-solid border-gray-200 rounded-full text-sm text-gray-700 hover:bg-gray-200 hover:text-black px-10"
+          aria-label="Minimize page contents menu"
+          @click="closePageContents">Close</button>
+      </div>
     </nav>
   </div>
 </template>
