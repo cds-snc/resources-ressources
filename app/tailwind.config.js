@@ -22,7 +22,11 @@ module.exports = {
       logo: ['"Oswald"'],
     },
     minWidth: {
+      '1/3': '33%',
       '1/4': '25%',
     },
+    /* margin: {
+      '5': '20px'
+    } */
   },
 }

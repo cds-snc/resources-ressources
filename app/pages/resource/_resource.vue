@@ -10,12 +10,12 @@
 
     <div class="flex mb-10">
       <div class="max-w-full">
-        <div class="flex flex-col lg:flex-row items-start gap-8">
+        <div class="flex flex-col md:flex-row items-start gap-8">
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
           <div
             v-if="headings.length > 0"
-            class="lg:sticky lg:top-20 self-start min-w-1/4 mt-10"
+            class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-10"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
@@ -41,6 +41,8 @@
 
           <div class="grow-[2]">
             <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
+
+            <PageContents :headings="headings"></PageContents>
 
             <div v-if="richText != null" v-html="richText"></div>
 
@@ -205,6 +207,12 @@ export default {
         lang: this.headElement.langAttribute,
       },
     }
+  },
+
+  computed: {
+    isMobile() {
+      return this.$mq === 'mobile'
+    },
   },
   // Hooks ------------------------------------------------------------------------------------------------------------
 
