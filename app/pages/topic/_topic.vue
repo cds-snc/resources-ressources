@@ -83,6 +83,7 @@ import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import RP from '@/components/r-html-tags/rP'
 import RH1 from '@/components/r-html-tags/rH1'
 import { generateResources } from '@/utils/listItemsUtility'
+import { langPaths } from '@/utils/paths'
 
 export default {
   components: {
@@ -169,9 +170,9 @@ export default {
       fr: { topic: frRouteParam },
     })
 
-    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
-
     const localeCode = getLocaleCode(currentLocale)
+    const topicPathPrefix = '/' + langPaths[localeCode].topic
+
     let breadcrumbs = topic.breadcrumbsCollection.items
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,

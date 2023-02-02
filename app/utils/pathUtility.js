@@ -1,5 +1,7 @@
-const topicPrefixEN = '/topic/'
-const topicPrefixFR = '/sujet/'
+import { langPaths } from '~/utils/paths'
+
+const topicPrefixEN = '/' + langPaths.en.topic
+const topicPrefixFR = '/' + +langPaths.fr.topic
 const resourcePrefixEN = '/resource/'
 const resourcePrefixFR = '/ressource/'
 const collectionPrefix = '/collection/'
