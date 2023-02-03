@@ -15,7 +15,6 @@
 
           <div
             v-if="headings.length > 0 && isMdAndBigger"
-            id="jumplinks"
             class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-10"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
@@ -223,10 +222,8 @@ export default {
   // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   mounted() {
-    window.addEventListener('scroll', this.handleScroll, { passive: true })
-    this.isListeningForScrollEvent = true
-
     this.onWindowResize()
+
     window.addEventListener('resize', this.onWindowResize, { passive: true })
   },
 
@@ -238,7 +235,7 @@ export default {
     },
 
     handleScroll() {
-      if (this.isMdAndBigger) return
+      if (!this.isMdAndBigger) return
 
       const jumpLinks = document.querySelectorAll('.jumpLinks li')
       const headings = document.querySelectorAll('h2')
@@ -267,21 +264,23 @@ export default {
     onWindowResize() {
       this.isMdAndBigger = Viewport.isMdAndBigger(window.innerWidth)
 
-      if (this.isMdAndBigger && !this.hasScrollEventListener) {
+      if (this.isMdAndBigger && !this.hasScrollEventListener)
         this.addScrollEventListener()
-      } else {
+
+      if (!this.isMdAndBigger && this.hasScrollEventListener)
         this.removeScrollEventListener()
-      }
     },
 
     addScrollEventListener() {
-      window.addEventListener('scroll', this.handleScroll, { passive: true })
+      window.addEventListener('scroll', this.handleScroll)
       this.hasScrollEventListener = true
+      console.log("-- add scroll event listener")
     },
 
     removeScrollEventListener() {
       window.removeEventListener('scroll', this.handleScroll)
       this.hasScrollEventListener = false
+      console.log("-- remove scroll event listener")
     },
   },
 }
