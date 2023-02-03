@@ -4,7 +4,10 @@
   <div
     v-if="hasHeadings"
     class="border-y border-solid border-gray-300 sticky top-16 -mx-5 bg-white text-gray-800"
-    :class="{ 'shadow-xl' : isShowPageContents, 'rounded-b-2xl' : isShowPageContents }"
+    :class="{
+      'shadow-xl': isShowPageContents,
+      'rounded-b-2xl': isShowPageContents,
+    }"
   >
     <!-- Page contents button -->
 
@@ -49,7 +52,10 @@
         <button
           class="border border-solid border-gray-200 rounded-full text-sm text-gray-700 hover:bg-gray-200 hover:text-black px-10"
           aria-label="Minimize page contents menu"
-          @click="closePageContents">Close</button>
+          @click="closePageContents"
+        >
+          Close
+        </button>
       </div>
     </nav>
   </div>

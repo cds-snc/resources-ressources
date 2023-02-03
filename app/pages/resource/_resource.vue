@@ -14,7 +14,8 @@
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
           <div
-            v-if="headings.length > 0"
+            v-if="headings.length > 0 && isMdAndBigger"
+            id="jumplinks"
             class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-10"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
@@ -42,7 +43,10 @@
           <div class="grow-[2]">
             <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
 
-            <PageContents :headings="headings"></PageContents>
+            <PageContents
+              v-if="!isMdAndBigger"
+              :headings="headings"
+            ></PageContents>
 
             <div v-if="richText != null" v-html="richText"></div>
 
@@ -81,6 +85,7 @@ import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 import { generateResources } from '@/utils/listItemsUtility'
+import Viewport from '@/utils/viewport.ts'
 
 let headings = []
 
@@ -194,9 +199,15 @@ export default {
     }
   },
 
+  // Data - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   data() {
     return {
       activeHeadingId: '',
+
+      isMdAndBigger: false,
+
+      hasScrollEventListener: false,
     }
   },
 
@@ -209,16 +220,17 @@ export default {
     }
   },
 
-  computed: {
-    isMobile() {
-      return this.$mq === 'mobile'
-    },
-  },
-  // Hooks ------------------------------------------------------------------------------------------------------------
+  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll, { passive: true })
+    this.isListeningForScrollEvent = true
+
+    this.onWindowResize()
+    window.addEventListener('resize', this.onWindowResize, { passive: true })
   },
+
+  // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   methods: {
     setActiveJumpLink(headingId) {
@@ -226,6 +238,8 @@ export default {
     },
 
     handleScroll() {
+      if (this.isMdAndBigger) return
+
       const jumpLinks = document.querySelectorAll('.jumpLinks li')
       const headings = document.querySelectorAll('h2')
       let isPassedFirstHeading = false
@@ -248,6 +262,26 @@ export default {
         jumpLinks[numberOfHeadings].className += ' activeJumpLink'
         isPassedFirstHeading = true
       }
+    },
+
+    onWindowResize() {
+      this.isMdAndBigger = Viewport.isMdAndBigger(window.innerWidth)
+
+      if (this.isMdAndBigger && !this.hasScrollEventListener) {
+        this.addScrollEventListener()
+      } else {
+        this.removeScrollEventListener()
+      }
+    },
+
+    addScrollEventListener() {
+      window.addEventListener('scroll', this.handleScroll, { passive: true })
+      this.hasScrollEventListener = true
+    },
+
+    removeScrollEventListener() {
+      window.removeEventListener('scroll', this.handleScroll)
+      this.hasScrollEventListener = false
     },
   },
 }
