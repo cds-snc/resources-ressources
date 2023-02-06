@@ -5,6 +5,7 @@ const i18n = require('./config/i18n.js')
 const generatedRoutes = require('./utils/generateRoutes')
 const { EN_LOCALE, FR_LOCALE } = require('./utils/constants')
 const { featureNames } = require('./utils/constants')
+const { langPaths } = require('./utils/paths')
 
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
@@ -173,20 +174,20 @@ module.exports = {
         fr: '/nous-joindre',
       },
       'topic/_topic': {
-        en: '/topic/:topic',
-        fr: '/sujet/:topic',
+        en: `/${langPaths.en.topic}:topic`,
+        fr: `/${langPaths.fr.topic}:topic`,
       },
       'resource/_resource': {
-        en: '/resource/:resource',
-        fr: '/ressource/:resource',
+        en: `/${langPaths.en.resource}:resource`,
+        fr: `/${langPaths.fr.resource}:resource`,
       },
       'legal/_legal': {
-        en: '/legal/:legal',
-        fr: '/transparence/:legal',
+        en: `/${langPaths.en.legal}:legal`,
+        fr: `/${langPaths.fr.legal}:legal`,
       },
       'collection/_collection': {
-        en: '/collection/:collection',
-        fr: '/collection/:collection',
+        en: `/${langPaths.en.collection}:collection`,
+        fr: `/${langPaths.fr.collection}:collection`,
       },
     },
   },
