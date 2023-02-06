@@ -10,12 +10,20 @@
 
     <div class="flex mb-10">
       <div class="max-w-full">
+        <div class="py-8">
+          <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
+        </div>
+
         <div class="flex flex-col md:flex-row items-start gap-8">
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-          <div
+          <!-- <div
             v-if="headings.length > 0 && isMdAndBigger"
             class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-10"
+          > -->
+          <div
+            v-if="headings.length > 0 && isMdAndBigger"
+            class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-5"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
@@ -40,7 +48,7 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
+            <!-- <r-h1 :heading-text="resource.title" class="my-10"></r-h1> -->
 
             <PageContents
               v-if="!isMdAndBigger"
@@ -254,7 +262,8 @@ export default {
 
       if (
         isPassedFirstHeading ||
-        scrollY - headings[0].offsetHeight >= headings[0].offsetTop
+        (scrollY - headings[0].offsetHeight >= headings[0].offsetTop &&
+          jumpLinks.length > numberOfHeadings)
       ) {
         jumpLinks[numberOfHeadings].className += ' activeJumpLink'
         isPassedFirstHeading = true
@@ -274,13 +283,13 @@ export default {
     addScrollEventListener() {
       window.addEventListener('scroll', this.handleScroll)
       this.hasScrollEventListener = true
-      console.log("-- add scroll event listener")
+      console.log('-- add scroll event listener')
     },
 
     removeScrollEventListener() {
       window.removeEventListener('scroll', this.handleScroll)
       this.hasScrollEventListener = false
-      console.log("-- remove scroll event listener")
+      console.log('-- remove scroll event listener')
     },
   },
 }
