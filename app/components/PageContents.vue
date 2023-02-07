@@ -18,7 +18,7 @@
     >
       <div class="flex justify-between items-center">
         <!-- Button text -->
-        <span class="text-xl font-medium">Page contents</span>
+        <span class="text-xl font-medium">{{ $t('jump_to') }}</span>
 
         <!-- Button icons -->
         <font-awesome-icon
@@ -51,10 +51,9 @@
       <div class="flex justify-center mt-5 mb-3">
         <button
           class="border border-solid border-gray-200 rounded-full text-sm text-gray-700 hover:bg-gray-200 hover:text-black px-10"
-          aria-label="Minimize page contents menu"
           @click="closePageContents"
         >
-          Close
+          {{ $t('close') }}
         </button>
       </div>
     </nav>
