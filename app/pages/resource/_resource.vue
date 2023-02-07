@@ -17,10 +17,6 @@
         <div class="flex flex-col md:flex-row items-start gap-8">
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-          <!-- <div
-            v-if="headings.length > 0 && isMdAndBigger"
-            class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-10"
-          > -->
           <div
             v-if="headings.length > 0 && isMdAndBigger"
             class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-5"
@@ -283,13 +279,11 @@ export default {
     addScrollEventListener() {
       window.addEventListener('scroll', this.handleScroll)
       this.hasScrollEventListener = true
-      console.log('-- add scroll event listener')
     },
 
     removeScrollEventListener() {
       window.removeEventListener('scroll', this.handleScroll)
       this.hasScrollEventListener = false
-      console.log('-- remove scroll event listener')
     },
   },
 }
