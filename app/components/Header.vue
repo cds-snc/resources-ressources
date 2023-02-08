@@ -79,7 +79,10 @@
                 >
                   <nuxt-link
                     :to="
-                      localePath(`/${langPaths.en.topic}${topic.urlSlug}`, 'en')
+                      localePath(
+                        `/${langPaths.en.topic}/${topic.urlSlug}`,
+                        'en'
+                      )
                     "
                     class="text-lg"
                   >
@@ -95,7 +98,10 @@
                 >
                   <nuxt-link
                     :to="
-                      localePath(`/${langPaths.fr.topic}${topic.urlSlug}`, 'fr')
+                      localePath(
+                        `/${langPaths.fr.topic}/${topic.urlSlug}`,
+                        'fr'
+                      )
                     "
                     class="text-lg"
                     >{{ topic.name }}</nuxt-link

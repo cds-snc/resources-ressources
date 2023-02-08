@@ -171,7 +171,7 @@ export default {
     })
 
     const localeCode = getLocaleCode(currentLocale)
-    const topicPathPrefix = '/' + langPaths[localeCode].topic
+    const topicPathPrefix = `/${langPaths[localeCode].topic}/`
 
     let breadcrumbs = topic.breadcrumbsCollection.items
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({

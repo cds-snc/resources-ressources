@@ -120,7 +120,7 @@ export default {
     }
     const localeCode = getLocaleCode(currentLocale)
 
-    const topicPathPrefix = '/' + langPaths[localeCode].topic
+    const topicPathPrefix = `/${langPaths[localeCode].topic}/`
 
     topics = topics.map((topic) => ({
       name: topic.name,

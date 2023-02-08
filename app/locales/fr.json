@@ -38,10 +38,12 @@
   },
   "home": "Accueil",
   "page_prefix": {
-    "collection": "collection/",
-    "topic": "sujet/",
-    "resource": "ressource/",
-    "legal": "transparence/"
+    "collection": "collection",
+    "topic": "sujet",
+    "resource": "ressource",
+    "legal": "transparence",
+    "about": "a-propos",
+    "contact": "nous-joindre"
   },
   "canada_wordmark_alt": "Symbole du gouvernement du Canada",
   "jump_to": "Sur cette page",

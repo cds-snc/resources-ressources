@@ -38,10 +38,12 @@
   },
   "home": "Home",
   "page_prefix": {
-    "collection": "collection/",
-    "topic": "topic/",
-    "resource": "resource/",
-    "legal": "legal/"
+    "collection": "collection",
+    "topic": "topic",
+    "resource": "resource",
+    "legal": "legal",
+    "about": "about",
+    "contact": "contact"
   },
   "canada_wordmark_alt": "Symbol of the Government of Canada",
   "collections": "Collections",

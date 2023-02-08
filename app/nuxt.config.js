@@ -174,20 +174,20 @@ module.exports = {
         fr: '/nous-joindre',
       },
       'topic/_topic': {
-        en: `/${langPaths.en.topic}:topic`,
-        fr: `/${langPaths.fr.topic}:topic`,
+        en: `/${langPaths.en.topic}/:topic`,
+        fr: `/${langPaths.fr.topic}/:topic`,
       },
       'resource/_resource': {
-        en: `/${langPaths.en.resource}:resource`,
-        fr: `/${langPaths.fr.resource}:resource`,
+        en: `/${langPaths.en.resource}/:resource`,
+        fr: `/${langPaths.fr.resource}/:resource`,
       },
       'legal/_legal': {
-        en: `/${langPaths.en.legal}:legal`,
-        fr: `/${langPaths.fr.legal}:legal`,
+        en: `/${langPaths.en.legal}/:legal`,
+        fr: `/${langPaths.fr.legal}/:legal`,
       },
       'collection/_collection': {
-        en: `/${langPaths.en.collection}:collection`,
-        fr: `/${langPaths.fr.collection}:collection`,
+        en: `/${langPaths.en.collection}/:collection`,
+        fr: `/${langPaths.fr.collection}/:collection`,
       },
     },
   },
