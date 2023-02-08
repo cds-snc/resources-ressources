@@ -47,7 +47,7 @@
             <!-- <r-h1 :heading-text="resource.title" class="my-10"></r-h1> -->
 
             <PageContents
-              v-if="!isMdAndBigger"
+              v-if="!isMdAndBigger && headings.length > 0"
               :headings="headings"
             ></PageContents>
 

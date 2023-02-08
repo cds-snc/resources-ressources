@@ -72,6 +72,7 @@ const PageContentProps = Vue.extend({
   props: {
     headings: {
       type: Array,
+      required: true,
     },
   },
 })
