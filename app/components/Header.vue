@@ -14,7 +14,7 @@
 
           <div>
             <nuxt-link
-              v-show="locale === 'en'"
+              v-show="isEN"
               :to="localePath({ name: 'index' })"
               class="flex items-center text-2xl font-medium font-logo"
               aria-label="Go to the homepage"
@@ -24,11 +24,11 @@
                 :src="require(`../assets/cds-logo-en.svg`)"
                 alt="Canadian Digital Service - Learning resources"
               />
-              {{ isMobile ? 'LR' : $t('learning_resources') }}
+              {{ isMobile ? $t('learning_resources_shortform') : $t('learning_resources') }}
             </nuxt-link>
 
             <nuxt-link
-              v-show="locale === 'fr'"
+              v-show="isFR"
               :to="localePath({ name: 'index' })"
               class="flex items-center text-2xl font-medium font-logo"
               aria-label="Accéder à la page d'accueil"
@@ -38,7 +38,7 @@
                 :src="require(`../assets/cds-logo-fr.svg`)"
                 alt="Service numérique canadien - Ressources d'apprentissage"
               />
-              {{ isMobile ? 'RA' : $t('learning_resources') }}
+              {{ isMobile ? $t('learning_resources_shortform') : $t('learning_resources') }}
             </nuxt-link>
           </div>
 
@@ -74,7 +74,7 @@
                   ></font-awesome-icon>
                 </button>
               </template>
-              <v-list v-if="locale === 'en'">
+              <v-list v-if="isEN">
                 <v-list-item
                   v-for="(topic, index) in topicsEN"
                   :key="index"
@@ -106,13 +106,13 @@
             <!-- Language toggle -->
 
             <a
-              v-for="locale in availableLocales"
-              :key="locale.code"
-              :href="switchLocalePath(locale.code)"
+              v-for="availableLocale in availableLocales"
+              :key="availableLocale.code"
+              :href="switchLocalePath(availableLocale.code)"
               class="underline text-blue-900 hover:text-blue-700 text-xl ml-12"
-              :lang="locale.code"
+              :lang="availableLocale.code"
               @click="switchLocale"
-              >{{ getLanguageToggleText(locale) }}
+              >{{ getLanguageToggleText(availableLocale) }}
             </a>
           </div>
         </div>
@@ -125,7 +125,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import {EN, EN_LOCALE, FR, FR_LOCALE} from '@/utils/constants'
 
 export default {
   name: 'Header',
@@ -165,6 +165,14 @@ export default {
       topicsEN: (state) => state.menu.topics[EN_LOCALE],
       topicsFR: (state) => state.menu.topics[FR_LOCALE],
     }),
+
+    isEN() {
+      return this.$i18n.locale === EN
+    },
+
+    isFR() {
+      return this.$i18n.locale === FR
+    }
   },
 
   // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -173,8 +181,8 @@ export default {
     switchLocale() {
       let alternateLocale = null
 
-      if (this.$i18n.locale === 'en') alternateLocale = 'fr'
-      else alternateLocale = 'en'
+      if (this.$i18n.locale === EN) alternateLocale = FR
+      else alternateLocale = EN
 
       this.$i18n.setLocale(alternateLocale)
       this.$i18n.setLocaleCookie(alternateLocale)
