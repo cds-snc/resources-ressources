@@ -24,7 +24,11 @@
                 :src="require(`../assets/cds-logo-en.svg`)"
                 alt="Canadian Digital Service - Learning resources"
               />
-              {{ isMobile ? $t('learning_resources_shortform') : $t('learning_resources') }}
+              {{
+                isMobile
+                  ? $t('learning_resources_shortform')
+                  : $t('learning_resources')
+              }}
             </nuxt-link>
 
             <nuxt-link
@@ -38,7 +42,11 @@
                 :src="require(`../assets/cds-logo-fr.svg`)"
                 alt="Service numérique canadien - Ressources d'apprentissage"
               />
-              {{ isMobile ? $t('learning_resources_shortform') : $t('learning_resources') }}
+              {{
+                isMobile
+                  ? $t('learning_resources_shortform')
+                  : $t('learning_resources')
+              }}
             </nuxt-link>
           </div>
 
@@ -125,7 +133,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import {EN, EN_LOCALE, FR, FR_LOCALE} from '@/utils/constants'
+import { EN, EN_LOCALE, FR, FR_LOCALE } from '@/utils/constants'
 
 export default {
   name: 'Header',
@@ -134,21 +142,6 @@ export default {
       menuOpened: false,
       isMobile: false,
     }
-  },
-
-  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  beforeDestroy() {
-    if (typeof window === 'undefined')
-      window.removeEventListener('resize', this.onWindowResize, {
-        passive: true,
-      })
-  },
-
-  mounted() {
-    this.onWindowResize()
-
-    window.addEventListener('resize', this.onWindowResize, { passive: true })
   },
 
   // Computed Properties - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -172,7 +165,22 @@ export default {
 
     isFR() {
       return this.$i18n.locale === FR
-    }
+    },
+  },
+
+  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  beforeDestroy() {
+    if (typeof window === 'undefined')
+      window.removeEventListener('resize', this.onWindowResize, {
+        passive: true,
+      })
+  },
+
+  mounted() {
+    this.onWindowResize()
+
+    window.addEventListener('resize', this.onWindowResize, { passive: true })
   },
 
   // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
