@@ -2,6 +2,7 @@
   "welcome": "Welcome",
   "switch_language": "Français",
   "learning_resources": "Learning resources",
+  "learning_resources_shortform": "LR",
   "search_description": "Browse service delivery resources grounded in our work at the Canadian Digital Service.",
   "proof_of_concept": {
     "title": "ALPHA",
@@ -46,5 +47,6 @@
   "canada_wordmark_alt": "Symbol of the Government of Canada",
   "collections": "Collections",
   "related_collections": "Related collections",
-  "jump_to": "On this page"
+  "jump_to": "On this page",
+  "close": "Close"
 }

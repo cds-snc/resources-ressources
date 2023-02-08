@@ -10,12 +10,16 @@
 
     <div class="flex mb-10">
       <div class="max-w-full">
-        <div class="flex flex-col lg:flex-row items-start gap-8">
+        <div class="py-8">
+          <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-start gap-8">
           <!-- MVP Feature 3: Content jump links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
           <div
-            v-if="headings.length > 0"
-            class="lg:sticky lg:top-20 self-start min-w-1/4 mt-10"
+            v-if="headings.length > 0 && isMdAndBigger"
+            class="md:sticky md:top-20 self-start lg:min-w-1/4 md:min-w-1/3 mt-5"
           >
             <h2 class="font-bold text-2xl mb-2.5">{{ $t('jump_to') }}</h2>
             <nav class="jumpLinks">
@@ -40,7 +44,12 @@
           <!-- FEATURE: end - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
           <div class="grow-[2]">
-            <r-h1 :heading-text="resource.title" class="my-10"></r-h1>
+            <!-- <r-h1 :heading-text="resource.title" class="my-10"></r-h1> -->
+
+            <PageContents
+              v-if="!isMdAndBigger && headings.length > 0"
+              :headings="headings"
+            ></PageContents>
 
             <div v-if="richText != null" v-html="richText"></div>
 
@@ -79,6 +88,7 @@ import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 import { generateResources } from '@/utils/listItemsUtility'
+import Viewport from '@/utils/viewport.ts'
 
 let headings = []
 
@@ -192,9 +202,15 @@ export default {
     }
   },
 
+  // Data - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   data() {
     return {
       activeHeadingId: '',
+
+      isMdAndBigger: false,
+
+      hasScrollEventListener: false,
     }
   },
 
@@ -206,11 +222,16 @@ export default {
       },
     }
   },
-  // Hooks ------------------------------------------------------------------------------------------------------------
+
+  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    this.onWindowResize()
+
+    window.addEventListener('resize', this.onWindowResize, { passive: true })
   },
+
+  // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   methods: {
     setActiveJumpLink(headingId) {
@@ -218,6 +239,8 @@ export default {
     },
 
     handleScroll() {
+      if (!this.isMdAndBigger) return
+
       const jumpLinks = document.querySelectorAll('.jumpLinks li')
       const headings = document.querySelectorAll('h2')
       let isPassedFirstHeading = false
@@ -235,11 +258,32 @@ export default {
 
       if (
         isPassedFirstHeading ||
-        scrollY - headings[0].offsetHeight >= headings[0].offsetTop
+        (scrollY - headings[0].offsetHeight >= headings[0].offsetTop &&
+          jumpLinks.length > numberOfHeadings)
       ) {
         jumpLinks[numberOfHeadings].className += ' activeJumpLink'
         isPassedFirstHeading = true
       }
+    },
+
+    onWindowResize() {
+      this.isMdAndBigger = Viewport.isMdAndBigger(window.innerWidth)
+
+      if (this.isMdAndBigger && !this.hasScrollEventListener)
+        this.addScrollEventListener()
+
+      if (!this.isMdAndBigger && this.hasScrollEventListener)
+        this.removeScrollEventListener()
+    },
+
+    addScrollEventListener() {
+      window.addEventListener('scroll', this.handleScroll)
+      this.hasScrollEventListener = true
+    },
+
+    removeScrollEventListener() {
+      window.removeEventListener('scroll', this.handleScroll)
+      this.hasScrollEventListener = false
     },
   },
 }
