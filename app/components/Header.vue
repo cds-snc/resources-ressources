@@ -4,14 +4,17 @@
     <!-- Pilot banner -->
     <!-- <Banner /> -->
 
-    <nav class="bg-white text-black pt-2 md:pt-0">
+    <nav class="bg-white text-black">
       <div class="max-w-7xl mx-auto px-4">
-        <div
+        <!-- <div
           class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
-        >
+        > -->
+        <div class="relative flex items-center justify-between h-16">
+          <!-- CDS Logo and wordmark -->
+
           <div>
             <nuxt-link
-              v-show="currentLocale === 'en'"
+              v-show="isEN"
               :to="localePath({ name: 'index' })"
               class="flex items-center text-2xl font-medium font-logo"
               aria-label="Go to the homepage"
@@ -21,11 +24,15 @@
                 :src="require(`../assets/cds-logo-en.svg`)"
                 alt="Canadian Digital Service - Learning resources"
               />
-              {{ $t('learning_resources') }}
+              {{
+                isMobile
+                  ? $t('learning_resources_shortform')
+                  : $t('learning_resources')
+              }}
             </nuxt-link>
 
             <nuxt-link
-              v-show="currentLocale === 'fr'"
+              v-show="isFR"
               :to="localePath({ name: 'index' })"
               class="flex items-center text-2xl font-medium font-logo"
               aria-label="Accéder à la page d'accueil"
@@ -35,7 +42,11 @@
                 :src="require(`../assets/cds-logo-fr.svg`)"
                 alt="Service numérique canadien - Ressources d'apprentissage"
               />
-              {{ $t('learning_resources') }}
+              {{
+                isMobile
+                  ? $t('learning_resources_shortform')
+                  : $t('learning_resources')
+              }}
             </nuxt-link>
           </div>
 
@@ -71,7 +82,7 @@
                   ></font-awesome-icon>
                 </button>
               </template>
-              <v-list v-if="currentLocale === 'en'">
+              <v-list v-if="isEN">
                 <v-list-item
                   v-for="(topic, index) in topicsEN"
                   :key="index"
@@ -110,14 +121,16 @@
               </v-list>
             </v-menu>
 
+            <!-- Language toggle -->
+
             <a
-              v-for="locale in availableLocales"
-              :key="locale.code"
-              :href="switchLocalePath(locale.code)"
+              v-for="availableLocale in availableLocales"
+              :key="availableLocale.code"
+              :href="switchLocalePath(availableLocale.code)"
               class="underline text-blue-900 hover:text-blue-700 text-xl ml-12"
-              :lang="locale.code"
+              :lang="availableLocale.code"
               @click="switchLocale"
-              >{{ locale.name }}
+              >{{ getLanguageToggleText(availableLocale) }}
             </a>
           </div>
         </div>
@@ -126,11 +139,11 @@
   </header>
 </template>
 
-<!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!-- Component logic ===============================================================================================-->
 
 <script>
 import { mapState } from 'vuex'
-import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { EN, EN_LOCALE, FR, FR_LOCALE } from '@/utils/constants'
 import { langPaths } from '@/utils/paths'
 
 export default {
@@ -139,8 +152,12 @@ export default {
     return {
       menuOpened: false,
       langPaths,
+      isMobile: false,
     }
   },
+
+  // Computed Properties - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   computed: {
     currentLocale() {
       return this.$i18n.locale
@@ -153,17 +170,51 @@ export default {
       topicsEN: (state) => state.menu.topics[EN_LOCALE],
       topicsFR: (state) => state.menu.topics[FR_LOCALE],
     }),
+
+    isEN() {
+      return this.$i18n.locale === EN
+    },
+
+    isFR() {
+      return this.$i18n.locale === FR
+    },
   },
+
+  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  beforeDestroy() {
+    if (typeof window === 'undefined')
+      window.removeEventListener('resize', this.onWindowResize, {
+        passive: true,
+      })
+  },
+
+  mounted() {
+    this.onWindowResize()
+
+    window.addEventListener('resize', this.onWindowResize, { passive: true })
+  },
+
+  // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   methods: {
     switchLocale() {
       let alternateLocale = null
 
-      if (this.$i18n.locale === 'en') alternateLocale = 'fr'
-      else alternateLocale = 'en'
+      if (this.$i18n.locale === EN) alternateLocale = FR
+      else alternateLocale = EN
 
       this.$i18n.setLocale(alternateLocale)
       this.$i18n.setLocaleCookie(alternateLocale)
+    },
+
+    getLanguageToggleText(locale) {
+      if (this.isMobile) return locale.code.toUpperCase()
+      else return locale.name
+    },
+
+    onWindowResize() {
+      this.isMobile = window.innerWidth < 550
     },
   },
 }
