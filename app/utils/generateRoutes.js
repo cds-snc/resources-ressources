@@ -15,8 +15,7 @@ const {
   getCollectionPageQuery,
   getQueryForAllCollectionUrlSlugs,
 } = require('./queries')
-const { CONTENTFUL_CDA_BASE_URL } = require('./constants')
-const { EN_LOCALE, FR_LOCALE } = require('~/utils/constants')
+const { EN_LOCALE, FR_LOCALE, CONTENTFUL_CDA_BASE_URL } = require('./constants')
 // const {aboutPageQuery, contactPageQuery} = require("~/utils/queries");
 
 module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
