@@ -89,7 +89,12 @@
                   class="hover:bg-blue-100 cursor-pointer"
                 >
                   <nuxt-link
-                    :to="localePath(`/topic/${topic.urlSlug}`, 'en')"
+                    :to="
+                      localePath(
+                        `/${langPaths.en.topic}/${topic.urlSlug}`,
+                        'en'
+                      )
+                    "
                     class="text-lg"
                   >
                     {{ topic.name }}
@@ -103,7 +108,12 @@
                   class="hover:bg-blue-100 cursor-pointer"
                 >
                   <nuxt-link
-                    :to="localePath(`/sujet/${topic.urlSlug}`, 'fr')"
+                    :to="
+                      localePath(
+                        `/${langPaths.fr.topic}/${topic.urlSlug}`,
+                        'fr'
+                      )
+                    "
                     class="text-lg"
                     >{{ topic.name }}</nuxt-link
                   >
@@ -134,12 +144,14 @@
 <script>
 import { mapState } from 'vuex'
 import { EN, EN_LOCALE, FR, FR_LOCALE } from '@/utils/constants'
+import { langPaths } from '@/utils/paths'
 
 export default {
   name: 'Header',
   data() {
     return {
       menuOpened: false,
+      langPaths,
       isMobile: false,
     }
   },
@@ -147,7 +159,7 @@ export default {
   // Computed Properties - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   computed: {
-    locale() {
+    currentLocale() {
       return this.$i18n.locale
     },
 

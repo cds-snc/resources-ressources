@@ -88,6 +88,7 @@ import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
 import { generateResources } from '@/utils/listItemsUtility'
+import { langPaths } from '@/utils/paths'
 import Viewport from '@/utils/viewport.ts'
 
 let headings = []
@@ -145,9 +146,8 @@ export default {
 
     let breadcrumbs = resource.breadcrumbsCollection.items
 
-    const topicPathPrefix = currentLocale.includes('en') ? '/topic/' : '/sujet/'
-
     const localeCode = getLocaleCode(currentLocale)
+    const topicPathPrefix = `/${langPaths[localeCode].topic}/`
 
     breadcrumbs = breadcrumbs.map((breadcrumb) => ({
       name: breadcrumb.name,
