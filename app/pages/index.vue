@@ -52,7 +52,7 @@
       <!-- Contact info (right side) -->
 
       <div class="col-span-2 py-5">
-        <p class="text-xl text-gray-900 tracking-wide leading-relaxed">
+        <p class="text-lg text-gray-800 tracking-wide leading-relaxed">
           {{ $t('contact.info-1') }} <br />
           {{ $t('contact.info-2') }}
           <br /><strong>partnerships-partenariats@cds-snc.ca</strong>
