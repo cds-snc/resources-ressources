@@ -27,6 +27,9 @@ import RH1 from '@/components/r-html-tags/rH1'
 
 export default {
   components: { RH1 },
+
+  layout: 'expandedSearch',
+
   // Hooks ------------------------------------------------------------------------------------------------------------
 
   async asyncData({
