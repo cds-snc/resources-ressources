@@ -4,10 +4,10 @@
     <a
       id="skipToMain"
       class="-translate-y-full font-medium px-8 py-1 focus-visible:mt-2 rounded-full focus-visible:translate-y-0 focus-visible:bg-yellow-300 focus-visible:z-50 focus-visible:shadow-2xl absolute"
-      :href="'#main-content'"
+      :href="'#wb-cont'"
       tabindex="0"
     >
-      Skip to content
+      {{ $t('skip_to_content') }}
       <span>
         <font-awesome-icon
           icon="fa-fast-forward"
