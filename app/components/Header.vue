@@ -16,7 +16,7 @@
             <nuxt-link
               v-show="isEN"
               :to="localePath({ name: 'index' })"
-              class="flex items-center text-2xl font-medium font-logo"
+              class="flex items-center text-lg sm:text-2xl font-medium font-logo"
               aria-label="Go to the homepage"
             >
               <img
@@ -24,17 +24,13 @@
                 :src="require(`../assets/cds-logo-en.svg`)"
                 alt="Canadian Digital Service - Learning resources"
               />
-              {{
-                isMobile
-                  ? $t('learning_resources_shortform')
-                  : $t('learning_resources')
-              }}
+              {{ $t('learning_resources') }}
             </nuxt-link>
 
             <nuxt-link
               v-show="isFR"
               :to="localePath({ name: 'index' })"
-              class="flex items-center text-2xl font-medium font-logo"
+              class="flex items-center text-lg sm:text-2xl font-medium font-logo"
               aria-label="Accéder à la page d'accueil"
             >
               <img
@@ -42,11 +38,7 @@
                 :src="require(`../assets/cds-logo-fr.svg`)"
                 alt="Service numérique canadien - Ressources d'apprentissage"
               />
-              {{
-                isMobile
-                  ? $t('learning_resources_shortform')
-                  : $t('learning_resources')
-              }}
+              {{ $t('learning_resources') }}
             </nuxt-link>
           </div>
 
@@ -64,7 +56,7 @@
               <template #activator="{ on }">
                 <button
                   id="menuButton"
-                  class="p-3 text-xl rounded-lg hover:bg-gray-100"
+                  class="p-2 text-xl rounded-lg hover:bg-gray-100 w-28"
                   v-on="on"
                 >
                   {{ $t('landing_page.topics_heading') }}
