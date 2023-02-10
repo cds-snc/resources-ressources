@@ -5,7 +5,7 @@
     <Header
       class="border-b border-solid border-gray-200 sticky top-0 w-full z-50"
     />
-    <main id="main-content" class="flex-grow">
+    <main id="wb-cont" class="flex-grow">
       <div class="max-w-7xl mx-auto px-5">
         <Nuxt />
       </div>
