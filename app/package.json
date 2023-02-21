@@ -34,7 +34,8 @@
     "dayjs": "^1.11.2",
     "express": "^4.17.1",
     "nuxt": "^2.15.7",
-    "nuxt-start": "^2.15.8"
+    "nuxt-start": "^2.15.8",
+    "vue-class-component": "^7.2.6"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

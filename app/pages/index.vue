@@ -52,7 +52,7 @@
       <!-- Contact info (right side) -->
 
       <div class="col-span-2 py-5">
-        <p class="text-xl text-gray-900 tracking-wide leading-relaxed">
+        <p class="text-lg text-gray-800 tracking-wide leading-relaxed">
           {{ $t('contact.info-1') }} <br />
           {{ $t('contact.info-2') }}
           <br /><strong>partnerships-partenariats@cds-snc.ca</strong>
@@ -67,9 +67,9 @@
 <script>
 import { topLevelTopicsQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
-import { EN_LOCALE } from '@/utils/constants'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import Feature from '@/components/feature-flags/Feature'
+import { langPaths } from '@/utils/paths'
 
 export default {
   nuxtI18n: {
@@ -118,8 +118,9 @@ export default {
           return result.data.topicCollection.items
         })
     }
+    const localeCode = getLocaleCode(currentLocale)
 
-    const topicPathPrefix = currentLocale === EN_LOCALE ? '/topic/' : '/sujet/'
+    const topicPathPrefix = `/${langPaths[localeCode].topic}/`
 
     topics = topics.map((topic) => ({
       name: topic.name,
@@ -127,9 +128,8 @@ export default {
       path: topicPathPrefix + topic.urlSlug,
     }))
 
-    const locale = getLocaleCode(currentLocale)
     const pageName = currentLocale.includes('en') ? 'Home' : 'Accueil'
-    const headElement = getHeadElement(pageName, locale)
+    const headElement = getHeadElement(pageName, localeCode)
 
     const consts = require('@/utils/constants')
     const featureNames = consts.featureNames

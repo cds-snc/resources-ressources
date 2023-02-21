@@ -15,6 +15,7 @@ export const richTextRenderOptions = (
   addToResourceHeadings
 ) => {
   const entryLinks = new Map()
+  let isFirstNode = true
 
   if (links) {
     for (const entryHyperlink of links.entries.hyperlink) {
@@ -75,7 +76,14 @@ export const richTextRenderOptions = (
         ) {
           addToResourceHeadings({ linkName: heading, linkId: headingId })
         }
-        return `<h2 id="${headingId}" class="text-3xl font-medium mt-12 mb-2.5 scroll-mt-40">${node.content[0].value}</h2>`
+
+        let marginTop = 'mt-12'
+
+        if (isFirstNode) {
+          marginTop = 'mt-5'
+          isFirstNode = false
+        }
+        return `<h2 id="${headingId}" class="text-3xl font-medium ${marginTop} mb-2.5 scroll-mt-32 md:scroll-mt-20">${node.content[0].value}</h2>`
       },
       [BLOCKS.HEADING_3]: (node) => {
         return `<h3 class="text-2xl font-medium mt-12 mb-2.5">${node.content[0].value}</h3>`
@@ -85,6 +93,7 @@ export const richTextRenderOptions = (
       },
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       [BLOCKS.PARAGRAPH]: (node, next) => {
+        if (isFirstNode) isFirstNode = false
         // return `<p class="leading-7">${node.content[0].value}</p>`
         return `<p class="leading-relaxed text-lg tracking-wide text-gray-800 mt-5">${next(
           node.content

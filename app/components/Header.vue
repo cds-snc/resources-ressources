@@ -4,16 +4,19 @@
     <!-- Pilot banner -->
     <!-- <Banner /> -->
 
-    <nav class="bg-white text-black pt-2 md:pt-0">
+    <nav class="bg-white text-black">
       <div class="max-w-7xl mx-auto px-4">
-        <div
+        <!-- <div
           class="relative flex flex-col md:flex-row items-center justify-between md:h-16"
-        >
+        > -->
+        <div class="relative flex items-center justify-between h-16">
+          <!-- CDS Logo and wordmark -->
+
           <div>
             <nuxt-link
-              v-show="locale === 'en'"
+              v-show="isEN"
               :to="localePath({ name: 'index' })"
-              class="flex items-center text-2xl font-medium font-logo"
+              class="flex items-center text-lg sm:text-2xl font-medium font-logo"
               aria-label="Go to the homepage"
             >
               <img
@@ -25,9 +28,9 @@
             </nuxt-link>
 
             <nuxt-link
-              v-show="locale === 'fr'"
+              v-show="isFR"
               :to="localePath({ name: 'index' })"
-              class="flex items-center text-2xl font-medium font-logo"
+              class="flex items-center text-lg sm:text-2xl font-medium font-logo"
               aria-label="Accéder à la page d'accueil"
             >
               <img
@@ -53,7 +56,7 @@
               <template #activator="{ on }">
                 <button
                   id="menuButton"
-                  class="p-3 text-xl rounded-lg hover:bg-gray-100"
+                  class="p-2 text-xl rounded-lg hover:bg-gray-100 w-28"
                   v-on="on"
                 >
                   {{ $t('landing_page.topics_heading') }}
@@ -71,14 +74,19 @@
                   ></font-awesome-icon>
                 </button>
               </template>
-              <v-list v-if="locale === 'en'">
+              <v-list v-if="isEN">
                 <v-list-item
                   v-for="(topic, index) in topicsEN"
                   :key="index"
                   class="hover:bg-blue-100 cursor-pointer"
                 >
                   <nuxt-link
-                    :to="localePath(`/topic/${topic.urlSlug}`, 'en')"
+                    :to="
+                      localePath(
+                        `/${langPaths.en.topic}/${topic.urlSlug}`,
+                        'en'
+                      )
+                    "
                     class="text-lg"
                   >
                     {{ topic.name }}
@@ -92,7 +100,12 @@
                   class="hover:bg-blue-100 cursor-pointer"
                 >
                   <nuxt-link
-                    :to="localePath(`/sujet/${topic.urlSlug}`, 'fr')"
+                    :to="
+                      localePath(
+                        `/${langPaths.fr.topic}/${topic.urlSlug}`,
+                        'fr'
+                      )
+                    "
                     class="text-lg"
                     >{{ topic.name }}</nuxt-link
                   >
@@ -100,14 +113,16 @@
               </v-list>
             </v-menu>
 
+            <!-- Language toggle -->
+
             <a
-              v-for="locale in availableLocales"
-              :key="locale.code"
-              :href="switchLocalePath(locale.code)"
+              v-for="availableLocale in availableLocales"
+              :key="availableLocale.code"
+              :href="switchLocalePath(availableLocale.code)"
               class="underline text-blue-900 hover:text-blue-700 text-xl ml-12"
-              :lang="locale.code"
+              :lang="availableLocale.code"
               @click="switchLocale"
-              >{{ locale.name }}
+              >{{ getLanguageToggleText(availableLocale) }}
             </a>
           </div>
         </div>
@@ -116,21 +131,27 @@
   </header>
 </template>
 
-<!-- Component logic - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!-- Component logic ===============================================================================================-->
 
 <script>
 import { mapState } from 'vuex'
-import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import { EN, EN_LOCALE, FR, FR_LOCALE } from '@/utils/constants'
+import { langPaths } from '@/utils/paths'
 
 export default {
   name: 'Header',
   data() {
     return {
       menuOpened: false,
+      langPaths,
+      isMobile: false,
     }
   },
+
+  // Computed Properties - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   computed: {
-    locale() {
+    currentLocale() {
       return this.$i18n.locale
     },
 
@@ -141,17 +162,51 @@ export default {
       topicsEN: (state) => state.menu.topics[EN_LOCALE],
       topicsFR: (state) => state.menu.topics[FR_LOCALE],
     }),
+
+    isEN() {
+      return this.$i18n.locale === EN
+    },
+
+    isFR() {
+      return this.$i18n.locale === FR
+    },
   },
+
+  // Lifecycle Hooks - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  beforeDestroy() {
+    if (typeof window === 'undefined')
+      window.removeEventListener('resize', this.onWindowResize, {
+        passive: true,
+      })
+  },
+
+  mounted() {
+    this.onWindowResize()
+
+    window.addEventListener('resize', this.onWindowResize, { passive: true })
+  },
+
+  // Methods - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   methods: {
     switchLocale() {
       let alternateLocale = null
 
-      if (this.$i18n.locale === 'en') alternateLocale = 'fr'
-      else alternateLocale = 'en'
+      if (this.$i18n.locale === EN) alternateLocale = FR
+      else alternateLocale = EN
 
       this.$i18n.setLocale(alternateLocale)
       this.$i18n.setLocaleCookie(alternateLocale)
+    },
+
+    getLanguageToggleText(locale) {
+      if (this.isMobile) return locale.code.toUpperCase()
+      else return locale.name
+    },
+
+    onWindowResize() {
+      this.isMobile = window.innerWidth < 550
     },
   },
 }

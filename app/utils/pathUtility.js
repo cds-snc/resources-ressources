@@ -1,29 +1,21 @@
-const topicPrefixEN = '/topic/'
-const topicPrefixFR = '/sujet/'
-const resourcePrefixEN = '/resource/'
-const resourcePrefixFR = '/ressource/'
-const collectionPrefix = '/collection/'
-const legalPrefixEN = '/legal/'
-const legalPrefixFR = '/transparence/'
-export const aboutPathEN = '/about'
-export const aboutPathFR = '/a-propos'
-export const contactPathEN = '/contact'
-export const contactPathFR = '/nous-joindre'
+import { langPaths } from '~/utils/paths'
+import { getLocaleCode } from '~/utils/getCurrentLocale'
+import { EN_LOCALE } from '~/utils/constants'
 
-export const getTopicPathPrefix = (currentLocale) => {
-  return currentLocale.includes('en') ? topicPrefixEN : topicPrefixFR
+export const getTopicPathPrefix = (currentLocale = EN_LOCALE) => {
+  return `/${langPaths[getLocaleCode(currentLocale)].topic}/`
 }
 
-export const getResourcePathPrefix = (currentLocale) => {
-  return currentLocale.includes('en') ? resourcePrefixEN : resourcePrefixFR
+export const getResourcePathPrefix = (currentLocale = EN_LOCALE) => {
+  return `/${langPaths[getLocaleCode(currentLocale)].resource}/`
 }
 
-export const getLegalPathPrefix = (currentLocale) => {
-  return currentLocale.includes('en') ? legalPrefixEN : legalPrefixFR
+export const getLegalPathPrefix = (currentLocale = EN_LOCALE) => {
+  return `/${langPaths[getLocaleCode(currentLocale)].legal}/`
 }
 
-export const getCollectionPathPrefix = () => {
-  return collectionPrefix
+export const getCollectionPathPrefix = (currentLocale = EN_LOCALE) => {
+  return `/${langPaths[getLocaleCode(currentLocale)].collection}/`
 }
 
 export const getCollectionPath = (urlSlug) => {
@@ -38,10 +30,10 @@ export const getTopicPath = (urlSlug, locale) => {
   return getTopicPathPrefix(locale) + urlSlug
 }
 
-export const getAboutPagePath = (locale) => {
-  return locale.includes('en') ? aboutPathEN : aboutPathFR
+export const getAboutPagePath = (currentLocale = EN_LOCALE) => {
+  return `/${langPaths[getLocaleCode(currentLocale)].about}`
 }
 
-export const getContactPagePath = (locale) => {
-  return locale.includes('en') ? contactPathEN : contactPathFR
+export const getContactPagePath = (currentLocale = EN_LOCALE) => {
+  return `/${langPaths[getLocaleCode(currentLocale)].contact}`
 }

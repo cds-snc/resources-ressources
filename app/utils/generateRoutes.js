@@ -15,7 +15,7 @@ const {
   getCollectionPageQuery,
   getQueryForAllCollectionUrlSlugs,
 } = require('./queries')
-const { CONTENTFUL_CDA_BASE_URL } = require('./constants')
+const { EN_LOCALE, FR_LOCALE, CONTENTFUL_CDA_BASE_URL } = require('./constants')
 // const {aboutPageQuery, contactPageQuery} = require("~/utils/queries");
 
 module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
@@ -29,8 +29,8 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
   }
 
   // Locales
-  const localeEN = 'en-CA'
-  const localeFR = 'fr-CA'
+  const localeEN = EN_LOCALE
+  const localeFR = FR_LOCALE
   const locales = [localeEN, localeFR]
 
   // Route prefixes
@@ -63,7 +63,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
           locale === localeEN
             ? topicRoutePrefix[localeEN]
             : topicRoutePrefix[localeFR]
-        const path = `/${prefix}${item.urlSlug}`
+        const path = `/${prefix}/${item.urlSlug}`
         topicRoutes.push({
           locale,
           path,
@@ -83,7 +83,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
             locale === localeEN
               ? collectionRoutePrefix[localeEN]
               : collectionRoutePrefix[localeFR]
-          const path = `/${pathPrefix}${collectionItem.urlSlug}`
+          const path = `/${pathPrefix}/${collectionItem.urlSlug}`
           collectionRoutes.push({
             locale,
             path,
@@ -102,7 +102,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
             locale === localeEN
               ? resourceRoutePrefix[localeEN]
               : resourceRoutePrefix[localeFR]
-          const path = `/${prefix}${item.urlSlug}`
+          const path = `/${prefix}/${item.urlSlug}`
           resourceRoutes.push({
             locale,
             path,
@@ -119,7 +119,7 @@ module.exports = async (contentfulAccessToken, contentfulSpaceId) => {
           locale === localeEN
             ? legalRoutePrefix[localeEN]
             : legalRoutePrefix[localeFR]
-        const path = `/${prefix}${item.urlSlug}`
+        const path = `/${prefix}/${item.urlSlug}`
         legalRoutes.push({
           locale,
           path,
