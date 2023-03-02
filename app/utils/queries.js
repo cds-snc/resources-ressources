@@ -140,6 +140,15 @@ export const resourcePageQuery = (
               urlSlug
             }
           }
+          externalResourcesCollection
+          {
+            items
+            {
+              title
+              resourceType
+              url
+            }
+          }
           body
           {
             json
