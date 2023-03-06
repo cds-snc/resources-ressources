@@ -9,13 +9,3 @@ context('Assertions', () => {
     })
   })
 })
-
-/*
-Tests
-- The Home Page
-- Mobile viewports
-  - Navbar etc
-- Contact us
-- About us
-- Terms & Privacy
- */
