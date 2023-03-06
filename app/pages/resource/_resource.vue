@@ -53,6 +53,27 @@
 
             <div v-if="richText != null" v-html="richText"></div>
 
+            <!-- External Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+            <div v-if="externalResources && externalResources.length > 0">
+              <h2
+                :id="examplesLinkId"
+                class="text-3xl font-medium mt-12 mb-2.5 scroll-mt-32 md:scroll-mt-20"
+              >
+                {{ $t('examples_from_our_work') }}
+              </h2>
+
+              <ul
+                class="grid grid-cols-1 col-span-2 xl:grid-cols-2 gap-10 mt-8"
+              >
+                <ExternalResourceListItem
+                  v-for="eResource in externalResources"
+                  :key="eResource.title"
+                  :external-resource="eResource"
+                ></ExternalResourceListItem>
+              </ul>
+            </div>
+
             <!-- Related Resources - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
             <div v-if="relatedResources && relatedResources.length > 0">
@@ -83,13 +104,22 @@
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
-import { EN_LOCALE, FR_LOCALE } from '@/utils/constants'
+import {
+  EN_LOCALE,
+  EXAMPLES_LINK_ID,
+  FR_LOCALE,
+  getExamplesLinkName,
+} from '@/utils/constants'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
 import RH1 from '@/components/r-html-tags/rH1'
-import { generateResources } from '@/utils/listItemsUtility'
+import {
+  generateExternalResources,
+  generateResources,
+} from '@/utils/listItemsUtility'
 import { langPaths } from '@/utils/paths'
 import Viewport from '@/utils/viewport.ts'
+import ExternalResourceListItem from '@/components/list-items/ExternalResourceListItem'
 
 let headings = []
 
@@ -98,7 +128,7 @@ export const addHeading = (heading) => {
 }
 
 export default {
-  components: { RH1 },
+  components: { ExternalResourceListItem, RH1 },
   layout: 'expandedSearch',
 
   async asyncData({
@@ -192,11 +222,22 @@ export default {
       )
     }
 
+    let externalResources = resource.externalResourcesCollection.items
+
+    if (externalResources.length > 0) {
+      externalResources = generateExternalResources(externalResources)
+      headings.push({
+        linkName: getExamplesLinkName(currentLocale),
+        linkId: EXAMPLES_LINK_ID,
+      })
+    }
+
     return {
       resource,
       richText,
       breadcrumbs,
       relatedResources,
+      externalResources,
       headElement,
       headings,
     }
@@ -211,6 +252,8 @@ export default {
       isMdAndBigger: false,
 
       hasScrollEventListener: false,
+
+      examplesLinkId: EXAMPLES_LINK_ID,
     }
   },
 

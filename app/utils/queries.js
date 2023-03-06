@@ -145,8 +145,11 @@ export const resourcePageQuery = (
             items
             {
               title
-              resourceType
               url
+              resourceType
+              {
+                name
+              }
             }
           }
           body

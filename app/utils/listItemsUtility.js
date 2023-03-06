@@ -35,3 +35,19 @@ export const generateResources = (resourceItems, locale) => {
       locale: getLocaleCode(locale),
     }))
 }
+
+export const generateExternalResources = (externalResourceItems) => {
+  return externalResourceItems
+    .filter(
+      (externalResourceItem) =>
+        externalResourceItem != null && externalResourceItem?.title != null
+    )
+    .map((externalResourceItem) => ({
+      resourceType: externalResourceItem.resourceType.name,
+      source: new URL(externalResourceItem.url).host.startsWith('www.')
+        ? new URL(externalResourceItem.url).host.substring(4)
+        : new URL(externalResourceItem.url).host,
+      title: externalResourceItem.title,
+      url: externalResourceItem.url,
+    }))
+}
