@@ -3,7 +3,7 @@
 <template>
   <div
     v-if="hasHeadings"
-    class="border-y border-solid border-gray-300 sticky top-16 -mx-5 bg-white text-gray-800"
+    class="border-y border-solid border-gray-300 sticky top-16 -mx-5 bg-white text-gray-800 z-50"
     :class="{
       'shadow-xl': isShowPageContents,
       'rounded-b-2xl': isShowPageContents,

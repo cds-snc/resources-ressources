@@ -11,3 +11,5 @@ export const FR_LOCALE = 'fr-CA'
 export const LOCALES = [EN_LOCALE, FR_LOCALE]
 export const EN = 'en'
 export const FR = 'fr'
+
+export const EXAMPLES_LINK_ID = 'ex'

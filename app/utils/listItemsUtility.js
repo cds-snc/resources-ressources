@@ -4,6 +4,9 @@ import {
   getTopicPath,
 } from '~/utils/pathUtility'
 import { getLocaleCode } from '~/utils/getCurrentLocale'
+import { EN_LOCALE } from '~/utils/constants'
+const langFR = require('../locales/fr.json')
+const langEN = require('../locales/en.json')
 
 export const generateBreadcrumbs = (breadcrumbItems, locale) => {
   const breadcrumbs = breadcrumbItems.map((breadcrumbItem) => ({
@@ -34,4 +37,26 @@ export const generateResources = (resourceItems, locale) => {
       path: getResourcePath(resourceItem.urlSlug, locale),
       locale: getLocaleCode(locale),
     }))
+}
+
+export const generateExternalResources = (externalResourceItems) => {
+  return externalResourceItems
+    .filter(
+      (externalResourceItem) =>
+        externalResourceItem != null && externalResourceItem?.title != null
+    )
+    .map((externalResourceItem) => ({
+      resourceType: externalResourceItem.resourceType.name,
+      source: new URL(externalResourceItem.url).host.startsWith('www.')
+        ? new URL(externalResourceItem.url).host.substring(4)
+        : new URL(externalResourceItem.url).host,
+      title: externalResourceItem.title,
+      url: externalResourceItem.url,
+    }))
+}
+
+export const getExamplesLinkName = (currentLocale) => {
+  return currentLocale === EN_LOCALE
+    ? langEN.examples_from_our_work
+    : langFR.examples_from_our_work
 }
