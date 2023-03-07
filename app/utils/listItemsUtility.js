@@ -44,6 +44,7 @@ export const generateExternalResources = (externalResourceItems) => {
     )
     .map((externalResourceItem) => ({
       resourceType: externalResourceItem.resourceType.name,
+      definiteArticle: externalResourceItem.resourceType.definiteArticle,
       source: new URL(externalResourceItem.url).host.startsWith('www.')
         ? new URL(externalResourceItem.url).host.substring(4)
         : new URL(externalResourceItem.url).host,
