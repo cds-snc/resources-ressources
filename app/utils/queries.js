@@ -149,7 +149,6 @@ export const resourcePageQuery = (
               resourceType
               {
                 name
-                definiteArticle
               }
             }
           }

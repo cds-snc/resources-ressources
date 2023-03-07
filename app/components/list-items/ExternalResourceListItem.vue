@@ -1,39 +1,39 @@
 <!-- Component View ================================================================================================-->
 
 <template>
-  <li
-    class="h-36 border-t border-thin flex flex-col justify-between p-4 border border-solid border-gray-100 bg-gray-100 hover:bg-blue-50 rounded-lg cursor-pointer"
-    @click="openResourceInNewTab(externalResource.url)"
-  >
-    <!-- Resource type & resource source -->
-    <div>
-      <small class="flex items-center text-sm text-gray-700">
-        {{ externalResource.resourceType }}
-        ⋅
-        {{ externalResource.source }}
-      </small>
+  <li>
+    <a
+      class="group h-36 flex p-5 rounded-3xl bg-gray-100 group cursor-pointer active:bg-indigo-600"
+      :href="externalResource.url"
+      target="_blank"
+    >
+      <div class="flex flex-col justify-between grow">
+        <h3 class="text-xl font-medium mb-2 group-active:text-indigo-50">
+          {{ externalResource.title }}
+        </h3>
 
-      <!-- Resource title -->
-      <h3 class="text-xl font-medium mb-2">{{ externalResource.title }}</h3>
-    </div>
+        <p>
+          <small
+            class="flex items-center text-sm text-gray-700 group-active:text-indigo-100"
+          >
+            {{ externalResource.resourceType }}
+            ⋅
+            {{ externalResource.source }}
+          </small>
+        </p>
+      </div>
 
-    <!-- Visit link -->
-    <div class="group w-fit text-blue-900">
-      <a
-        :href="externalResource.url"
-        target="_blank"
-        class="text-lg font-medium group-hover:text-blue-700 group-hover:underline group-hover:underline-offset-4"
-        @click.stop
-      >
-        {{ $t('read') }} {{ externalResource.definiteArticle }}
-        {{ externalResource.resourceType.toLowerCase()
-        }}<font-awesome-icon
+      <div class="flex-none w-14 text-end">
+        <font-awesome-icon
           icon="arrow-right"
-          class="ml-1.5 group-hover:text-blue-700 -rotate-45 z-0 group-hover:translate-x-1.5 group-hover:-translate-y-1.5 duration-200"
+          size="3x"
+          class="ml-1.5 text-gray-200 group-hover:text-cds-yellow -rotate-45 z-0 group-hover:translate-x-1 group-hover:-translate-y-1 duration-200"
+          role="img"
+          :aria-label="$t('external_link')"
         >
         </font-awesome-icon>
-      </a>
-    </div>
+      </div>
+    </a>
   </li>
 </template>
 
@@ -53,11 +53,5 @@ const ExternalResourceListItemProps = Vue.extend({
 })
 
 @Component
-export default class ExternalResourceListItem extends ExternalResourceListItemProps {
-  // Data - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  openResourceInNewTab(url: string) {
-    window.open(url, '_blank')
-  }
-}
+export default class ExternalResourceListItem extends ExternalResourceListItemProps {}
 </script>
