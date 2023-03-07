@@ -105,10 +105,11 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { resourcePageQuery } from '@/utils/queries'
 import { getHeadElement } from '@/utils/headElementAssembler'
 import {
+  EN_EXAMPLES_FROM_OUR_WORK,
   EN_LOCALE,
   EXAMPLES_LINK_ID,
+  FR_EXAMPLES_FROM_OUR_WORK,
   FR_LOCALE,
-  getExamplesLinkName,
 } from '@/utils/constants'
 import { getCurrentLocale, getLocaleCode } from '@/utils/getCurrentLocale'
 import { richTextRenderOptions } from '@/utils/richTextRenderOptions'
@@ -227,7 +228,10 @@ export default {
     if (externalResources.length > 0) {
       externalResources = generateExternalResources(externalResources)
       headings.push({
-        linkName: getExamplesLinkName(currentLocale),
+        linkName:
+          currentLocale === EN_LOCALE
+            ? EN_EXAMPLES_FROM_OUR_WORK
+            : FR_EXAMPLES_FROM_OUR_WORK,
         linkId: EXAMPLES_LINK_ID,
       })
     }

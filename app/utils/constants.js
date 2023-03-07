@@ -15,9 +15,5 @@ export const EN = 'en'
 export const FR = 'fr'
 
 export const EXAMPLES_LINK_ID = 'ex'
-
-export const getExamplesLinkName = (currentLocale) => {
-  return currentLocale === EN_LOCALE
-    ? langEN.examples_from_our_work
-    : langFR.examples_from_our_work
-}
+export const EN_EXAMPLES_FROM_OUR_WORK = langEN.examples_from_our_work
+export const FR_EXAMPLES_FROM_OUR_WORK = langFR.examples_from_our_work
