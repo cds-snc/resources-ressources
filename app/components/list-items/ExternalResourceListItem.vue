@@ -25,7 +25,8 @@
         class="text-lg font-medium group-hover:text-blue-700 group-hover:underline group-hover:underline-offset-4"
         @click.stop
       >
-        {{ $t('read')}} {{ externalResource.definiteArticle }} {{ externalResource.resourceType.toLowerCase()
+        {{ $t('read') }} {{ externalResource.definiteArticle }}
+        {{ externalResource.resourceType.toLowerCase()
         }}<font-awesome-icon
           icon="arrow-right"
           class="ml-1.5 group-hover:text-blue-700 -rotate-45 z-0 group-hover:translate-x-1.5 group-hover:-translate-y-1.5 duration-200"
