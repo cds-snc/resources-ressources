@@ -2,7 +2,7 @@
 
 <template>
   <li
-    class="h-36 border-t border-thin border-gray-300 flex flex-col justify-between p-4 border border-solid border-gray-200 rounded-lg cursor-pointer"
+    class="h-36 border-t border-thin flex flex-col justify-between p-4 border border-solid border-gray-100 bg-gray-100 hover:bg-blue-50 rounded-lg cursor-pointer"
     @click="openResourceInNewTab(externalResource.url)"
   >
     <!-- Resource type & resource source -->
