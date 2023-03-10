@@ -12,6 +12,7 @@ Créer, conserver et maintenir un espace centralisé pour partager les apprentis
 
 # Quick links 🔗
 - [Overview](#overview)
+- [Infrastructure and Deployment](#infrastructure-and-deployment)
 - [Local Development](#local-development)
 - [Frequently Asked Questions](#frequently-asked-questions)
 
@@ -33,6 +34,9 @@ _Note: We are not actively using storybook right now, so this feature and corres
 
 Storybook is integrated in this app to make UI components easier to manage and to be explored. 
 To run storybook locally, simply type `npm run storybook` which makes it available at [http://localhost:3003/](http://localhost:3003/)
+
+# Infrastructure and Deployment
+Documentation on infrastructure and deployment can be found on [our ressources-terraform repository](https://github.com/cds-snc/resources-terraform/tree/main/infrastructure)
 
 # Local Development
 
