@@ -12,14 +12,25 @@ import {
 export const richTextRenderOptions = (
   currentLocale,
   links,
-  addToResourceHeadings
+  addToResourceHeadings,
 ) => {
   const entryLinks = new Map()
+  const assetMap = new Map()
   let isFirstNode = true
 
   if (links) {
-    for (const entryHyperlink of links.entries.hyperlink) {
-      entryLinks.set(entryHyperlink.sys.id, entryHyperlink)
+    if(links.entries) {
+      // Hyperlinks
+      for (const entryHyperlink of links.entries.hyperlink) {
+        entryLinks.set(entryHyperlink.sys.id, entryHyperlink)
+      }
+    }
+
+    if(links.assets) {
+      // Embedded assets (images, videos, etc)
+      for (const asset of links.assets.block) {
+        assetMap.set(asset.sys.id, asset)
+      }
     }
   }
 
@@ -123,6 +134,13 @@ export const richTextRenderOptions = (
       [BLOCKS.HR]: () => {
         return `<div class="border-t border-gray-300 mt-10"></div>`
       },
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        // find the asset in the assetMap by ID
+        const asset = assetMap.get(node.data.target.sys.id);
+        console.log(asset)
+
+        return `<img src="${asset.url}" alt="${asset.description}" height={asset.height} width={asset.width} class="my-10" />`
+      }
     },
   }
 }
