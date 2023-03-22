@@ -224,6 +224,18 @@ export const resourcePageQuery = (
                   }
                 }
               }
+              assets {
+                block {
+                  sys {
+                    id
+                  }
+                  url
+                  title
+                  width
+                  height
+                  description
+                }
+              }
             }
           }
         }
