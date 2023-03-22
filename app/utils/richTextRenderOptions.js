@@ -142,7 +142,7 @@ export const richTextRenderOptions = (
         // More info on resizing images here: https://www.contentful.com/developers/docs/concepts/images/
         // i.e. we can resize the image to 300px wide by appending ?w=300 to the URL
         const url = `${asset.url}`
-        return `<img src="${url}" alt="${asset.description}" height=${asset.height} width=${asset.width} class="my-10 max-w-fit" />`
+        return `<img src="${url}" alt="${asset.description}" height=${asset.height} width=${asset.width} class="my-10 max-w-full" />`
       }
     },
   }
