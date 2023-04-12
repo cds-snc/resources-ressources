@@ -1,5 +1,5 @@
 ---
-title: Learning Resources | Ressources d'apprentissage
+title:  "Learning Resources | Ressources d'apprentissage"
 ---
 # Hello World
 More coming soon...
