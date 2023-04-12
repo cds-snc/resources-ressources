@@ -5,8 +5,14 @@ title:  "Learning Resources | Ressources d'apprentissage"
 
 
 As of April 2023, work on the Learning Resources service has wrapped up. The website has been archived and is no longer available.
-If you have questions please contact us at cds-snc@tbs-sct.gc.ca.
+If you have questions please contact us at <a href="mailto:cds-snc@tbs-sct.gc.ca">cds-snc@tbs-sct.gc.ca</a>.
 
 # Ce site Web n’est plus accessible
 Le service des ressources d’apprentissage a été mis hors service à compter d’avril 2023. Le site Web a été archivé et n’est plus accessible.
-Pour toute question, veuillez écrire à cds-snc@tbs-sct.gc.ca.
+Pour toute question, veuillez écrire à <a href="mailto:cds-snc@tbs-sct.gc.ca">cds-snc@tbs-sct.gc.ca</a>.
+
+<style>
+  .footer {
+    display: none;
+  }
+</style>
