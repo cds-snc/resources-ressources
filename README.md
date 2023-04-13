@@ -1,3 +1,11 @@
+# Website is no longer maintained / Le Site web n'est plus accessible 
+
+As of April 2023, work on the Learning Resources service has wrapped up. The website has been archived and is no longer available.
+If you have questions please contact us at cds-snc@tbs-sct.gc.ca. 
+
+Le service des ressources d’apprentissage a été mis hors service à compter d’avril 2023. Le site Web a été archivé et n’est plus accessible.
+Pour toute question, veuillez écrire à cds-snc@tbs-sct.gc.ca.
+
 [![Website en resources.alpha.canada.ca](https://img.shields.io/website-up-down-green-red/http/resources.alpha.canada.ca.svg)](http://resources.alpha.canada.ca/)
 [![staging staging.resources.alpha.canada.ca](https://img.shields.io/website?label=staging&up_message=up&url=https%3A%2F%2Fstaging.resources.alpha.canada.ca%2F)](http://staging.resources.alpha.canada.ca/)
 
