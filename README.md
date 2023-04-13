@@ -6,12 +6,7 @@ If you have questions please contact us at cds-snc@tbs-sct.gc.ca.
 Le service des ressources d’apprentissage a été mis hors service à compter d’avril 2023. Le site Web a été archivé et n’est plus accessible.
 Pour toute question, veuillez écrire à cds-snc@tbs-sct.gc.ca.
 
-[![Website en resources.alpha.canada.ca](https://img.shields.io/website-up-down-green-red/http/resources.alpha.canada.ca.svg)](http://resources.alpha.canada.ca/)
-[![staging staging.resources.alpha.canada.ca](https://img.shields.io/website?label=staging&up_message=up&url=https%3A%2F%2Fstaging.resources.alpha.canada.ca%2F)](http://staging.resources.alpha.canada.ca/)
 
-
-[![accessibility (axe)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml)
-[![ci](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml)
 # Learning resources / Ressources d'apprentissage
 
 Creating, curating, and maintaining a centralized space to share CDS learnings that can help build digital capacity in the Government of Canada and improve how we design and deliver services. 
