@@ -244,14 +244,6 @@ Here's what a missing translation warning looks like when it has fallen back to 
 There is no current and automated way to detect missing translations. It would be nice to have the JSON files automatically generated in the future.
 
 
-
-
-[![Website learning-resources.cdssandbox.xyz](https://img.shields.io/website-up-down-green-red/http/learning-resources.cdssandbox.xyz.svg)](http://learning-resources.cdssandbox.xyz/) [![staging staging.learning-resources.cdssandbox.xyz](https://img.shields.io/website?label=staging&up_message=up&url=https%3A%2F%2Fstaging.learning-resources.cdssandbox.xyz%2F)](http://staging.learning-resources.cdssandbox.xyz/)
-
-
-[![accessibility (axe)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/axe.yml) [![ci](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml/badge.svg)](https://github.com/cds-snc/resources-ressources/actions/workflows/ci.yml)
-
-
 # FR
 
 # Liens rapides 🔗
